@@ -12,7 +12,7 @@ const FRONTEND_ORIGINS = (process.env.FRONTEND_ORIGIN || "http://localhost:3000"
   .map((x) => x.trim())
   .filter(Boolean);
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY || "";
-const AI_MODEL = process.env.AI_MODEL || "gpt-4.1";
+const AI_MODEL = process.env.AI_MODEL || "gpt-4.1-mini";
 const AI_FALLBACK_MODEL = process.env.AI_FALLBACK_MODEL || "gpt-4.1-mini";
 const ELECTIVE_SUBJECTS = ["확률과통계", "미적분", "기하"];
 
