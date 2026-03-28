@@ -23,6 +23,13 @@
 /data/generated
 /data/subs
 
+# handoff / archive artifacts
+/claude_handoff*/
+/claude_upload_pack*/
+handoff_claude_*.zip
+claude_handoff_*.zip
+claude_upload_pack_*.zip
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

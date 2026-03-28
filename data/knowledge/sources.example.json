@@ -1,80 +1,82 @@
 [
   {
-    "id": "yt-grade-method-01",
-    "type": "youtube",
-    "platform": "youtube",
-    "bucket": "study_methods",
-    "tags": ["grade_strategy", "concept_output"],
-    "title": "YouTube Grade Strategy Video",
-    "youtubeUrl": "https://www.youtube.com/watch?v=sST8059i3mw",
-    "includeVideoFrames": true
-  },
-  {
-    "id": "yt-playlist-ot-01",
-    "type": "youtube_playlist",
-    "platform": "youtube",
-    "bucket": "lecture_books",
-    "tags": ["ot", "curriculum", "teacher_style"],
-    "title": "YouTube OT Playlist",
-    "playlistUrl": "https://www.youtube.com/playlist?list=PLxxxxxxxxxxxx",
-    "includeVideoFrames": true
-  },
-  {
-    "id": "sub-local-review-01",
-    "type": "subtitle_file",
-    "platform": "local",
-    "bucket": "learning_routines",
-    "tags": ["review", "mistake_log"],
-    "title": "Local Subtitle Source",
-    "subtitlePath": "data/subs/sample.ko-orig.srt"
-  },
-  {
-    "id": "community-column-01",
+    "id": "community-column-001",
     "type": "community_column",
     "platform": "orbi",
     "bucket": "study_methods",
     "tags": ["column", "mindset", "problem_solving"],
-    "title": "Community Study Column",
-    "webUrl": "https://example.com/community-column",
+    "title": "오르비 수학 칼럼 예시",
+    "webUrl": "https://orbi.kr/...",
     "includeImages": false
   },
   {
-    "id": "community-review-01",
+    "id": "community-review-001",
     "type": "community_review",
-    "platform": "orbi",
+    "platform": "pomanhan",
     "bucket": "lecture_books",
-    "tags": ["teacher_review", "course_experience"],
-    "title": "Community Teacher Review Thread",
-    "webUrl": "https://example.com/community-review",
+    "tags": ["teacher_review", "book_review"],
+    "title": "포만한 강사/교재 후기 예시",
+    "webUrl": "https://www.pomanhan.co.kr/...",
     "includeImages": false
   },
   {
-    "id": "official-curriculum-01",
+    "id": "community-post-001",
+    "type": "community_post",
+    "platform": "sumanhwi",
+    "bucket": "learning_routines",
+    "tags": ["routine", "weekly_plan", "mistake_log"],
+    "title": "수만휘 학습 루틴 게시글 예시",
+    "webUrl": "https://cafe.naver.com/suhui/...",
+    "includeImages": false
+  },
+  {
+    "id": "youtube-method-001",
+    "type": "youtube",
+    "platform": "youtube",
+    "bucket": "study_methods",
+    "tags": ["grade_strategy", "math_method"],
+    "title": "수학 등급별 학습법 영상",
+    "youtubeUrl": "https://www.youtube.com/watch?v=...",
+    "includeVideoFrames": true
+  },
+  {
+    "id": "youtube-playlist-001",
+    "type": "youtube_playlist",
+    "platform": "youtube",
+    "bucket": "study_methods",
+    "tags": ["playlist", "season_plan"],
+    "title": "수학 학습법 플레이리스트",
+    "playlistUrl": "https://www.youtube.com/playlist?list=...",
+    "includeVideoFrames": true
+  },
+  {
+    "id": "official-curriculum-001",
     "type": "official_curriculum",
-    "platform": "academy_site",
+    "platform": "megastudy",
     "bucket": "lecture_books",
-    "tags": ["official", "curriculum", "booklist"],
-    "title": "Official Teacher Curriculum Page",
-    "webUrl": "https://example.com/math-study-page",
+    "tags": ["teacher", "curriculum", "ot", "booklist"],
+    "title": "강사 공식 커리큘럼 페이지",
+    "webUrl": "https://www.megastudy.net/...",
     "includeImages": true
   },
   {
-    "id": "kice-guide-01",
+    "id": "academy-curriculum-001",
+    "type": "academy_curriculum",
+    "platform": "sdij",
+    "bucket": "lecture_books",
+    "tags": ["academy", "teacher_lineup", "single_course"],
+    "title": "학원 단과 강사 페이지",
+    "webUrl": "https://www.sdij.com/...",
+    "includeImages": true
+  },
+  {
+    "id": "official-guideline-001",
     "type": "official_guideline",
     "platform": "kice",
     "bucket": "study_methods",
-    "tags": ["kice", "exam_scope"],
-    "title": "KICE Guideline",
-    "webUrl": "https://example.com/kice-guideline.pdf",
+    "tags": ["official", "exam_scope"],
+    "title": "평가원 공식 안내",
+    "webUrl": "https://www.kice.re.kr/...",
     "includeImages": false
-  },
-  {
-    "id": "text-manual-01",
-    "type": "manual_text",
-    "platform": "manual",
-    "bucket": "learning_routines",
-    "tags": ["weekly_report", "coaching_rule"],
-    "title": "Manual Transcript Source",
-    "transcript": "Concepts must be converted from input to output practice."
   }
 ]

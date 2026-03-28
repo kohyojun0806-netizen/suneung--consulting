@@ -144,7 +144,7 @@ export default function App() {
   useEffect(() => {
     (async () => {
       if (!profile?.currentGrade || !profile?.targetGrade) return;
-      const cacheKey = `analysis:${profile.currentGrade}-${profile.targetGrade}-${profile.elective || "???"}`;
+      const cacheKey = `analysis:${profile.currentGrade}-${profile.targetGrade}-${profile.elective || "none"}`;
       const cached = await DB.get(cacheKey);
       if (cached) {
         setAnalysis(cached);
@@ -161,7 +161,7 @@ export default function App() {
       } catch {
         const fallback = buildAnalyzeFallback(profile);
         setAnalysis(fallback);
-        setAnalysisError("?? API ??? ????? ?? ????? ?? ????.");
+        setAnalysisError("AI API 연결이 불안정해 기본 추천안을 표시했어요.");
       } finally {
         setAnalysisLoading(false);
       }
@@ -180,7 +180,7 @@ export default function App() {
           <>
             <ProfileBar profile={profile} logs={logs} onEdit={() => setScreen("setup")} />
             <div style={s.tabBar}>
-              {[["dashboard","📊 대시보드"],["log","✏️ 학습 기록"],["report","📋 주간 리포트"],["consult","🤖 AI 컨설팅"],["settings","⚙️ 설정"]].map(([id,label]) => (
+              {[["dashboard","대시보드"],["log","학습 기록"],["report","주간 리포트"],["consult","AI 상담"],["settings","설정"]].map(([id,label]) => (
                 <button key={id} onClick={() => setTab(id)}
                   style={{ ...s.tab, ...(tab===id ? s.tabActive : {}) }}>{label}</button>
               ))}
@@ -209,14 +209,13 @@ export default function App() {
 function Header() {
   return (
     <header style={{ textAlign:"center", marginBottom:28 }}>
-      <div style={s.badge}>수능 정시 학습 컨설팅</div>
-      <h1 style={s.title}>나만의 <span style={s.accent}>수학 학습 코치</span></h1>
-      <p style={s.sub}>현재 → 목표 등급까지 · 주간 리포트 · AI 맞춤 피드백</p>
+      <div style={s.badge}>정시 수학 학습 컨설팅</div>
+      <h1 style={s.title}>등급 상승을 위한 <span style={s.accent}>맞춤 학습 코치</span></h1>
+      <p style={s.sub}>현재 등급부터 목표 등급까지, 시기별 로드맵과 주간 실행 계획을 제공합니다.</p>
     </header>
   );
 }
 
-// ── 프로필 바 ─────────────────────────────────────────────────
 function ProfileBar({ profile, logs, onEdit }) {
   const streak = calcStreak(logs);
   return (
@@ -319,122 +318,130 @@ function Dashboard({ profile, logs, analysis, analysisLoading, analysisError }) 
   const plan = analysis?.plan || analysis || null;
   const thisWeek = logs[0];
   const lastWeek = logs[1];
-  const totalHours = logs.slice(0,4).reduce((a,l) => a + (l.hours||0), 0);
-  const avgScore = logs.slice(0,4).filter(l=>l.mockScore).reduce((a,l,_,arr) => a + l.mockScore/arr.length, 0);
-
-  // 주차별 시간 그래프용 (최근 8주)
-  const chartData = logs.slice(0,8).reverse();
+  const totalHours = logs.slice(0, 4).reduce((a, l) => a + (l.hours || 0), 0);
+  const avgScore = logs
+    .slice(0, 4)
+    .filter((l) => l.mockScore)
+    .reduce((a, l, _, arr) => a + l.mockScore / arr.length, 0);
+  const periodPlan = plan?.period_plan?.length ? plan.period_plan : defaultPeriodPlanByBand(key);
+  const month = new Date().getMonth() + 1;
+  const monthly = getMonthlyMilestone(month, key);
+  const weekly = getWeeklyExecution({ plan, method, key });
+  const chartData = logs.slice(0, 8).reverse();
 
   return (
     <div>
-      {/* 핵심 지표 */}
-      <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(160px,1fr))", gap:10, marginBottom:12 }}>
-        <StatCard icon="⏱" label="최근 4주 총 학습" value={`${totalHours}시간`} color={C.accent} />
-        <StatCard icon="📊" label="최근 4주 평균 모의" value={avgScore ? `${Math.round(avgScore)}점` : "-"} color={C.green} />
-        <StatCard icon="📅" label="이번 주 기록" value={thisWeek ? `${thisWeek.hours}시간` : "미입력"} color={thisWeek ? C.teal : C.muted} />
-        <StatCard icon="🗓" label="시작일로부터" value={`${daysSince(profile.startDate)}일`} color={C.amber} />
-      </div>
-
-      {/* 핵심 학습 방향 */}
-      <div style={s.card}>
-        <div style={s.sectionTitle}>🎯 핵심 학습 방향</div>
-        <div style={{ background:"rgba(99,102,241,0.08)", border:"1px solid rgba(99,102,241,0.2)", borderRadius:12, padding:14, marginBottom:12 }}>
-          <div style={{ fontSize:12, fontWeight:700, color:"#818cf8", marginBottom:4 }}>이 등급대의 핵심</div>
-          <p style={{ margin:0, fontSize:14, lineHeight:1.7, color:"#c7d2fe" }}>{method.core}</p>
-        </div>
-        <div style={{ fontSize:12, color:C.muted, marginBottom:4, fontWeight:700 }}>하루 권장 루틴</div>
-        <p style={{ margin:0, fontSize:13, color:C.text }}>{method.weeklyGoal}</p>
+      <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(170px,1fr))", gap:10, marginBottom:12 }}>
+        <StatCard icon="📚" label="최근 4주 학습시간" value={`${totalHours}시간`} color={C.accent} />
+        <StatCard icon="📈" label="최근 4주 평균 모의점수" value={avgScore ? `${Math.round(avgScore)}점` : "-"} color={C.green} />
+        <StatCard icon="🗓️" label="이번 주 학습시간" value={thisWeek ? `${thisWeek.hours}시간` : "기록 없음"} color={thisWeek ? C.teal : C.muted} />
+        <StatCard icon="🔥" label="연속 기록" value={`${calcStreak(logs)}주`} color={C.amber} />
       </div>
 
       <div style={s.card}>
-        <div style={s.sectionTitle}>AI ?? ???</div>
-        {analysisLoading && <p style={s.muted}>?? ????...</p>}
+        <div style={s.sectionTitle}>현재 구간 핵심 피드백</div>
+        {analysisLoading && <p style={s.muted}>AI 분석 중...</p>}
         {analysisError && <p style={{ ...s.muted, color: C.amber }}>{analysisError}</p>}
-        {!analysisLoading && plan?.student_feedback && (
-          <div style={{ background:"rgba(99,102,241,0.08)", border:"1px solid rgba(99,102,241,0.2)", borderRadius:12, padding:14, marginBottom:12 }}>
-            <div style={{ fontSize:12, color:"#818cf8", fontWeight:700, marginBottom:4 }}>?? ???</div>
-            <p style={{ margin:0, fontSize:13, lineHeight:1.7 }}>{plan.student_feedback}</p>
-          </div>
-        )}
-        {!analysisLoading && plan?.current_focus && (
-          <div style={{ marginBottom:10 }}>
-            <div style={{ fontSize:12, color:C.muted, marginBottom:6, fontWeight:700 }}>?? ?? ? ??</div>
-            <p style={{ margin:"0 0 6px", fontSize:13, color:C.text }}>{plan.current_focus.headline}</p>
-            {plan.current_focus.actions?.length > 0 && (
-              <ul style={{ margin:0, paddingLeft:16 }}>
-                {plan.current_focus.actions.slice(0, 4).map((x, i) => <li key={i} style={{ fontSize:12, lineHeight:1.7 }}>{x}</li>)}
-              </ul>
-            )}
-          </div>
-        )}
-        {!analysisLoading && plan?.period_plan?.length > 0 && (
-          <div style={{ display:"grid", gap:8 }}>
-            {plan.period_plan.slice(0, 3).map((p, i) => (
-              <div key={i} style={{ border:"1px solid rgba(255,255,255,0.08)", borderRadius:10, padding:10, background:"rgba(255,255,255,0.02)" }}>
-                <div style={{ fontSize:12, fontWeight:700, color:"#93c5fd", marginBottom:4 }}>{p.period}</div>
-                <div style={{ fontSize:12, marginBottom:4 }}>{p.goal}</div>
-                {p.actions?.length > 0 && (
-                  <div style={{ fontSize:11, color:C.muted }}>{p.actions.slice(0, 2).join(" / ")}</div>
-                )}
-              </div>
-            ))}
-          </div>
-        )}
+        <div style={{ background:"rgba(99,102,241,0.08)", border:"1px solid rgba(99,102,241,0.2)", borderRadius:12, padding:14, marginBottom:10 }}>
+          <div style={{ fontSize:12, color:"#818cf8", fontWeight:700, marginBottom:4 }}>학생 상황 진단</div>
+          <p style={{ margin:0, fontSize:13, lineHeight:1.7 }}>{plan?.student_feedback || method.core}</p>
+        </div>
+        <div style={{ fontSize:12, color:C.muted, fontWeight:700, marginBottom:6 }}>지금 당장 집중할 것</div>
+        <p style={{ margin:"0 0 8px", fontSize:13 }}>{plan?.current_focus?.headline || method.focus}</p>
+        <ul style={{ margin:0, paddingLeft:16 }}>
+          {(plan?.current_focus?.actions?.length ? plan.current_focus.actions : [
+            "개념을 말로 설명하고 빈 종이에 다시 쓰기",
+            "3~4점 기출부터 단원별로 적용하기",
+            "오답 원인을 개념/실수/시간으로 분류하기",
+          ]).slice(0, 4).map((x, i) => <li key={i} style={{ fontSize:12, lineHeight:1.7 }}>{x}</li>)}
+        </ul>
+      </div>
+
+      <div style={s.card}>
+        <div style={s.sectionTitle}>시기별 로드맵</div>
+        <div style={{ display:"grid", gap:8 }}>
+          {periodPlan.slice(0, 3).map((p, i) => (
+            <div key={i} style={{ border:"1px solid rgba(255,255,255,0.08)", borderRadius:10, padding:10, background:"rgba(255,255,255,0.02)" }}>
+              <div style={{ fontSize:12, fontWeight:700, color:"#93c5fd", marginBottom:4 }}>{p.period}</div>
+              <div style={{ fontSize:12, marginBottom:4 }}>{p.goal}</div>
+              <div style={{ fontSize:11, color:C.muted }}>{(p.actions || []).slice(0, 2).join(" / ")}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12 }}>
+        <div style={s.card}>
+          <div style={s.sectionTitle}>이번 달 학습 목표 ({monthly.label})</div>
+          <p style={{ margin:"0 0 8px", fontSize:13 }}>{monthly.focus}</p>
+          <ul style={{ margin:0, paddingLeft:16 }}>
+            {monthly.actions.map((x, i) => <li key={i} style={{ fontSize:12, lineHeight:1.7 }}>{x}</li>)}
+          </ul>
+        </div>
+        <div style={s.card}>
+          <div style={s.sectionTitle}>이번 주 실행 계획</div>
+          <div style={{ fontSize:12, color:C.muted, marginBottom:4 }}>교재</div>
+          <p style={{ margin:"0 0 8px", fontSize:13 }}>{weekly.books}</p>
+          <div style={{ fontSize:12, color:C.muted, marginBottom:4 }}>학습법</div>
+          <p style={{ margin:"0 0 8px", fontSize:13 }}>{weekly.method}</p>
+          <div style={{ fontSize:12, color:C.muted, marginBottom:4 }}>주간 목표</div>
+          <p style={{ margin:0, fontSize:13 }}>{weekly.goal}</p>
+        </div>
       </div>
 
       {!analysisLoading && plan && (
-        <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12 }}>
+        <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12, marginTop:12 }}>
           <div style={s.card}>
-            <div style={s.sectionTitle}>?? ??</div>
+            <div style={s.sectionTitle}>추천 강사</div>
             {plan.recommended_instructors?.slice(0, 3).map((t, i) => (
               <div key={i} style={{ marginBottom:10 }}>
                 <div style={{ fontSize:13, fontWeight:700 }}>{t.name}</div>
-                <div style={{ fontSize:11, color:C.muted }}>{t.platform} ? {t.best_for}</div>
+                <div style={{ fontSize:11, color:C.muted }}>{t.platform} · {t.best_for}</div>
               </div>
             ))}
           </div>
           <div style={s.card}>
-            <div style={s.sectionTitle}>?? ??</div>
+            <div style={s.sectionTitle}>추천 교재</div>
             {plan.recommended_books?.slice(0, 4).map((b, i) => (
               <div key={i} style={{ marginBottom:8 }}>
                 <div style={{ fontSize:13 }}>{b.title}</div>
-                <div style={{ fontSize:11, color:C.muted }}>{b.type} ? {b.when_to_use}</div>
+                <div style={{ fontSize:11, color:C.muted }}>{b.type} · {b.when_to_use}</div>
               </div>
             ))}
           </div>
         </div>
       )}
 
-      {/* 최근 8주 학습 시간 그래프 */}
       <div style={s.card}>
-        <div style={s.sectionTitle}>📈 최근 8주 학습 시간</div>
-        {chartData.length === 0 ? (
-          <p style={s.muted}>학습 기록을 입력하면 그래프가 생성돼요.</p>
-        ) : (
-          <MiniBarChart data={chartData} />
-        )}
+        <div style={s.sectionTitle}>최근 8주 학습 추이</div>
+        {chartData.length === 0 ? <p style={s.muted}>아직 기록이 없어요. 이번 주부터 기록해 보세요.</p> : <MiniBarChart data={chartData} />}
       </div>
 
-      {/* 이번 주 vs 지난 주 */}
-      {thisWeek && (
+      {thisWeek ? (
         <div style={s.card}>
-          <div style={s.sectionTitle}>📋 이번 주 기록 요약</div>
+          <div style={s.sectionTitle}>이번 주 요약</div>
           <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12 }}>
             <div>
               <div style={{ fontSize:11, color:C.muted, marginBottom:4 }}>학습 시간</div>
-              <div style={{ fontSize:22, fontWeight:800 }}>{thisWeek.hours}h
-                {lastWeek && <span style={{ fontSize:12, color:thisWeek.hours>=lastWeek.hours?C.green:C.red, marginLeft:6 }}>
-                  {thisWeek.hours>=lastWeek.hours?"▲":"▼"}{Math.abs(thisWeek.hours-lastWeek.hours)}h
-                </span>}
+              <div style={{ fontSize:22, fontWeight:800 }}>
+                {thisWeek.hours}h
+                {lastWeek && (
+                  <span style={{ fontSize:12, color:thisWeek.hours>=lastWeek.hours ? C.green : C.red, marginLeft:6 }}>
+                    {thisWeek.hours>=lastWeek.hours ? "+" : "-"}{Math.abs(thisWeek.hours-lastWeek.hours)}h
+                  </span>
+                )}
               </div>
             </div>
             {thisWeek.mockScore && (
               <div>
-                <div style={{ fontSize:11, color:C.muted, marginBottom:4 }}>모의고사 점수</div>
-                <div style={{ fontSize:22, fontWeight:800 }}>{thisWeek.mockScore}점
-                  {lastWeek?.mockScore && <span style={{ fontSize:12, color:thisWeek.mockScore>=lastWeek.mockScore?C.green:C.red, marginLeft:6 }}>
-                    {thisWeek.mockScore>=lastWeek.mockScore?"▲":"▼"}{Math.abs(thisWeek.mockScore-lastWeek.mockScore)}점
-                  </span>}
+                <div style={{ fontSize:11, color:C.muted, marginBottom:4 }}>모의 점수</div>
+                <div style={{ fontSize:22, fontWeight:800 }}>
+                  {thisWeek.mockScore}점
+                  {lastWeek?.mockScore && (
+                    <span style={{ fontSize:12, color:thisWeek.mockScore>=lastWeek.mockScore ? C.green : C.red, marginLeft:6 }}>
+                      {thisWeek.mockScore>=lastWeek.mockScore ? "+" : "-"}{Math.abs(thisWeek.mockScore-lastWeek.mockScore)}점
+                    </span>
+                  )}
                 </div>
               </div>
             )}
@@ -446,20 +453,72 @@ function Dashboard({ profile, logs, analysis, analysisLoading, analysisError }) 
             </div>
           )}
         </div>
-      )}
-
-      {!thisWeek && (
+      ) : (
         <div style={{ ...s.card, textAlign:"center", padding:30 }}>
-          <div style={{ fontSize:32, marginBottom:10 }}>✏️</div>
-          <div style={{ fontWeight:700, marginBottom:6 }}>이번 주 학습 기록이 없어요</div>
-          <p style={s.muted}>학습 기록 탭에서 이번 주 공부 내용을 입력해보세요.</p>
+          <div style={{ fontWeight:700, marginBottom:6 }}>아직 이번 주 기록이 없어요.</div>
+          <p style={s.muted}>학습 기록 탭에서 첫 주 기록을 남겨보세요.</p>
         </div>
       )}
     </div>
   );
 }
 
-// ── 학습 기록 입력 ────────────────────────────────────────────
+function defaultPeriodPlanByBand(key) {
+  const map = {
+    "9-7": [
+      { period: "3~6월", goal: "개념 체계화 + 3,4점 기출 완성", actions: ["수학 I/II 기본 개념 1회독", "3,4점 기출 단원별 풀이"] },
+      { period: "6~9월", goal: "유형 확장 + 준킬러 대비", actions: ["기출 2회독 및 변형", "오답노트 정착"] },
+      { period: "9월~수능 전", goal: "실전 안정화", actions: ["실모 주간 루틴", "실수 패턴 제거"] },
+    ],
+    "7-5": [
+      { period: "3~6월", goal: "개념 완성 + 기출 진입", actions: ["3,4점 기출 완주", "개념 누락 보완"] },
+      { period: "6~9월", goal: "준킬러 진입", actions: ["기출 2회독 및 선별", "약점 단원 보강"] },
+      { period: "9월~수능 전", goal: "실전 점수 고정", actions: ["실모 주간 루틴", "시간 배분 고정"] },
+    ],
+    "5-3": [
+      { period: "3~6월", goal: "기출 완성 + 준킬러 진입", actions: ["3,4점 전범위 정리", "준킬러 첫 회독"] },
+      { period: "6~9월", goal: "준킬러 안정화", actions: ["N제 풀이", "킬러 전단계 문제 훈련"] },
+      { period: "9월~수능 전", goal: "실전 고득점화", actions: ["실모 정밀 분석", "오답 유형 고정 제거"] },
+    ],
+    "3-1": [
+      { period: "3~6월", goal: "기출 압축 + 킬러 기반 구축", actions: ["고난도 기출 구조화", "킬러 접근 루틴 만들기"] },
+      { period: "6~9월", goal: "킬러/준킬러 완성", actions: ["N제 고난도", "실모 병행 훈련"] },
+      { period: "9월~수능 전", goal: "만점권 안정화", actions: ["실모 고정 루틴", "실수 최소화"] },
+    ],
+  };
+  return map[key] || map["7-5"];
+}
+
+function getMonthlyMilestone(month, key) {
+  const monthLabel = `${month}월`;
+  const common = {
+    3: { label: monthLabel, focus: "3,4점 기출 중심으로 단원별 기초 완성", actions: ["수학 I/II 3,4점 기출 1회독", "개념 출력(설명/백지복습) 루틴화"] },
+    4: { label: monthLabel, focus: "3,4점 기출 1회독 마무리 + 약점 단원 보완", actions: ["오답 유형별 재정리", "약점 단원 2회독"] },
+    5: { label: monthLabel, focus: "준킬러 첫 진입 + 시간 관리 시작", actions: ["주 2회 제한 시간 풀이", "오답 원인 기록 습관"] },
+    6: { label: monthLabel, focus: "3~6월 학습 성과 점검 및 보완", actions: ["약점 단원 재정리", "기출 2회독 시작"] },
+    7: { label: monthLabel, focus: "6~9월 핵심: 준킬러/N제 본격화", actions: ["N제 주 2~3회", "실모 전단계 문제 훈련"] },
+    8: { label: monthLabel, focus: "실전 감각 강화 및 시간 안정화", actions: ["실모 + 오답 분석", "실수 패턴 제거"] },
+    9: { label: monthLabel, focus: "9평 기반 최종 전략 조정", actions: ["약점 파트 집중", "실모 루틴 고정"] },
+    10: { label: monthLabel, focus: "실전 완성도 극대화", actions: ["주 단위 실모 운영", "오답 압축 복습"] },
+    11: { label: monthLabel, focus: "컨디션 관리 + 실수 최소화", actions: ["풀이 순서 고정", "마무리 점검"] },
+    12: { label: monthLabel, focus: "시험 직전 안정화", actions: ["핵심 노트 복습", "컨디션 유지"] },
+  };
+  return common[month] || { label: monthLabel, focus: `${key} 구간 맞춤 학습 점검`, actions: ["개념 정리", "기출 복습", "오답 점검"] };
+}
+
+function getWeeklyExecution({ plan, method, key }) {
+  const defaultBooks = {
+    "9-7": "개념원리 수학 I/II + RPM",
+    "7-5": "쎈 수학 I/II + 자이스토리 기본",
+    "5-3": "자이스토리 + 수능특강 + N제 1권",
+    "3-1": "고난도 N제 + 실전 모의고사",
+  };
+  const books = plan?.recommended_books?.slice(0, 2).map((b) => b.title).join(" + ") || defaultBooks[key] || "쎈 + EBS 수능특강";
+  const methodText = plan?.current_focus?.actions?.[0] || method?.focus || "개념을 출력하고 바로 기출에 적용하는 루틴";
+  const goal = "이번 주 목표: 단원별 기출 1회차 완료 + 오답 20문제 복기";
+  return { books, method: methodText, goal };
+}
+
 function LogScreen({ profile, logs, onAdd }) {
   const [hours, setHours] = useState("");
   const [tags, setTags] = useState([]);
@@ -889,33 +948,30 @@ function buildAnalyzeFallback(profile) {
   const method = GRADE_METHODS[key] || GRADE_METHODS["7-5"];
   return {
     plan: {
-      student_feedback: `${profile?.currentGrade || "??"}???? ${profile?.targetGrade || "??"}???? ????? ????? ?? ??? ?????.`,
+      student_feedback: `${profile?.currentGrade || "현재"}등급에서 ${profile?.targetGrade || "목표"}등급까지 가려면 학습 루틴의 일관성과 복기 밀도를 먼저 끌어올려야 해요.`,
       current_focus: {
-        headline: "?? ?? + ?? ?? ?? ??",
+        headline: "개념 출력 + 기출 적용 루틴 고정",
         actions: [
-          "??? ? ? 15~20? ?? ??",
-          "?? ?? ??? ?? ?? 10~20?? ??",
-          "??? ??/??/???? ??? ???",
+          "매일 개념 복기 15~20분 진행하기",
+          "단원별 기출 풀이 후 오답 10~20문제 복습하기",
+          "오답 원인을 개념/실수/시간으로 분류하기",
         ],
       },
-      period_plan: [
-        { period: "3~6? ?", goal: "?? ??? ?? ?? ??", actions: ["??-?? ?? ??", "?? ?? ?? ??"] },
-        { period: "6~9?", goal: "?? ??? ??? ??", actions: ["? 2~3? ?? ??", "?? ?? ?? ??"] },
-        { period: "9?~?? ?", goal: "?? ???? ?? ???", actions: ["? ?? ?? ???", "?? ?? ?? ??"] },
-      ],
+      period_plan: defaultPeriodPlanByBand(key),
       recommended_instructors: [
-        { name: "???", platform: "?????", best_for: "????~???" },
-        { name: "???", platform: "???", best_for: "??~???" },
+        { name: "현우진", platform: "메가스터디", best_for: "중상위권~상위권" },
+        { name: "이미지", platform: "대성마이맥", best_for: "중위권~중상위권" },
       ],
       recommended_books: [
-        { title: "?????", type: "??", when_to_use: "6~9?" },
-        { title: "EBS ????", type: "??", when_to_use: "6~9?" },
+        { title: "자이스토리 수학", type: "기출", when_to_use: "6~9월" },
+        { title: "EBS 수능특강", type: "연계", when_to_use: "6~9월" },
       ],
-      final_tip: method?.weeklyGoal || "?? ??? ?????.",
+      final_tip: method?.weeklyGoal || "이번 주 학습 루틴을 먼저 고정하세요.",
     },
     meta: { usedModel: false, model: null },
   };
 }
+
 async function requestWeeklyReport(profile, recent, method, metrics) {
   const res = await fetchWithTimeout(`${API_BASE}/api/tracker/report`, {
     method: "POST",
@@ -997,11 +1053,6 @@ function calcStreak(logs) {
     else break;
   }
   return streak;
-}
-
-function daysSince(dateStr) {
-  if (!dateStr) return 0;
-  return Math.floor((Date.now() - new Date(dateStr)) / 86400000);
 }
 
 // CSS 애니메이션

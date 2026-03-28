@@ -1,140 +1,1160 @@
 {
-  "updatedAt": "2026-03-28T10:30:00+09:00",
-  "model": "curated-manual-v2",
+  "updatedAt": "2026-03-28T17:01:25.223Z",
+  "model": "gpt-4.1-mini",
   "items": [
     {
-      "id": "km-97-output-first",
-      "bucket": "수학 공부법",
-      "title": "하위권 구간은 입력형 공부를 출력형 공부로 전환",
-      "source": "YouTube 수학 공부법 자막 종합",
-      "applies_to": ["9-7"],
-      "core": "강의를 많이 듣는 것보다 개념을 말과 글로 꺼내는 연습이 먼저다. 출력이 안 되면 문제 적용이 불안정해진다.",
+      "id": "kb-1cea0fd0c2",
+      "bucket": "study_methods",
+      "title": "한국교육과정평가원 메인",
+      "source": "한국교육과정평가원 메인",
+      "applies_to": [
+        "all"
+      ],
+      "core": "Key focus from source: 한국교육과정평가원 메인. Convert concepts into output and connect them to timed problem solving.",
       "steps": [
-        { "title": "백지 복습", "detail": "수업 직후 15~20분 동안 책을 덮고 핵심 정의/공식을 직접 작성한다." },
-        { "title": "쉬운 기출 연결", "detail": "개념 단원마다 쉬운 기출 10~20문항을 붙여 개념-문제 연결을 고정한다." },
-        { "title": "오답 재출력", "detail": "틀린 문제를 개념/해석/계산으로 분류하고 당일 재풀이한다." }
+        {
+          "title": "Action Step 1",
+          "detail": "Close your notes and explain one unit from memory before solving."
+        },
+        {
+          "title": "Past-Exam Link",
+          "detail": "Apply each concept to easy past-exam items immediately."
+        },
+        {
+          "title": "Action Step 3",
+          "detail": "Classify wrong answers by cause and retry the same type."
+        },
+        {
+          "title": "Time Control",
+          "detail": "Use fixed time limits per question to stabilize score."
+        }
       ],
       "cautions": [
-        "공식 암기만 반복하면 새로운 문항에서 무너진다.",
-        "강의만 듣고 문제 적용을 미루면 점수가 고정된다."
+        "Do not solve many questions without reviewing repeated mistakes.",
+        "Do not read concepts passively; force recall and explanation."
       ],
-      "keywords": ["백지복습", "출력형 공부", "쉬운기출", "오답분류"]
+      "keywords": [
+        "한국교육과정평가원"
+      ],
+      "meta": {
+        "sourceType": "official_guideline",
+        "platform": "kice",
+        "tags": [
+          "official",
+          "exam_scope",
+          "policy"
+        ],
+        "youtubeUrl": "",
+        "playlistUrl": "",
+        "webUrl": "https://www.kice.re.kr/"
+      }
     },
     {
-      "id": "km-75-concept-window",
-      "bucket": "수학 공부법",
-      "title": "중하위권은 개념 기간을 제한하고 적용 비중 확대",
-      "source": "오르비 수학 칼럼 종합",
-      "applies_to": ["7-5"],
-      "core": "개념을 끝없이 돌리는 방식보다 일정 기간 내 개념을 정리하고, 유형/기출 적용 비중을 늘리는 것이 등급 상승에 유리하다.",
+      "id": "kb-cba6264b04",
+      "bucket": "study_methods",
+      "title": "오르비 칼럼 - 수학 문제를 대하는 태도",
+      "source": "오르비 칼럼 - 수학 문제를 대하는 태도",
+      "applies_to": [
+        "all"
+      ],
+      "core": "&middot; 1292308 &middot; 03/22 16:21 &middot; MS 2014",
       "steps": [
-        { "title": "개념 기간 제한", "detail": "4~8주 단위로 개념 1차 정리를 끝내고 적용 단계로 넘어간다." },
-        { "title": "해설 의존 축소", "detail": "1회독은 해설 참고, 2~3회독은 해설 없이 재현하는 방식으로 바꾼다." },
-        { "title": "선택과목 선제 보완", "detail": "선택과목에서 자주 틀리는 유형부터 먼저 교정해 전체 변동폭을 줄인다." }
+        {
+          "title": "Action Step 1",
+          "detail": "그에 맞춰서 풀이 방향을 잡아보는 겁니다."
+        },
+        {
+          "title": "Action Step 2",
+          "detail": "풀이 방향을 단축시키고 확정시킬 수 있습니다."
+        },
+        {
+          "title": "Action Step 3",
+          "detail": "이렇게 쉬운 문제에서도 결론을 확인하는 것만으로 풀이가 간결해지는데,"
+        },
+        {
+          "title": "Action Step 4",
+          "detail": "f(x)를 제한시켜주는 조건이라, 풀이의 후반부에 써먹으면 될 것 같아요."
+        },
+        {
+          "title": "Action Step 5",
+          "detail": "잘 알고 있었다면 오른쪽 풀이로 푸는 것도 어렵지 않았을겁니다."
+        }
       ],
       "cautions": [
-        "개념만 돌리고 기출을 미루면 실전 대응이 늦어진다."
+        "g(x)가 실수 전체 집합에서 연속이니까,",
+        "피드백 가지치기 과정에서 주의할 점 등등."
       ],
-      "keywords": ["개념기간", "해설축소", "적용비중", "선택과목"]
+      "keywords": [
+        "middot",
+        "문제를",
+        "오르비",
+        "이렇게",
+        "좋아요",
+        "ms",
+        "이런",
+        "신고"
+      ],
+      "meta": {
+        "sourceType": "community_column",
+        "platform": "orbi",
+        "tags": [
+          "column",
+          "mindset",
+          "problem_solving"
+        ],
+        "youtubeUrl": "",
+        "playlistUrl": "",
+        "webUrl": "https://orbi.kr/00077975282/%5B%EC%B9%BC%EB%9F%BC%5D-%EC%88%98%ED%95%99-%EB%AC%B8%EC%A0%9C%EB%A5%BC-%EB%8C%80%ED%95%98%EB%8A%94-%ED%83%9C%EB%8F%84"
+      }
     },
     {
-      "id": "km-53-scenario",
-      "bucket": "수학 공부법",
-      "title": "중위권은 조건 해석과 시나리오 설계가 핵심",
-      "source": "YouTube 등급별 수학 학습법 자막 종합",
-      "applies_to": ["5-3"],
-      "core": "준킬러 구간에서는 계산을 먼저 시작하지 말고, 조건을 구조화한 뒤 풀이 경로를 선택해야 안정적으로 점수가 오른다.",
+      "id": "kb-89b7cb356e",
+      "bucket": "lecture_books",
+      "title": "오르비 후기 - 현우진 뉴런 관련 글",
+      "source": "오르비 후기 - 현우진 뉴런 관련 글",
+      "applies_to": [
+        "all"
+      ],
+      "core": "오르비 수학문항생성기 Beta 오르비 1456606 번째 회원",
       "steps": [
-        { "title": "조건 구조화", "detail": "문제 조건/목표/제약을 먼저 쓰고 계산은 뒤로 미룬다." },
-        { "title": "시나리오 2~3개", "detail": "가능한 접근 루트를 2~3개 떠올린 뒤 가장 짧은 루트를 선택한다." },
-        { "title": "중간 검산", "detail": "계산 블록마다 범위/부호/단위를 점검해 실수 전파를 막는다." }
+        {
+          "title": "Action Step 1",
+          "detail": "오르비 수학문항생성기 Beta"
+        },
+        {
+          "title": "Action Step 2",
+          "detail": "오르비 1456606 번째 회원"
+        },
+        {
+          "title": "Action Step 3",
+          "detail": "&middot; 1283316 &middot; 01/18 19:45"
+        },
+        {
+          "title": "Action Step 4",
+          "detail": "회원에 의해 삭제된 글입니다."
+        },
+        {
+          "title": "Action Step 5",
+          "detail": "&middot; MS 2024"
+        }
       ],
       "cautions": [
-        "손풀이를 바로 시작하면 시간 손실과 계산 실수가 함께 늘어난다."
+        "Review this risk signal: 오르비 수학문항생성기 Beta",
+        "Review this risk signal: 오르비 1456606 번째 회원"
       ],
-      "keywords": ["시나리오", "조건해석", "준킬러", "중간검산"]
+      "keywords": [
+        "오르비",
+        "middot",
+        "xdk",
+        "orbi",
+        "마도카",
+        "4분",
+        "회원에",
+        "의해"
+      ],
+      "meta": {
+        "sourceType": "community_review",
+        "platform": "orbi",
+        "tags": [
+          "teacher_review",
+          "course_experience",
+          "hyunwoojin"
+        ],
+        "youtubeUrl": "",
+        "playlistUrl": "",
+        "webUrl": "https://orbi.kr/00077096134"
+      }
     },
     {
-      "id": "km-31-stability",
-      "bucket": "수학 공부법",
-      "title": "상위권은 킬러 완주보다 실전 안정화가 우선",
-      "source": "YouTube 고난도 학습법 자막 종합",
-      "applies_to": ["3-1"],
-      "core": "상위권의 점수 차이는 새로운 문제량보다 실전 루틴 고정과 반복 실수 제거에서 결정된다.",
+      "id": "kb-67146590c8",
+      "bucket": "lecture_books",
+      "title": "오르비 후기 - 이미지 강의 관련 글",
+      "source": "오르비 후기 - 이미지 강의 관련 글",
+      "applies_to": [
+        "all"
+      ],
+      "core": "&middot; 1086225 &middot; 22/12/13 23:18 &middot; 1179171 &middot; 22/12/13 23:27",
       "steps": [
-        { "title": "풀이 순서 고정", "detail": "시험장에서 사용할 문항 접근 순서를 모의고사에서 동일하게 반복한다." },
-        { "title": "킬러 회수 규칙", "detail": "고난도 문항은 1차 접근 제한 시간을 정하고 회수 규칙을 둔다." },
-        { "title": "오답 원인 태깅", "detail": "개념/실수/시간 태그로 원인을 기록하고 다음 주 계획에 반영한다." }
+        {
+          "title": "Action Step 1",
+          "detail": "&middot; 1086225 &middot; 22/12/13 23:18"
+        },
+        {
+          "title": "Action Step 2",
+          "detail": "&middot; 1179171 &middot; 22/12/13 23:27"
+        },
+        {
+          "title": "Action Step 3",
+          "detail": "&middot; 1178519 &middot; 22/12/29 18:21"
+        },
+        {
+          "title": "Action Step 4",
+          "detail": "&middot; 1179171 &middot; 22/12/29 18:22"
+        },
+        {
+          "title": "Action Step 5",
+          "detail": "&middot; 1178519 &middot; 22/12/29 18:23"
+        }
       ],
       "cautions": [
-        "새 교재를 과하게 늘리면 기존 약점 복기가 끊긴다."
+        "Review this risk signal: &middot; 1086225 &middot; 22/12/13 23:18",
+        "Review this risk signal: &middot; 1179171 &middot; 22/12/13 23:27"
       ],
-      "keywords": ["실전루틴", "회수규칙", "킬러", "원인태깅"]
+      "keywords": [
+        "middot",
+        "오르비",
+        "ms",
+        "좋아요",
+        "신고",
+        "미친개념",
+        "답글",
+        "달기"
+      ],
+      "meta": {
+        "sourceType": "community_review",
+        "platform": "orbi",
+        "tags": [
+          "teacher_review",
+          "course_experience",
+          "image"
+        ],
+        "youtubeUrl": "",
+        "playlistUrl": "",
+        "webUrl": "https://orbi.kr/00060362745"
+      }
     },
     {
-      "id": "lr-blank-review",
-      "bucket": "학습 루틴",
-      "title": "백지 복습은 매일 같은 시간대에 고정",
-      "source": "YouTube 자막 종합",
-      "applies_to": ["all"],
-      "core": "백지 복습은 주간 이벤트가 아니라 매일 루틴이어야 효율이 나온다.",
+      "id": "kb-9f58ee18cd",
+      "bucket": "lecture_books",
+      "title": "오르비 강사 커리큘럼 체감 글",
+      "source": "오르비 강사 커리큘럼 체감 글",
+      "applies_to": [
+        "all"
+      ],
+      "core": "&middot; 1312798 &middot; 25/06/15 21:24 &middot; 1302454 &middot; 25/06/15 21:24",
       "steps": [
-        { "title": "일일 고정 슬롯", "detail": "하루 공부 시작 20분 또는 마감 20분을 백지 복습 전용으로 고정한다." },
-        { "title": "단원 단위 체크", "detail": "단원별로 정의/공식/대표 유형 1개를 말과 글로 복기한다." }
+        {
+          "title": "Action Step 1",
+          "detail": "박종민쌤이 더 친절하고 자세히 설명해주십니다 강기원쌤은 제가 서너강 듣다가 탈주해서 정확히는 잘 모르지만, 그래프 많이 쓰시고 보다 학생 본인이 능동적으로 생각하도록 풀이해주시는 느낌이었습니다"
+        },
+        {
+          "title": "Action Step 2",
+          "detail": "Close your notes and explain one unit from memory before solving."
+        },
+        {
+          "title": "Past-Exam Link",
+          "detail": "Apply each concept to easy past-exam items immediately."
+        },
+        {
+          "title": "Action Step 4",
+          "detail": "Classify wrong answers by cause and retry the same type."
+        }
       ],
       "cautions": [
-        "백지 복습만 하고 문제 적용을 생략하면 성적 상승으로 연결되지 않는다."
+        "Review this risk signal: &middot; 1312798 &middot; 25/06/15 21:24",
+        "Review this risk signal: &middot; 1302454 &middot; 25/06/15 21:24"
       ],
-      "keywords": ["루틴", "백지복습", "일일체크"]
+      "keywords": [
+        "middot",
+        "ms",
+        "좋아요",
+        "신고",
+        "답글",
+        "달기",
+        "오르비",
+        "계란먹는"
+      ],
+      "meta": {
+        "sourceType": "community_post",
+        "platform": "orbi",
+        "tags": [
+          "teacher_lineup",
+          "curriculum_compare",
+          "community"
+        ],
+        "youtubeUrl": "",
+        "playlistUrl": "",
+        "webUrl": "https://orbi.kr/00073489372"
+      }
     },
     {
-      "id": "lr-error-loop",
-      "bucket": "학습 루틴",
-      "title": "오답은 24시간 내 1차 복기, 72시간 내 2차 복기",
-      "source": "오르비 칼럼 + YouTube 자막 종합",
-      "applies_to": ["all"],
-      "core": "오답을 빠르게 재접속해야 같은 실수를 끊을 수 있다.",
+      "id": "kb-1e54a8ed32",
+      "bucket": "learning_routines",
+      "title": "오르비 수학 게시판",
+      "source": "오르비 수학 게시판",
+      "applies_to": [
+        "all"
+      ],
+      "core": "- [2027] 오르비 프리패스 07년생 08년생 독학생",
       "steps": [
-        { "title": "24시간 복기", "detail": "틀린 당일 또는 다음날에 핵심 오답을 반드시 재풀이한다." },
-        { "title": "72시간 재확인", "detail": "3일 이내 같은 유형 1문항을 추가로 풀어 재발 여부를 확인한다." }
+        {
+          "title": "Action Step 1",
+          "detail": "생활상담실 영어 입시분석"
+        },
+        {
+          "title": "Past-Exam Link",
+          "detail": "기출 풀이에 대한 질문입니다."
+        },
+        {
+          "title": "Action Step 3",
+          "detail": "읽기 능력이라기 보다 문제 풀이, 감으로 찍는 법을 배워 국어가 그래도 가끔 1도 나올 만큼 성적이 곧잘 나왔는데,..."
+        },
+        {
+          "title": "Concept Output",
+          "detail": "이를 바탕으로 개념을 익히고 적용하기가 수월..."
+        },
+        {
+          "title": "Review Loop",
+          "detail": "저희 오빠가 전홍철 선생님 스카이에듀에 계실 때부터 들었었어서 저한테 매일 들으라고 들으라고 했었는데, 선생님 이투스 계실 때 또 책을 사서 복습을 하는 거에요 그..."
+        }
       ],
       "cautions": [
-        "오답 노트를 예쁘게만 정리하고 재풀이를 안 하면 효과가 작다."
+        "Review this risk signal: - [2027] 오르비 프리패스",
+        "Review this risk signal: 07년생 08년생 독학생"
       ],
-      "keywords": ["오답루프", "24시간", "72시간", "재풀이"]
+      "keywords": [
+        "오르비",
+        "모바일",
+        "07년생",
+        "독학생",
+        "3모",
+        "잡담",
+        "선생님",
+        "국어"
+      ],
+      "meta": {
+        "sourceType": "community_post",
+        "platform": "orbi",
+        "tags": [
+          "community",
+          "routine",
+          "feedback"
+        ],
+        "youtubeUrl": "",
+        "playlistUrl": "",
+        "webUrl": "https://orbi.kr/"
+      }
     },
     {
-      "id": "lr-time-management",
-      "bucket": "학습 루틴",
-      "title": "문항당 시간 상한과 넘기기 규칙 설정",
-      "source": "오르비 수학 칼럼 종합",
-      "applies_to": ["7-5", "5-3", "3-1", "all"],
-      "core": "시간 관리는 실전 직전이 아니라 평소 문제풀이 때부터 훈련해야 한다.",
+      "id": "kb-4253683876",
+      "bucket": "learning_routines",
+      "title": "수만휘 수학 게시글/후기",
+      "source": "수만휘 수학 게시글/후기",
+      "applies_to": [
+        "all"
+      ],
+      "core": "BEST �н�Į.. BEST ����(..",
       "steps": [
-        { "title": "문항 상한", "detail": "난도별 문항당 상한 시간을 미리 정해두고 초과 시 즉시 표시한다." },
-        { "title": "회수 트리거", "detail": "5분 이상 진전이 없으면 표시 후 다음 문항으로 이동한다." },
-        { "title": "회수 우선순위", "detail": "회수 시에는 정답 가능성이 높은 문항부터 처리한다." }
+        {
+          "title": "Action Step 1",
+          "detail": "BEST �н�Į.."
+        },
+        {
+          "title": "Action Step 2",
+          "detail": "BEST ����(.."
+        },
+        {
+          "title": "Action Step 3",
+          "detail": "BEST �Խ���.."
+        },
+        {
+          "title": "Action Step 4",
+          "detail": "BEST �н�Į��+�ڷ�"
+        },
+        {
+          "title": "Action Step 5",
+          "detail": "BEST ����(������ ����)"
+        }
       ],
       "cautions": [
-        "한 문제 집착은 전체 점수 기대값을 떨어뜨린다."
+        "Review this risk signal: BEST �н�Į..",
+        "Review this risk signal: BEST ����(.."
       ],
-      "keywords": ["시간관리", "문항상한", "회수전략"]
+      "keywords": [
+        "best",
+        "ebs",
+        "naver",
+        "ip",
+        "faq",
+        "up",
+        "talk",
+        "team08"
+      ],
+      "meta": {
+        "sourceType": "community_post",
+        "platform": "sumanhwi",
+        "tags": [
+          "community",
+          "student_feedback",
+          "routine"
+        ],
+        "youtubeUrl": "",
+        "playlistUrl": "",
+        "webUrl": "https://cafe.naver.com/suhui"
+      }
     },
     {
-      "id": "lr-weekly-review",
-      "bucket": "학습 루틴",
-      "title": "주간 점검은 점수보다 원인 중심",
-      "source": "수험생 커뮤니티 칼럼 종합",
-      "applies_to": ["all"],
-      "core": "주간 회고에서 점수만 보면 개선 포인트가 흐려진다. 원인 데이터를 남겨야 다음 주가 개선된다.",
+      "id": "kb-3948432306",
+      "bucket": "study_methods",
+      "title": "수학 학습법 플레이리스트 - Student Misconceptions #CSAT #3rdYearofHighSchool #Repeat",
+      "source": "수학 학습법 플레이리스트 - Student Misconceptions #CSAT #3rdYearofHighSchool #Repeat",
+      "applies_to": [
+        "all"
+      ],
+      "core": "기출 문제 같은 거 뭐 겠 그리고 그냥 기출 같은 거",
       "steps": [
-        { "title": "오류 비율", "detail": "개념/해석/계산/시간 원인 비율을 주간 단위로 집계한다." },
-        { "title": "다음 주 1개 목표", "detail": "가장 큰 원인 1개만 집중 교정 목표로 설정한다." }
+        {
+          "title": "Time Control",
+          "detail": "시간 걸려 막 해설 강의 정리하고"
+        },
+        {
+          "title": "Action Step 2",
+          "detail": "풀리면답지 보시고요 정리하시고"
+        },
+        {
+          "title": "Action Step 3",
+          "detail": "가지고 q&a 한꺼번에 정리하는"
+        },
+        {
+          "title": "Action Step 4",
+          "detail": "Close your notes and explain one unit from memory before solving."
+        }
       ],
       "cautions": [
-        "목표를 여러 개 동시에 잡으면 실행률이 낮아진다."
+        "안 돼 있을 때 제 집착하지 마시고요"
       ],
-      "keywords": ["주간회고", "원인분석", "실행률"]
+      "keywords": [
+        "같은",
+        "알겠죠",
+        "기출",
+        "하는",
+        "거는",
+        "오래",
+        "이런",
+        "다시"
+      ],
+      "meta": {
+        "sourceType": "youtube",
+        "platform": "",
+        "tags": [],
+        "youtubeUrl": "https://www.youtube.com/watch?v=vLAhCrIlOWY",
+        "playlistUrl": "",
+        "webUrl": ""
+      }
+    },
+    {
+      "id": "kb-e4fa4699c6",
+      "bucket": "study_methods",
+      "title": "수학 학습법 플레이리스트 - Hyunwoojin's moisture problem type that you don't need to solve (2025 CSAT D-77) #CSAT #Calculus",
+      "source": "수학 학습법 플레이리스트 - Hyunwoojin's moisture problem type that you don't need to solve (2025 CSAT D-77) #CSAT #Calculus",
+      "applies_to": [
+        "all"
+      ],
+      "core": "무조건 나올 거 같아요 이번에는 나올 나올 것 같아요 알겠죠",
+      "steps": [
+        {
+          "title": "Action Step 1",
+          "detail": "걸 해보세요 그리고 평균값 정리"
+        },
+        {
+          "title": "Action Step 2",
+          "detail": "Close your notes and explain one unit from memory before solving."
+        },
+        {
+          "title": "Past-Exam Link",
+          "detail": "Apply each concept to easy past-exam items immediately."
+        },
+        {
+          "title": "Action Step 4",
+          "detail": "Classify wrong answers by cause and retry the same type."
+        }
+      ],
+      "cautions": [
+        "Review this risk signal: 무조건 나올 거 같아요 이번에는 나올",
+        "Review this risk signal: 나올 것 같아요 알겠죠"
+      ],
+      "keywords": [
+        "나올",
+        "필요",
+        "이제",
+        "무조건",
+        "같아요",
+        "이번에는",
+        "없을",
+        "알겠죠"
+      ],
+      "meta": {
+        "sourceType": "youtube",
+        "platform": "",
+        "tags": [],
+        "youtubeUrl": "https://www.youtube.com/watch?v=yKj9L7treko",
+        "playlistUrl": "",
+        "webUrl": ""
+      }
+    },
+    {
+      "id": "kb-8fa03bef88",
+      "bucket": "study_methods",
+      "title": "수학 학습법 플레이리스트 - 2025 학년도 수능 샤프심 추천  ( 미적분 응시자 필수 시청 ) #수능 #수학 #수능수학",
+      "source": "수학 학습법 플레이리스트 - 2025 학년도 수능 샤프심 추천  ( 미적분 응시자 필수 시청 ) #수능 #수학 #수능수학",
+      "applies_to": [
+        "all"
+      ],
+      "core": "그래서 진짜 엄청 좋으니까 꼭 한번 합니다 그래서 진짜 중요한 내용입니다",
+      "steps": [
+        {
+          "title": "Action Step 1",
+          "detail": "그래서 진짜 엄청 좋으니까 꼭 한번"
+        },
+        {
+          "title": "Action Step 2",
+          "detail": "합니다 그래서 진짜 중요한 내용입니다"
+        },
+        {
+          "title": "Action Step 3",
+          "detail": "쓰는데요 실제로 진짜 이거 수능 샤프"
+        },
+        {
+          "title": "Action Step 4",
+          "detail": "이제 진짜 힘든 상황이 발생하기"
+        },
+        {
+          "title": "Action Step 5",
+          "detail": "때 진짜 엄청 빡빡빡빡 이렇게 써도"
+        }
+      ],
+      "cautions": [
+        "Review this risk signal: 그래서 진짜 엄청 좋으니까 꼭 한번",
+        "Review this risk signal: 합니다 그래서 진짜 중요한 내용입니다"
+      ],
+      "keywords": [
+        "진짜",
+        "수능",
+        "그래서",
+        "이거",
+        "이제",
+        "알겠죠",
+        "엄청",
+        "예를"
+      ],
+      "meta": {
+        "sourceType": "youtube",
+        "platform": "",
+        "tags": [],
+        "youtubeUrl": "https://www.youtube.com/watch?v=XjqXx4IyVR0",
+        "playlistUrl": "",
+        "webUrl": ""
+      }
+    },
+    {
+      "id": "kb-89428412c2",
+      "bucket": "study_methods",
+      "title": "수학 학습법 플레이리스트 - 2026학년도 수능 대비 고2 정시계획  상위권목표 / 2~3등급+ 1등급 까지",
+      "source": "수학 학습법 플레이리스트 - 2026학년도 수능 대비 고2 정시계획  상위권목표 / 2~3등급+ 1등급 까지",
+      "applies_to": [
+        "all"
+      ],
+      "core": "보면은 여기서 이제 월 어 월별로 하시면 되고요 저는 이제 9월에",
+      "steps": [
+        {
+          "title": "Review Loop",
+          "detail": "복습해 주시는게 좋습니다요 기간을"
+        },
+        {
+          "title": "Review Loop",
+          "detail": "복습이 끝났으면 강기분 시리즈 바로"
+        },
+        {
+          "title": "Action Step 3",
+          "detail": "Close your notes and explain one unit from memory before solving."
+        },
+        {
+          "title": "Past-Exam Link",
+          "detail": "Apply each concept to easy past-exam items immediately."
+        }
+      ],
+      "cautions": [
+        "Review this risk signal: 보면은 여기서 이제 월 어 월별로",
+        "Review this risk signal: 하시면 되고요 저는 이제 9월에"
+      ],
+      "keywords": [
+        "이제",
+        "정도",
+        "계속",
+        "기출",
+        "일단",
+        "그래서",
+        "같은",
+        "돼요"
+      ],
+      "meta": {
+        "sourceType": "youtube",
+        "platform": "",
+        "tags": [],
+        "youtubeUrl": "https://www.youtube.com/watch?v=q16g_f8yuUg",
+        "playlistUrl": "",
+        "webUrl": ""
+      }
+    },
+    {
+      "id": "kb-6cd1dfd310",
+      "bucket": "study_methods",
+      "title": "수학 학습법 플레이리스트 - 2025학년도 수능 원서 접수 재수생 N수생 / 제 2 외국어 선택 추천",
+      "source": "수학 학습법 플레이리스트 - 2025학년도 수능 원서 접수 재수생 N수생 / 제 2 외국어 선택 추천",
+      "applies_to": [
+        "all"
+      ],
+      "core": "지역이 있어요 지역이 되는 지역이 지역이 있는데 불가능한 지역이 왜",
+      "steps": [
+        {
+          "title": "Action Step 1",
+          "detail": "지역이 있어요 지역이 되는 지역이"
+        },
+        {
+          "title": "Action Step 2",
+          "detail": "지역이 있는데 불가능한 지역이 왜"
+        },
+        {
+          "title": "Action Step 3",
+          "detail": "현금 필요해요 현금 현금 들고 가서"
+        },
+        {
+          "title": "Action Step 4",
+          "detail": "있는 분들은 반드시 동사무소 가서"
+        },
+        {
+          "title": "Action Step 5",
+          "detail": "있다 하시는 분들은 이제 그냥 해도"
+        }
+      ],
+      "cautions": [
+        "Review this risk signal: 지역이 있어요 지역이 되는 지역이",
+        "Review this risk signal: 지역이 있는데 불가능한 지역이 왜"
+      ],
+      "keywords": [
+        "이제",
+        "여기",
+        "지역이",
+        "됩니다",
+        "현금",
+        "가서",
+        "접수",
+        "만약에"
+      ],
+      "meta": {
+        "sourceType": "youtube",
+        "platform": "",
+        "tags": [],
+        "youtubeUrl": "https://www.youtube.com/watch?v=REb9giN9OH0",
+        "playlistUrl": "",
+        "webUrl": ""
+      }
+    },
+    {
+      "id": "kb-7c37d5529f",
+      "bucket": "study_methods",
+      "title": "수학 재능을 바꾸는 공부법",
+      "source": "수학 재능을 바꾸는 공부법",
+      "applies_to": [
+        "all"
+      ],
+      "core": "이때 각각 제가 어떻게 벽을 근데 또 여기에서 진짜",
+      "steps": [
+        {
+          "title": "Concept Output",
+          "detail": "그래서 머릿속에 개념이 정리되어"
+        },
+        {
+          "title": "Action Step 2",
+          "detail": "간신히 끼워맞추고 적용하는"
+        },
+        {
+          "title": "Review Loop",
+          "detail": "방법은 가장 좋은 것은 백지 복습도"
+        },
+        {
+          "title": "Review Loop",
+          "detail": "출력 복습도 괜찮아요."
+        },
+        {
+          "title": "Review Loop",
+          "detail": "출력 복습은 수업이 끝나고"
+        }
+      ],
+      "cautions": [
+        "Review this risk signal: 이때 각각 제가 어떻게 벽을",
+        "Review this risk signal: 근데 또 여기에서 진짜"
+      ],
+      "keywords": [
+        "제가",
+        "문제를",
+        "벽을",
+        "근데",
+        "여러분이",
+        "아니라",
+        "많이",
+        "개념을"
+      ],
+      "meta": {
+        "sourceType": "youtube",
+        "platform": "youtube",
+        "tags": [
+          "grade_strategy",
+          "concept_output"
+        ],
+        "youtubeUrl": "https://www.youtube.com/watch?v=sST8059i3mw",
+        "playlistUrl": "",
+        "webUrl": ""
+      }
+    },
+    {
+      "id": "kb-0fb7ece4a2",
+      "bucket": "study_methods",
+      "title": "수학 등급별 학습법 1",
+      "source": "수학 등급별 학습법 1",
+      "applies_to": [
+        "all"
+      ],
+      "core": "구하는 것 소재의 조건을 설계를 해 보는 겁니다.",
+      "steps": [
+        {
+          "title": "Solve Flow Design",
+          "detail": "갖춰서 만든이 완벽하게 설계된"
+        },
+        {
+          "title": "Action Step 2",
+          "detail": "분석법 딱 다섯 가지로 정리해"
+        },
+        {
+          "title": "Solve Flow Design",
+          "detail": "놓고 어떻게 풀지 설계하세요."
+        },
+        {
+          "title": "Solve Flow Design",
+          "detail": "것을 기준으로 아름답게 설계가 되어"
+        },
+        {
+          "title": "Solve Flow Design",
+          "detail": "설계를 해 보는 겁니다."
+        }
+      ],
+      "cautions": [
+        "Review this risk signal: 구하는 것 소재의 조건을",
+        "Review this risk signal: 설계를 해 보는 겁니다."
+      ],
+      "keywords": [
+        "거야",
+        "구하는",
+        "조건을",
+        "보는",
+        "자연수",
+        "처음",
+        "한번",
+        "설계"
+      ],
+      "meta": {
+        "sourceType": "youtube",
+        "platform": "youtube",
+        "tags": [
+          "grade_strategy",
+          "execution",
+          "practice"
+        ],
+        "youtubeUrl": "https://www.youtube.com/watch?v=hGDfgSder-I",
+        "playlistUrl": "",
+        "webUrl": ""
+      }
+    },
+    {
+      "id": "kb-fbe1bcb109",
+      "bucket": "study_methods",
+      "title": "수학 등급별 학습법 2",
+      "source": "수학 등급별 학습법 2",
+      "applies_to": [
+        "all"
+      ],
+      "core": "근데 그 강의가 3등급 내 수업을 통해 가지고 스스로",
+      "steps": [
+        {
+          "title": "Action Step 1",
+          "detail": "틀린 문제에 대해서는 정리를 어떻게"
+        },
+        {
+          "title": "Action Step 2",
+          "detail": "하고 그 정리한 거를 어떤 주기로"
+        },
+        {
+          "title": "Review Loop",
+          "detail": "복습해야 되는가 이런 것들 이게 전부"
+        },
+        {
+          "title": "Action Step 4",
+          "detail": "내용들인데 솔직히 혼자 적용하는게"
+        },
+        {
+          "title": "Action Step 5",
+          "detail": "강사의 문제 풀이 쇼게 많거든."
+        }
+      ],
+      "cautions": [
+        "Review this risk signal: 근데 그 강의가 3등급",
+        "Review this risk signal: 내 수업을 통해 가지고 스스로"
+      ],
+      "keywords": [
+        "근데",
+        "내가",
+        "이런",
+        "가지고",
+        "어떤",
+        "그런",
+        "있는",
+        "얘들아"
+      ],
+      "meta": {
+        "sourceType": "youtube",
+        "platform": "youtube",
+        "tags": [
+          "grade_strategy",
+          "execution",
+          "practice"
+        ],
+        "youtubeUrl": "https://www.youtube.com/watch?v=0OERw9UiTeI",
+        "playlistUrl": "",
+        "webUrl": ""
+      }
+    },
+    {
+      "id": "kb-82f9b335a4",
+      "bucket": "study_methods",
+      "title": "수학 등급별 학습법 3",
+      "source": "수학 등급별 학습법 3",
+      "applies_to": [
+        "all"
+      ],
+      "core": "내가 3, 4등급이야. 어떻게 하냐면 내가 문제 몇 건",
+      "steps": [
+        {
+          "title": "Solve Flow Design",
+          "detail": "첫 번째 뭐냐면 문제 풀에 설계를"
+        },
+        {
+          "title": "Solve Flow Design",
+          "detail": "설계하는 것으로 먼저 채운다."
+        },
+        {
+          "title": "Action Step 3",
+          "detail": "뭐가 나오냐면 평균값 정리가 나오고"
+        },
+        {
+          "title": "Solve Flow Design",
+          "detail": "풀 때는 설계 연습 내가 알려주죠."
+        }
+      ],
+      "cautions": [
+        "실수하는게 뭐냐면 선생님 저 3번 못"
+      ],
+      "keywords": [
+        "내가",
+        "거야",
+        "그럼",
+        "어떻게",
+        "아니야",
+        "근데",
+        "3월",
+        "이걸"
+      ],
+      "meta": {
+        "sourceType": "youtube",
+        "platform": "youtube",
+        "tags": [
+          "grade_strategy",
+          "execution",
+          "practice"
+        ],
+        "youtubeUrl": "https://www.youtube.com/watch?v=g7FYLaKxP2A",
+        "playlistUrl": "",
+        "webUrl": ""
+      }
+    },
+    {
+      "id": "kb-6c513c9d72",
+      "bucket": "lecture_books",
+      "title": "메가스터디 수학 강사 페이지",
+      "source": "메가스터디 수학 강사 페이지",
+      "applies_to": [
+        "all"
+      ],
+      "core": "��3&middot;N�� �ֻ����� ���غ� ���� �ܰ� &middot; �� ������ �� ������ ��",
+      "steps": [
+        {
+          "title": "Action Step 1",
+          "detail": "��3&middot;N��"
+        },
+        {
+          "title": "Action Step 2",
+          "detail": "�ֻ����� ���غ� ���� �ܰ� &middot; �� ������ �� ������ ��"
+        },
+        {
+          "title": "Action Step 3",
+          "detail": "���� &middot; ���� ã��"
+        },
+        {
+          "title": "Action Step 4",
+          "detail": "���� &middot; ��ü����"
+        },
+        {
+          "title": "Action Step 5",
+          "detail": "- ����&middot;��ü����"
+        }
+      ],
+      "cautions": [
+        "Review this risk signal: ��3&middot;N��",
+        "Review this risk signal: �ֻ����� ���غ� ���� �ܰ� &middot; �� ������ �� ������ ��"
+      ],
+      "keywords": [
+        "middot",
+        "pdf",
+        "top",
+        "id",
+        "pw",
+        "drill",
+        "zero",
+        "themegastudy"
+      ],
+      "meta": {
+        "sourceType": "official_curriculum",
+        "platform": "megastudy",
+        "tags": [
+          "teacher",
+          "curriculum",
+          "ot",
+          "booklist"
+        ],
+        "youtubeUrl": "",
+        "playlistUrl": "",
+        "webUrl": "https://www.megastudy.net/"
+      }
+    },
+    {
+      "id": "kb-b5e01df692",
+      "bucket": "lecture_books",
+      "title": "대성마이맥 수학 강사 페이지",
+      "source": "대성마이맥 수학 강사 페이지",
+      "applies_to": [
+        "all"
+      ],
+      "core": "Key focus from source: 대성마이맥 수학 강사 페이지. Convert concepts into output and connect them to timed problem solving.",
+      "steps": [
+        {
+          "title": "Action Step 1",
+          "detail": "Close your notes and explain one unit from memory before solving."
+        },
+        {
+          "title": "Past-Exam Link",
+          "detail": "Apply each concept to easy past-exam items immediately."
+        },
+        {
+          "title": "Action Step 3",
+          "detail": "Classify wrong answers by cause and retry the same type."
+        },
+        {
+          "title": "Time Control",
+          "detail": "Use fixed time limits per question to stabilize score."
+        }
+      ],
+      "cautions": [
+        "Do not solve many questions without reviewing repeated mistakes.",
+        "Do not read concepts passively; force recall and explanation."
+      ],
+      "keywords": [],
+      "meta": {
+        "sourceType": "official_curriculum",
+        "platform": "mimac",
+        "tags": [
+          "teacher",
+          "curriculum",
+          "ot",
+          "booklist"
+        ],
+        "youtubeUrl": "",
+        "playlistUrl": "",
+        "webUrl": "https://www.mimacstudy.com/"
+      }
+    },
+    {
+      "id": "kb-ba748a96ee",
+      "bucket": "lecture_books",
+      "title": "이투스 수학 강사 페이지",
+      "source": "이투스 수학 강사 페이지",
+      "applies_to": [
+        "all"
+      ],
+      "core": "- ������ New ���ΰ� ������ : ������ ETOOS",
+      "steps": [
+        {
+          "title": "Action Step 1",
+          "detail": "- ������ New"
+        },
+        {
+          "title": "Action Step 2",
+          "detail": "���ΰ� ������ : ������ ETOOS"
+        },
+        {
+          "title": "Action Step 3",
+          "detail": "�� �ϳ��� ETOOS"
+        },
+        {
+          "title": "Action Step 4",
+          "detail": "TODAY ETOOS ������"
+        },
+        {
+          "title": "Action Step 5",
+          "detail": "Coming soon -->"
+        }
+      ],
+      "cautions": [
+        "Review this risk signal: - ������ New",
+        "Review this risk signal: ���ΰ� ������ : ������ ETOOS"
+      ],
+      "keywords": [
+        "ot",
+        "new",
+        "etoos",
+        "coming",
+        "soon",
+        "ebs",
+        "vortex",
+        "tcc"
+      ],
+      "meta": {
+        "sourceType": "official_curriculum",
+        "platform": "etoos",
+        "tags": [
+          "teacher",
+          "curriculum",
+          "ot",
+          "booklist"
+        ],
+        "youtubeUrl": "",
+        "playlistUrl": "",
+        "webUrl": "https://www.etoos.com/"
+      }
+    },
+    {
+      "id": "kb-73b8ba2189",
+      "bucket": "lecture_books",
+      "title": "시대인재 수학 강사/강좌",
+      "source": "시대인재 수학 강사/강좌",
+      "applies_to": [
+        "all"
+      ],
+      "core": "- ⑦ 개인정보 보호책임자에 관한 사항 제 7 조 [개인정보 보호책임자에 관한 사항]",
+      "steps": [
+        {
+          "title": "Action Step 1",
+          "detail": "따라서 통합회원 전반에 대한 개인정보 처리 기준은 「시대인재 통합회원 개인정보처리방침」에 따르며, 본 방침은 학원 운영·교습·설명회 등 학원 고유 서비스에서 발생하는 개인정보 처리에 한정하여 추가적으로 적용됩니다."
+        },
+        {
+          "title": "Action Step 2",
+          "detail": "물품배송, 서비스 제공, 계약서∙청구서 발송, 콘텐츠 제공, 맞춤서비스 제공, 본인인증, 연령인증, 맞춤형 입시분석 및 진학자료 제공, 요금결제∙정산, 채권추심을 목적으로 개인정보를 처리합니다."
+        },
+        {
+          "title": "Action Step 3",
+          "detail": "홈페이지 가입횟수 제한, 분쟁조정을 위한 기록보존, 회원의 각종 합격 유무 확인 및 기타 통계자료 산 출을 목적으로 개인정보를 처리합니다."
+        },
+        {
+          "title": "Action Step 4",
+          "detail": "- 1) 전자상거래 등에서의 소비자 보호에 관한 법률에 따른 표시∙광고, 계약 내용 및 이행 등에 거래에 관한 기록"
+        },
+        {
+          "title": "Action Step 5",
+          "detail": "- - 표시∙광고에 관한 기록 : 6개월"
+        }
+      ],
+      "cautions": [
+        "- ② 회사는 위탁계약 체결시 개인정보보호법 제26조에 따라 위탁업무 수행 목적 외 개인정보 처리금지, 기 술적∙관리적 보호조치, 재위탁 제한, 수탁자에 대한 관리∙감독, 손해배상 등 책임에 관한 사항을 계약서 등 문서에 명시하고, 수탁자가 개인정보를 안전하게 처리하는지를 감독하고 있습니다.",
+        "- ③ 전1항에따른권리행사는정보주체의법정대리인이나위임을받은자등대리인을통하여하실수 있습니다."
+      ],
+      "keywords": [
+        "개인정보",
+        "관한",
+        "서비스",
+        "개인정보의",
+        "개인정보를",
+        "있습니다",
+        "개인정보처리방침",
+        "회사는"
+      ],
+      "meta": {
+        "sourceType": "academy_curriculum",
+        "platform": "sdij",
+        "tags": [
+          "academy",
+          "single_course",
+          "teacher_lineup"
+        ],
+        "youtubeUrl": "",
+        "playlistUrl": "",
+        "webUrl": "https://www.sdij.com/"
+      }
+    },
+    {
+      "id": "kb-a313fb7165",
+      "bucket": "lecture_books",
+      "title": "두각학원 수학 강사/강좌",
+      "source": "두각학원 수학 강사/강좌",
+      "applies_to": [
+        "all"
+      ],
+      "core": "- 고1 정규/특강 N - 고1,2 031-709-6659",
+      "steps": [
+        {
+          "title": "Action Step 1",
+          "detail": "- 고1 정규/특강 N"
+        },
+        {
+          "title": "Action Step 2",
+          "detail": "- 고1,2 031-709-6659"
+        },
+        {
+          "title": "Action Step 3",
+          "detail": "- 고3 정규/특강 N"
+        },
+        {
+          "title": "Action Step 4",
+          "detail": "[고1,2] 031·709·6659"
+        },
+        {
+          "title": "Action Step 5",
+          "detail": "- 고1,2 온라인 설명회"
+        }
+      ],
+      "cautions": [
+        "Review this risk signal: - 고1 정규/특강 N",
+        "Review this risk signal: - 고1,2 031-709-6659"
+      ],
+      "keywords": [
+        "설명회",
+        "특강",
+        "고1",
+        "dlab",
+        "정규",
+        "강남대성",
+        "분당두각",
+        "고3"
+      ],
+      "meta": {
+        "sourceType": "academy_curriculum",
+        "platform": "dugak",
+        "tags": [
+          "academy",
+          "single_course",
+          "teacher_lineup"
+        ],
+        "youtubeUrl": "",
+        "playlistUrl": "",
+        "webUrl": "https://bundangdugak.dshw.co.kr/teacher/teacher.htm?subject=2"
+      }
     }
   ]
 }

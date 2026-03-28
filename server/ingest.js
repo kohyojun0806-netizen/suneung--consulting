@@ -424,7 +424,7 @@ function createExtractiveKnowledgeSummary({ title, transcript }) {
 
   return {
     title,
-    bucket: "study_methods",
+    bucket: "",
     applies_to: ["all"],
     core: coreSentences.join(" ") || fallbackCoreFromTitle(title),
     steps: buildExtractiveSteps(actionSentences.length ? actionSentences : rankedTexts.slice(0, 8)),

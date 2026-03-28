@@ -330,8 +330,38 @@ async function loadRecommendationCatalog() {
 function selectKnowledgeItems(items, curriculumKey) {
   const primary = items.filter((item) => appliesTo(item, curriculumKey));
   const fallback = items.filter((item) => appliesTo(item, "all"));
-  const merged = [...primary, ...fallback].slice(0, 12);
-  return merged.length ? merged : items.slice(0, 10);
+  const pool = [...primary, ...fallback];
+  if (!pool.length) return items.slice(0, 10);
+
+  const limits = [
+    { bucket: "study_methods", max: 5 },
+    { bucket: "lecture_books", max: 4 },
+    { bucket: "learning_routines", max: 3 },
+  ];
+
+  const seen = new Set();
+  const selected = [];
+  for (const { bucket, max } of limits) {
+    const picked = pool
+      .filter((item) => isBucket(item?.bucket, bucket))
+      .slice(0, max);
+    for (const item of picked) {
+      const key = toText(item?.id) || JSON.stringify(item);
+      if (seen.has(key)) continue;
+      seen.add(key);
+      selected.push(item);
+    }
+  }
+
+  for (const item of pool) {
+    if (selected.length >= 12) break;
+    const key = toText(item?.id) || JSON.stringify(item);
+    if (seen.has(key)) continue;
+    seen.add(key);
+    selected.push(item);
+  }
+
+  return selected.length ? selected.slice(0, 12) : items.slice(0, 10);
 }
 
 function buildKnowledgeSummary(knowledge, catalog) {
@@ -349,6 +379,19 @@ function buildKnowledgeSummary(knowledge, catalog) {
       .flatMap((item) =>
         asArray(item?.steps).map((step) => sanitizeKnowledgeText(`${toText(step?.title)}: ${toText(step?.detail)}`))
       )
+      .filter((text) => isUsefulStudyText(text))
+  ).slice(0, 10);
+
+  const lectureKnowledgeNotes = dedupeTextList(
+    allItems
+      .filter((item) => isBucket(item?.bucket, "lecture_books"))
+      .flatMap((item) => {
+        const core = sanitizeKnowledgeText(item?.core);
+        const steps = asArray(item?.steps).map((step) =>
+          sanitizeKnowledgeText(`${toText(step?.title)}: ${toText(step?.detail)}`)
+        );
+        return [core, ...steps];
+      })
       .filter((text) => isUsefulStudyText(text))
   ).slice(0, 10);
 
@@ -382,6 +425,7 @@ function buildKnowledgeSummary(knowledge, catalog) {
       lecture_and_books: {
         instructors,
         books,
+        notes: lectureKnowledgeNotes,
       },
       learning_routines: learningRoutines,
     },
@@ -467,6 +511,17 @@ function blendKnowledgeItems(items) {
     .filter((text) => isUsefulStudyText(text))
     .slice(0, 8);
 
+  const lectureBooks = sourceItems
+    .filter((item) => isBucket(item?.bucket, "lecture_books"))
+    .flatMap((item) => {
+      const core = sanitizeKnowledgeText(item?.core);
+      const stepLines = asArray(item?.steps)
+        .map((step) => sanitizeKnowledgeText(`${toText(step?.title)}: ${toText(step?.detail)}`));
+      return [core, ...stepLines];
+    })
+    .filter((text) => isUsefulStudyText(text))
+    .slice(0, 16);
+
   const learningRoutines = sourceItems
     .filter((item) => isBucket(item?.bucket, "learning_routines"))
     .flatMap((item) =>
@@ -501,6 +556,13 @@ function blendKnowledgeItems(items) {
         studyMethods.length > 0
           ? dedupeTextList(studyMethods).slice(0, 8)
           : ["개념을 읽는 단계에서 끝내지 말고, 말/글 출력으로 연결하세요."],
+      lecture_books:
+        lectureBooks.length > 0
+          ? dedupeTextList(lectureBooks).slice(0, 12)
+          : [
+              "강사 선택은 대상 등급/수업 속도/복습 체계를 기준으로 결정하세요.",
+              "교재 선택은 현재 실력보다 반 단계 높은 난이도로 맞추세요.",
+            ],
       learning_routines:
         learningRoutines.length > 0
           ? dedupeTextList(learningRoutines).slice(0, 12)
@@ -791,6 +853,10 @@ function buildAnalyzePrompt({
     .slice(0, 6)
     .map((item) => `- ${toText(item)}`)
     .join("\n");
+  const lectureBookText = asArray(knowledgeBlend?.buckets?.lecture_books)
+    .slice(0, 6)
+    .map((item) => `- ${toText(item)}`)
+    .join("\n");
   const learningRoutineText = asArray(knowledgeBlend?.buckets?.learning_routines)
     .slice(0, 6)
     .map((item) => `- ${toText(item)}`)
@@ -839,6 +905,7 @@ function buildAnalyzePrompt({
     `실행 단계:\n${stepText || "- 없음"}`,
     `주의점:\n${cautionText || "- 없음"}`,
     `수학 공부법 축:\n${studyMethodText || "- 없음"}`,
+    `강의·교재 축:\n${lectureBookText || "- 없음"}`,
     `학습 루틴 축:\n${learningRoutineText || "- 없음"}`,
     `키워드: ${asArray(knowledgeBlend.keywords).join(", ")}`,
     "",
@@ -1270,7 +1337,13 @@ function createFallbackPlan({
       },
     }));
 
+  const lectureHints = asArray(knowledgeBlend?.buckets?.lecture_books)
+    .map((line) => toText(line))
+    .filter(Boolean)
+    .slice(0, 5);
+
   const lectureAndBooks = [
+    ...lectureHints,
     ...instructors.slice(0, 4).flatMap((inst) => {
       const base = `${inst.name} (${inst.platform}) - ${inst.best_for}`;
       const curriculum = asArray(inst.curriculum_path).slice(0, 2).map((line) => `${inst.name} 커리: ${line}`);
