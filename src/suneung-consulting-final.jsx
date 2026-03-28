@@ -531,6 +531,8 @@ export default function App() {
       }, 12000);
       const d = await res.json();
       if (!res.ok) throw new Error(d?.error || "분석 요청에 실패했습니다.");
+      const usedModel = Boolean(d?.meta?.usedModel);
+      const usedModelName = d?.meta?.model || "gpt-4.1";
 
       const serverPlan = d?.plan || {};
       const mappedInstructors = (serverPlan.recommended_instructors || []).map(normalizeInstructorForUI);
@@ -557,6 +559,9 @@ export default function App() {
         electiveInfo,
         electiveSubject,
         aiData,
+        analysisSource: usedModel
+          ? { type: "ai", label: `AI 분석 (${usedModelName})` }
+          : { type: "data", label: "데이터 기반 분석" },
       });
     } catch (e) {
       if (e?.name === "AbortError") {
@@ -577,6 +582,7 @@ export default function App() {
           key_insight: studyMethod.core,
           elective_tip: electiveInfo.core,
         },
+        analysisSource: { type: "data", label: "데이터 기반 분석 (로컬 fallback)" },
       });
     } finally {
       setLoading(false);
@@ -645,6 +651,12 @@ export default function App() {
               <span style={{ ...s.gradePill, background: GRADE_INFO[targetGrade]?.color }}>{targetGrade}등급</span>
               <span style={s.electivePill}>{electiveSubject}</span>
               <span style={s.targetUserPill}>{plan.studyMethod.targetUser}</span>
+              <span style={{
+                ...s.analysisSourceBadge,
+                ...(plan.analysisSource?.type === "ai" ? s.analysisSourceAi : s.analysisSourceData),
+              }}>
+                {plan.analysisSource?.label || "분석 소스 미확인"}
+              </span>
               <button onClick={resetAll} style={s.resetSmallBtn}>↩ 다시</button>
             </div>
 
@@ -886,6 +898,9 @@ const s = {
   gradePill: { borderRadius: 999, padding: "4px 12px", fontWeight: 700, fontSize: 13, color: "#fff" },
   electivePill: { borderRadius: 999, padding: "4px 12px", fontWeight: 700, fontSize: 13, background: "rgba(99,102,241,0.2)", border: "1px solid rgba(99,102,241,0.4)", color: "#c7d2fe" },
   targetUserPill: { borderRadius: 999, padding: "3px 10px", fontSize: 12, background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)", color: "#94a3b8" },
+  analysisSourceBadge: { borderRadius: 999, padding: "3px 10px", fontSize: 12, border: "1px solid", fontWeight: 600 },
+  analysisSourceAi: { background: "rgba(34,197,94,0.12)", borderColor: "rgba(34,197,94,0.4)", color: "#86efac" },
+  analysisSourceData: { background: "rgba(148,163,184,0.12)", borderColor: "rgba(148,163,184,0.35)", color: "#cbd5e1" },
   arrow: { color: "#475569", fontSize: 18 },
   resetSmallBtn: { marginLeft: "auto", border: "1px solid rgba(255,255,255,0.12)", background: "rgba(255,255,255,0.04)", color: "#94a3b8", borderRadius: 8, padding: "5px 12px", cursor: "pointer", fontSize: 12 },
   tabBar: { display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 16 },

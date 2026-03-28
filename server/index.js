@@ -12,7 +12,8 @@ const FRONTEND_ORIGINS = (process.env.FRONTEND_ORIGIN || "http://localhost:3000"
   .map((x) => x.trim())
   .filter(Boolean);
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY || "";
-const AI_MODEL = process.env.AI_MODEL || "gpt-4.1-mini";
+const AI_MODEL = process.env.AI_MODEL || "gpt-4.1";
+const AI_FALLBACK_MODEL = process.env.AI_FALLBACK_MODEL || "gpt-4.1-mini";
 const ELECTIVE_SUBJECTS = ["확률과통계", "미적분", "기하"];
 
 const DATA_DIR = path.join(process.cwd(), "data");
@@ -42,9 +43,11 @@ app.use(express.json({ limit: "2mb" }));
 app.get("/api/health", async (_req, res) => {
   const knowledge = await loadKnowledgeBase();
   const catalog = await loadRecommendationCatalog();
+  const modelCandidates = getModelCandidates();
   res.json({
     ok: true,
-    model: AI_MODEL,
+    model: modelCandidates[0],
+    modelCandidates,
     electives: ELECTIVE_SUBJECTS,
     knowledgeItems: knowledge.items.length,
     knowledgeUpdatedAt: knowledge.updatedAt || null,
@@ -118,21 +121,36 @@ app.post("/api/analyze", async (req, res) => {
 
     let plan;
     let usedModel = false;
+    let usedModelName = null;
 
     if (OPENAI_API_KEY) {
-      try {
-        const rawJson = await requestPlanJson(userPrompt);
-        plan = normalizePlan(rawJson, {
-          knowledgeBlend,
-          recommendationSeed,
-          currentGrade: from,
-          targetGrade: to,
-          electiveSubject,
-          mathStructure,
-        });
-        usedModel = true;
-      } catch (error) {
-        console.warn(`[analyze] model failed -> fallback: ${error.message}`);
+      const modelCandidates = getModelCandidates();
+      let lastModelError = null;
+
+      for (const modelName of modelCandidates) {
+        try {
+          const rawJson = await requestPlanJson(userPrompt, modelName);
+          plan = normalizePlan(rawJson, {
+            knowledgeBlend,
+            recommendationSeed,
+            currentGrade: from,
+            targetGrade: to,
+            electiveSubject,
+            mathStructure,
+          });
+          usedModel = true;
+          usedModelName = modelName;
+          break;
+        } catch (error) {
+          lastModelError = error;
+          console.warn(`[analyze] model failed (${modelName}) -> retry: ${error.message}`);
+        }
+      }
+
+      if (!plan) {
+        if (lastModelError) {
+          console.warn(`[analyze] all model attempts failed -> fallback plan: ${lastModelError.message}`);
+        }
         plan = createFallbackPlan({
           currentGrade: from,
           targetGrade: to,
@@ -175,6 +193,7 @@ app.post("/api/analyze", async (req, res) => {
         id: jobId,
         file: path.relative(process.cwd(), outPath),
         usedModel,
+        model: usedModelName,
         knowledgeUpdatedAt: knowledge.updatedAt || null,
       },
     });
@@ -828,7 +847,14 @@ function buildAnalyzePrompt({
   ].join("\n");
 }
 
-async function requestPlanJson(userPrompt) {
+function getModelCandidates() {
+  const candidates = [AI_MODEL, AI_FALLBACK_MODEL]
+    .map((x) => toText(x))
+    .filter(Boolean);
+  return [...new Set(candidates)];
+}
+
+async function requestPlanJson(userPrompt, modelName) {
   const systemPrompt = [
     "너는 수능 수학 학습 코치다.",
     "학생의 현재등급/목표등급과 학습된 지식 요약을 바탕으로 실천 가능한 학습 계획을 만든다.",
@@ -843,7 +869,7 @@ async function requestPlanJson(userPrompt) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      model: AI_MODEL,
+      model: modelName,
       temperature: 0.25,
       response_format: { type: "json_object" },
       messages: [
