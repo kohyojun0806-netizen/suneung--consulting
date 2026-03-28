@@ -1,29 +1,79 @@
 [
   {
-    "id": "yt-video-01",
-    "title": "YouTube Single Video Source",
+    "id": "yt-grade-method-01",
+    "type": "youtube",
+    "platform": "youtube",
+    "bucket": "study_methods",
+    "tags": ["grade_strategy", "concept_output"],
+    "title": "YouTube Grade Strategy Video",
     "youtubeUrl": "https://www.youtube.com/watch?v=sST8059i3mw",
     "includeVideoFrames": true
   },
   {
-    "id": "yt-playlist-01",
-    "title": "YouTube Playlist Source",
+    "id": "yt-playlist-ot-01",
+    "type": "youtube_playlist",
+    "platform": "youtube",
+    "bucket": "lecture_books",
+    "tags": ["ot", "curriculum", "teacher_style"],
+    "title": "YouTube OT Playlist",
     "playlistUrl": "https://www.youtube.com/playlist?list=PLxxxxxxxxxxxx",
     "includeVideoFrames": true
   },
   {
-    "id": "sub-local-01",
+    "id": "sub-local-review-01",
+    "type": "subtitle_file",
+    "platform": "local",
+    "bucket": "learning_routines",
+    "tags": ["review", "mistake_log"],
     "title": "Local Subtitle Source",
     "subtitlePath": "data/subs/sample.ko-orig.srt"
   },
   {
-    "id": "web-page-01",
-    "title": "Web Study Page Source",
+    "id": "community-column-01",
+    "type": "community_column",
+    "platform": "orbi",
+    "bucket": "study_methods",
+    "tags": ["column", "mindset", "problem_solving"],
+    "title": "Community Study Column",
+    "webUrl": "https://example.com/community-column",
+    "includeImages": false
+  },
+  {
+    "id": "community-review-01",
+    "type": "community_review",
+    "platform": "orbi",
+    "bucket": "lecture_books",
+    "tags": ["teacher_review", "course_experience"],
+    "title": "Community Teacher Review Thread",
+    "webUrl": "https://example.com/community-review",
+    "includeImages": false
+  },
+  {
+    "id": "official-curriculum-01",
+    "type": "official_curriculum",
+    "platform": "academy_site",
+    "bucket": "lecture_books",
+    "tags": ["official", "curriculum", "booklist"],
+    "title": "Official Teacher Curriculum Page",
     "webUrl": "https://example.com/math-study-page",
     "includeImages": true
   },
   {
-    "id": "text-01",
+    "id": "kice-guide-01",
+    "type": "official_guideline",
+    "platform": "kice",
+    "bucket": "study_methods",
+    "tags": ["kice", "exam_scope"],
+    "title": "KICE Guideline",
+    "webUrl": "https://example.com/kice-guideline.pdf",
+    "includeImages": false
+  },
+  {
+    "id": "text-manual-01",
+    "type": "manual_text",
+    "platform": "manual",
+    "bucket": "learning_routines",
+    "tags": ["weekly_report", "coaching_rule"],
     "title": "Manual Transcript Source",
     "transcript": "Concepts must be converted from input to output practice."
   }

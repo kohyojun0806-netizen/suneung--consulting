@@ -227,8 +227,12 @@ async function buildKnowledgeItem(source, index) {
 
   const idBase = normalized.id || sourceLabel;
   const id = `kb-${hashString(idBase).slice(0, 10)}`;
+  const bucket = normalizeBucket(
+    summary.bucket || normalized.bucket || inferBucketFromSource(normalized)
+  );
   return {
     id,
+    bucket,
     title: summary.title || normalized.title || sourceLabel,
     source: sourceLabel,
     applies_to: normalizeAppliesTo(summary.applies_to),
@@ -236,6 +240,14 @@ async function buildKnowledgeItem(source, index) {
     steps: normalizeSteps(summary.steps),
     cautions: normalizeTextList(summary.cautions, 5),
     keywords: normalizeTextList(summary.keywords, 8),
+    meta: {
+      sourceType: normalized.type || inferSourceType(normalized),
+      platform: normalized.platform || "",
+      tags: normalizeTextList(normalized.tags, 8),
+      youtubeUrl: normalized.youtubeUrl || "",
+      playlistUrl: normalized.playlistUrl || "",
+      webUrl: normalized.webUrl || "",
+    },
   };
 }
 
@@ -251,6 +263,10 @@ function normalizeSource(source) {
     includeImages: source?.includeImages !== false,
     subtitlePath: typeof source?.subtitlePath === "string" ? source.subtitlePath.trim() : "",
     transcript: typeof source?.transcript === "string" ? source.transcript : "",
+    type: typeof source?.type === "string" ? source.type.trim().toLowerCase() : "",
+    platform: typeof source?.platform === "string" ? source.platform.trim() : "",
+    bucket: typeof source?.bucket === "string" ? source.bucket.trim() : "",
+    tags: Array.isArray(source?.tags) ? source.tags : [],
   };
 }
 
@@ -307,6 +323,48 @@ function normalizeAppliesTo(value) {
   const arr = Array.isArray(value) ? value : [];
   const normalized = arr.map((v) => String(v).trim()).filter((v) => allowed.has(v));
   return normalized.length ? Array.from(new Set(normalized)) : ["all"];
+}
+
+function normalizeBucket(value) {
+  const text = String(value || "").trim().toLowerCase();
+  if (["study_methods", "math_study_methods", "수학 공부법"].includes(text)) {
+    return "study_methods";
+  }
+  if (["lecture_books", "lecture_and_books", "강의·교재 추천"].includes(text)) {
+    return "lecture_books";
+  }
+  if (["learning_routines", "학습 루틴"].includes(text)) {
+    return "learning_routines";
+  }
+  return "study_methods";
+}
+
+function inferSourceType(source) {
+  if (source?.youtubeUrl) return "youtube";
+  if (source?.playlistUrl) return "youtube_playlist";
+  if (source?.webUrl) return "web";
+  if (source?.subtitlePath) return "subtitle_file";
+  if (source?.transcript) return "manual_text";
+  return "unknown";
+}
+
+function inferBucketFromSource(source) {
+  const hay = [
+    source?.type,
+    source?.title,
+    source?.platform,
+    ...(Array.isArray(source?.tags) ? source.tags : []),
+  ]
+    .map((x) => String(x || "").toLowerCase())
+    .join(" ");
+
+  if (/(book|lecture|curriculum|ot|review|teacher|course|class|material|교재|강의|커리큘럼|수강후기|인강)/.test(hay)) {
+    return "lecture_books";
+  }
+  if (/(routine|review|mistake|time|streak|retry|schedule|habit|오답|복습|루틴|시간관리)/.test(hay)) {
+    return "learning_routines";
+  }
+  return "study_methods";
 }
 
 function normalizeSteps(value) {
@@ -366,6 +424,7 @@ function createExtractiveKnowledgeSummary({ title, transcript }) {
 
   return {
     title,
+    bucket: "study_methods",
     applies_to: ["all"],
     core: coreSentences.join(" ") || fallbackCoreFromTitle(title),
     steps: buildExtractiveSteps(actionSentences.length ? actionSentences : rankedTexts.slice(0, 8)),
@@ -752,6 +811,7 @@ async function createKnowledgeSummary({ title, transcript, visualSummary }) {
     "스키마:",
     "{",
     '  "title":"string",',
+    '  "bucket":"study_methods"|"lecture_books"|"learning_routines",',
     '  "applies_to":["9-7"|"7-5"|"5-3"|"3-1"|"all"],',
     '  "core":"string",',
     '  "steps":[{"title":"string","detail":"string"}],',

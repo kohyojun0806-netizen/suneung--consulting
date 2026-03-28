@@ -14,6 +14,10 @@ const FRONTEND_ORIGINS = (process.env.FRONTEND_ORIGIN || "http://localhost:3000"
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY || "";
 const AI_MODEL = process.env.AI_MODEL || "gpt-4.1-mini";
 const AI_FALLBACK_MODEL = process.env.AI_FALLBACK_MODEL || "gpt-4.1-mini";
+const ANALYZE_MAX_TOKENS = Number(process.env.ANALYZE_MAX_TOKENS || 900);
+const TRACKER_REPORT_MAX_TOKENS = Number(process.env.TRACKER_REPORT_MAX_TOKENS || 380);
+const TRACKER_CONSULT_MAX_TOKENS = Number(process.env.TRACKER_CONSULT_MAX_TOKENS || 320);
+const TRACKER_REPORT_LOG_WEEKS = Number(process.env.TRACKER_REPORT_LOG_WEEKS || 3);
 const ELECTIVE_SUBJECTS = ["확률과통계", "미적분", "기하"];
 
 const DATA_DIR = path.join(process.cwd(), "data");
@@ -203,6 +207,89 @@ app.post("/api/analyze", async (req, res) => {
   }
 });
 
+app.post("/api/tracker/report", async (req, res) => {
+  try {
+    const profile = req.body?.profile || {};
+    const logs = asArray(req.body?.logs).slice(0, TRACKER_REPORT_LOG_WEEKS);
+    const method = req.body?.method || {};
+    const metrics = {
+      ...req.body?.metrics,
+      allWeakPoints: truncateText(toText(req.body?.metrics?.allWeakPoints), 160),
+      allMemos: truncateText(toText(req.body?.metrics?.allMemos), 220),
+    };
+
+    const fallback = createTrackerReportFallback(profile, logs, method, metrics);
+    let report = fallback;
+    let usedModel = false;
+    let usedModelName = null;
+
+    if (OPENAI_API_KEY) {
+      const prompt = buildTrackerReportPrompt(profile, logs, method, metrics);
+      for (const modelName of getModelCandidates()) {
+        try {
+          const raw = await requestJsonObject(prompt, modelName, TRACKER_REPORT_MAX_TOKENS);
+          report = normalizeTrackerReport(raw, fallback);
+          usedModel = true;
+          usedModelName = modelName;
+          break;
+        } catch (error) {
+          console.warn(`[tracker/report] model failed (${modelName}): ${error.message}`);
+        }
+      }
+    }
+
+    return res.json({
+      report,
+      meta: { usedModel, model: usedModelName },
+    });
+  } catch (error) {
+    console.error("[tracker/report] error:", error);
+    return res.status(500).json({ error: error.message || "주간 리포트 생성 실패" });
+  }
+});
+
+app.post("/api/tracker/consult", async (req, res) => {
+  try {
+    const profile = req.body?.profile || {};
+    const question = truncateText(toText(req.body?.question), 140);
+    const summary = truncateText(toText(req.body?.summary), 260);
+    const methodCore = truncateText(toText(req.body?.methodCore), 120);
+
+    if (!question) {
+      return res.status(400).json({ error: "question을 입력해주세요." });
+    }
+
+    let answer = createTrackerConsultFallback(profile, question, summary, methodCore);
+    let usedModel = false;
+    let usedModelName = null;
+
+    if (OPENAI_API_KEY) {
+      const prompt = buildTrackerConsultPrompt(profile, question, summary, methodCore);
+      for (const modelName of getModelCandidates()) {
+        try {
+          const text = await requestTextResponse(prompt, modelName, TRACKER_CONSULT_MAX_TOKENS);
+          if (toText(text)) {
+            answer = toText(text);
+            usedModel = true;
+            usedModelName = modelName;
+            break;
+          }
+        } catch (error) {
+          console.warn(`[tracker/consult] model failed (${modelName}): ${error.message}`);
+        }
+      }
+    }
+
+    return res.json({
+      answer,
+      meta: { usedModel, model: usedModelName },
+    });
+  } catch (error) {
+    console.error("[tracker/consult] error:", error);
+    return res.status(500).json({ error: error.message || "AI 컨설팅 생성 실패" });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`API server ready: http://localhost:${PORT}`);
 });
@@ -251,14 +338,14 @@ function buildKnowledgeSummary(knowledge, catalog) {
   const allItems = asArray(knowledge?.items);
   const studyMethods = dedupeTextList(
     allItems
-      .filter((item) => toText(item?.bucket) === "수학 공부법")
+      .filter((item) => isBucket(item?.bucket, "study_methods"))
       .map((item) => sanitizeKnowledgeText(item?.core))
       .filter((text) => isUsefulStudyText(text))
   ).slice(0, 8);
 
   const learningRoutines = dedupeTextList(
     allItems
-      .filter((item) => toText(item?.bucket) === "학습 루틴")
+      .filter((item) => isBucket(item?.bucket, "learning_routines"))
       .flatMap((item) =>
         asArray(item?.steps).map((step) => sanitizeKnowledgeText(`${toText(step?.title)}: ${toText(step?.detail)}`))
       )
@@ -304,6 +391,17 @@ function buildKnowledgeSummary(knowledge, catalog) {
 function appliesTo(item, key) {
   if (!Array.isArray(item?.applies_to)) return false;
   return item.applies_to.includes(key);
+}
+
+function isBucket(value, canonical) {
+  const text = toText(value).toLowerCase();
+  const aliases = {
+    study_methods: ["study_methods", "math_study_methods", "수학 공부법"],
+    lecture_books: ["lecture_books", "lecture_and_books", "강의·교재 추천"],
+    learning_routines: ["learning_routines", "학습 루틴"],
+  };
+  const allowed = aliases[canonical] || [canonical];
+  return allowed.map((x) => String(x).toLowerCase()).includes(text);
 }
 
 function blendKnowledgeItems(items) {
@@ -364,13 +462,13 @@ function blendKnowledgeItems(items) {
     .map(([key]) => key);
 
   const studyMethods = sourceItems
-    .filter((item) => toText(item?.bucket) === "수학 공부법")
+    .filter((item) => isBucket(item?.bucket, "study_methods"))
     .map((item) => sanitizeKnowledgeText(item?.core))
     .filter((text) => isUsefulStudyText(text))
     .slice(0, 8);
 
   const learningRoutines = sourceItems
-    .filter((item) => toText(item?.bucket) === "학습 루틴")
+    .filter((item) => isBucket(item?.bucket, "learning_routines"))
     .flatMap((item) =>
       asArray(item?.steps).map((step) => sanitizeKnowledgeText(`${toText(step?.title)}: ${toText(step?.detail)}`))
     )
@@ -872,6 +970,7 @@ async function requestPlanJson(userPrompt, modelName) {
       model: modelName,
       temperature: 0.25,
       response_format: { type: "json_object" },
+      max_tokens: ANALYZE_MAX_TOKENS,
       messages: [
         { role: "system", content: systemPrompt },
         { role: "user", content: userPrompt },
@@ -887,6 +986,67 @@ async function requestPlanJson(userPrompt, modelName) {
   const content = data?.choices?.[0]?.message?.content;
   if (!content) throw new Error("모델 응답이 비어 있습니다.");
   return parseJsonSafely(content);
+}
+
+async function requestJsonObject(userPrompt, modelName, maxTokens = TRACKER_REPORT_MAX_TOKENS) {
+  const systemPrompt = [
+    "너는 수능 수학 학습 코치다.",
+    "반드시 JSON 객체만 반환한다.",
+    "마크다운 코드블록 없이 순수 JSON만 반환한다.",
+  ].join("\n");
+
+  const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${OPENAI_API_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      model: modelName,
+      temperature: 0.2,
+      response_format: { type: "json_object" },
+      max_tokens: maxTokens,
+      messages: [
+        { role: "system", content: systemPrompt },
+        { role: "user", content: userPrompt },
+      ],
+    }),
+  });
+
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(data?.error?.message || `OpenAI API 오류 (${response.status})`);
+  }
+  const content = data?.choices?.[0]?.message?.content;
+  if (!content) throw new Error("모델 응답이 비어 있습니다.");
+  return parseJsonSafely(content);
+}
+
+async function requestTextResponse(userPrompt, modelName, maxTokens = TRACKER_CONSULT_MAX_TOKENS) {
+  const systemPrompt = "너는 수능 수학 학습 코치다. 한국어로 간결하고 실천적으로 답한다.";
+
+  const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${OPENAI_API_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      model: modelName,
+      temperature: 0.35,
+      max_tokens: maxTokens,
+      messages: [
+        { role: "system", content: systemPrompt },
+        { role: "user", content: userPrompt },
+      ],
+    }),
+  });
+
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(data?.error?.message || `OpenAI API 오류 (${response.status})`);
+  }
+  return toText(data?.choices?.[0]?.message?.content);
 }
 
 function parseJsonSafely(text) {
@@ -1291,9 +1451,101 @@ function buildFallbackTemplateByGrade(currentGrade) {
   };
 }
 
+function buildTrackerReportPrompt(profile, logs, method, metrics) {
+  return [
+    "학생 주간 학습 리포트를 JSON으로 생성하세요.",
+    `학생: ${toText(profile?.currentGrade)}→${toText(profile?.targetGrade)} / ${toText(profile?.elective, "미적분")}`,
+    `핵심: ${truncateText(toText(method?.core), 100)}`,
+    `최근기록: ${asArray(logs).map((x) => `${toText(x?.week)}:${toText(String(x?.hours || 0))}h`).join(", ") || "없음"}`,
+    `총시간:${toText(String(metrics?.totalHours || 0))} / 평균점수:${Number.isFinite(metrics?.avgScore) ? `${Math.round(metrics.avgScore)}점` : "미측정"}`,
+    `취약:${toText(metrics?.allWeakPoints, "없음")}`,
+    `메모:${toText(metrics?.allMemos, "없음")}`,
+    "아래 키만 포함해서 짧고 실천적으로 작성:",
+    "{",
+    '  "overall": "string",',
+    '  "strengths": ["string"],',
+    '  "improvements": ["string"],',
+    '  "next_week_plan": ["string"],',
+    '  "caution": "string",',
+    '  "encouragement": "string"',
+    "}",
+  ].join("\n");
+}
+
+function createTrackerReportFallback(profile, logs, method, metrics) {
+  const avg = Number.isFinite(metrics?.avgScore) ? `${Math.round(metrics.avgScore)}점` : "미측정";
+  const thisWeekHours = Number(logs?.[0]?.hours || 0);
+  const prevWeekHours = Number(logs?.[1]?.hours || 0);
+  const delta = thisWeekHours - prevWeekHours;
+  const trend = delta > 0 ? `지난주보다 +${delta}시간 증가` : delta < 0 ? `지난주보다 ${delta}시간 감소` : "주간 학습시간 유지";
+
+  return {
+    overall: `최근 4주 총 ${Number(metrics?.totalHours || 0)}시간 학습했고 평균 모의 점수는 ${avg}입니다. ${trend} 흐름이며, ${toText(method?.focus, "핵심 루틴 유지")}를 지키면 목표 등급에 더 빠르게 접근할 수 있습니다.`,
+    strengths: [
+      asArray(logs).length >= 3 ? "학습 기록을 꾸준히 남기며 루틴을 만들고 있어요." : "학습 루틴 구축을 시작한 점이 좋아요.",
+      Number(metrics?.totalHours || 0) >= 8 ? "주간 학습량이 상승 구간 진입 기준에 근접해요." : "무리하지 않는 범위에서 지속 학습 흐름을 만들고 있어요.",
+    ],
+    improvements: [
+      "취약 단원을 1~2개로 압축해 집중 보완하세요.",
+      "오답 복기를 주 3회 고정해 같은 실수 재발을 줄이세요.",
+    ],
+    next_week_plan: [
+      "월/수/금: 개념 출력 + 쉬운 기출 적용 루틴(90분)",
+      "화/목: 취약 단원 보완 + 오답 재풀이",
+      "주말: 실전 세트 1회 + 40분 복기 노트 작성",
+    ],
+    caution: "강의 시청만 늘리고 문제 적용을 미루면 점수 정체가 길어집니다.",
+    encouragement: `${toText(profile?.name, "학생")}님은 루틴을 만들 수 있는 힘이 있어요. 다음 주는 '취약 단원 축소 + 오답 복기 고정'만 지켜도 체감이 올 거예요.`,
+    generatedAt: new Date().toISOString().slice(0, 10),
+  };
+}
+
+function normalizeTrackerReport(raw, fallback) {
+  if (!raw || typeof raw !== "object") return fallback;
+  const strengths = asArray(raw?.strengths).map((x) => toText(x)).filter(Boolean).slice(0, 4);
+  const improvements = asArray(raw?.improvements).map((x) => toText(x)).filter(Boolean).slice(0, 4);
+  const nextWeekPlan = asArray(raw?.next_week_plan).map((x) => toText(x)).filter(Boolean).slice(0, 5);
+  return {
+    overall: toText(raw?.overall, fallback.overall),
+    strengths: strengths.length ? strengths : fallback.strengths,
+    improvements: improvements.length ? improvements : fallback.improvements,
+    next_week_plan: nextWeekPlan.length ? nextWeekPlan : fallback.next_week_plan,
+    caution: toText(raw?.caution, fallback.caution),
+    encouragement: toText(raw?.encouragement, fallback.encouragement),
+    generatedAt: new Date().toISOString().slice(0, 10),
+  };
+}
+
+function buildTrackerConsultPrompt(profile, question, summary, methodCore) {
+  return [
+    "수능 수학 코치로 답하세요.",
+    `학생:${toText(profile?.currentGrade)}→${toText(profile?.targetGrade)} / ${toText(profile?.elective, "미적분")}`,
+    `핵심:${truncateText(toText(methodCore), 100)}`,
+    `요약:${truncateText(toText(summary), 220)}`,
+    `질문:${truncateText(toText(question), 140)}`,
+    "원칙: 2~3문단, 실행 행동 3개 이내, 한국어.",
+  ].join("\n");
+}
+
+function createTrackerConsultFallback(profile, question, summary, methodCore) {
+  return [
+    `${toText(profile?.currentGrade)}등급에서 ${toText(profile?.targetGrade)}등급으로 가려면 핵심은 "${toText(methodCore, "개념-적용-복기 루틴 고정")}"입니다.`,
+    `현재 요약: ${toText(summary, "학습 요약 데이터가 부족합니다.")}`,
+    `질문 "${toText(question)}"에 대한 실행 제안: 오늘부터 개념 출력 20분 → 기출 적용 40분 → 오답 복기 20분 루틴을 7일 연속 유지해보세요.`,
+    "다음 점검 기준: 이번 주에 같은 유형 오답 재발 횟수가 줄었는지 확인하세요.",
+  ].join("\n\n");
+}
+
 function sanitizeKnowledgeText(value) {
   const text = toText(value);
   return text.replace(/\s+/g, " ").trim();
+}
+
+function truncateText(value, maxLen = 200) {
+  const text = toText(value);
+  if (!text) return "";
+  if (text.length <= maxLen) return text;
+  return `${text.slice(0, maxLen)}…`;
 }
 
 function looksLikeGibberish(text) {
