@@ -1,0 +1,629 @@
+{
+  "updatedAt": "2026-03-27",
+  "notes": "공식 페이지(시대인재/두각) + 커뮤니티(오르비/시대인재N재수종합갤러리) 기반으로 확장한 수능 수학 강사/교재 카탈로그",
+  "instructors": [
+    {
+      "name": "시대인재 수학스쿨(대치)",
+      "platform": "시대인재",
+      "fitKeys": [
+        "7-5",
+        "5-3",
+        "3-1"
+      ],
+      "subjectTags": [
+        "공통",
+        "미적분",
+        "기하",
+        "확률과통계"
+      ],
+      "strengths": [
+        "공식 시간표 기반 단과 운영",
+        "고3/고2/고1 트랙 분리",
+        "수학스쿨 전용 상담 채널 운영"
+      ],
+      "bestFor": "현장 단과 루틴으로 강제 학습량과 실전 감각을 동시에 올리고 싶은 학생",
+      "usage": "정규반 1개를 메인으로 두고, 취약 단원 특강만 추가하는 방식으로 과부하를 피하세요.",
+      "sourceLevel": "official",
+      "confidence": 0.9,
+      "sourceRefs": [
+        "https://www.sdij.com/aca/schd/"
+      ]
+    },
+    {
+      "name": "김도혁",
+      "platform": "두각(분당)",
+      "fitKeys": [
+        "7-5",
+        "5-3",
+        "3-1"
+      ],
+      "subjectTags": [
+        "공통",
+        "미적분"
+      ],
+      "strengths": [
+        "두각 공식 수학 강사진",
+        "강남대성/S2 출강 이력",
+        "중상위권 실전 전환형 수업"
+      ],
+      "bestFor": "개념은 아는데 시험에서 속도/정확도가 흔들리는 학생",
+      "usage": "주중 수업 + 주말 오답 복기 세트로 '풀이속도-정확도'를 같이 관리하세요.",
+      "sourceLevel": "official",
+      "confidence": 0.95,
+      "sourceRefs": [
+        "https://bundangdugak.dshw.co.kr/teacher/teacher.htm?subject=2",
+        "https://bundangdugak.dshw.co.kr/teacher/teacher.htm"
+      ]
+    },
+    {
+      "name": "손승연",
+      "platform": "두각(분당)",
+      "fitKeys": [
+        "7-5",
+        "5-3",
+        "3-1"
+      ],
+      "subjectTags": [
+        "공통",
+        "미적분",
+        "기하"
+      ],
+      "strengths": [
+        "두각 공식 수학 강사진",
+        "수학교육 전공 기반 설명",
+        "파이널 특강 운영 경험"
+      ],
+      "bestFor": "개념을 말로 설명하면 약한데 문제에서만 막히는 학생",
+      "usage": "수업 직후 백지 복습 20분을 고정해 '듣기 공부'를 '출력 공부'로 바꾸세요.",
+      "sourceLevel": "official",
+      "confidence": 0.95,
+      "sourceRefs": [
+        "https://bundangdugak.dshw.co.kr/teacher/teacher.htm?subject=2",
+        "https://bundangdugak.dshw.co.kr/teacher/teacher.htm"
+      ]
+    },
+    {
+      "name": "엄소연",
+      "platform": "시대인재(커뮤니티 언급)",
+      "fitKeys": [
+        "7-5",
+        "5-3",
+        "3-1"
+      ],
+      "subjectTags": [
+        "공통",
+        "미적분"
+      ],
+      "strengths": [
+        "시대인재 공통반 후보로 반복 언급",
+        "중상위권 학생 후기 데이터 존재"
+      ],
+      "bestFor": "시대인재 단과 선택 전 비교가 필요한 학생",
+      "usage": "커뮤니티 평판만 보지 말고 시간표/진도/과제량을 본인 루틴과 맞춰서 선택하세요.",
+      "sourceLevel": "community",
+      "confidence": 0.7,
+      "sourceRefs": [
+        "https://orbi.kr/00069285059"
+      ]
+    },
+    {
+      "name": "안가람",
+      "platform": "시대인재(커뮤니티 언급)",
+      "fitKeys": [
+        "7-5",
+        "5-3",
+        "3-1"
+      ],
+      "subjectTags": [
+        "공통",
+        "미적분"
+      ],
+      "strengths": [
+        "시대인재 공통반 후보로 반복 언급",
+        "현장 선택지 비교군으로 자주 등장"
+      ],
+      "bestFor": "시대인재 내 공통반 다중 선택지 비교 중인 학생",
+      "usage": "수업 스타일보다 과제 회수 가능성을 먼저 점검하고 결정하세요.",
+      "sourceLevel": "community",
+      "confidence": 0.68,
+      "sourceRefs": [
+        "https://orbi.kr/00069285059"
+      ]
+    },
+    {
+      "name": "장재원",
+      "platform": "시대인재(커뮤니티 언급)",
+      "fitKeys": [
+        "7-5",
+        "5-3",
+        "3-1"
+      ],
+      "subjectTags": [
+        "공통",
+        "미적분",
+        "기하"
+      ],
+      "strengths": [
+        "시대인재 공통반 비교글 상위 빈도",
+        "실전형 수업 기대치 언급"
+      ],
+      "bestFor": "중상위권에서 실전 감각을 빠르게 올리고 싶은 학생",
+      "usage": "기출+모의 병행 주간 루틴이 있는 학생에게 더 잘 맞습니다.",
+      "sourceLevel": "community",
+      "confidence": 0.7,
+      "sourceRefs": [
+        "https://orbi.kr/00069285059"
+      ]
+    },
+    {
+      "name": "이동준",
+      "platform": "시대인재(커뮤니티 언급)",
+      "fitKeys": [
+        "7-5",
+        "5-3",
+        "3-1"
+      ],
+      "subjectTags": [
+        "공통",
+        "미적분"
+      ],
+      "strengths": [
+        "시대인재 공통반 후보로 언급",
+        "단과 선택 비교 글에서 반복 등장"
+      ],
+      "bestFor": "단과 선택 전 여러 강사 스타일을 비교 중인 학생",
+      "usage": "OT/샘플 수업 확인 후 본인 오답 복기 스타일과 맞는지 판단하세요.",
+      "sourceLevel": "community",
+      "confidence": 0.67,
+      "sourceRefs": [
+        "https://orbi.kr/00069285059"
+      ]
+    },
+    {
+      "name": "박종민",
+      "platform": "시대인재(커뮤니티 언급)",
+      "fitKeys": [
+        "7-5",
+        "5-3",
+        "3-1"
+      ],
+      "subjectTags": [
+        "공통",
+        "미적분",
+        "확률과통계"
+      ],
+      "strengths": [
+        "시대인재 공통반 후보로 언급",
+        "커뮤니티 비교군 포함"
+      ],
+      "bestFor": "정규반 1~2개 조합을 고민하는 학생",
+      "usage": "정규반 2개 병행은 오답 복기 시간이 확보될 때만 선택하세요.",
+      "sourceLevel": "community",
+      "confidence": 0.67,
+      "sourceRefs": [
+        "https://orbi.kr/00069285059"
+      ]
+    },
+    {
+      "name": "정승제",
+      "platform": "메가스터디",
+      "fitKeys": [
+        "9-7",
+        "7-5"
+      ],
+      "subjectTags": [
+        "공통"
+      ],
+      "strengths": [
+        "노베이스 친화 개념 설명",
+        "기초-유형 연결 루틴 구축"
+      ],
+      "bestFor": "기초가 약해 개념 회상이 어려운 학생",
+      "usage": "개념 강의 후 같은 날 기본유형 20문항으로 바로 출력하세요.",
+      "sourceLevel": "official+community",
+      "confidence": 0.85,
+      "sourceRefs": []
+    },
+    {
+      "name": "현우진",
+      "platform": "메가스터디",
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "subjectTags": [
+        "공통",
+        "미적분",
+        "기하"
+      ],
+      "strengths": [
+        "고난도 문제 접근 훈련",
+        "실전 감각 강화형 커리큘럼"
+      ],
+      "bestFor": "중상위권에서 준킬러/킬러 전환이 필요한 학생",
+      "usage": "실전 세트+오답 복기까지 한 루틴으로 묶어서 운영하세요.",
+      "sourceLevel": "official+community",
+      "confidence": 0.86,
+      "sourceRefs": []
+    },
+    {
+      "name": "EBSi 수학 강사진",
+      "platform": "EBSi",
+      "fitKeys": [
+        "9-7",
+        "7-5",
+        "5-3",
+        "3-1"
+      ],
+      "subjectTags": [
+        "공통",
+        "미적분",
+        "기하",
+        "확률과통계"
+      ],
+      "strengths": [
+        "연계교재 해설 접근성",
+        "비용 부담 적은 보완 학습"
+      ],
+      "bestFor": "사교육 비용을 줄이면서 연계교재 중심으로 공부할 학생",
+      "usage": "수특/수완 단원별 취약 파트만 선택적으로 붙이세요.",
+      "sourceLevel": "official",
+      "confidence": 0.9,
+      "sourceRefs": []
+    }
+  ],
+  "books": [
+    {
+      "title": "개념원리 수학I·수학II",
+      "type": "개념서",
+      "fitKeys": [
+        "9-7",
+        "7-5"
+      ],
+      "purpose": "공통과목 기초 개념 구조화",
+      "when": "3~6모 전",
+      "difficulty": "하~중",
+      "subjectTags": [
+        "공통"
+      ],
+      "sourceLevel": "official+community",
+      "confidence": 0.9,
+      "sourceRefs": []
+    },
+    {
+      "title": "RPM 수학I·수학II",
+      "type": "유형서",
+      "fitKeys": [
+        "9-7",
+        "7-5"
+      ],
+      "purpose": "개념 직후 기본 유형 반복",
+      "when": "3~6모 전",
+      "difficulty": "중",
+      "subjectTags": [
+        "공통"
+      ],
+      "sourceLevel": "official+community",
+      "confidence": 0.88,
+      "sourceRefs": []
+    },
+    {
+      "title": "쎈 수학I·수학II",
+      "type": "유형서",
+      "fitKeys": [
+        "9-7",
+        "7-5",
+        "5-3"
+      ],
+      "purpose": "유형별 풀이 속도 확보",
+      "when": "3~6모 전",
+      "difficulty": "중",
+      "subjectTags": [
+        "공통"
+      ],
+      "sourceLevel": "official+community",
+      "confidence": 0.87,
+      "sourceRefs": []
+    },
+    {
+      "title": "자이스토리 수학I·수학II",
+      "type": "기출서",
+      "fitKeys": [
+        "7-5",
+        "5-3",
+        "3-1"
+      ],
+      "purpose": "기출 문항 적응 및 실전 루틴",
+      "when": "6~9모",
+      "difficulty": "중~상",
+      "subjectTags": [
+        "공통"
+      ],
+      "sourceLevel": "official+community",
+      "confidence": 0.9,
+      "sourceRefs": []
+    },
+    {
+      "title": "마더텅 수능기출문제집 수학I·수학II",
+      "type": "기출서",
+      "fitKeys": [
+        "7-5",
+        "5-3",
+        "3-1"
+      ],
+      "purpose": "기출 반복량 확보",
+      "when": "6~9모",
+      "difficulty": "중~상",
+      "subjectTags": [
+        "공통"
+      ],
+      "sourceLevel": "official+community",
+      "confidence": 0.9,
+      "sourceRefs": []
+    },
+    {
+      "title": "EBS 수능특강 수학영역",
+      "type": "연계교재",
+      "fitKeys": [
+        "9-7",
+        "7-5",
+        "5-3",
+        "3-1"
+      ],
+      "purpose": "연계 체감 확보 및 기본 실전",
+      "when": "6~9모",
+      "difficulty": "중",
+      "subjectTags": [
+        "공통",
+        "미적분",
+        "기하",
+        "확률과통계"
+      ],
+      "sourceLevel": "official",
+      "confidence": 0.95,
+      "sourceRefs": []
+    },
+    {
+      "title": "EBS 수능완성 수학영역",
+      "type": "연계교재",
+      "fitKeys": [
+        "7-5",
+        "5-3",
+        "3-1"
+      ],
+      "purpose": "파이널 연계 정리",
+      "when": "9모~수능 전",
+      "difficulty": "중~상",
+      "subjectTags": [
+        "공통",
+        "미적분",
+        "기하",
+        "확률과통계"
+      ],
+      "sourceLevel": "official",
+      "confidence": 0.95,
+      "sourceRefs": []
+    },
+    {
+      "title": "뉴런 수학I·수학II",
+      "type": "심화 개념",
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "purpose": "준킬러 이상 개념 정밀화",
+      "when": "3~6모 전",
+      "difficulty": "상",
+      "subjectTags": [
+        "공통"
+      ],
+      "sourceLevel": "official+community",
+      "confidence": 0.85,
+      "sourceRefs": []
+    },
+    {
+      "title": "드릴 수학",
+      "type": "심화 N제",
+      "fitKeys": [
+        "3-1"
+      ],
+      "purpose": "고난도 접근 루틴 강화",
+      "when": "6~9모",
+      "difficulty": "상",
+      "subjectTags": [
+        "공통",
+        "미적분",
+        "기하"
+      ],
+      "sourceLevel": "official+community",
+      "confidence": 0.82,
+      "sourceRefs": []
+    },
+    {
+      "title": "시대인재 서바이벌 모의고사",
+      "type": "실전 모의",
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "purpose": "고난도 실전 점수 안정화",
+      "when": "9모~수능 전",
+      "difficulty": "상",
+      "subjectTags": [
+        "공통",
+        "미적분",
+        "기하",
+        "확률과통계"
+      ],
+      "sourceLevel": "official+community",
+      "confidence": 0.78,
+      "sourceRefs": [
+        "https://www.sdij.com/",
+        "https://gall.dcinside.com/mgallery/board/view/?id=sdijn&no=1428821"
+      ]
+    },
+    {
+      "title": "시대인재 리바이벌 자료",
+      "type": "파이널 복습",
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "purpose": "고난도 포인트 재점검",
+      "when": "9모~수능 전",
+      "difficulty": "상",
+      "subjectTags": [
+        "공통",
+        "미적분",
+        "기하"
+      ],
+      "sourceLevel": "official+community",
+      "confidence": 0.74,
+      "sourceRefs": [
+        "https://www.sdij.com/",
+        "https://gall.dcinside.com/mgallery/board/view/?id=sdijn&no=1428821"
+      ]
+    },
+    {
+      "title": "두각 수학 단과 과제/클리닉 자료",
+      "type": "학원 자체자료",
+      "fitKeys": [
+        "7-5",
+        "5-3",
+        "3-1"
+      ],
+      "purpose": "수업-숙제-오답 클리닉 연결",
+      "when": "상시",
+      "difficulty": "중~상",
+      "subjectTags": [
+        "공통",
+        "미적분",
+        "기하"
+      ],
+      "sourceLevel": "official",
+      "confidence": 0.8,
+      "sourceRefs": [
+        "https://www.dugak.net/",
+        "https://bundangdugak.dshw.co.kr/teacher/teacher.htm"
+      ]
+    },
+    {
+      "title": "강대/N계열 수학 실모(커뮤니티 비교군)",
+      "type": "실전 모의",
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "purpose": "실전 난이도 다양화",
+      "when": "9모~수능 전",
+      "difficulty": "상",
+      "subjectTags": [
+        "공통",
+        "미적분",
+        "기하",
+        "확률과통계"
+      ],
+      "sourceLevel": "community",
+      "confidence": 0.65,
+      "sourceRefs": [
+        "https://gall.dcinside.com/mgallery/board/view/?id=sdijn&no=1428821"
+      ]
+    },
+    {
+      "title": "이해원 모의고사(커뮤니티 비교군)",
+      "type": "실전 모의",
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "purpose": "고난도 계산/해석 훈련",
+      "when": "9모~수능 전",
+      "difficulty": "상",
+      "subjectTags": [
+        "공통",
+        "미적분",
+        "기하"
+      ],
+      "sourceLevel": "community",
+      "confidence": 0.62,
+      "sourceRefs": [
+        "https://gall.dcinside.com/mgallery/board/view/?id=sdijn&no=1428821"
+      ]
+    },
+    {
+      "title": "히든카이스 모의고사(커뮤니티 비교군)",
+      "type": "실전 모의",
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "purpose": "파이널 실전 난도 적응",
+      "when": "9모~수능 전",
+      "difficulty": "상",
+      "subjectTags": [
+        "공통",
+        "미적분",
+        "기하"
+      ],
+      "sourceLevel": "community",
+      "confidence": 0.6,
+      "sourceRefs": [
+        "https://gall.dcinside.com/mgallery/board/view/?id=sdijn&no=1428821"
+      ]
+    },
+    {
+      "title": "확률과통계 기출 문제집",
+      "type": "선택과목 기출",
+      "fitKeys": [
+        "7-5",
+        "5-3",
+        "3-1"
+      ],
+      "purpose": "확통 빈출 유형 고정",
+      "when": "6~9모",
+      "difficulty": "중~상",
+      "subjectTags": [
+        "확률과통계"
+      ],
+      "sourceLevel": "official+community",
+      "confidence": 0.86,
+      "sourceRefs": []
+    },
+    {
+      "title": "미적분 기출/N제 세트",
+      "type": "선택과목 심화",
+      "fitKeys": [
+        "7-5",
+        "5-3",
+        "3-1"
+      ],
+      "purpose": "준킬러~킬러 대응",
+      "when": "6~9모",
+      "difficulty": "상",
+      "subjectTags": [
+        "미적분"
+      ],
+      "sourceLevel": "official+community",
+      "confidence": 0.87,
+      "sourceRefs": []
+    },
+    {
+      "title": "기하 기출/N제 세트",
+      "type": "선택과목 심화",
+      "fitKeys": [
+        "7-5",
+        "5-3",
+        "3-1"
+      ],
+      "purpose": "좌표화/벡터화 실전 대응",
+      "when": "6~9모",
+      "difficulty": "상",
+      "subjectTags": [
+        "기하"
+      ],
+      "sourceLevel": "official+community",
+      "confidence": 0.85,
+      "sourceRefs": []
+    }
+  ]
+}

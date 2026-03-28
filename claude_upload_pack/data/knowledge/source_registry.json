@@ -1,0 +1,79 @@
+{
+  "updatedAt": "2026-03-27",
+  "policy": {
+    "priority": [
+      "official",
+      "official+community",
+      "community"
+    ],
+    "notes": "추천 시 공식 출처를 우선 반영하고, 커뮤니티 데이터는 보조 신호로만 사용"
+  },
+  "sources": [
+    {
+      "id": "sdij-schedule",
+      "type": "official",
+      "provider": "시대인재",
+      "url": "https://www.sdij.com/aca/schd/",
+      "capturedAt": "2026-03-27",
+      "keyPoints": [
+        "대치 기준 고3/고2/고1/수학스쿨/특목센터 트랙 구분",
+        "수학스쿨 전용 연락처/상담 채널 존재",
+        "정규/특강 시간표 이미지 제공"
+      ]
+    },
+    {
+      "id": "dugak-main",
+      "type": "official",
+      "provider": "두각",
+      "url": "https://www.dugak.net/",
+      "capturedAt": "2026-03-27",
+      "keyPoints": [
+        "단과학원 두각/분당두각 운영",
+        "고3/고1·2·중3 및 K수학 전화 채널 분리"
+      ]
+    },
+    {
+      "id": "bundangdugak-teachers",
+      "type": "official",
+      "provider": "분당두각",
+      "url": "https://bundangdugak.dshw.co.kr/teacher/teacher.htm",
+      "capturedAt": "2026-03-27",
+      "keyPoints": [
+        "수학 강사 김도혁/손승연 공식 프로필 확인",
+        "선생님 소개 페이지에서 과목별 강사진 구조 확인"
+      ]
+    },
+    {
+      "id": "orbi-sdij-thread",
+      "type": "community",
+      "provider": "오르비",
+      "url": "https://orbi.kr/00069285059",
+      "capturedAt": "2026-03-27",
+      "keyPoints": [
+        "시대인재 공통반 비교 후보(엄소연/안가람/장재원/이동준/박종민) 언급",
+        "정규반 2개 병행 여부에 대한 수험생 고민 데이터"
+      ]
+    },
+    {
+      "id": "orbi-math-column",
+      "type": "community",
+      "provider": "오르비",
+      "url": "https://orbi.kr/00077975282/[칼럼]-수학-문제를-대하는-태도",
+      "capturedAt": "2026-03-27",
+      "keyPoints": [
+        "문제 접근 태도/풀이 흐름 설계 관련 커뮤니티 칼럼 데이터"
+      ]
+    },
+    {
+      "id": "dc-sdijn-mockreview",
+      "type": "community",
+      "provider": "시대인재N재수종합갤러리",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=sdijn&no=1428821",
+      "capturedAt": "2026-03-27",
+      "keyPoints": [
+        "수학 실모 비교/추천 관점 수집",
+        "파이널 시기 실전 모의 선택 기준 참고"
+      ]
+    }
+  ]
+}

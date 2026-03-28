@@ -1,0 +1,25 @@
+You are continuing development on this project.
+
+Read these files first:
+1) CLAUDE.md
+2) server/index.js
+3) server/ingest.js
+4) data/knowledge/recommendation_catalog.json
+5) data/knowledge/sources.json
+6) data/knowledge/knowledge_base.json
+7) src/App.jsx
+
+Goal for this session:
+- improve practical quality of roadmap outputs for CSAT math students
+- keep official-source-first recommendation behavior
+- avoid showing source links in user-facing response text
+
+Before changing code:
+- summarize current behavior in 8-12 bullets
+- identify top 3 quality risks and your fix plan
+
+Then implement:
+- concrete code/data updates
+- a short test run and verification output
+- final change summary with file list
+

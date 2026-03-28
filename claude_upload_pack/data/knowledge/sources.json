@@ -1,0 +1,31 @@
+[
+  {
+    "id": "local-yt-sub-wall-video",
+    "title": "수학 만점자 공부법(로컬 자막)",
+    "subtitlePath": "data/subs/이거 딱 2개만 하면 '수학 재능'이 바뀐다 ｜ 수학 만점자 공부법.en.srt"
+  },
+  {
+    "id": "web-orbi-grade-method",
+    "title": "오르비 수학 점수대별 학습법",
+    "webUrl": "https://orbi.kr/00073261962",
+    "includeImages": false
+  },
+  {
+    "id": "web-orbi-problem-attitude",
+    "title": "오르비 수학 문제를 대하는 태도",
+    "webUrl": "https://orbi.kr/00077975282/[칼럼]-수학-문제를-대하는-태도",
+    "includeImages": false
+  },
+  {
+    "id": "web-sdij-schedule",
+    "title": "시대인재 대치 시간표",
+    "webUrl": "https://www.sdij.com/aca/schd/",
+    "includeImages": true
+  },
+  {
+    "id": "web-dugak-math-teachers",
+    "title": "분당두각 수학 강사 페이지",
+    "webUrl": "https://bundangdugak.dshw.co.kr/teacher/teacher.htm?subject=2",
+    "includeImages": false
+  }
+]

@@ -1,0 +1,86 @@
+[
+  {
+    "id": "kice-guideline-2026",
+    "title": "한국교육과정평가원 2026 수능 실시요강",
+    "webUrl": "https://csatcdn.kice.re.kr/resources/pdf/guideline.pdf",
+    "includeImages": false
+  },
+  {
+    "id": "megastudy-woojin-lecture",
+    "title": "메가스터디 현우진 강좌 상세",
+    "webUrl": "https://www.megastudy.net/teacher_v2/chr/lecture_detailview.asp?CHR_CD=56645&MAKE_FLG=2&tec_cd=woojinmath",
+    "includeImages": false
+  },
+  {
+    "id": "megastudy-woojin-book",
+    "title": "메가스터디 현우진 교재 안내",
+    "webUrl": "https://www.megastudy.net/lecmain/popup/pop_Infobook_new.asp?chr_cd=58795&itemType=1",
+    "includeImages": false
+  },
+  {
+    "id": "etoos-jeongseungje",
+    "title": "이투스 정승제 강좌/OT 페이지",
+    "webUrl": "https://www11.etoos.com/teacher/sub02.asp?CHOICE_LEVEL_ID=100001&GRD_CD=go3&LECTURE_GB_CD=0001&TAB_CD=0002&TEACHER_ID=200180&TEACHER_MAIN_TYPE=TYPE25",
+    "includeImages": false
+  },
+  {
+    "id": "sdij-schedule",
+    "title": "시대인재 시간표",
+    "webUrl": "https://www.sdij.com/aca/schd/",
+    "includeImages": true
+  },
+  {
+    "id": "dugak-teachers",
+    "title": "분당두각 수학 강사 페이지",
+    "webUrl": "https://bundangdugak.dshw.co.kr/teacher/teacher.htm?subject=2",
+    "includeImages": false
+  },
+  {
+    "id": "mimac-main-page",
+    "title": "대성마이맥 메인 페이지",
+    "webUrl": "https://www.mimacstudy.com",
+    "includeImages": false
+  },
+  {
+    "id": "orbi-attitude-column",
+    "title": "오르비 칼럼 - 수학 문제를 대하는 태도",
+    "webUrl": "https://orbi.kr/00077975282/%5B%EC%B9%BC%EB%9F%BC%5D-%EC%88%98%ED%95%99-%EB%AC%B8%EC%A0%9C%EB%A5%BC-%EB%8C%80%ED%95%98%EB%8A%94-%ED%83%9C%EB%8F%84",
+    "includeImages": false
+  },
+  {
+    "id": "orbi-woojin-neuron-review",
+    "title": "오르비 - 현우진 뉴런 수분감 후기 글",
+    "webUrl": "https://orbi.kr/00077096134",
+    "includeImages": false
+  },
+  {
+    "id": "orbi-img-review",
+    "title": "오르비 - 이미지 미친개념 후기 글",
+    "webUrl": "https://orbi.kr/00060362745",
+    "includeImages": false
+  },
+  {
+    "id": "orbi-teacher-list",
+    "title": "오르비 - 수학 강사 커리 체감 글",
+    "webUrl": "https://orbi.kr/00073489372",
+    "includeImages": false
+  },
+  {
+    "id": "yt-grade-method-1",
+    "title": "YouTube 수학 등급별 학습법 1",
+    "youtubeUrl": "https://www.youtube.com/watch?v=hGDfgSder-I",
+    "includeVideoFrames": true
+  },
+  {
+    "id": "yt-grade-method-2",
+    "title": "YouTube 수학 등급별 학습법 2",
+    "youtubeUrl": "https://www.youtube.com/watch?v=0OERw9UiTeI",
+    "includeVideoFrames": true
+  },
+  {
+    "id": "yt-grade-method-3",
+    "title": "YouTube 수학 등급별 학습법 3",
+    "youtubeUrl": "https://www.youtube.com/watch?v=g7FYLaKxP2A",
+    "includeVideoFrames": true
+  }
+]
