@@ -881,7 +881,11 @@ function buildRecommendationSeed({ catalog, curriculumKey, currentGrade, electiv
     name: toText(x.name),
     platform: toText(x.platform),
     best_for: toText(x.bestFor),
-    reason: asArray(x.strengths).map((s) => toText(s)).filter(Boolean).slice(0, 3).join(", "),
+    reason: buildRecommendationReason({
+      lines: [...asArray(x.strengths), ...asArray(x.reviewSummary)],
+      fallback: asArray(x.strengths).map((s) => toText(s)).filter(Boolean).slice(0, 2).join(", "),
+      maxCount: 2,
+    }),
     usage: toText(x.usage),
     style_summary: asArray(x.styleTags).map((s) => toText(s)).filter(Boolean).join(", "),
     curriculum_path: asArray(x.curriculumPath)
@@ -905,7 +909,15 @@ function buildRecommendationSeed({ catalog, curriculumKey, currentGrade, electiv
       purpose: toText(x.purpose),
       when_to_use: toText(x.when),
       difficulty: toText(x.difficulty),
-      reason: `${toText(x.purpose)} 중심으로 ${toText(x.when)}에 사용`,
+      reason: buildRecommendationReason({
+        lines: [
+          `${toText(x.purpose)} 중심`,
+          `${toText(x.when)} 시기에 활용`,
+          `${toText(x.type)} ${toText(x.difficulty)} 난이도 대응`,
+        ],
+        fallback: `${toText(x.purpose)} 중심으로 ${toText(x.when)}에 사용`,
+        maxCount: 2,
+      }),
     }));
 
   const subject_curriculum = buildSubjectCurriculumSeed({
@@ -1118,6 +1130,92 @@ function scoreSourceReliability(item) {
   if (sourceLevel.includes("community")) score += 1;
   score += Math.max(0, Math.min(1, confidence)) * 2;
   return score;
+}
+
+function buildRecommendationReason({ lines, fallback = "", maxCount = 2 }) {
+  const candidates = [];
+  const seen = new Set();
+  for (const line of asArray(lines)) {
+    for (const sentence of splitReasonSentences(line)) {
+      const text = sanitizeKnowledgeText(sentence);
+      if (!text) continue;
+      const key = normalizeReasonKey(text);
+      if (!key || seen.has(key)) continue;
+      seen.add(key);
+      const score = scoreReasonSentence(text);
+      if (score < 1) continue;
+      candidates.push({ text, score });
+    }
+  }
+
+  const picked = candidates
+    .sort((a, b) => {
+      if (b.score !== a.score) return b.score - a.score;
+      return b.text.length - a.text.length;
+    })
+    .slice(0, Math.max(1, maxCount))
+    .map((item) => item.text);
+
+  if (picked.length) return picked.join(" / ");
+  return toText(fallback);
+}
+
+function splitReasonSentences(value) {
+  const text = toText(value);
+  if (!text) return [];
+  return text
+    .split(/\r?\n|[|/;]+/g)
+    .map((part) => sanitizeKnowledgeText(part))
+    .filter(Boolean);
+}
+
+function normalizeReasonKey(text) {
+  return toText(text)
+    .toLowerCase()
+    .replace(/[^a-z0-9가-힣]/g, "");
+}
+
+function scoreReasonSentence(text) {
+  const value = sanitizeKnowledgeText(text);
+  if (!value) return 0;
+  if (looksLikeGibberish(value)) return 0;
+
+  const compactLength = value.replace(/\s+/g, "").length;
+  if (compactLength < 8) return 0;
+
+  let score = 0;
+  if (compactLength >= 12) score += 2;
+  if (compactLength >= 18) score += 1;
+  if (compactLength > 90) score -= 1;
+
+  if (hasReasonKeyword(value)) score += 2;
+  if (hasStudyKeyword(value)) score += 1;
+  if (/(좋다|최고|무조건|강추|대박|인생강의)/.test(value) && !hasReasonKeyword(value)) score -= 2;
+
+  return score;
+}
+
+function hasReasonKeyword(text) {
+  const value = toText(text);
+  if (!value) return false;
+  const keywords = [
+    "개념",
+    "기출",
+    "적용",
+    "복습",
+    "오답",
+    "실전",
+    "루틴",
+    "커리큘럼",
+    "강의",
+    "교재",
+    "난이도",
+    "등급",
+    "문항",
+    "학습",
+    "시간",
+  ];
+  return keywords.some((k) => value.includes(k));
 }
 
 function buildAnalyzePrompt({
@@ -1455,7 +1553,11 @@ function normalizePlan(raw, {
       name: toText(x?.name),
       platform: toText(x?.platform),
       best_for: toText(x?.best_for),
-      reason: toText(x?.reason),
+      reason: buildRecommendationReason({
+        lines: [x?.reason, x?.best_for],
+        fallback: toText(x?.reason),
+        maxCount: 2,
+      }),
       usage: toText(x?.usage),
       style_summary: toText(x?.style_summary),
       curriculum_path: asArray(x?.curriculum_path).map((t) => toText(t)).filter(Boolean).slice(0, 6),
@@ -1471,7 +1573,11 @@ function normalizePlan(raw, {
       purpose: toText(x?.purpose),
       when_to_use: toText(x?.when_to_use),
       difficulty: toText(x?.difficulty),
-      reason: toText(x?.reason),
+      reason: buildRecommendationReason({
+        lines: [x?.reason, x?.purpose, x?.when_to_use],
+        fallback: toText(x?.reason),
+        maxCount: 2,
+      }),
     }))
     .filter((x) => x.title)
     .slice(0, 8);

@@ -22,6 +22,9 @@
 /data/jobs
 /data/generated
 /data/subs
+/data/knowledge/ingest_quality_report.json
+/playwright-report
+/test-results
 
 # handoff / archive artifacts
 /claude_handoff*/

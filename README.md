@@ -83,6 +83,8 @@ WEB_TEXT_MAX_CHARS=30000
 
 ```bash
 npm run ingest
+npm run verify:ingest
+npm run test:e2e
 npm run server
 npm start
 ```

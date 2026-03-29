@@ -19,7 +19,9 @@
     "start": "react-scripts start",
     "server": "node server/index.js",
     "ingest": "node server/ingest.js",
+    "verify:ingest": "node scripts/verify_ingest_quality.js",
     "build": "react-scripts build",
+    "test:e2e": "npm run build && playwright test",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -40,5 +42,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.2"
   }
 }

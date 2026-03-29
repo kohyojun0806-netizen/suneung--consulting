@@ -40,6 +40,26 @@
     "includeImages": false
   },
   {
+    "id": "pomanhan-math-review-board",
+    "type": "community_post",
+    "platform": "pomanhan",
+    "bucket": "lecture_books",
+    "tags": ["community", "teacher_review", "book_review", "curriculum"],
+    "title": "포만한 수학 강사/교재 후기 게시판",
+    "webUrl": "https://www.pomanhan.co.kr/",
+    "includeImages": false
+  },
+  {
+    "id": "sumanhwi-math-routine-board",
+    "type": "community_post",
+    "platform": "sumanhwi",
+    "bucket": "learning_routines",
+    "tags": ["community", "study_routine", "weekly_plan", "mistake_log"],
+    "title": "수만휘 학습 루틴/후기 게시판",
+    "webUrl": "https://cafe.naver.com/suhui",
+    "includeImages": false
+  },
+  {
     "id": "orbi-teacher-curriculum-thread",
     "type": "community_post",
     "platform": "orbi",
@@ -110,6 +130,26 @@
     "includeImages": true
   },
   {
+    "id": "official-megastudy-woojin-ot",
+    "type": "official_curriculum",
+    "platform": "megastudy",
+    "bucket": "lecture_books",
+    "tags": ["teacher", "curriculum", "ot", "hyunwoojin"],
+    "title": "메가스터디 현우진 강좌 상세/OT",
+    "webUrl": "https://www.megastudy.net/teacher_v2/chr/lecture_detailview.asp?CHR_CD=56645&MAKE_FLG=2&tec_cd=woojinmath",
+    "includeImages": true
+  },
+  {
+    "id": "official-megastudy-woojin-booklist",
+    "type": "official_curriculum",
+    "platform": "megastudy",
+    "bucket": "lecture_books",
+    "tags": ["teacher", "booklist", "curriculum", "hyunwoojin"],
+    "title": "메가스터디 현우진 교재 정보",
+    "webUrl": "https://www.megastudy.net/lecmain/popup/pop_Infobook_new.asp?chr_cd=58795&itemType=1",
+    "includeImages": true
+  },
+  {
     "id": "official-mimac-math",
     "type": "official_curriculum",
     "platform": "mimac",
@@ -130,6 +170,16 @@
     "includeImages": true
   },
   {
+    "id": "official-etoos-jeongseungje-ot",
+    "type": "official_curriculum",
+    "platform": "etoos",
+    "bucket": "lecture_books",
+    "tags": ["teacher", "curriculum", "ot", "jeongseungje"],
+    "title": "이투스 정승제 강좌/OT 상세",
+    "webUrl": "https://www11.etoos.com/teacher/sub02.asp?CHOICE_LEVEL_ID=100001&GRD_CD=go3&LECTURE_GB_CD=0001&TAB_CD=0002&TEACHER_ID=200180&TEACHER_MAIN_TYPE=TYPE25",
+    "includeImages": true
+  },
+  {
     "id": "academy-sdij-math",
     "type": "academy_curriculum",
     "platform": "sdij",
@@ -137,6 +187,16 @@
     "tags": ["academy", "single_course", "teacher_lineup"],
     "title": "시대인재 수학 단과 페이지",
     "webUrl": "https://www.sdij.com/",
+    "includeImages": true
+  },
+  {
+    "id": "academy-sdij-math-schedule",
+    "type": "academy_curriculum",
+    "platform": "sdij",
+    "bucket": "lecture_books",
+    "tags": ["academy", "single_course", "schedule", "curriculum"],
+    "title": "시대인재 수학 단과 시간표/트랙",
+    "webUrl": "https://www.sdij.com/aca/schd/",
     "includeImages": true
   },
   {
@@ -148,6 +208,15 @@
     "title": "두각학원 수학 강사 페이지",
     "webUrl": "https://bundangdugak.dshw.co.kr/teacher/teacher.htm?subject=2",
     "includeImages": true
+  },
+  {
+    "id": "orbi-column-math-study-routine",
+    "type": "community_column",
+    "platform": "orbi",
+    "bucket": "study_methods",
+    "tags": ["column", "routine", "review", "math_method"],
+    "title": "오르비 칼럼 - 수학 학습 루틴 점검",
+    "webUrl": "https://orbi.kr/00073261962",
+    "includeImages": false
   }
 ]
-
