@@ -5,7 +5,7 @@
     "platform": "kice",
     "bucket": "study_methods",
     "tags": ["official", "exam_scope", "policy"],
-    "title": "한국교육과정평가원 메인",
+    "title": "한국교육과정평가원 수능 안내",
     "webUrl": "https://www.kice.re.kr/",
     "includeImages": false
   },
@@ -25,7 +25,7 @@
     "platform": "orbi",
     "bucket": "lecture_books",
     "tags": ["teacher_review", "course_experience", "hyunwoojin"],
-    "title": "오르비 후기 - 현우진 뉴런 관련 글",
+    "title": "오르비 후기 - 현우진 뉴런 관련",
     "webUrl": "https://orbi.kr/00077096134",
     "includeImages": false
   },
@@ -35,7 +35,7 @@
     "platform": "orbi",
     "bucket": "lecture_books",
     "tags": ["teacher_review", "course_experience", "image"],
-    "title": "오르비 후기 - 이미지 강의 관련 글",
+    "title": "오르비 후기 - 이미지 커리큘럼 관련",
     "webUrl": "https://orbi.kr/00060362745",
     "includeImages": false
   },
@@ -44,39 +44,9 @@
     "type": "community_post",
     "platform": "orbi",
     "bucket": "lecture_books",
-    "tags": ["teacher_lineup", "curriculum_compare", "community"],
-    "title": "오르비 강사 커리큘럼 체감 글",
+    "tags": ["teacher_lineup", "curriculum_compare"],
+    "title": "오르비 강사 라인업/커리큘럼 체감 글",
     "webUrl": "https://orbi.kr/00073489372",
-    "includeImages": false
-  },
-  {
-    "id": "orbi-community-main",
-    "type": "community_post",
-    "platform": "orbi",
-    "bucket": "learning_routines",
-    "tags": ["community", "routine", "feedback"],
-    "title": "오르비 수학 게시판",
-    "webUrl": "https://orbi.kr/",
-    "includeImages": false
-  },
-  {
-    "id": "pomanhan-math-board",
-    "type": "community_post",
-    "platform": "pomanhan",
-    "bucket": "learning_routines",
-    "tags": ["community", "weekly_plan", "mistake_log"],
-    "title": "포만한 수학 게시글/후기",
-    "webUrl": "https://www.pomanhan.co.kr/",
-    "includeImages": false
-  },
-  {
-    "id": "sumanhwi-math-board",
-    "type": "community_post",
-    "platform": "sumanhwi",
-    "bucket": "learning_routines",
-    "tags": ["community", "student_feedback", "routine"],
-    "title": "수만휘 수학 게시글/후기",
-    "webUrl": "https://cafe.naver.com/suhui",
     "includeImages": false
   },
   {
@@ -85,7 +55,7 @@
     "platform": "youtube",
     "bucket": "study_methods",
     "tags": ["grade_strategy", "season_plan", "math_method"],
-    "title": "수학 학습법 플레이리스트",
+    "title": "수학 등급별 학습법 플레이리스트",
     "playlistUrl": "https://www.youtube.com/playlist?list=PLl96fucB-W-41ZBdjUXrshDGGumDlpEAa",
     "includeVideoFrames": false
   },
@@ -95,7 +65,7 @@
     "platform": "youtube",
     "bucket": "study_methods",
     "tags": ["grade_strategy", "concept_output"],
-    "title": "수학 재능을 바꾸는 공부법",
+    "title": "수학 공부법 - 개념 출력 중심",
     "youtubeUrl": "https://www.youtube.com/watch?v=sST8059i3mw",
     "includeVideoFrames": false
   },
@@ -165,7 +135,7 @@
     "platform": "sdij",
     "bucket": "lecture_books",
     "tags": ["academy", "single_course", "teacher_lineup"],
-    "title": "시대인재 수학 강사/강좌",
+    "title": "시대인재 수학 단과 페이지",
     "webUrl": "https://www.sdij.com/",
     "includeImages": true
   },
@@ -175,8 +145,9 @@
     "platform": "dugak",
     "bucket": "lecture_books",
     "tags": ["academy", "single_course", "teacher_lineup"],
-    "title": "두각학원 수학 강사/강좌",
+    "title": "두각학원 수학 강사 페이지",
     "webUrl": "https://bundangdugak.dshw.co.kr/teacher/teacher.htm?subject=2",
     "includeImages": true
   }
 ]
+

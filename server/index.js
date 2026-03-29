@@ -19,6 +19,164 @@ const TRACKER_REPORT_MAX_TOKENS = Number(process.env.TRACKER_REPORT_MAX_TOKENS |
 const TRACKER_CONSULT_MAX_TOKENS = Number(process.env.TRACKER_CONSULT_MAX_TOKENS || 320);
 const TRACKER_REPORT_LOG_WEEKS = Number(process.env.TRACKER_REPORT_LOG_WEEKS || 3);
 const ELECTIVE_SUBJECTS = ["확률과통계", "미적분", "기하"];
+const MIN_INSTRUCTOR_COUNT = 4;
+const MIN_BOOK_COUNT = 6;
+
+const DEFAULT_INSTRUCTOR_SEED = [
+  {
+    name: "현우진",
+    platform: "메가스터디",
+    fitKeys: ["5-3", "3-1"],
+    subjectTags: ["공통", "미적분", "기하"],
+    strengths: ["중상위권~상위권 실전 전환", "기출-심화-N제-실전 흐름이 분명함"],
+    styleTags: ["빠른 전개", "문항 구조 분석"],
+    curriculumPath: [
+      { stage: "기초", course: "시발점", material: "개념 교재" },
+      { stage: "실전개념", course: "뉴런", material: "실전개념 교재" },
+      { stage: "기출", course: "수분감", material: "기출 교재" },
+      { stage: "N제", course: "드릴", material: "N제 교재" },
+      { stage: "모의", course: "킬링캠프", material: "실전 모의고사" },
+    ],
+    reviewSummary: ["속도감 있는 전개로 실전 감각 형성에 유리", "복습 루틴 없이 따라가면 누적이 어려움"],
+    bestFor: "준킬러 이상 구간에서 점수 상승이 필요한 학생",
+    usage: "뉴런-수분감 병행 후 드릴/모의로 실전 적응",
+    sourceLevel: "seed",
+    confidence: 0.8,
+    sourceRefs: [],
+  },
+  {
+    name: "정승제",
+    platform: "EBS/이투스",
+    fitKeys: ["9-7", "7-5"],
+    subjectTags: ["공통", "확률과통계"],
+    strengths: ["개념 체계화", "하위권~중위권 접근성"],
+    styleTags: ["친절한 설명", "반복 복습 강조"],
+    curriculumPath: [
+      { stage: "개념", course: "개념 강의", material: "개념 교재" },
+      { stage: "유형", course: "유형 강의", material: "유형 교재" },
+      { stage: "기출", course: "기출 강의", material: "기출 교재" },
+    ],
+    reviewSummary: ["개념 공백 보완에 강점", "실전 단계 전환 시 기출/세트 병행 필요"],
+    bestFor: "개념 공백이 큰 학생",
+    usage: "개념 강의 후 쉬운 기출 즉시 적용",
+    sourceLevel: "seed",
+    confidence: 0.78,
+    sourceRefs: [],
+  },
+  {
+    name: "이미지",
+    platform: "대성마이맥",
+    fitKeys: ["7-5", "5-3"],
+    subjectTags: ["공통", "확률과통계", "미적분"],
+    strengths: ["개념-유형 연결", "중위권 실전 전환"],
+    styleTags: ["개념 정리", "문제 적용"],
+    curriculumPath: [
+      { stage: "기초", course: "개념 강의", material: "개념 교재" },
+      { stage: "심화", course: "유형/심화 강의", material: "심화 교재" },
+      { stage: "N제", course: "N제 강의", material: "N제 교재" },
+    ],
+    reviewSummary: ["개념 설명이 명확해 중위권 체감도가 높다는 평가"],
+    bestFor: "개념은 알지만 적용이 약한 학생",
+    usage: "강의 직후 기출/유형 10~20문항 고정",
+    sourceLevel: "seed",
+    confidence: 0.74,
+    sourceRefs: [],
+  },
+  {
+    name: "시대인재 수학 단과",
+    platform: "시대인재",
+    fitKeys: ["7-5", "5-3", "3-1"],
+    subjectTags: ["공통", "확률과통계", "미적분", "기하"],
+    strengths: ["실전 세트 중심", "고난도 문항 감각 강화"],
+    styleTags: ["실전 중심", "주간 과제"],
+    curriculumPath: [
+      { stage: "정규", course: "정규 단과", material: "학원 교재" },
+      { stage: "보강", course: "취약 보강", material: "보강 자료" },
+      { stage: "파이널", course: "실전 모의", material: "모의 자료" },
+    ],
+    reviewSummary: ["실전 운영 훈련에 효과적이라는 후기가 많음"],
+    bestFor: "실전 운영 최적화가 필요한 학생",
+    usage: "정규+모의 연계, 오답 복기 루틴 필수",
+    sourceLevel: "seed",
+    confidence: 0.72,
+    sourceRefs: [],
+  },
+];
+
+const DEFAULT_BOOK_SEED = [
+  {
+    title: "개념원리 수학I·II",
+    type: "개념서",
+    fitKeys: ["9-7", "7-5"],
+    purpose: "공통 개념 구조화",
+    when: "3~6모 전",
+    difficulty: "중",
+    subjectTags: ["공통"],
+    sourceLevel: "seed",
+    confidence: 0.8,
+    sourceRefs: [],
+  },
+  {
+    title: "RPM 수학I·II",
+    type: "유형서",
+    fitKeys: ["9-7", "7-5"],
+    purpose: "개념 직후 유형 적응",
+    when: "개념 직후",
+    difficulty: "중",
+    subjectTags: ["공통"],
+    sourceLevel: "seed",
+    confidence: 0.78,
+    sourceRefs: [],
+  },
+  {
+    title: "자이스토리 수학I·II",
+    type: "기출서",
+    fitKeys: ["7-5", "5-3", "3-1"],
+    purpose: "기출 기반 유형 정리",
+    when: "5~9모",
+    difficulty: "중상",
+    subjectTags: ["공통"],
+    sourceLevel: "seed",
+    confidence: 0.82,
+    sourceRefs: [],
+  },
+  {
+    title: "수능특강 수학",
+    type: "EBS",
+    fitKeys: ["9-7", "7-5", "5-3", "3-1"],
+    purpose: "연계 대비 + 기본 실전감",
+    when: "연중 병행",
+    difficulty: "중",
+    subjectTags: ["공통", "확률과통계", "미적분", "기하"],
+    sourceLevel: "seed",
+    confidence: 0.8,
+    sourceRefs: [],
+  },
+  {
+    title: "수능완성 수학",
+    type: "EBS",
+    fitKeys: ["7-5", "5-3", "3-1"],
+    purpose: "실전 연계 최종 정리",
+    when: "6~수능 전",
+    difficulty: "중상",
+    subjectTags: ["공통", "확률과통계", "미적분", "기하"],
+    sourceLevel: "seed",
+    confidence: 0.8,
+    sourceRefs: [],
+  },
+  {
+    title: "드릴",
+    type: "N제",
+    fitKeys: ["3-1", "5-3"],
+    purpose: "준킬러/킬러 풀이력 강화",
+    when: "6~9모",
+    difficulty: "상",
+    subjectTags: ["공통", "미적분", "기하"],
+    sourceLevel: "seed",
+    confidence: 0.72,
+    sourceRefs: [],
+  },
+];
 
 const DATA_DIR = path.join(process.cwd(), "data");
 const GENERATED_DIR = path.join(DATA_DIR, "generated");
@@ -308,9 +466,10 @@ async function loadKnowledgeBase() {
   }
   const raw = await fsp.readFile(KNOWLEDGE_FILE, "utf8");
   const parsed = JSON.parse(raw);
+  const sanitizedItems = sanitizeKnowledgeItems(asArray(parsed.items));
   return {
     updatedAt: parsed.updatedAt || null,
-    items: Array.isArray(parsed.items) ? parsed.items : [],
+    items: sanitizedItems,
   };
 }
 
@@ -320,11 +479,140 @@ async function loadRecommendationCatalog() {
   }
   const raw = await fsp.readFile(RECOMMENDATION_FILE, "utf8");
   const parsed = JSON.parse(raw);
+  const rawInstructors = asArray(parsed.instructors);
+  const rawBooks = asArray(parsed.books);
+  const instructors = sanitizeCatalogInstructors(rawInstructors);
+  const books = sanitizeCatalogBooks(rawBooks);
   return {
     updatedAt: parsed.updatedAt || null,
-    instructors: asArray(parsed.instructors),
-    books: asArray(parsed.books),
+    instructors:
+      instructors.length >= MIN_INSTRUCTOR_COUNT
+        ? instructors
+        : mergeUniqueByKey([...instructors, ...DEFAULT_INSTRUCTOR_SEED], "name"),
+    books:
+      books.length >= MIN_BOOK_COUNT
+        ? books
+        : mergeUniqueByKey([...books, ...DEFAULT_BOOK_SEED], "title"),
   };
+}
+
+function sanitizeKnowledgeItems(items) {
+  const out = [];
+  const seen = new Set();
+  for (const item of asArray(items)) {
+    const id = toText(item?.id) || hashObject(item).slice(0, 12);
+    if (seen.has(id)) continue;
+    seen.add(id);
+
+    const core = sanitizeKnowledgeText(item?.core);
+    const steps = asArray(item?.steps)
+      .map((step) => ({
+        title: sanitizeKnowledgeText(step?.title),
+        detail: sanitizeKnowledgeText(step?.detail),
+      }))
+      .filter((step) => isUsefulTitle(step.title) && isUsefulStudyText(step.detail))
+      .slice(0, 8);
+    const cautions = asArray(item?.cautions)
+      .map((text) => sanitizeKnowledgeText(text))
+      .filter((text) => isUsefulStudyText(text))
+      .slice(0, 5);
+    const keywords = asArray(item?.keywords)
+      .map((text) => sanitizeKnowledgeText(text))
+      .filter((text) => text.length >= 2 && !looksLikeGibberish(text))
+      .slice(0, 10);
+
+    if (!isUsefulStudyText(core) && steps.length === 0 && cautions.length === 0) continue;
+
+    out.push({
+      ...item,
+      id,
+      bucket: normalizeBucketName(item?.bucket),
+      title: sanitizeKnowledgeText(item?.title),
+      source: sanitizeKnowledgeText(item?.source),
+      core: isUsefulStudyText(core) ? core : "",
+      steps,
+      cautions,
+      keywords,
+      applies_to: normalizeAppliesTo(item?.applies_to),
+    });
+  }
+  return out;
+}
+
+function normalizeAppliesTo(value) {
+  const allowed = new Set(["9-7", "7-5", "5-3", "3-1", "all"]);
+  const list = asArray(value).map((x) => toText(x)).filter((x) => allowed.has(x));
+  return list.length ? list : ["all"];
+}
+
+function sanitizeCatalogInstructors(items) {
+  return asArray(items)
+    .map((item) => ({
+      ...item,
+      name: sanitizeKnowledgeText(item?.name),
+      platform: sanitizeKnowledgeText(item?.platform),
+      bestFor: sanitizeKnowledgeText(item?.bestFor),
+      usage: sanitizeKnowledgeText(item?.usage),
+      strengths: asArray(item?.strengths).map((x) => sanitizeKnowledgeText(x)).filter((x) => isUsefulStudyText(x)).slice(0, 6),
+      styleTags: asArray(item?.styleTags).map((x) => sanitizeKnowledgeText(x)).filter((x) => !looksLikeGibberish(x)).slice(0, 8),
+      reviewSummary: asArray(item?.reviewSummary).map((x) => sanitizeKnowledgeText(x)).filter((x) => isUsefulStudyText(x)).slice(0, 4),
+      subjectTags: asArray(item?.subjectTags).map((x) => sanitizeKnowledgeText(x)).filter(Boolean).slice(0, 6),
+      fitKeys: normalizeFitKeys(item?.fitKeys),
+      curriculumPath: asArray(item?.curriculumPath)
+        .map((step) => ({
+          stage: sanitizeKnowledgeText(step?.stage),
+          course: sanitizeKnowledgeText(step?.course),
+          material: sanitizeKnowledgeText(step?.material),
+        }))
+        .filter((x) => x.course && !looksLikeGibberish(x.course))
+        .slice(0, 8),
+    }))
+    .filter((item) => item.name && !looksLikeGibberish(item.name));
+}
+
+function sanitizeCatalogBooks(items) {
+  return asArray(items)
+    .map((item) => ({
+      ...item,
+      title: sanitizeKnowledgeText(item?.title),
+      type: sanitizeKnowledgeText(item?.type),
+      purpose: sanitizeKnowledgeText(item?.purpose),
+      when: sanitizeKnowledgeText(item?.when),
+      difficulty: sanitizeKnowledgeText(item?.difficulty),
+      fitKeys: normalizeFitKeys(item?.fitKeys),
+      subjectTags: asArray(item?.subjectTags).map((x) => sanitizeKnowledgeText(x)).filter(Boolean).slice(0, 8),
+    }))
+    .filter((item) => item.title && !looksLikeGibberish(item.title));
+}
+
+function normalizeFitKeys(value) {
+  const allowed = new Set(["9-7", "7-5", "5-3", "3-1", "all"]);
+  const list = asArray(value).map((x) => toText(x)).filter((x) => allowed.has(x));
+  return list.length ? list : ["all"];
+}
+
+function normalizeBucketName(value) {
+  const text = toText(value).toLowerCase();
+  if (["study_methods", "math_study_methods"].includes(text)) return "study_methods";
+  if (["lecture_books", "lecture_and_books"].includes(text)) return "lecture_books";
+  if (["learning_routines"].includes(text)) return "learning_routines";
+  return "study_methods";
+}
+
+function mergeUniqueByKey(items, key) {
+  const out = [];
+  const seen = new Set();
+  for (const item of asArray(items)) {
+    const value = toText(item?.[key]).toLowerCase();
+    if (!value || seen.has(value)) continue;
+    seen.add(value);
+    out.push(item);
+  }
+  return out;
+}
+
+function hashObject(value) {
+  return crypto.createHash("sha1").update(JSON.stringify(value || {})).digest("hex");
 }
 
 function selectKnowledgeItems(items, curriculumKey) {
@@ -1610,8 +1898,12 @@ function createTrackerConsultFallback(profile, question, summary, methodCore) {
 }
 
 function sanitizeKnowledgeText(value) {
-  const text = toText(value);
-  return text.replace(/\s+/g, " ").trim();
+  const text = toText(value)
+    .replace(/&middot;/gi, " ")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  return text;
 }
 
 function truncateText(value, maxLen = 200) {
@@ -1623,16 +1915,32 @@ function truncateText(value, maxLen = 200) {
 
 function looksLikeGibberish(text) {
   if (!text) return true;
-  const weird = (text.match(/[�?]/g) || []).length;
-  return weird > Math.max(3, text.length * 0.25);
+  const value = toText(text);
+  if (!value) return true;
+  const replacementCharCount = (value.match(/[�]/g) || []).length;
+  if (replacementCharCount > Math.max(1, value.length * 0.08)) return true;
+
+  // Common mojibake signature: '?' inserted before random Hangul letters.
+  const mojibakePatternCount = (value.match(/\?[가-힣a-zA-Z0-9]/g) || []).length;
+  if (mojibakePatternCount >= 2) return true;
+
+  const hangulCount = (value.match(/[가-힣]/g) || []).length;
+  const latinCount = (value.match(/[a-zA-Z]/g) || []).length;
+  const symbolCount = (value.match(/[^가-힣a-zA-Z0-9\s]/g) || []).length;
+  if (hangulCount + latinCount < 3 && symbolCount > 2) return true;
+
+  if (/ms\s*\d{4}|&middot;|beta/i.test(value)) return true;
+  return false;
 }
 
 function isUsefulTitle(text) {
   const value = toText(text);
   if (!value) return false;
+  if (looksLikeGibberish(value)) return false;
   if (/^action step\s*\d+/i.test(value)) return false;
   if (/time control/i.test(value)) return false;
   if (/past-exam link/i.test(value)) return false;
+  if (value.length < 2) return false;
   return true;
 }
 
@@ -1641,6 +1949,7 @@ function isUsefulStudyText(text) {
   if (!value || value.length < 8) return false;
   if (looksLikeGibberish(value)) return false;
   if (/action step|review this risk signal|close your notes/i.test(value)) return false;
+  if (/&middot;|ms\s*\d{4}|\b\d{2}\/\d{2}\b/i.test(value)) return false;
 
   const keywords = [
     "개념",
@@ -1661,7 +1970,8 @@ function isUsefulStudyText(text) {
   if (keywords.some((k) => value.includes(k))) return true;
 
   const hangulCount = (value.match(/[가-힣]/g) || []).length;
-  return hangulCount >= Math.max(6, Math.floor(value.length * 0.35));
+  const latinCount = (value.match(/[a-zA-Z]/g) || []).length;
+  return hangulCount >= Math.max(6, Math.floor(value.length * 0.3)) || latinCount >= Math.max(20, Math.floor(value.length * 0.5));
 }
 
 function hasStudyKeyword(text) {
@@ -1691,6 +2001,9 @@ function dedupeTextList(items) {
 
 function toText(value, fallback = "") {
   if (typeof value !== "string") return fallback;
-  const trimmed = value.trim();
+  const trimmed = value
+    .replace(/\u0000/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
   return trimmed || fallback;
 }
