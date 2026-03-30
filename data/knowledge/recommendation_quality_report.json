@@ -1,0 +1,19 @@
+{
+  "generatedAt": "2026-03-30T13:19:49.650Z",
+  "strictMode": true,
+  "sourceFile": "data\\knowledge\\recommendation_catalog.json",
+  "sourceRegistryFile": "data\\knowledge\\source_registry.json",
+  "summary": {
+    "bookCount": 63,
+    "njeOrMockCount": 30,
+    "sdijLikeCount": 19,
+    "criticalCount": 0,
+    "warningCount": 0,
+    "thresholds": {
+      "minBooks": 55,
+      "minNjeOrMockBooks": 18,
+      "minSdijStyleBooks": 8
+    }
+  },
+  "issues": []
+}

@@ -25,11 +25,12 @@ const DEFAULT_POLICY = {
   sprintDefaults: {
     minIterations: 5,
     maxIterations: 12,
-    targetScore: 92,
-    nearOptimalDelta: 1.5,
-    stablePassStreak: 2,
-    withE2E: false,
+    targetScore: 95,
+    nearOptimalDelta: 1.0,
+    stablePassStreak: 3,
+    withE2E: true,
     sandboxFallback: false,
+    strictEvaluator: true,
   },
 };
 const GSD_MIN_ITERATION_FLOOR = 5;
@@ -292,8 +293,11 @@ function runSprintLoop(args) {
     1,
     pickNumberFlag(args.flags["stable-pass-streak"], defaults.stablePassStreak, 2)
   );
-  const withE2E = parseBooleanFlag(args.flags["with-e2e"], defaults.withE2E);
-  const sandboxFallback = parseBooleanFlag(args.flags["sandbox-fallback"], defaults.sandboxFallback);
+  const strictEvaluator = parseBooleanFlag(args.flags["strict-evaluator"], defaults.strictEvaluator);
+  const withE2EBase = parseBooleanFlag(args.flags["with-e2e"], defaults.withE2E);
+  const sandboxFallbackBase = parseBooleanFlag(args.flags["sandbox-fallback"], defaults.sandboxFallback);
+  const withE2E = strictEvaluator ? true : withE2EBase;
+  const sandboxFallback = strictEvaluator ? false : sandboxFallbackBase;
   const scorecardPath = args.flags.scorecard ? path.resolve(ROOT, args.flags.scorecard) : "";
 
   const sprintDir = path.join(project.dir, "sprints", `sprint-${nowFileStamp()}`);
@@ -316,6 +320,7 @@ function runSprintLoop(args) {
         weights: scoreWeights,
         targetScore,
         minIterations,
+        strictEvaluator,
       })
     );
     writeFile(
@@ -358,10 +363,12 @@ function runSprintLoop(args) {
       manualScore,
       verifyResults: verify.results,
       scoreWeights,
+      strictEvaluator,
     });
 
     const improvement = previousScore === null ? null : Number((score.total - previousScore).toFixed(1));
     previousScore = score.total;
+    const sandboxFallbackUsed = verify.results.some((x) => x.sandboxFallback);
 
     const scorePath = path.join(sprintDir, `${iterationId}_evaluator_score.json`);
     writeJson(scorePath, {
@@ -412,6 +419,10 @@ function runSprintLoop(args) {
       nearOptimalDelta,
       passStreak,
       stablePassRequired,
+      verifyPass: verify.pass,
+      verifyResults: verify.results,
+      strictEvaluator,
+      sandboxFallbackUsed,
     });
 
     summary.push({
@@ -442,10 +453,11 @@ function runSprintLoop(args) {
     "",
     `Project: ${project.slug}`,
     `Generated: ${nowIso()}`,
-    `Stop Reason: ${stopReason}`,
-    `Policy: minIterations=${minIterations}, maxIterations=${maxIterations}, targetScore=${targetScore}`,
-    "",
-    "## Iterations",
+      `Stop Reason: ${stopReason}`,
+      `Policy: minIterations=${minIterations}, maxIterations=${maxIterations}, targetScore=${targetScore}`,
+      `StrictEvaluator: ${strictEvaluator ? "true" : "false"}`,
+      "",
+      "## Iterations",
   ];
   for (const row of summary) {
     summaryLines.push(
@@ -480,8 +492,11 @@ function runVerifyWork(args) {
   const project = getProject(args.flags.project);
   const policy = loadPolicy(project.dir);
   const defaults = policy.sprintDefaults || DEFAULT_POLICY.sprintDefaults;
-  const withE2E = parseBooleanFlag(args.flags["with-e2e"], defaults.withE2E);
-  const sandboxFallback = parseBooleanFlag(args.flags["sandbox-fallback"], defaults.sandboxFallback);
+  const strictEvaluator = parseBooleanFlag(args.flags["strict-evaluator"], defaults.strictEvaluator);
+  const withE2EBase = parseBooleanFlag(args.flags["with-e2e"], defaults.withE2E);
+  const sandboxFallbackBase = parseBooleanFlag(args.flags["sandbox-fallback"], defaults.sandboxFallback);
+  const withE2E = strictEvaluator ? true : withE2EBase;
+  const sandboxFallback = strictEvaluator ? false : sandboxFallbackBase;
   const verify = runVerificationSteps({ withE2E, sandboxFallback });
 
   const reportPath = path.join(project.dir, "05_verify_report.md");
@@ -526,6 +541,11 @@ function runVerificationSteps({ withE2E, sandboxFallback }) {
       name: "verify:ingest",
       cmd: process.execPath,
       argv: [path.join("scripts", "verify_ingest_quality.js"), "--strict"],
+    },
+    {
+      name: "verify:catalog",
+      cmd: process.execPath,
+      argv: [path.join("scripts", "verify_recommendation_quality.js"), "--strict"],
     },
     {
       name: "build",
@@ -657,7 +677,7 @@ function readScoreCardForIteration(scorecardPath, iteration) {
   }
 }
 
-function scoreIteration({ manualScore, verifyResults, scoreWeights }) {
+function scoreIteration({ manualScore, verifyResults, scoreWeights, strictEvaluator }) {
   if (manualScore) {
     const designQuality = clampNumber(manualScore.designQuality, 0, scoreWeights.designQuality);
     const originality = clampNumber(manualScore.originality, 0, scoreWeights.originality);
@@ -667,14 +687,44 @@ function scoreIteration({ manualScore, verifyResults, scoreWeights }) {
     return { designQuality, originality, completeness, functionality, total };
   }
 
+  const ingestStep = verifyResults.find((x) => x.name === "verify:ingest");
+  const buildStep = verifyResults.find((x) => x.name === "build");
+  const e2eStep = verifyResults.find((x) => x.name === "test:e2e");
+  const hasE2E = Boolean(e2eStep);
+  const ingestPass = ingestStep?.code === 0;
+  const buildPass = buildStep?.code === 0;
+  const e2ePass = e2eStep?.code === 0;
+  const fallbackUsed = verifyResults.some((x) => x.sandboxFallback);
+
   const totalSteps = verifyResults.length || 1;
   const passedSteps = verifyResults.filter((x) => x.code === 0).length;
   const ratio = passedSteps / totalSteps;
-  const designQuality = Number((scoreWeights.designQuality * ratio).toFixed(1));
-  const originality = Number((scoreWeights.originality * ratio).toFixed(1));
-  const completeness = Number((scoreWeights.completeness * ratio).toFixed(1));
-  const functionality = Number((scoreWeights.functionality * ratio).toFixed(1));
-  const total = Number((designQuality + originality + completeness + functionality).toFixed(1));
+
+  const designFactor = (0.55 * ratio) + (0.45 * (hasE2E && e2ePass ? 1 : 0.2));
+  const originalityFactor = (0.65 * ratio) + (0.35 * (hasE2E ? (e2ePass ? 1 : 0.2) : 0.4));
+  const completenessFactor =
+    ingestPass && buildPass
+      ? (hasE2E ? (e2ePass ? 1 : 0.6) : 0.7)
+      : (0.35 * ratio);
+  const functionalityFactor =
+    buildPass
+      ? (hasE2E ? (e2ePass ? 1 : 0.25) : 0.5)
+      : 0.2;
+
+  const designQuality = Number((scoreWeights.designQuality * clampNumber(designFactor, 0, 1)).toFixed(1));
+  const originality = Number((scoreWeights.originality * clampNumber(originalityFactor, 0, 1)).toFixed(1));
+  const completeness = Number((scoreWeights.completeness * clampNumber(completenessFactor, 0, 1)).toFixed(1));
+  const functionality = Number((scoreWeights.functionality * clampNumber(functionalityFactor, 0, 1)).toFixed(1));
+  let total = Number((designQuality + originality + completeness + functionality).toFixed(1));
+
+  if (strictEvaluator) {
+    if (!hasE2E) total = Math.min(total, 70);
+    if (hasE2E && !e2ePass) total = Math.min(total, 72);
+    if (!ingestPass || !buildPass) total = Math.min(total, 65);
+    if (fallbackUsed) total = Math.min(total, 75);
+    total = Number(total.toFixed(1));
+  }
+
   return { designQuality, originality, completeness, functionality, total };
 }
 
@@ -687,9 +737,24 @@ function shouldStopLoop({
   nearOptimalDelta,
   passStreak,
   stablePassRequired,
+  verifyPass,
+  verifyResults,
+  strictEvaluator,
+  sandboxFallbackUsed,
 }) {
   if (iteration < minIterations) {
     return { stop: false, reason: `continue: minimum iterations (${minIterations}) not reached` };
+  }
+  if (!verifyPass) {
+    return { stop: false, reason: "continue: verification has failing steps" };
+  }
+  if (strictEvaluator && sandboxFallbackUsed) {
+    return { stop: false, reason: "continue: sandbox fallback was used in strict evaluator mode" };
+  }
+  if (strictEvaluator) {
+    const e2eStep = verifyResults.find((x) => x.name === "test:e2e");
+    if (!e2eStep) return { stop: false, reason: "continue: strict evaluator requires Playwright coverage" };
+    if (e2eStep.code !== 0) return { stop: false, reason: "continue: strict evaluator requires Playwright PASS" };
   }
   if (totalScore < targetScore) {
     return { stop: false, reason: `continue: score ${totalScore.toFixed(1)} is below target ${targetScore}` };
@@ -712,7 +777,7 @@ function shouldStopLoop({
   };
 }
 
-function buildSprintContractText({ projectSlug, iteration, weights, targetScore, minIterations }) {
+function buildSprintContractText({ projectSlug, iteration, weights, targetScore, minIterations, strictEvaluator }) {
   const lines = [
     `# Sprint Contract (Iteration ${iteration})`,
     "",
@@ -729,7 +794,7 @@ function buildSprintContractText({ projectSlug, iteration, weights, targetScore,
     "",
     "## evaluator",
     "- Score and provide concrete feedback.",
-    "- Verify technical behavior with Playwright when available.",
+    "- Verify technical behavior with Playwright and fail fast on weak validation.",
     "",
     "## DoD",
     "- Implementation merged for this iteration.",
@@ -745,6 +810,8 @@ function buildSprintContractText({ projectSlug, iteration, weights, targetScore,
     "## Loop Policy",
     `- Minimum iterations: ${minIterations}`,
     `- Target score: ${targetScore}`,
+    `- Strict evaluator: ${strictEvaluator ? "enabled" : "disabled"}`,
+    "- In strict mode: Playwright PASS and no sandbox fallback are mandatory.",
     "- Continue until near-optimal plateau after minimum iterations.",
     "",
   ];
@@ -1077,13 +1144,14 @@ function printHelp() {
     "  execute-phase --single   run single iteration checklist/log only",
     "  verify-work      run project verification commands and write report",
     "  --sandbox-fallback true   treat sandbox spawn EPERM/EINVAL as pass (default: false)",
+    "  --strict-evaluator true   force Playwright + disallow sandbox fallback for scoring",
     "",
     "Examples:",
     "  npm run gsd:new-project -- --name \"math-coach-v2\" --goal \"evidence-first coaching\"",
     "  npm run gsd:discuss-phase",
     "  npm run gsd:plan-phase",
     "  npm run gsd:execute-phase -- --task \"implemented dashboard cards\"",
-    "  npm run gsd:sprint-loop -- --min-iterations 5 --target-score 92",
+    "  npm run gsd:sprint-loop -- --min-iterations 5 --target-score 95 --strict-evaluator true",
     "  npm run gsd:execute-phase -- --single --task \"single run only\" --status done",
     "  npm run gsd:verify-work",
     "  npm run gsd:verify-work -- --with-e2e",

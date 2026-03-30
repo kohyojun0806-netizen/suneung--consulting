@@ -8,7 +8,7 @@
       "youtube_comment",
       "community-index"
     ],
-    "notes": "UI-first workflow with evidence-first source tracking (phase2)."
+    "notes": "Phase3: prioritize direct sourceRef mapping for books and strict evaluator ingestion checks."
   },
   "sources": [
     {
@@ -431,6 +431,106 @@
       "capturedAt": "2026-03-30",
       "keyPoints": [
         "phase2 alias source"
+      ]
+    },
+    {
+      "id": "orbi-nje-recommend-thread-00063590966",
+      "type": "community",
+      "provider": "Orbi",
+      "url": "https://orbi.kr/00063590966",
+      "capturedAt": "2026-03-30",
+      "keyPoints": [
+        "NJE candidates listed: Ihaewon, Hwayong, Seolmaji, Drill"
+      ]
+    },
+    {
+      "id": "orbi-survival-types-00057634187",
+      "type": "community",
+      "provider": "Orbi",
+      "url": "https://orbi.kr/00057634187",
+      "capturedAt": "2026-03-30",
+      "keyPoints": [
+        "Sidaeinjae survival variants: regular, alpha, N-survival"
+      ]
+    },
+    {
+      "id": "orbi-nje-rank-thread-00072600911",
+      "type": "community",
+      "provider": "Orbi",
+      "url": "https://orbi.kr/00072600911",
+      "capturedAt": "2026-03-30",
+      "keyPoints": [
+        "Top-tier recommendation mentions 4 rules, physical NJE, NJE game, clear NJE healer"
+      ]
+    },
+    {
+      "id": "orbi-books-review-thread-00074808610",
+      "type": "community",
+      "provider": "Orbi",
+      "url": "https://orbi.kr/00074808610",
+      "capturedAt": "2026-03-30",
+      "keyPoints": [
+        "Mentions Ihaewon, Drill, Jiinseon, KilCam, KangK, Sidae survival"
+      ]
+    },
+    {
+      "id": "orbi-books-question-thread-00060558051",
+      "type": "community",
+      "provider": "Orbi",
+      "url": "https://orbi.kr/00060558051",
+      "capturedAt": "2026-03-30",
+      "keyPoints": [
+        "Frequent questions about academy books and order by level"
+      ]
+    },
+    {
+      "id": "orbi-nje-usage-column-00065785267",
+      "type": "community",
+      "provider": "Orbi",
+      "url": "https://orbi.kr/00065785267",
+      "capturedAt": "2026-03-30",
+      "keyPoints": [
+        "NJE usage method emphasizes timing, error review, and strategy consistency"
+      ]
+    },
+    {
+      "id": "yes24-sidaebooks-g2-5year-2026",
+      "type": "official",
+      "provider": "YES24",
+      "url": "https://www.yes24.com/product/goods/176219987",
+      "capturedAt": "2026-03-30",
+      "keyPoints": [
+        "SidaeBooks mock volume details and publication metadata"
+      ]
+    },
+    {
+      "id": "yes24-sidaebooks-prehigh2-6year-2026",
+      "type": "official",
+      "provider": "YES24",
+      "url": "https://www.yes24.com/product/goods/162333789",
+      "capturedAt": "2026-03-30",
+      "keyPoints": [
+        "SidaeBooks publication metadata for 2026 cycle"
+      ]
+    },
+    {
+      "id": "bunjang-ihaewon-season4-2025",
+      "type": "community-index",
+      "provider": "Bunjang Global",
+      "url": "https://globalbunjang.com/product/310196513",
+      "capturedAt": "2026-03-30",
+      "keyPoints": [
+        "Ihaewon mock season listing signal"
+      ]
+    },
+    {
+      "id": "tistory-sdij-content-guide",
+      "type": "community-index",
+      "provider": "Tistory",
+      "url": "https://mathai-iope-factory.tistory.com/33",
+      "capturedAt": "2026-03-30",
+      "keyPoints": [
+        "Sidaeinjae content names often discussed in community contexts"
       ]
     }
   ]

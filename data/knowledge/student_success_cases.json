@@ -1,6 +1,6 @@
 {
   "updatedAt": "2026-03-30",
-  "notes": "Phase2 update: expanded student success cases with explicit source references.",
+  "notes": "Phase3 update: added NJE/mock sequence and survival-track success patterns.",
   "cases": [
     {
       "id": "success-9to1-orbi-2020",
@@ -330,6 +330,46 @@
       ],
       "sourceRefs": [
         "orbi-00032151027-studymethod"
+      ],
+      "reliability": 0.69
+    },
+    {
+      "id": "success-nje-mock-sequence-topband-2026-phase3",
+      "bandShift": "5->1",
+      "duration": "about 5~8 months",
+      "summary": "Community patterns repeatedly mention that students stabilized upper-band scores after fixing NJE->mock->error-loop order.",
+      "coreActions": [
+        "Single NJE lane per period",
+        "Weekly mock and miss-type tags",
+        "No late-stage random expansion"
+      ],
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "sourceRefs": [
+        "orbi-books-review-thread-00074808610",
+        "orbi-nje-usage-column-00065785267"
+      ],
+      "reliability": 0.74
+    },
+    {
+      "id": "success-survival-track-consistency-2026-phase3",
+      "bandShift": "top-band stabilization",
+      "duration": "in-season",
+      "summary": "Sidae survival-track discussions emphasize maintaining one stable content lane rather than broad, frequent switching.",
+      "coreActions": [
+        "Keep one survival track",
+        "Align weekly assignment with previous miss-types",
+        "Compress in final period"
+      ],
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "sourceRefs": [
+        "orbi-survival-types-00057634187",
+        "orbi-books-question-thread-00060558051"
       ],
       "reliability": 0.69
     }

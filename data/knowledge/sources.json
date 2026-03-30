@@ -563,5 +563,155 @@
     "title": "orbi-00077627016-akoreum-hot",
     "webUrl": "https://orbi.kr/00077627016",
     "includeImages": false
+  },
+  {
+    "id": "orbi-nje-recommend-thread-00063590966",
+    "type": "community",
+    "platform": "Orbi",
+    "bucket": "lecture_books",
+    "tags": [
+      "community",
+      "nje-recommendation",
+      "phase3-books",
+      "2026-03-30"
+    ],
+    "title": "Math NJE recommendation thread",
+    "webUrl": "https://orbi.kr/00063590966",
+    "includeImages": false
+  },
+  {
+    "id": "orbi-survival-types-00057634187",
+    "type": "community",
+    "platform": "Orbi",
+    "bucket": "lecture_books",
+    "tags": [
+      "community",
+      "sidae-survival",
+      "phase3-books",
+      "2026-03-30"
+    ],
+    "title": "Sidaeinjae survival type question",
+    "webUrl": "https://orbi.kr/00057634187",
+    "includeImages": false
+  },
+  {
+    "id": "orbi-nje-rank-thread-00072600911",
+    "type": "community",
+    "platform": "Orbi",
+    "bucket": "lecture_books",
+    "tags": [
+      "community",
+      "nje-rank",
+      "phase3-books",
+      "2026-03-30"
+    ],
+    "title": "High-tier NJE ordering recommendation",
+    "webUrl": "https://orbi.kr/00072600911",
+    "includeImages": false
+  },
+  {
+    "id": "orbi-books-review-thread-00074808610",
+    "type": "community",
+    "platform": "Orbi",
+    "bucket": "lecture_books",
+    "tags": [
+      "community",
+      "book-review",
+      "phase3-books",
+      "2026-03-30"
+    ],
+    "title": "Math books and mock review thread",
+    "webUrl": "https://orbi.kr/00074808610",
+    "includeImages": false
+  },
+  {
+    "id": "orbi-books-question-thread-00060558051",
+    "type": "community",
+    "platform": "Orbi",
+    "bucket": "lecture_books",
+    "tags": [
+      "community",
+      "book-selection",
+      "phase3-books",
+      "2026-03-30"
+    ],
+    "title": "Math academy books and instructor content question",
+    "webUrl": "https://orbi.kr/00060558051",
+    "includeImages": false
+  },
+  {
+    "id": "orbi-nje-usage-column-00065785267",
+    "type": "community",
+    "platform": "Orbi",
+    "bucket": "study_methods",
+    "tags": [
+      "community",
+      "nje-method",
+      "phase3-books",
+      "2026-03-30"
+    ],
+    "title": "How to use NJE effectively",
+    "webUrl": "https://orbi.kr/00065785267",
+    "includeImages": false
+  },
+  {
+    "id": "yes24-sidaebooks-g2-5year-2026",
+    "type": "official",
+    "platform": "YES24",
+    "bucket": "lecture_books",
+    "tags": [
+      "official",
+      "sidaebooks",
+      "phase3-books",
+      "2026-03-30"
+    ],
+    "title": "SidaeBooks 5-year mock high2 math (2026)",
+    "webUrl": "https://www.yes24.com/product/goods/176219987",
+    "includeImages": true
+  },
+  {
+    "id": "yes24-sidaebooks-prehigh2-6year-2026",
+    "type": "official",
+    "platform": "YES24",
+    "bucket": "lecture_books",
+    "tags": [
+      "official",
+      "sidaebooks",
+      "phase3-books",
+      "2026-03-30"
+    ],
+    "title": "SidaeBooks pre-high2 6-year mock math (2026)",
+    "webUrl": "https://www.yes24.com/product/goods/162333789",
+    "includeImages": true
+  },
+  {
+    "id": "bunjang-ihaewon-season4-2025",
+    "type": "community-index",
+    "platform": "Bunjang Global",
+    "bucket": "lecture_books",
+    "tags": [
+      "community-index",
+      "ihaewon",
+      "phase3-books",
+      "2026-03-30"
+    ],
+    "title": "Ihaewon mock season4 listing signal",
+    "webUrl": "https://globalbunjang.com/product/310196513",
+    "includeImages": false
+  },
+  {
+    "id": "tistory-sdij-content-guide",
+    "type": "community-index",
+    "platform": "Tistory",
+    "bucket": "lecture_books",
+    "tags": [
+      "community-index",
+      "sidae-content",
+      "phase3-books",
+      "2026-03-30"
+    ],
+    "title": "Sidaeinjae math content recommendation summary",
+    "webUrl": "https://mathai-iope-factory.tistory.com/33",
+    "includeImages": false
   }
 ]

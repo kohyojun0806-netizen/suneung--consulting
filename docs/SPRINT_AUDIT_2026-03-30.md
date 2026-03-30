@@ -89,3 +89,50 @@
 - Sprint loop artifacts:
 - `gsd/ui-data-priority-20260330/sprints/sprint-20260330T054137`
 - `gsd/ui-data-priority-20260330/sprints/sprint-20260330T054815`
+
+---
+
+## Phase3 Objective (Strict Evaluator + Book Depth)
+- Tighten evaluator standards to prevent context rot / lazy pass patterns.
+- Make Playwright verification mandatory in strict loop mode.
+- Expand Sidaeinjae + community NJE/mock book coverage with source-linked records.
+
+## Phase3 Implemented
+- Added strict evaluator defaults in `scripts/gsd_workflow.js`:
+  - `withE2E=true`, `strictEvaluator=true`, `targetScore=95`, `stablePassStreak=3`.
+  - Strict stop conditions require Playwright PASS and no sandbox fallback pass.
+- Added catalog quality checker: `scripts/verify_recommendation_quality.js`.
+- Added phase3 data automation: `scripts/upgrade_priority_data_phase3_books.js`.
+- Added Playwright strict UI regression suite: `tests/e2e/strict-evaluator-ui.spec.ts`.
+- Updated active project policy: `gsd/ui-data-priority-20260330/06_process_policy.json`.
+
+## Phase3 Data Growth Snapshot
+- books: `43 -> 63`
+- success cases: `17 -> 19`
+- question signals: `22 -> 25`
+- source registry: `40 -> 50`
+- sources list: `40 -> 50`
+
+## Phase3 Verification Snapshot
+- `node scripts/verify_ingest_quality.js --strict`: PASS
+- `node scripts/verify_recommendation_quality.js --strict`: PASS
+- `npm run build`: PASS
+- `npm run test:e2e`: PASS (4/4)
+- `npm run gsd:sprint-loop -- --project ui-data-priority-20260330 --min-iterations 5 --max-iterations 7 --target-score 95 --strict-evaluator true --with-e2e true --sandbox-fallback false`: PASS
+- `npm run gsd:verify-work -- --project ui-data-priority-20260330 --strict-evaluator true --with-e2e true --sandbox-fallback false`: PASS
+
+## Phase3 Evidence Sources (newly reflected)
+- Orbi NJE recommendation thread: `https://orbi.kr/00063590966`
+- Orbi Sidaeinjae survival variants thread: `https://orbi.kr/00057634187`
+- Orbi top-band NJE ordering thread: `https://orbi.kr/00072600911`
+- Orbi math books/mock review thread: `https://orbi.kr/00074808610`
+- Orbi academy books question thread: `https://orbi.kr/00060558051`
+- Orbi NJE usage method column: `https://orbi.kr/00065785267`
+- YES24 SidaeBooks title page: `https://www.yes24.com/product/goods/176219987`
+- YES24 SidaeBooks title page: `https://www.yes24.com/product/goods/162333789`
+
+## Phase3 Process Evidence
+- Contract: `docs/SPRINT_CONTRACT_30.md`
+- Log: `docs/SPRINT_LOG_30.md`
+- Sprint loop artifact:
+- `gsd/ui-data-priority-20260330/sprints/sprint-20260330T131037`

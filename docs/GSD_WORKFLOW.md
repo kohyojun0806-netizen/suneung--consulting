@@ -77,11 +77,14 @@ Run PLANER/Generator/evaluator loop automatically.
 Default policy:
 - Minimum 5 iterations
 - Continue after 5 until near-optimal condition is met
+- Strict evaluator default enabled
+- Playwright verification required in strict mode
+- Sandbox fallback pass not allowed in strict mode
 - Generator and evaluator contract is generated at each iteration start
 
 ```bash
 npm run gsd:execute-phase
-npm run gsd:sprint-loop -- --min-iterations 5 --target-score 92
+npm run gsd:sprint-loop -- --min-iterations 5 --target-score 95 --strict-evaluator true
 npm run gsd -- /gsd:execute-phase --task "implemented API security middleware"
 ```
 
@@ -114,10 +117,12 @@ Output:
 
 Default checks:
 - `npm run verify:ingest`
+- `npm run verify:catalog`
 - `npm run build`
 
 Optional:
 - `npm run test:e2e` when `--with-e2e` is provided.
+- In strict mode, e2e is forced and must pass.
 
 Manual scorecard support:
 

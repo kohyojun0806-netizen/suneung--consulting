@@ -1,6 +1,6 @@
 {
   "updatedAt": "2026-03-30",
-  "notes": "Phase2 update: expanded learner question signals from community and Akoreum-related channels.",
+  "notes": "Phase3 update: focused on NJE overload, survival variant choice, and final-period compression signals.",
   "signals": [
     {
       "id": "q-sequence",
@@ -356,6 +356,54 @@
         "orbi-00077627016-akoreum-hot"
       ],
       "reliability": 0.71
+    },
+    {
+      "id": "q-too-many-nje-which-first-2026-phase3",
+      "channel": "community",
+      "focus": "NJE overload",
+      "learnerQuestion": "There are too many NJE choices. Which one should I start first for my band?",
+      "coachingHint": "Pick one NJE lane by fit band and lock 6-week cycle before switching.",
+      "fitKeys": [
+        "7-5",
+        "5-3",
+        "3-1"
+      ],
+      "sourceRefs": [
+        "orbi-nje-recommend-thread-00063590966",
+        "orbi-nje-rank-thread-00072600911"
+      ],
+      "reliability": 0.81
+    },
+    {
+      "id": "q-survival-regular-vs-alpha-2026-phase3",
+      "channel": "community",
+      "focus": "survival variant choice",
+      "learnerQuestion": "How should I choose between Sidae survival regular vs alpha?",
+      "coachingHint": "Decide by current mock stability and review capacity, not by naming prestige.",
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "sourceRefs": [
+        "orbi-survival-types-00057634187"
+      ],
+      "reliability": 0.76
+    },
+    {
+      "id": "q-final-period-expand-or-compress-2026-phase3",
+      "channel": "community",
+      "focus": "final-period materials",
+      "learnerQuestion": "In final period, should I add more mocks or compress existing sets?",
+      "coachingHint": "Compress first and increase review depth unless score variance remains unexplained.",
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "sourceRefs": [
+        "orbi-books-review-thread-00074808610",
+        "orbi-nje-usage-column-00065785267"
+      ],
+      "reliability": 0.78
     }
   ]
 }

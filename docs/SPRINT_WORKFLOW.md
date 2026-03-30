@@ -22,9 +22,11 @@
 - Minimum iterations: 5
 - Continue after iteration 5 until near-optimal state
 - Near-optimal state:
-- total score >= 92
-- score improvement magnitude <= 1.5
-- stable verification pass streak >= 2
+- total score >= 95
+- score improvement magnitude <= 1.0
+- stable verification pass streak >= 3
+- Playwright verification PASS required (strict evaluator mode)
+- sandbox fallback pass disallowed (strict evaluator mode)
 - Safety cap: max iterations = 12
 
 ## Automation Commands
@@ -40,5 +42,5 @@
 - `iter-XX_feedback.md`
 
 ## Notes
-- If no manual scorecard is provided, evaluator score is auto-calculated from verification pass ratio.
+- If no manual scorecard is provided, evaluator score is auto-calculated from verification outcomes with strict gating.
 - Manual scorecard can override category scores per iteration.

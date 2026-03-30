@@ -1,6 +1,6 @@
 {
   "updatedAt": "2026-03-30",
-  "notes": "Phase2 update: UI-first + evidence expansion from official/community/youtube-comment references.",
+  "notes": "Phase3 update: stronger Sidaeinjae + NJE/mock evidence and stricter source mapping.",
   "instructors": [
     {
       "name": "현우진",
@@ -1840,6 +1840,406 @@
       "sourceRefs": [
         "orbi-success-percentile40-to-grade1",
         "orbi-onescore-bottleneck-2026"
+      ]
+    },
+    {
+      "title": "Sidaeinjae Survival Math Regular",
+      "type": "academy-mock",
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "purpose": "Top-band practical mock adaptation with dense weekly review loop",
+      "when": "6~11 month cycle",
+      "difficulty": "high",
+      "subjectTags": [
+        "common",
+        "calculus",
+        "geometry"
+      ],
+      "sourceLevel": "community",
+      "confidence": 0.78,
+      "sourceRefs": [
+        "orbi-survival-types-00057634187",
+        "orbi-books-review-thread-00074808610"
+      ]
+    },
+    {
+      "title": "Sidaeinjae Survival Alpha Math",
+      "type": "academy-mock",
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "purpose": "Hard variation set for upper-band timing and miss-type reduction",
+      "when": "7~10 month cycle",
+      "difficulty": "high",
+      "subjectTags": [
+        "common",
+        "calculus",
+        "geometry"
+      ],
+      "sourceLevel": "community",
+      "confidence": 0.75,
+      "sourceRefs": [
+        "orbi-survival-types-00057634187"
+      ]
+    },
+    {
+      "title": "Sidaeinjae N Survival Math",
+      "type": "academy-nje",
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "purpose": "N-set style high-intensity training before final mocks",
+      "when": "6~9 month cycle",
+      "difficulty": "high",
+      "subjectTags": [
+        "common",
+        "calculus"
+      ],
+      "sourceLevel": "community",
+      "confidence": 0.72,
+      "sourceRefs": [
+        "orbi-survival-types-00057634187"
+      ]
+    },
+    {
+      "title": "KangK Math Mock",
+      "type": "mock",
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "purpose": "Practical pacing and score stability in high-pressure sets",
+      "when": "8~11 month cycle",
+      "difficulty": "high",
+      "subjectTags": [
+        "common",
+        "calculus"
+      ],
+      "sourceLevel": "community",
+      "confidence": 0.76,
+      "sourceRefs": [
+        "orbi-books-review-thread-00074808610"
+      ]
+    },
+    {
+      "title": "Killing Camp Math Mock (KilCam)",
+      "type": "mock",
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "purpose": "Final practical test simulation and mistake-control drilling",
+      "when": "9~11 month cycle",
+      "difficulty": "high",
+      "subjectTags": [
+        "common",
+        "calculus"
+      ],
+      "sourceLevel": "community",
+      "confidence": 0.77,
+      "sourceRefs": [
+        "orbi-books-review-thread-00074808610"
+      ]
+    },
+    {
+      "title": "Ihaewon NJE",
+      "type": "NJE",
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "purpose": "Idea-rich upper-band NJE for interpretation and path decision",
+      "when": "5~9 month cycle",
+      "difficulty": "high",
+      "subjectTags": [
+        "common",
+        "calculus"
+      ],
+      "sourceLevel": "community",
+      "confidence": 0.79,
+      "sourceRefs": [
+        "orbi-nje-recommend-thread-00063590966",
+        "bunjang-ihaewon-season4-2025"
+      ]
+    },
+    {
+      "title": "Hwayong NJE",
+      "type": "NJE",
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "purpose": "Balanced NJE with strong per-item quality for upper-mid to top transition",
+      "when": "5~9 month cycle",
+      "difficulty": "medium-high",
+      "subjectTags": [
+        "common",
+        "calculus"
+      ],
+      "sourceLevel": "community",
+      "confidence": 0.73,
+      "sourceRefs": [
+        "orbi-nje-recommend-thread-00063590966"
+      ]
+    },
+    {
+      "title": "Seolmaji NJE",
+      "type": "NJE",
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "purpose": "Balanced NJE for stable high-level practice without over-fragmenting routine",
+      "when": "5~9 month cycle",
+      "difficulty": "medium-high",
+      "subjectTags": [
+        "common",
+        "calculus"
+      ],
+      "sourceLevel": "community",
+      "confidence": 0.72,
+      "sourceRefs": [
+        "orbi-nje-recommend-thread-00063590966"
+      ]
+    },
+    {
+      "title": "Drill Math Set",
+      "type": "NJE",
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "purpose": "Dense hard-problem exposure with repeated condition interpretation",
+      "when": "5~9 month cycle",
+      "difficulty": "high",
+      "subjectTags": [
+        "common",
+        "calculus"
+      ],
+      "sourceLevel": "community",
+      "confidence": 0.74,
+      "sourceRefs": [
+        "orbi-nje-recommend-thread-00063590966",
+        "orbi-books-review-thread-00074808610"
+      ]
+    },
+    {
+      "title": "4 Rules S1",
+      "type": "NJE",
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "purpose": "Top-band hard-item routine with strict review tags",
+      "when": "6~10 month cycle",
+      "difficulty": "high",
+      "subjectTags": [
+        "common",
+        "calculus"
+      ],
+      "sourceLevel": "community",
+      "confidence": 0.71,
+      "sourceRefs": [
+        "orbi-nje-rank-thread-00072600911"
+      ]
+    },
+    {
+      "title": "Physical NJE",
+      "type": "NJE",
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "purpose": "High-volume NJE exposure for persistence and speed calibration",
+      "when": "6~10 month cycle",
+      "difficulty": "high",
+      "subjectTags": [
+        "common"
+      ],
+      "sourceLevel": "community",
+      "confidence": 0.68,
+      "sourceRefs": [
+        "orbi-nje-rank-thread-00072600911"
+      ]
+    },
+    {
+      "title": "NJE Game",
+      "type": "NJE",
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "purpose": "Pattern variation and decision-speed adaptation",
+      "when": "6~10 month cycle",
+      "difficulty": "high",
+      "subjectTags": [
+        "common"
+      ],
+      "sourceLevel": "community",
+      "confidence": 0.67,
+      "sourceRefs": [
+        "orbi-nje-rank-thread-00072600911"
+      ]
+    },
+    {
+      "title": "Clear NJE Healer Edition",
+      "type": "NJE",
+      "fitKeys": [
+        "7-5",
+        "5-3"
+      ],
+      "purpose": "Bridge NJE for students moving from stable 3~4 to high 2~1",
+      "when": "5~8 month cycle",
+      "difficulty": "medium-high",
+      "subjectTags": [
+        "common"
+      ],
+      "sourceLevel": "community",
+      "confidence": 0.64,
+      "sourceRefs": [
+        "orbi-nje-rank-thread-00072600911"
+      ]
+    },
+    {
+      "title": "Jiinseon NJE",
+      "type": "NJE",
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "purpose": "Top-band idea and miss-type compression training",
+      "when": "6~10 month cycle",
+      "difficulty": "high",
+      "subjectTags": [
+        "common",
+        "calculus"
+      ],
+      "sourceLevel": "community",
+      "confidence": 0.7,
+      "sourceRefs": [
+        "orbi-books-review-thread-00074808610"
+      ]
+    },
+    {
+      "title": "SidaeBooks 5-year National Mock High2 Math 20",
+      "type": "mock-archive",
+      "fitKeys": [
+        "7-5",
+        "5-3"
+      ],
+      "purpose": "Archive-style mock set for pacing and variance control",
+      "when": "3~9 month cycle",
+      "difficulty": "medium",
+      "subjectTags": [
+        "common"
+      ],
+      "sourceLevel": "official",
+      "confidence": 0.86,
+      "sourceRefs": [
+        "yes24-sidaebooks-g2-5year-2026"
+      ]
+    },
+    {
+      "title": "SidaeBooks Pre-High2 6-year National Mock Math",
+      "type": "mock-archive",
+      "fitKeys": [
+        "9-7",
+        "7-5"
+      ],
+      "purpose": "Early-stage archive mock adaptation with score trend tracking",
+      "when": "1~6 month cycle",
+      "difficulty": "medium",
+      "subjectTags": [
+        "common"
+      ],
+      "sourceLevel": "official",
+      "confidence": 0.82,
+      "sourceRefs": [
+        "yes24-sidaebooks-prehigh2-6year-2026"
+      ]
+    },
+    {
+      "title": "Sidaeinjae Bridge Math",
+      "type": "academy-content",
+      "fitKeys": [
+        "7-5",
+        "5-3"
+      ],
+      "purpose": "Bridge phase content for moving from concept closure to practical solving",
+      "when": "3~6 month cycle",
+      "difficulty": "medium-high",
+      "subjectTags": [
+        "common",
+        "calculus"
+      ],
+      "sourceLevel": "community-index",
+      "confidence": 0.58,
+      "sourceRefs": [
+        "tistory-sdij-content-guide"
+      ]
+    },
+    {
+      "title": "Sidaeinjae Excel Math",
+      "type": "academy-content",
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "purpose": "Higher-intensity content layer for upper-band transition",
+      "when": "5~9 month cycle",
+      "difficulty": "high",
+      "subjectTags": [
+        "common",
+        "calculus"
+      ],
+      "sourceLevel": "community-index",
+      "confidence": 0.55,
+      "sourceRefs": [
+        "tistory-sdij-content-guide"
+      ]
+    },
+    {
+      "title": "Sidaeinjae The27 Math",
+      "type": "academy-content",
+      "fitKeys": [
+        "3-1"
+      ],
+      "purpose": "Top-band compression set for final practical control",
+      "when": "8~11 month cycle",
+      "difficulty": "high",
+      "subjectTags": [
+        "common",
+        "calculus",
+        "geometry"
+      ],
+      "sourceLevel": "community-index",
+      "confidence": 0.54,
+      "sourceRefs": [
+        "tistory-sdij-content-guide"
+      ]
+    },
+    {
+      "title": "Sidaeinjae Shortcut Math",
+      "type": "academy-content",
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "purpose": "Late-stage compact routine to reduce unstable variance",
+      "when": "9~11 month cycle",
+      "difficulty": "high",
+      "subjectTags": [
+        "common",
+        "calculus"
+      ],
+      "sourceLevel": "community-index",
+      "confidence": 0.53,
+      "sourceRefs": [
+        "tistory-sdij-content-guide"
       ]
     }
   ]
