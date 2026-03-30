@@ -896,7 +896,38 @@ function DashboardPanel({
 }) {
   const gradeInfo = GRADE_INFO[profile.currentGrade] || {};
   const targetInfo = GRADE_INFO[profile.targetGrade] || {};
-
+  const categorySummary = [
+    {
+      key: "study_methods",
+      label: "Study methods",
+      count: (health.summary?.categories?.study_methods || []).length,
+    },
+    {
+      key: "learning_routines",
+      label: "Learning routines",
+      count: (health.summary?.categories?.learning_routines || []).length,
+    },
+    {
+      key: "instructors",
+      label: "Instructor notes",
+      count: (health.summary?.categories?.lecture_and_books?.instructors || []).length,
+    },
+    {
+      key: "books",
+      label: "Book notes",
+      count: (health.summary?.categories?.lecture_and_books?.books || []).length,
+    },
+    {
+      key: "student_success_cases",
+      label: "Success cases",
+      count: (health.summary?.categories?.student_success_cases || []).length,
+    },
+    {
+      key: "question_signals",
+      label: "Question signals",
+      count: (health.summary?.categories?.question_signals || []).length,
+    },
+  ];
   return (
     <section className="panel-stack">
       <div className="grid-3">
@@ -998,31 +1029,13 @@ function DashboardPanel({
           </div>
         ) : null}
         {health.summary?.categories ? (
-          <div className="data-grid">
-            <div>
-              <strong>{(health.summary.categories.study_methods || []).length}</strong>
-              <span>공부법 근거 문장</span>
-            </div>
-            <div>
-              <strong>{(health.summary.categories.learning_routines || []).length}</strong>
-              <span>루틴 근거 문장</span>
-            </div>
-            <div>
-              <strong>{(health.summary.categories.lecture_and_books?.instructors || []).length}</strong>
-              <span>강사 요약 항목</span>
-            </div>
-            <div>
-              <strong>{(health.summary.categories.lecture_and_books?.books || []).length}</strong>
-              <span>교재 요약 항목</span>
-            </div>
-            <div>
-              <strong>{(health.summary.categories.student_success_cases || []).length}</strong>
-              <span>성과 사례 요약</span>
-            </div>
-            <div>
-              <strong>{(health.summary.categories.question_signals || []).length}</strong>
-              <span>질문 트렌드 요약</span>
-            </div>
+          <div className="evidence-summary">
+            {categorySummary.map((item) => (
+              <div key={item.key} className="evidence-summary__row">
+                <span>{item.label}</span>
+                <strong>{item.count}</strong>
+              </div>
+            ))}
           </div>
         ) : null}
       </article>
