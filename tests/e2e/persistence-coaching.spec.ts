@@ -1,35 +1,32 @@
-import { expect, test } from "@playwright/test";
+﻿import { expect, test } from "@playwright/test";
 
-async function completeSetup(page) {
+async function bootstrapPlan(page) {
   await page.goto("/");
-  await page.getByLabel("이름(선택)").fill("누적테스트");
-  await page.locator(".grade-grid").nth(0).locator(".grade-chip").nth(4).click();
-  await page.locator(".grade-grid").nth(1).locator(".grade-chip").nth(1).click();
-  await page.getByRole("button", { name: "미적분" }).click();
-  await page.getByRole("button", { name: "저장하고 코칭 시작" }).click();
+  await page.selectOption("#currentGrade", "4+");
+  await page.selectOption("#targetGrade", "2-3");
+  await page.check('input[name="elective"][value="calculus"]');
+  await page.fill("#weeklyHours", "11");
+  await page.getByRole("button", { name: /로드맵 생성/ }).click();
+  await expect(page.locator(".plan-tab")).toBeVisible();
 }
 
-test("weekly checklist persistence and coach memory reflection", async ({
-  page,
-}) => {
-  await completeSetup(page);
-  await expect(page.getByRole("heading", { name: "주간 미션 계약" })).toBeVisible();
+test("report and consult results persist across tab switches", async ({ page }) => {
+  await bootstrapPlan(page);
 
-  const firstMission = page.locator(".mission-item").first();
-  await firstMission.click();
-  await expect(firstMission.getByText("완료")).toBeVisible();
+  await page.locator('.tab-nav__btn:has-text("주간보고")').click();
+  await expect(page.locator(".report-tab")).toBeVisible();
 
-  await page.reload();
-  await expect(page.locator(".mission-item").first().getByText("완료")).toBeVisible();
+  await page.fill("#completedTopics", "미적분 킬러 유형 A 8문항 복습");
+  await page.fill("#difficulties", "조건 해석에서 시간을 많이 씀");
+  await page.getByRole("button", { name: /주간 리포트 생성/ }).click();
+  await expect(page.locator(".report-result")).toBeVisible();
 
-  await page.getByRole("button", { name: "설정" }).click();
-  await page
-    .getByLabel("코치 메모(지속 지시사항)")
-    .fill("오답복기 우선, 설명은 짧고 강하게");
-  await page.getByRole("button", { name: "코치 메모 저장" }).click();
+  await page.locator('.tab-nav__btn:has-text("컨설팅")').click();
+  await expect(page.locator(".consult-tab")).toBeVisible();
+  await page.fill("#consultQuestion", "실전에서 시간 배분을 어떻게 고정하면 좋을까요?");
+  await page.getByRole("button", { name: /컨설팅 받기/ }).click();
+  await expect(page.locator(".consult-result")).toBeVisible();
 
-  await page.getByRole("button", { name: "AI 코치" }).click();
-  await expect(
-    page.getByText("코치 메모 반영 중: 오답복기 우선, 설명은 짧고 강하게")
-  ).toBeVisible();
+  await page.locator('.tab-nav__btn:has-text("주간보고")').click();
+  await expect(page.locator(".report-result")).toBeVisible();
 });

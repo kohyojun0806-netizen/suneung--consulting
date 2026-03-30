@@ -5,6 +5,11 @@ const fs = require("fs");
 const fsp = require("fs/promises");
 const crypto = require("crypto");
 require("dotenv").config();
+const {
+  getReportSystemPrompt,
+  getReportUserPrompt,
+  getFallbackReport,
+} = require("./report-prompt-patch");
 
 const app = express();
 const PORT = Number(process.env.PORT || process.env.SERVER_PORT || 8787);
@@ -499,6 +504,57 @@ app.post("/api/analyze", async (req, res) => {
 app.post("/api/tracker/report", async (req, res) => {
   try {
     const profile = req.body?.profile || {};
+    const weekInput = req.body?.weekInput && typeof req.body.weekInput === "object"
+      ? req.body.weekInput
+      : null;
+
+    if (weekInput) {
+      const normalizedTargetGrade = (() => {
+        const raw = toText(profile?.targetGrade);
+        if (raw === "1") return "1";
+        if (raw === "2-3" || raw === "2" || raw === "3") return "2-3";
+        return "4+";
+      })();
+
+      const safeProfile = { ...profile, targetGrade: normalizedTargetGrade };
+      const safeWeekInput = {
+        completedTopics: truncateText(toText(weekInput?.completedTopics), 320),
+        difficulties: truncateText(toText(weekInput?.difficulties), 240),
+        mockScore: truncateText(toText(weekInput?.mockScore), 24),
+      };
+
+      let report = getFallbackReport(safeProfile, safeWeekInput);
+      let usedModel = false;
+      let usedModelName = null;
+
+      if (OPENAI_API_KEY) {
+        const combinedPrompt = [
+          getReportSystemPrompt(normalizedTargetGrade),
+          "",
+          getReportUserPrompt(safeProfile, safeWeekInput),
+        ].join("\n");
+
+        for (const modelName of getModelCandidates()) {
+          try {
+            const text = await requestTextResponse(combinedPrompt, modelName, TRACKER_REPORT_MAX_TOKENS);
+            if (toText(text)) {
+              report = toText(text);
+              usedModel = true;
+              usedModelName = modelName;
+              break;
+            }
+          } catch (error) {
+            console.warn(`[tracker/report] grade-band model failed (${modelName}): ${error.message}`);
+          }
+        }
+      }
+
+      return res.json({
+        report,
+        meta: { usedModel, model: usedModelName, mode: "grade-band-text" },
+      });
+    }
+
     const logs = asArray(req.body?.logs).slice(0, TRACKER_REPORT_LOG_WEEKS);
     const method = req.body?.method || {};
     const metrics = {

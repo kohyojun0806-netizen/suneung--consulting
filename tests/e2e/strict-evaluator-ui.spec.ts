@@ -1,57 +1,48 @@
-import { expect, test } from "@playwright/test";
+﻿import { expect, test } from "@playwright/test";
 
-async function completeSetupBySelectors(page) {
+async function createPlan(page) {
   await page.goto("/");
-  await expect(page.locator(".setup-card")).toBeVisible();
+  await expect(page.locator(".onboarding-tab")).toBeVisible();
 
-  await page.locator("#student-name").fill("playwright-user");
-  await page.locator(".grade-grid").nth(0).locator(".grade-chip").nth(5).click();
-  await page.locator(".grade-grid").nth(1).locator(".grade-chip").nth(2).click();
-  await page.locator(".chip-row .chip").first().click();
-  await page.locator(".setup-card .primary-btn").click();
+  await page.selectOption("#currentGrade", "2-3");
+  await page.selectOption("#targetGrade", "1");
+  await page.check('input[name="elective"][value="calculus"]');
+  await page.fill("#weeklyHours", "14");
 
-  await expect(page.locator(".tracker-container")).toBeVisible();
-  await page.locator(".tabs .tab-btn").first().click();
-  await expect(page.locator(".metric-card").first()).toBeVisible();
+  await page.getByRole("button", { name: /로드맵 생성/ }).click();
+  await expect(page.locator(".plan-tab")).toBeVisible();
 }
 
-test("strict dashboard evidence blocks and tab routing", async ({ page }) => {
-  await completeSetupBySelectors(page);
+test("strict ui evidence blocks and tab routing", async ({ page }) => {
+  await createPlan(page);
 
-  await expect(page.locator(".tabs .tab-btn")).toHaveCount(6);
-  await expect(page.locator(".metric-card")).toHaveCount(3);
-  await expect(page.locator(".mission-item")).toHaveCount(5);
+  await expect(page.locator(".accordion-section")).toHaveCount(3);
+  await expect(page.locator(".evidence-badge").first()).toBeVisible();
+  await expect(page.locator(".grade-badge")).toBeVisible();
 
-  await page.locator(".tabs .tab-btn").nth(1).click();
-  await expect(page.locator(".timeline-item").first()).toBeVisible();
+  await page.locator('.tab-nav__btn:has-text("주간보고")').click();
+  await expect(page.locator(".report-tab")).toBeVisible();
 
-  await page.locator(".tabs .tab-btn").nth(2).click();
-  await expect(page.locator(".field-input").first()).toBeVisible();
+  await page.locator('.tab-nav__btn:has-text("컨설팅")').click();
+  await expect(page.locator(".consult-tab")).toBeVisible();
 
-  await page.locator(".tabs .tab-btn").nth(3).click();
-  await expect(page.locator(".glass-card").first()).toBeVisible();
-
-  await page.locator(".tabs .tab-btn").nth(4).click();
-  await expect(page.locator("textarea.field-textarea").first()).toBeVisible();
-
-  await page.locator(".tabs .tab-btn").nth(5).click();
-  await expect(page.locator(".danger-btn, .ghost-btn").first()).toBeVisible();
+  await page.locator('.tab-nav__btn:has-text("프로필")').click();
+  await expect(page.locator(".onboarding-tab")).toBeVisible();
 });
 
 test.describe("mobile coherence", () => {
   test.use({ viewport: { width: 390, height: 844 } });
 
   test("mobile tab switching remains usable", async ({ page }) => {
-    await completeSetupBySelectors(page);
+    await createPlan(page);
 
-    const tabs = page.locator(".tabs .tab-btn");
-    await tabs.nth(1).click();
-    await expect(page.locator(".timeline-item").first()).toBeVisible();
+    const bodyWidth = await page.evaluate(() => document.body.scrollWidth);
+    expect(bodyWidth).toBeLessThanOrEqual(395);
 
-    await tabs.nth(0).click();
-    await expect(page.locator(".grid-3").first()).toBeVisible();
+    await page.locator('.tab-nav__btn:has-text("주간보고")').click();
+    await expect(page.locator(".report-tab")).toBeVisible();
 
-    await tabs.nth(4).click();
-    await expect(page.locator("textarea.field-textarea").first()).toBeVisible();
+    await page.locator('.tab-nav__btn:has-text("컨설팅")').click();
+    await expect(page.locator(".consult-tab")).toBeVisible();
   });
 });
