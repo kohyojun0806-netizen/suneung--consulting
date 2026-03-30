@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-29",
+  "updatedAt": "2026-03-30",
   "items": [
     {
       "id": "kb-study-97-core",
@@ -542,6 +542,245 @@
       "applies_to": [
         "all"
       ]
+    },
+    {
+      "id": "kb-ui-first-loop-2026",
+      "bucket": "study_methods",
+      "title": "UI first sprint loop",
+      "source": "Internal sprint process",
+      "core": "UI 품질은 최소 5회 반복 피드백 루프를 통해 개선된다. 디자인과 독창성을 기능보다 먼저 점검한다.",
+      "steps": [
+        {
+          "title": "콘셉트 2안",
+          "detail": "매 스프린트 시작 전에 콘셉트 2안을 제시하고 채택안을 기록한다."
+        },
+        {
+          "title": "평가 루프",
+          "detail": "디자인/독창성/완성도/기능성 점수로 evaluator가 평가한다."
+        },
+        {
+          "title": "즉시 반영",
+          "detail": "평가 피드백을 다음 반복에서 즉시 반영한다."
+        }
+      ],
+      "cautions": [
+        "기능만 먼저 붙이면 UI 완성도가 급격히 떨어진다."
+      ],
+      "keywords": [
+        "UI",
+        "디자인",
+        "독창성",
+        "반복",
+        "피드백"
+      ],
+      "applies_to": [
+        "all"
+      ]
+    },
+    {
+      "id": "kb-akoreum-comment-trend-2026",
+      "bucket": "learning_routines",
+      "title": "Akoreum comment trend",
+      "source": "YouTube search/comment theme grouping",
+      "core": "댓글 질문은 순서/오답/시간관리/실모 운영 축으로 반복된다. 주간 계획은 이 질문 축부터 해결해야 한다.",
+      "steps": [
+        {
+          "title": "질문 분류",
+          "detail": "질문을 순서/오답/시간관리/실모로 분류한다."
+        },
+        {
+          "title": "루틴 연결",
+          "detail": "각 질문에 실행 루틴 1개를 연결한다."
+        },
+        {
+          "title": "주간 반영",
+          "detail": "반복 질문은 다음 주 계획 우선순위로 올린다."
+        }
+      ],
+      "cautions": [
+        "질문 과다 상태는 자료 부족보다 루틴 부재일 때가 많다."
+      ],
+      "keywords": [
+        "유튜브",
+        "댓글",
+        "질문",
+        "오답",
+        "실모"
+      ],
+      "applies_to": [
+        "9-7",
+        "7-5",
+        "5-3",
+        "3-1"
+      ]
+    },
+    {
+      "id": "kb-elite-seasonal-plan-2026",
+      "bucket": "lecture_books",
+      "title": "Elite seasonal class plan",
+      "source": "Official academy pages + community reviews",
+      "core": "상위권은 시기별 수강 전략이 중요하다. 3~6모 약점교정, 6~9모 킬러+실모, 9모 이후 파이널 압축으로 분리한다.",
+      "steps": [
+        {
+          "title": "3~6모",
+          "detail": "정규 단과 + 약점단원 보강 중심"
+        },
+        {
+          "title": "6~9모",
+          "detail": "킬러 N제 + 주간 실모 + 오답 회의"
+        },
+        {
+          "title": "9모~수능",
+          "detail": "파이널 실모 + 압축 오답노트"
+        }
+      ],
+      "cautions": [
+        "수강 수만 늘리고 복기 시간이 줄면 실전 변동폭이 커진다."
+      ],
+      "keywords": [
+        "시대인재",
+        "두각",
+        "단과",
+        "시기별",
+        "파이널"
+      ],
+      "applies_to": [
+        "5-3",
+        "3-1"
+      ]
+    },
+    {
+      "id": "kb-elite-season-detail-phase2-2026",
+      "bucket": "lecture_books",
+      "title": "상위권 단과 시즌 운용 상세",
+      "source": "Sidaeinjae + Dugak official/community references",
+      "applies_to": [
+        "5-3",
+        "3-1"
+      ],
+      "core": "상위권은 단과를 연중 고정으로 듣기보다 시즌 목표에 맞게 컨텐츠를 분리해야 점수 변동을 줄일 수 있다.",
+      "steps": [
+        {
+          "title": "3~6모",
+          "detail": "약점 단원 보강과 정규 수업 기반의 개념-기출 연결을 고정한다."
+        },
+        {
+          "title": "6~9모",
+          "detail": "N제와 주간 모의를 묶어 운영하고 오답 회수 규칙을 주간 단위로 적용한다."
+        },
+        {
+          "title": "9모~수능",
+          "detail": "파이널 모의와 압축 복기 노트 중심으로 새 교재 확장을 멈춘다."
+        }
+      ],
+      "cautions": [
+        "대기/등록 일정에 밀려 루틴이 끊기면 모의 점수 변동이 커질 수 있다."
+      ],
+      "keywords": [
+        "season-plan",
+        "elite",
+        "academy",
+        "final",
+        "waiting-list"
+      ],
+      "meta": {
+        "sourceType": "curated",
+        "platform": "internal",
+        "tags": [
+          "phase2",
+          "elite-season",
+          "official+community"
+        ]
+      }
+    },
+    {
+      "id": "kb-success-p40to1-phase2-2026",
+      "bucket": "study_methods",
+      "title": "백분위 40에서 1등급 전환 사례 요약",
+      "source": "Orbi success thread",
+      "applies_to": [
+        "7-5",
+        "5-3",
+        "3-1"
+      ],
+      "core": "점수 전환 사례는 강사/교재 이름보다 기간별 루틴(개념-기출-N제-실모) 전환 타이밍이 명확했다.",
+      "steps": [
+        {
+          "title": "초기",
+          "detail": "개념 공백을 빠르게 메우고 쉬운 기출 적용으로 풀이 체계를 만든다."
+        },
+        {
+          "title": "중기",
+          "detail": "핵심 강의와 기출 교재를 병행해 일반4점 안정화를 우선한다."
+        },
+        {
+          "title": "후기",
+          "detail": "실모 주기와 오답 복기 주기를 분리해 실전 변동성을 줄인다."
+        }
+      ],
+      "cautions": [
+        "N제 양만 늘리고 복기 주기를 고정하지 않으면 상위 점수대 진입이 지연된다."
+      ],
+      "keywords": [
+        "success-case",
+        "grade-jump",
+        "routine",
+        "review",
+        "mock"
+      ],
+      "meta": {
+        "sourceType": "curated",
+        "platform": "internal",
+        "tags": [
+          "phase2",
+          "success-case"
+        ]
+      }
+    },
+    {
+      "id": "kb-akoreum-question-pattern-phase2-2026",
+      "bucket": "learning_routines",
+      "title": "악어오름 관련 질문 패턴",
+      "source": "Akoreum channel + Orbi discussion",
+      "applies_to": [
+        "9-7",
+        "7-5",
+        "5-3",
+        "3-1"
+      ],
+      "core": "질문은 주로 컨텐츠 선택 시기, 플래너 체크 루틴, 선택과목 결정 불안으로 반복된다.",
+      "steps": [
+        {
+          "title": "질문 분류",
+          "detail": "컨텐츠 순서/시기/선택과목/복기 루틴으로 질문을 먼저 분류한다."
+        },
+        {
+          "title": "행동 변환",
+          "detail": "각 질문을 이번 주 실행 항목 1개로 변환해 계획표에 반영한다."
+        },
+        {
+          "title": "재질문 방지",
+          "detail": "반복 질문은 루틴 미고정 신호로 보고 2주 고정 체크를 수행한다."
+        }
+      ],
+      "cautions": [
+        "커뮤니티 의견만 따라 선택과목이나 교재를 급변경하면 성과가 흔들릴 수 있다."
+      ],
+      "keywords": [
+        "question-signal",
+        "youtube",
+        "akoreum",
+        "planner",
+        "elective"
+      ],
+      "meta": {
+        "sourceType": "curated",
+        "platform": "internal",
+        "tags": [
+          "phase2",
+          "question-trend"
+        ]
+      }
     }
   ]
 }

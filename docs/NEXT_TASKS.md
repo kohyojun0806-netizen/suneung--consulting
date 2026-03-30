@@ -1,16 +1,25 @@
 # Next Tasks
 
-## Priority 1 (품질)
-- [x] `sources.json` 소스 확장(강사 OT/커리큘럼/후기 URL 추가)
-- [x] ingest 결과 자동 검수 스크립트(깨짐/중복/저품질 항목 리포트)
-- [x] 추천 근거 문장 품질 스코어링(짧은 문장 제거, 중복 제거)
+## Priority 1 (Now)
+- [x] UI-first visual overhaul and dashboard polish
+- [x] Evidence dataset expansion (sources, registry, success cases, question signals)
+- [x] Recommendation reason quality hardening (short/noisy text filtering + dedupe)
+- [x] GSD + 3agent minimum 5-iteration loop validation
 
-## Priority 2 (제품)
-- [ ] 대시보드 QA 체크리스트 기반 UI 점검
-- [ ] 주간 리포트 템플릿 튜닝(등급대별 문체/난이도)
-- [ ] AI 코치 답변 길이 제한/비용 최적화
+## Priority 2 (Product Quality)
+- [ ] Add UI QA checklist with mobile/desktop visual acceptance criteria
+- [ ] Improve weekly report templates by grade band and writing style
+- [ ] Optimize AI coach response length/cost with tighter token policy
+- [ ] Add explicit evidence badges in UI (official/community/youtube-comment confidence)
 
-## Priority 3 (운영)
-- [ ] Render 환경변수 점검 (`OPENAI_API_KEY`, `AI_MODEL`)
-- [ ] 배포 후 스모크 테스트 루틴 문서화
-- [ ] 장애 시 fallback 동작 점검
+## Priority 3 (Operations)
+- [ ] Harden deployment checklist for Render + Vercel env sync (`OPENAI_API_KEY`, `AI_MODEL`, CORS origin)
+- [ ] Add post-deploy API smoke and E2E smoke runbook
+- [ ] Monitor and alert when knowledge files fail strict ingest verification
+- [ ] Keep sandbox fallback disabled by default; use explicit opt-in only when needed
+
+## Evidence Expansion Backlog
+- [ ] Collect more high-quality success posts with clear score delta and duration
+- [ ] Expand teacher-board curriculum references per season and per instructor
+- [ ] Extend Akoreum/Youtube question signal dataset with recurring comment clusters
+- [ ] Add book-level performance notes by grade band and season

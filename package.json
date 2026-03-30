@@ -20,6 +20,8 @@
     "server": "node server/index.js",
     "ingest": "node server/ingest.js",
     "verify:ingest": "node scripts/verify_ingest_quality.js",
+    "upgrade:priority-data": "node scripts/upgrade_priority_data.js",
+    "upgrade:priority-data:phase2": "node scripts/upgrade_priority_data_phase2.js",
     "gsd": "node scripts/gsd_slash.js",
     "gsd:new-project": "node scripts/gsd_workflow.js new-project",
     "gsd:discuss-phase": "node scripts/gsd_workflow.js discuss-phase",
