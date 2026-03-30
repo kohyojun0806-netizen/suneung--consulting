@@ -1,167 +1,547 @@
 {
-  "updatedAt": "2026-03-29T00:00:00.000Z",
-  "model": "manual-curated-v1",
+  "updatedAt": "2026-03-29",
   "items": [
     {
       "id": "kb-study-97-core",
       "bucket": "study_methods",
       "title": "9~7등급 핵심 루틴",
       "source": "정제 기준 데이터",
-      "applies_to": ["9-7"],
+      "applies_to": [
+        "9-7"
+      ],
       "core": "강의 시청보다 개념 출력(말/글)과 쉬운 기출 즉시 적용을 먼저 고정해야 점수 정체를 끊을 수 있다.",
       "steps": [
-        { "title": "개념 출력", "detail": "단원별 핵심 정의/공식을 백지에 쓰고 5분 설명한다." },
-        { "title": "기출 연결", "detail": "쉬운 기출 10~20문항으로 당일 개념을 바로 적용한다." },
-        { "title": "오답 분류", "detail": "오답을 개념/해석/계산으로 분류하고 같은 날 재풀이한다." }
+        {
+          "title": "개념 출력",
+          "detail": "단원별 핵심 정의/공식을 백지에 쓰고 5분 설명한다."
+        },
+        {
+          "title": "기출 연결",
+          "detail": "쉬운 기출 10~20문항으로 당일 개념을 바로 적용한다."
+        },
+        {
+          "title": "오답 분류",
+          "detail": "오답을 개념/해석/계산으로 분류하고 같은 날 재풀이한다."
+        }
       ],
-      "cautions": ["강의만 듣고 문제 적용을 미루면 성적 정체가 길어진다."],
-      "keywords": ["개념", "출력", "기출", "오답", "루틴"],
-      "meta": { "sourceType": "curated", "platform": "internal", "tags": ["grade_9_7"] }
+      "cautions": [
+        "강의만 듣고 문제 적용을 미루면 성적 정체가 길어진다."
+      ],
+      "keywords": [
+        "개념",
+        "출력",
+        "기출",
+        "오답",
+        "루틴"
+      ],
+      "meta": {
+        "sourceType": "curated",
+        "platform": "internal",
+        "tags": [
+          "grade_9_7"
+        ]
+      }
     },
     {
       "id": "kb-study-75-core",
       "bucket": "study_methods",
       "title": "7~5등급 전환 전략",
       "source": "정제 기준 데이터",
-      "applies_to": ["7-5"],
+      "applies_to": [
+        "7-5"
+      ],
       "core": "개념 기간을 길게 끌지 말고 기출에서 개념을 꺼내 쓰는 루틴으로 전환해야 5등급권에 안착한다.",
       "steps": [
-        { "title": "개념 마감", "detail": "공통 개념 정리는 4~8주로 제한한다." },
-        { "title": "기출 재현", "detail": "정답 확인이 아니라 풀이 과정을 재현하는 복기를 수행한다." },
-        { "title": "취약 압축", "detail": "취약 단원을 1~2개로 압축해 주간 집중 보완한다." }
+        {
+          "title": "개념 마감",
+          "detail": "공통 개념 정리는 4~8주로 제한한다."
+        },
+        {
+          "title": "기출 재현",
+          "detail": "정답 확인이 아니라 풀이 과정을 재현하는 복기를 수행한다."
+        },
+        {
+          "title": "취약 압축",
+          "detail": "취약 단원을 1~2개로 압축해 주간 집중 보완한다."
+        }
       ],
-      "cautions": ["개념 회독만 늘리면 체감 상승이 늦어진다."],
-      "keywords": ["전환", "기출", "재현", "취약단원"],
-      "meta": { "sourceType": "curated", "platform": "internal", "tags": ["grade_7_5"] }
+      "cautions": [
+        "개념 회독만 늘리면 체감 상승이 늦어진다."
+      ],
+      "keywords": [
+        "전환",
+        "기출",
+        "재현",
+        "취약단원"
+      ],
+      "meta": {
+        "sourceType": "curated",
+        "platform": "internal",
+        "tags": [
+          "grade_7_5"
+        ]
+      }
     },
     {
       "id": "kb-study-53-core",
       "bucket": "study_methods",
       "title": "5~3등급 준킬러 접근",
       "source": "정제 기준 데이터",
-      "applies_to": ["5-3"],
+      "applies_to": [
+        "5-3"
+      ],
       "core": "계산부터 시작하지 말고 조건 구조를 먼저 해석한 뒤 풀이 경로를 선택하는 습관이 필요하다.",
       "steps": [
-        { "title": "조건 구조화", "detail": "조건-목표-제약을 30초 안에 정리한다." },
-        { "title": "경로 선택", "detail": "풀이 경로 2~3개를 비교한 후 계산을 시작한다." },
-        { "title": "오답 루프", "detail": "준킬러 오답은 최소 3회 반복 복기한다." }
+        {
+          "title": "조건 구조화",
+          "detail": "조건-목표-제약을 30초 안에 정리한다."
+        },
+        {
+          "title": "경로 선택",
+          "detail": "풀이 경로 2~3개를 비교한 후 계산을 시작한다."
+        },
+        {
+          "title": "오답 루프",
+          "detail": "준킬러 오답은 최소 3회 반복 복기한다."
+        }
       ],
-      "cautions": ["문항을 손으로만 푸는 습관은 시간 손실을 만든다."],
-      "keywords": ["준킬러", "조건해석", "시나리오", "복기"],
-      "meta": { "sourceType": "curated", "platform": "internal", "tags": ["grade_5_3"] }
+      "cautions": [
+        "문항을 손으로만 푸는 습관은 시간 손실을 만든다."
+      ],
+      "keywords": [
+        "준킬러",
+        "조건해석",
+        "시나리오",
+        "복기"
+      ],
+      "meta": {
+        "sourceType": "curated",
+        "platform": "internal",
+        "tags": [
+          "grade_5_3"
+        ]
+      }
     },
     {
       "id": "kb-study-31-core",
       "bucket": "study_methods",
       "title": "3~1등급 실전 안정화",
       "source": "정제 기준 데이터",
-      "applies_to": ["3-1"],
+      "applies_to": [
+        "3-1"
+      ],
       "core": "문제량보다 실전 루틴 고정과 반복 실수 제거가 상위권 점수 안정화에 더 큰 영향을 준다.",
       "steps": [
-        { "title": "킬러 사고 시간", "detail": "킬러 문항은 최소 40분 자력 사고를 유지한다." },
-        { "title": "실수 분류", "detail": "모의고사 오답을 개념/실수/시간으로 분류한다." },
-        { "title": "루틴 확정", "detail": "시험 당일 풀이 순서와 검산 타이밍을 고정한다." }
+        {
+          "title": "킬러 사고 시간",
+          "detail": "킬러 문항은 최소 40분 자력 사고를 유지한다."
+        },
+        {
+          "title": "실수 분류",
+          "detail": "모의고사 오답을 개념/실수/시간으로 분류한다."
+        },
+        {
+          "title": "루틴 확정",
+          "detail": "시험 당일 풀이 순서와 검산 타이밍을 고정한다."
+        }
       ],
-      "cautions": ["막판에 새로운 교재/방식을 크게 바꾸면 변동폭이 커진다."],
-      "keywords": ["실전", "킬러", "루틴", "실수제거"],
-      "meta": { "sourceType": "curated", "platform": "internal", "tags": ["grade_3_1"] }
+      "cautions": [
+        "막판에 새로운 교재/방식을 크게 바꾸면 변동폭이 커진다."
+      ],
+      "keywords": [
+        "실전",
+        "킬러",
+        "루틴",
+        "실수제거"
+      ],
+      "meta": {
+        "sourceType": "curated",
+        "platform": "internal",
+        "tags": [
+          "grade_3_1"
+        ]
+      }
     },
     {
       "id": "kb-routine-week-template",
       "bucket": "learning_routines",
       "title": "주간 루틴 템플릿",
       "source": "정제 기준 데이터",
-      "applies_to": ["all"],
+      "applies_to": [
+        "all"
+      ],
       "core": "루틴의 핵심은 학습-적용-복기 사이클을 주간 고정하는 것이다.",
       "steps": [
-        { "title": "월/수/금", "detail": "개념 출력 20분 + 기출 적용 40분 + 복기 20분" },
-        { "title": "화/목", "detail": "취약 단원 집중 + 오답 재풀이" },
-        { "title": "주말", "detail": "실전 세트 1회 + 40분 복기 노트 작성" }
+        {
+          "title": "월/수/금",
+          "detail": "개념 출력 20분 + 기출 적용 40분 + 복기 20분"
+        },
+        {
+          "title": "화/목",
+          "detail": "취약 단원 집중 + 오답 재풀이"
+        },
+        {
+          "title": "주말",
+          "detail": "실전 세트 1회 + 40분 복기 노트 작성"
+        }
       ],
-      "cautions": ["주간 계획은 넓게 잡지 말고 반복 가능한 범위로 고정한다."],
-      "keywords": ["주간계획", "루틴", "복기", "실전세트"],
-      "meta": { "sourceType": "curated", "platform": "internal", "tags": ["routine"] }
+      "cautions": [
+        "주간 계획은 넓게 잡지 말고 반복 가능한 범위로 고정한다."
+      ],
+      "keywords": [
+        "주간계획",
+        "루틴",
+        "복기",
+        "실전세트"
+      ],
+      "meta": {
+        "sourceType": "curated",
+        "platform": "internal",
+        "tags": [
+          "routine"
+        ]
+      }
     },
     {
       "id": "kb-routine-error-log",
       "bucket": "learning_routines",
       "title": "오답 복기 체계",
       "source": "정제 기준 데이터",
-      "applies_to": ["all"],
+      "applies_to": [
+        "all"
+      ],
       "core": "오답을 단순 기록이 아닌 재발 방지 시스템으로 운영해야 성적이 오른다.",
       "steps": [
-        { "title": "원인 라벨링", "detail": "개념/해석/계산/시간 중 한 가지로 원인을 표시한다." },
-        { "title": "재풀이 타이밍", "detail": "24시간 내 1차, 72시간 내 2차 재풀이한다." },
-        { "title": "재발 추적", "detail": "같은 라벨 재발 횟수를 주간 단위로 체크한다." }
+        {
+          "title": "원인 라벨링",
+          "detail": "개념/해석/계산/시간 중 한 가지로 원인을 표시한다."
+        },
+        {
+          "title": "재풀이 타이밍",
+          "detail": "24시간 내 1차, 72시간 내 2차 재풀이한다."
+        },
+        {
+          "title": "재발 추적",
+          "detail": "같은 라벨 재발 횟수를 주간 단위로 체크한다."
+        }
       ],
-      "cautions": ["오답 수집만 하고 재풀이를 생략하면 효과가 거의 없다."],
-      "keywords": ["오답", "라벨링", "재풀이", "재발"],
-      "meta": { "sourceType": "curated", "platform": "internal", "tags": ["error_log"] }
+      "cautions": [
+        "오답 수집만 하고 재풀이를 생략하면 효과가 거의 없다."
+      ],
+      "keywords": [
+        "오답",
+        "라벨링",
+        "재풀이",
+        "재발"
+      ],
+      "meta": {
+        "sourceType": "curated",
+        "platform": "internal",
+        "tags": [
+          "error_log"
+        ]
+      }
     },
     {
       "id": "kb-routine-time-management",
       "bucket": "learning_routines",
       "title": "시간관리 기준",
       "source": "정제 기준 데이터",
-      "applies_to": ["all"],
+      "applies_to": [
+        "all"
+      ],
       "core": "시간관리 실패는 계산 속도보다 문제 선택/넘김 기준 부재에서 발생하는 경우가 많다.",
       "steps": [
-        { "title": "문항 제한시간", "detail": "초반 문항은 2~3분 제한으로 운영한다." },
-        { "title": "넘김 규칙", "detail": "막히면 표시 후 다음 문항으로 이동한다." },
-        { "title": "검산 확보", "detail": "마지막 5분은 검산/마킹 점검에 고정한다." }
+        {
+          "title": "문항 제한시간",
+          "detail": "초반 문항은 2~3분 제한으로 운영한다."
+        },
+        {
+          "title": "넘김 규칙",
+          "detail": "막히면 표시 후 다음 문항으로 이동한다."
+        },
+        {
+          "title": "검산 확보",
+          "detail": "마지막 5분은 검산/마킹 점검에 고정한다."
+        }
       ],
-      "cautions": ["한 문항에 과몰입하면 전체 시험 운영이 무너진다."],
-      "keywords": ["시간관리", "넘김규칙", "검산", "운영"],
-      "meta": { "sourceType": "curated", "platform": "internal", "tags": ["time_control"] }
+      "cautions": [
+        "한 문항에 과몰입하면 전체 시험 운영이 무너진다."
+      ],
+      "keywords": [
+        "시간관리",
+        "넘김규칙",
+        "검산",
+        "운영"
+      ],
+      "meta": {
+        "sourceType": "curated",
+        "platform": "internal",
+        "tags": [
+          "time_control"
+        ]
+      }
     },
     {
       "id": "kb-lecture-sequence-hj",
       "bucket": "lecture_books",
       "title": "현우진 커리큘럼 시퀀스",
       "source": "정제 기준 데이터",
-      "applies_to": ["5-3", "3-1"],
+      "applies_to": [
+        "5-3",
+        "3-1"
+      ],
       "core": "기초개념→실전개념→기출→N제→모의의 단계 전환이 명확해 실전 상승 구간에 적합하다.",
       "steps": [
-        { "title": "기초개념", "detail": "시발점으로 공통 개념 구조를 고정" },
-        { "title": "실전개념", "detail": "뉴런으로 문제 연결 방식 체화" },
-        { "title": "기출/N제", "detail": "수분감-드릴로 준킬러/킬러 처리력 강화" }
+        {
+          "title": "기초개념",
+          "detail": "시발점으로 공통 개념 구조를 고정"
+        },
+        {
+          "title": "실전개념",
+          "detail": "뉴런으로 문제 연결 방식 체화"
+        },
+        {
+          "title": "기출/N제",
+          "detail": "수분감-드릴로 준킬러/킬러 처리력 강화"
+        }
       ],
-      "cautions": ["복습 없이 진도만 따라가면 체화가 어렵다."],
-      "keywords": ["현우진", "시발점", "뉴런", "수분감", "드릴"],
-      "meta": { "sourceType": "curated", "platform": "internal", "tags": ["instructor_sequence"] }
+      "cautions": [
+        "복습 없이 진도만 따라가면 체화가 어렵다."
+      ],
+      "keywords": [
+        "현우진",
+        "시발점",
+        "뉴런",
+        "수분감",
+        "드릴"
+      ],
+      "meta": {
+        "sourceType": "curated",
+        "platform": "internal",
+        "tags": [
+          "instructor_sequence"
+        ]
+      }
     },
     {
       "id": "kb-lecture-sequence-img",
       "bucket": "lecture_books",
       "title": "이미지 커리큘럼 방향",
       "source": "정제 기준 데이터",
-      "applies_to": ["7-5", "5-3"],
+      "applies_to": [
+        "7-5",
+        "5-3"
+      ],
       "core": "개념 정리와 유형 적용의 연결이 좋아 중위권 전환 구간에 유리하다.",
       "steps": [
-        { "title": "개념 정리", "detail": "핵심 개념을 짧게 정리하고 바로 문제 적용" },
-        { "title": "유형 강화", "detail": "빈출 유형을 묶어서 반복 훈련" },
-        { "title": "N제 진입", "detail": "중난도 중심으로 단계적 확장" }
+        {
+          "title": "개념 정리",
+          "detail": "핵심 개념을 짧게 정리하고 바로 문제 적용"
+        },
+        {
+          "title": "유형 강화",
+          "detail": "빈출 유형을 묶어서 반복 훈련"
+        },
+        {
+          "title": "N제 진입",
+          "detail": "중난도 중심으로 단계적 확장"
+        }
       ],
-      "cautions": ["강의 직후 적용 문제를 생략하면 효과가 감소한다."],
-      "keywords": ["이미지", "개념", "유형", "중위권"],
-      "meta": { "sourceType": "curated", "platform": "internal", "tags": ["instructor_sequence"] }
+      "cautions": [
+        "강의 직후 적용 문제를 생략하면 효과가 감소한다."
+      ],
+      "keywords": [
+        "이미지",
+        "개념",
+        "유형",
+        "중위권"
+      ],
+      "meta": {
+        "sourceType": "curated",
+        "platform": "internal",
+        "tags": [
+          "instructor_sequence"
+        ]
+      }
     },
     {
       "id": "kb-book-selection-policy",
       "bucket": "lecture_books",
       "title": "교재 선택 기준",
       "source": "정제 기준 데이터",
-      "applies_to": ["all"],
+      "applies_to": [
+        "all"
+      ],
       "core": "교재는 현재 실력 대비 반 단계 높은 난이도로 선택하고, 병행 수를 제한해야 완주율이 올라간다.",
       "steps": [
-        { "title": "개념서 1권", "detail": "개념 공백 구간 정리용으로 1권만 고정" },
-        { "title": "기출서 1권", "detail": "기출 반복을 위한 메인 교재 1권 고정" },
-        { "title": "심화서 선택", "detail": "점수대 상승 필요 시 N제/심화서 추가" }
+        {
+          "title": "개념서 1권",
+          "detail": "개념 공백 구간 정리용으로 1권만 고정"
+        },
+        {
+          "title": "기출서 1권",
+          "detail": "기출 반복을 위한 메인 교재 1권 고정"
+        },
+        {
+          "title": "심화서 선택",
+          "detail": "점수대 상승 필요 시 N제/심화서 추가"
+        }
       ],
-      "cautions": ["동시에 여러 교재를 시작하면 완주율이 급격히 떨어진다."],
-      "keywords": ["교재선택", "완주율", "기출서", "N제"],
-      "meta": { "sourceType": "curated", "platform": "internal", "tags": ["book_policy"] }
+      "cautions": [
+        "동시에 여러 교재를 시작하면 완주율이 급격히 떨어진다."
+      ],
+      "keywords": [
+        "교재선택",
+        "완주율",
+        "기출서",
+        "N제"
+      ],
+      "meta": {
+        "sourceType": "curated",
+        "platform": "internal",
+        "tags": [
+          "book_policy"
+        ]
+      }
+    },
+    {
+      "id": "kb-success-cases-evidence-01",
+      "bucket": "study_methods",
+      "title": "Success-case driven study strategy",
+      "source": "Orbi success posts and discussion threads",
+      "core": "Large score jumps are usually explained by fixed routines: concept output, past-exam application, and fast mistake review.",
+      "steps": [
+        {
+          "title": "Build a case matrix",
+          "detail": "Compare 3-5 success posts by start level, duration, and repeated actions."
+        },
+        {
+          "title": "Turn advice into tasks",
+          "detail": "Convert each insight into daily and weekly actions with time blocks."
+        },
+        {
+          "title": "Track process metrics",
+          "detail": "Track repeated mistakes and timeout count, not only mock score."
+        }
+      ],
+      "cautions": [
+        "Copying only teacher or book names rarely works without copying the review routine.",
+        "Adjust high-intensity plans to your available weekly hours."
+      ],
+      "keywords": [
+        "success-case",
+        "routine",
+        "review",
+        "past-exam",
+        "score-jump"
+      ],
+      "applies_to": [
+        "9-7",
+        "7-5",
+        "5-3",
+        "3-1"
+      ]
+    },
+    {
+      "id": "kb-youtube-comment-trend-01",
+      "bucket": "learning_routines",
+      "title": "FAQ pattern from comment/questions",
+      "source": "YouTube and community question clusters",
+      "core": "Most learner questions collapse into four axes: order, timing, selection, and review. Plans should answer those first.",
+      "steps": [
+        {
+          "title": "4-axis check",
+          "detail": "For every weekly plan, write one sentence for order, timing, selection, and review."
+        },
+        {
+          "title": "Question log",
+          "detail": "Store repeated blockers as questions and map them to next-week actions."
+        },
+        {
+          "title": "FAQ-first correction",
+          "detail": "Before adding new resources, fix the missing routine item behind each repeated question."
+        }
+      ],
+      "cautions": [
+        "Too many questions often means too many resources and too little review."
+      ],
+      "keywords": [
+        "comment-trend",
+        "faq",
+        "youtube",
+        "question-pattern"
+      ],
+      "applies_to": [
+        "all"
+      ]
+    },
+    {
+      "id": "kb-elite-academy-roadmap-01",
+      "bucket": "lecture_books",
+      "title": "Elite academy seasonal roadmap",
+      "source": "Sidaeinjae timetable, Dugak class pages, community reviews",
+      "core": "For top students, class selection should follow season goals: weakness closure (3-6), killer handling (6-9), and final stability (after 9).",
+      "steps": [
+        {
+          "title": "3-6",
+          "detail": "Use one regular class plus weak-unit repair track."
+        },
+        {
+          "title": "6-9",
+          "detail": "Pair N-set with weekly mock and fixed recovery rules."
+        },
+        {
+          "title": "9-final",
+          "detail": "Reduce expansion and run final mock plus compressed review notes."
+        }
+      ],
+      "cautions": [
+        "More classes without protected review time increases score volatility."
+      ],
+      "keywords": [
+        "elite",
+        "seasonal-plan",
+        "academy",
+        "final"
+      ],
+      "applies_to": [
+        "5-3",
+        "3-1"
+      ]
+    },
+    {
+      "id": "kb-claude-import-normalized-01",
+      "bucket": "study_methods",
+      "title": "Claude import normalization rule",
+      "source": "data/imports/files_1/suneung-sprint003-r1.jsx",
+      "core": "Imported replacement-style UI content was not applied directly. Only reusable learning knowledge was extracted into current API schema.",
+      "steps": [
+        {
+          "title": "Preserve architecture",
+          "detail": "Keep existing API-backed app flow and avoid full file replacement."
+        },
+        {
+          "title": "Extract reusable knowledge",
+          "detail": "Move only grade-band methods, curriculum sequencing, and review rules."
+        },
+        {
+          "title": "Verify before merge",
+          "detail": "Apply only data that passes build and E2E checks."
+        }
+      ],
+      "cautions": [
+        "Directly pasting external app code can break deployment and security expectations."
+      ],
+      "keywords": [
+        "import",
+        "normalization",
+        "schema",
+        "quality-check"
+      ],
+      "applies_to": [
+        "all"
+      ]
     }
   ]
 }
-

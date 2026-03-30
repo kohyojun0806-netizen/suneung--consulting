@@ -249,6 +249,16 @@ function toPlanExportText(profile, currentBand, planData) {
     lines.push(`- 주의: ${p.caution}`);
     lines.push(``);
   }
+  if (Array.isArray(plan?.success_case_insights) && plan.success_case_insights.length) {
+    lines.push(`## 실제 성과 사례 인사이트`);
+    for (const line of plan.success_case_insights) lines.push(`- ${line}`);
+    lines.push(``);
+  }
+  if (Array.isArray(plan?.question_trend_insights) && plan.question_trend_insights.length) {
+    lines.push(`## 학생 질문 트렌드`);
+    for (const line of plan.question_trend_insights) lines.push(`- ${line}`);
+    lines.push(``);
+  }
   return lines.join("\n");
 }
 
@@ -333,6 +343,8 @@ function fallbackPlan(profile) {
       period_plan: FALLBACK_PERIOD[k],
       recommended_instructors: [],
       recommended_books: [],
+      success_case_insights: [],
+      question_trend_insights: [],
       final_tip: "같은 실수를 줄이는 루틴이 점수를 올립니다.",
     },
     meta: { usedModel: false, model: null },
@@ -944,6 +956,14 @@ function DashboardPanel({
               <span>교재 추천 후보</span>
             </div>
             <div>
+              <strong>{health.data.studentSuccessCases || 0}</strong>
+              <span>성과 사례 데이터</span>
+            </div>
+            <div>
+              <strong>{health.data.questionSignals || 0}</strong>
+              <span>질문 트렌드 데이터</span>
+            </div>
+            <div>
               <strong>{health.data.knowledgeUpdatedAt?.slice(0, 10) || "-"}</strong>
               <span>지식 갱신일</span>
             </div>
@@ -966,6 +986,14 @@ function DashboardPanel({
             <div>
               <strong>{(health.summary.categories.lecture_and_books?.books || []).length}</strong>
               <span>교재 요약 항목</span>
+            </div>
+            <div>
+              <strong>{(health.summary.categories.student_success_cases || []).length}</strong>
+              <span>성과 사례 요약</span>
+            </div>
+            <div>
+              <strong>{(health.summary.categories.question_signals || []).length}</strong>
+              <span>질문 트렌드 요약</span>
             </div>
           </div>
         ) : null}
@@ -1024,6 +1052,8 @@ function PlanPanel({ profile, planData, activePlan, currentBand, fallbackPeriod 
   ];
   const instructors = activePlan?.recommended_instructors || [];
   const books = activePlan?.recommended_books || [];
+  const successInsights = activePlan?.success_case_insights || [];
+  const questionInsights = activePlan?.question_trend_insights || [];
 
   return (
     <section className="panel-stack">
@@ -1090,6 +1120,24 @@ function PlanPanel({ profile, planData, activePlan, currentBand, fallbackPeriod 
                   </strong>
                   <p>{inst.reason}</p>
                   <p className="card-muted">{inst.best_for}</p>
+                  {inst.usage ? <p className="card-muted">활용: {inst.usage}</p> : null}
+                  {inst.curriculum_path?.length ? (
+                    <ul className="plain-list">
+                      {inst.curriculum_path.slice(0, 3).map((line, lineIdx) => (
+                        <li key={`${inst.name}-curriculum-${lineIdx}`}>{line}</li>
+                      ))}
+                    </ul>
+                  ) : null}
+                  {inst.seasonal_plan?.length ? (
+                    <>
+                      <strong>시기별 수강 계약</strong>
+                      <ul className="plain-list">
+                        {inst.seasonal_plan.slice(0, 3).map((line, lineIdx) => (
+                          <li key={`${inst.name}-seasonal-${lineIdx}`}>{line}</li>
+                        ))}
+                      </ul>
+                    </>
+                  ) : null}
                 </div>
               ))}
             </div>
@@ -1116,6 +1164,40 @@ function PlanPanel({ profile, planData, activePlan, currentBand, fallbackPeriod 
             </div>
           ) : (
             <p className="card-muted">분석 생성 후 추천 교재가 표시됩니다.</p>
+          )}
+        </article>
+      </div>
+
+      <div className="grid-2">
+        <article className="glass-card">
+          <div className="card-headline">
+            <h3>실제 성과 사례 인사이트</h3>
+            <span className="tiny-badge">커뮤니티 근거</span>
+          </div>
+          {successInsights.length ? (
+            <ul className="plain-list">
+              {successInsights.map((line, idx) => (
+                <li key={`success-insight-${idx}`}>{line}</li>
+              ))}
+            </ul>
+          ) : (
+            <p className="card-muted">성과 사례 데이터가 누적되면 이 구간이 자동으로 채워집니다.</p>
+          )}
+        </article>
+
+        <article className="glass-card">
+          <div className="card-headline">
+            <h3>학생 질문 트렌드</h3>
+            <span className="tiny-badge">유튜브/커뮤니티</span>
+          </div>
+          {questionInsights.length ? (
+            <ul className="plain-list">
+              {questionInsights.map((line, idx) => (
+                <li key={`question-insight-${idx}`}>{line}</li>
+              ))}
+            </ul>
+          ) : (
+            <p className="card-muted">질문 데이터가 누적되면 자주 묻는 패턴이 표시됩니다.</p>
           )}
         </article>
       </div>

@@ -3,6 +3,7 @@ const cors = require("cors");
 const path = require("path");
 const fs = require("fs");
 const fsp = require("fs/promises");
+const crypto = require("crypto");
 require("dotenv").config();
 
 const app = express();
@@ -18,9 +19,19 @@ const ANALYZE_MAX_TOKENS = Number(process.env.ANALYZE_MAX_TOKENS || 900);
 const TRACKER_REPORT_MAX_TOKENS = Number(process.env.TRACKER_REPORT_MAX_TOKENS || 380);
 const TRACKER_CONSULT_MAX_TOKENS = Number(process.env.TRACKER_CONSULT_MAX_TOKENS || 320);
 const TRACKER_REPORT_LOG_WEEKS = Number(process.env.TRACKER_REPORT_LOG_WEEKS || 3);
+const REQUEST_BODY_LIMIT = process.env.REQUEST_BODY_LIMIT || "2mb";
 const ELECTIVE_SUBJECTS = ["확률과통계", "미적분", "기하"];
 const MIN_INSTRUCTOR_COUNT = 4;
 const MIN_BOOK_COUNT = 6;
+const ENABLE_SECURITY_HEADERS = parseBooleanEnv(process.env.ENABLE_SECURITY_HEADERS, true);
+const ENABLE_RATE_LIMIT = parseBooleanEnv(process.env.ENABLE_RATE_LIMIT, true);
+const RATE_LIMIT_WINDOW_MS = clampNumber(process.env.RATE_LIMIT_WINDOW_MS, 60_000, 10_000, 600_000);
+const RATE_LIMIT_MAX_REQUESTS = clampNumber(process.env.RATE_LIMIT_MAX_REQUESTS, 120, 20, 2000);
+const RATE_LIMIT_ANALYZE_MAX = clampNumber(process.env.RATE_LIMIT_ANALYZE_MAX, 40, 5, 400);
+const RATE_LIMIT_REPORT_MAX = clampNumber(process.env.RATE_LIMIT_REPORT_MAX, 80, 5, 400);
+const RATE_LIMIT_CONSULT_MAX = clampNumber(process.env.RATE_LIMIT_CONSULT_MAX, 80, 5, 400);
+const ENFORCE_API_SHARED_SECRET = parseBooleanEnv(process.env.ENFORCE_API_SHARED_SECRET, false);
+const API_SHARED_SECRET = toText(process.env.API_SHARED_SECRET);
 
 const DEFAULT_INSTRUCTOR_SEED = [
   {
@@ -186,25 +197,91 @@ const KNOWLEDGE_FILE =
 const RECOMMENDATION_FILE =
   process.env.RECOMMENDATION_FILE ||
   path.join(KNOWLEDGE_DIR, "recommendation_catalog.json");
+const STUDENT_SUCCESS_FILE =
+  process.env.STUDENT_SUCCESS_FILE ||
+  path.join(KNOWLEDGE_DIR, "student_success_cases.json");
+const QUESTION_SIGNALS_FILE =
+  process.env.QUESTION_SIGNALS_FILE ||
+  path.join(KNOWLEDGE_DIR, "youtube_question_signals.json");
 
 fs.mkdirSync(GENERATED_DIR, { recursive: true });
 fs.mkdirSync(KNOWLEDGE_DIR, { recursive: true });
 
-app.use(
-  cors({
-    origin(origin, callback) {
-      // allow non-browser clients or same-origin server-to-server calls
-      if (!origin) return callback(null, true);
-      if (FRONTEND_ORIGINS.includes(origin)) return callback(null, true);
-      return callback(new Error("CORS blocked: origin not allowed"));
-    },
-  })
-);
-app.use(express.json({ limit: "2mb" }));
+app.disable("x-powered-by");
+app.set("trust proxy", 1);
+
+if (ENABLE_SECURITY_HEADERS) {
+  app.use((req, res, next) => {
+    res.setHeader("X-Content-Type-Options", "nosniff");
+    res.setHeader("X-Frame-Options", "DENY");
+    res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
+    res.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
+    res.setHeader("Cross-Origin-Resource-Policy", "same-site");
+    res.setHeader("Cross-Origin-Opener-Policy", "same-origin");
+    res.setHeader("Content-Security-Policy", "default-src 'none'; frame-ancestors 'none'; base-uri 'none'");
+    if (req.secure || String(req.headers["x-forwarded-proto"]).includes("https")) {
+      res.setHeader("Strict-Transport-Security", "max-age=31536000; includeSubDomains; preload");
+    }
+    next();
+  });
+}
+
+const corsOptions = {
+  origin(origin, callback) {
+    // allow non-browser clients or same-origin server-to-server calls
+    if (!origin) return callback(null, true);
+    if (FRONTEND_ORIGINS.includes(origin)) return callback(null, true);
+    return callback(new Error("CORS blocked: origin not allowed"));
+  },
+};
+app.use(cors(corsOptions));
+
+if (ENABLE_RATE_LIMIT) {
+  app.use(
+    "/api",
+    createIpRateLimiter({
+      scope: "api",
+      windowMs: RATE_LIMIT_WINDOW_MS,
+      maxRequests: RATE_LIMIT_MAX_REQUESTS,
+    })
+  );
+  app.use(
+    "/api/analyze",
+    createIpRateLimiter({
+      scope: "analyze",
+      windowMs: RATE_LIMIT_WINDOW_MS,
+      maxRequests: RATE_LIMIT_ANALYZE_MAX,
+    })
+  );
+  app.use(
+    "/api/tracker/report",
+    createIpRateLimiter({
+      scope: "tracker-report",
+      windowMs: RATE_LIMIT_WINDOW_MS,
+      maxRequests: RATE_LIMIT_REPORT_MAX,
+    })
+  );
+  app.use(
+    "/api/tracker/consult",
+    createIpRateLimiter({
+      scope: "tracker-consult",
+      windowMs: RATE_LIMIT_WINDOW_MS,
+      maxRequests: RATE_LIMIT_CONSULT_MAX,
+    })
+  );
+}
+
+if (ENFORCE_API_SHARED_SECRET && API_SHARED_SECRET) {
+  app.use("/api", createSharedSecretMiddleware(API_SHARED_SECRET));
+}
+
+app.use(express.json({ limit: REQUEST_BODY_LIMIT }));
 
 app.get("/api/health", async (_req, res) => {
   const knowledge = await loadKnowledgeBase();
   const catalog = await loadRecommendationCatalog();
+  const successCases = await loadStudentSuccessCases();
+  const questionSignals = await loadQuestionSignals();
   const modelCandidates = getModelCandidates();
   res.json({
     ok: true,
@@ -215,6 +292,8 @@ app.get("/api/health", async (_req, res) => {
     knowledgeUpdatedAt: knowledge.updatedAt || null,
     recommendationInstructors: catalog.instructors.length,
     recommendationBooks: catalog.books.length,
+    studentSuccessCases: successCases.cases.length,
+    questionSignals: questionSignals.signals.length,
     recommendationUpdatedAt: catalog.updatedAt || null,
   });
 });
@@ -223,7 +302,9 @@ app.get("/api/knowledge/summary", async (_req, res) => {
   try {
     const knowledge = await loadKnowledgeBase();
     const catalog = await loadRecommendationCatalog();
-    const summary = buildKnowledgeSummary(knowledge, catalog);
+    const successCases = await loadStudentSuccessCases();
+    const questionSignals = await loadQuestionSignals();
+    const summary = buildKnowledgeSummary(knowledge, catalog, successCases, questionSignals);
     res.json(summary);
   } catch (error) {
     res.status(500).json({ error: error.message || "학습 데이터 요약 생성에 실패했습니다." });
@@ -261,10 +342,14 @@ app.post("/api/analyze", async (req, res) => {
     }
 
     const catalog = await loadRecommendationCatalog();
+    const successCases = await loadStudentSuccessCases();
+    const questionSignals = await loadQuestionSignals();
     const selectedKnowledge = selectKnowledgeItems(knowledge.items, curriculumKey);
     const knowledgeBlend = blendKnowledgeItems(selectedKnowledge);
     const recommendationSeed = buildRecommendationSeed({
       catalog,
+      successCases,
+      questionSignals,
       curriculumKey,
       currentGrade: from,
       targetGrade: to,
@@ -448,6 +533,20 @@ app.post("/api/tracker/consult", async (req, res) => {
   }
 });
 
+app.use("/api", (_req, res) => {
+  return res.status(404).json({ error: "지원하지 않는 API 경로입니다." });
+});
+
+app.use((error, _req, res, _next) => {
+  console.error("[api] unhandled middleware error:", error);
+  const status = Number.isInteger(error?.status) ? error.status : 500;
+  const message =
+    status >= 500
+      ? "서버 내부 오류가 발생했습니다."
+      : toText(error?.message, "요청 처리 중 오류가 발생했습니다.");
+  return res.status(status).json({ error: message });
+});
+
 app.listen(PORT, () => {
   console.log(`API server ready: http://localhost:${PORT}`);
 });
@@ -493,6 +592,32 @@ async function loadRecommendationCatalog() {
       books.length >= MIN_BOOK_COUNT
         ? books
         : mergeUniqueByKey([...books, ...DEFAULT_BOOK_SEED], "title"),
+  };
+}
+
+async function loadStudentSuccessCases() {
+  if (!fs.existsSync(STUDENT_SUCCESS_FILE)) {
+    return { updatedAt: null, cases: [] };
+  }
+  const raw = await fsp.readFile(STUDENT_SUCCESS_FILE, "utf8");
+  const parsed = JSON.parse(raw);
+  const cases = sanitizeStudentSuccessCases(parsed?.cases);
+  return {
+    updatedAt: parsed?.updatedAt || null,
+    cases,
+  };
+}
+
+async function loadQuestionSignals() {
+  if (!fs.existsSync(QUESTION_SIGNALS_FILE)) {
+    return { updatedAt: null, signals: [] };
+  }
+  const raw = await fsp.readFile(QUESTION_SIGNALS_FILE, "utf8");
+  const parsed = JSON.parse(raw);
+  const signals = sanitizeQuestionSignals(parsed?.signals);
+  return {
+    updatedAt: parsed?.updatedAt || null,
+    signals,
   };
 }
 
@@ -566,6 +691,15 @@ function sanitizeCatalogInstructors(items) {
         }))
         .filter((x) => x.course && !looksLikeGibberish(x.course))
         .slice(0, 8),
+      seasonalPlan: asArray(item?.seasonalPlan)
+        .map((step) => ({
+          period: sanitizeKnowledgeText(step?.period),
+          classType: sanitizeKnowledgeText(step?.classType),
+          content: sanitizeKnowledgeText(step?.content),
+          goal: sanitizeKnowledgeText(step?.goal),
+        }))
+        .filter((x) => x.period && x.content)
+        .slice(0, 6),
     }))
     .filter((item) => item.name && !looksLikeGibberish(item.name));
 }
@@ -583,6 +717,44 @@ function sanitizeCatalogBooks(items) {
       subjectTags: asArray(item?.subjectTags).map((x) => sanitizeKnowledgeText(x)).filter(Boolean).slice(0, 8),
     }))
     .filter((item) => item.title && !looksLikeGibberish(item.title));
+}
+
+function sanitizeStudentSuccessCases(items) {
+  return asArray(items)
+    .map((item) => ({
+      id: toText(item?.id) || hashObject(item).slice(0, 12),
+      bandShift: sanitizeKnowledgeText(item?.bandShift),
+      duration: sanitizeKnowledgeText(item?.duration),
+      summary: sanitizeKnowledgeText(item?.summary),
+      coreActions: asArray(item?.coreActions)
+        .map((x) => sanitizeKnowledgeText(x))
+        .filter((x) => isUsefulStudyText(x))
+        .slice(0, 6),
+      fitKeys: normalizeFitKeys(item?.fitKeys),
+      sourceRefs: asArray(item?.sourceRefs).map((x) => toText(x)).filter(Boolean).slice(0, 6),
+      reliability: Number.isFinite(Number(item?.reliability))
+        ? Math.max(0, Math.min(1, Number(item.reliability)))
+        : 0.6,
+    }))
+    .filter((item) => item.summary && !looksLikeGibberish(item.summary));
+}
+
+function sanitizeQuestionSignals(items) {
+  return asArray(items)
+    .map((item) => ({
+      id: toText(item?.id) || hashObject(item).slice(0, 12),
+      channel: sanitizeKnowledgeText(item?.channel),
+      focus: sanitizeKnowledgeText(item?.focus),
+      learnerQuestion: sanitizeKnowledgeText(item?.learnerQuestion),
+      coachingHint: sanitizeKnowledgeText(item?.coachingHint),
+      fitKeys: normalizeFitKeys(item?.fitKeys),
+      channelHint: sanitizeKnowledgeText(item?.channelHint),
+      sourceRefs: asArray(item?.sourceRefs).map((x) => toText(x)).filter(Boolean).slice(0, 6),
+      reliability: Number.isFinite(Number(item?.reliability))
+        ? Math.max(0, Math.min(1, Number(item.reliability)))
+        : 0.6,
+    }))
+    .filter((item) => item.learnerQuestion && item.coachingHint);
 }
 
 function normalizeFitKeys(value) {
@@ -652,7 +824,7 @@ function selectKnowledgeItems(items, curriculumKey) {
   return selected.length ? selected.slice(0, 12) : items.slice(0, 10);
 }
 
-function buildKnowledgeSummary(knowledge, catalog) {
+function buildKnowledgeSummary(knowledge, catalog, successCases, questionSignals) {
   const allItems = asArray(knowledge?.items);
   const studyMethods = dedupeTextList(
     allItems
@@ -706,8 +878,32 @@ function buildKnowledgeSummary(knowledge, catalog) {
     }))
     .filter((item) => item.title);
 
+  const successCaseItems = asArray(successCases?.cases)
+    .slice(0, 10)
+    .map((item) => ({
+      bandShift: toText(item?.bandShift),
+      summary: toText(item?.summary),
+      coreActions: asArray(item?.coreActions).map((x) => toText(x)).filter(Boolean).slice(0, 3),
+    }))
+    .filter((item) => item.summary);
+
+  const questionSignalsItems = asArray(questionSignals?.signals)
+    .slice(0, 10)
+    .map((item) => ({
+      focus: toText(item?.focus),
+      learnerQuestion: toText(item?.learnerQuestion),
+      coachingHint: toText(item?.coachingHint),
+      channel: toText(item?.channel),
+    }))
+    .filter((item) => item.learnerQuestion && item.coachingHint);
+
   return {
-    updatedAt: knowledge?.updatedAt || catalog?.updatedAt || null,
+    updatedAt:
+      knowledge?.updatedAt ||
+      catalog?.updatedAt ||
+      successCases?.updatedAt ||
+      questionSignals?.updatedAt ||
+      null,
     categories: {
       study_methods: studyMethods,
       lecture_and_books: {
@@ -716,6 +912,8 @@ function buildKnowledgeSummary(knowledge, catalog) {
         notes: lectureKnowledgeNotes,
       },
       learning_routines: learningRoutines,
+      student_success_cases: successCaseItems,
+      question_signals: questionSignalsItems,
     },
   };
 }
@@ -862,9 +1060,18 @@ function blendKnowledgeItems(items) {
   };
 }
 
-function buildRecommendationSeed({ catalog, curriculumKey, currentGrade, electiveSubject }) {
+function buildRecommendationSeed({
+  catalog,
+  successCases,
+  questionSignals,
+  curriculumKey,
+  currentGrade,
+  electiveSubject,
+}) {
   const allInstructors = asArray(catalog.instructors);
   const allBooks = asArray(catalog.books);
+  const allSuccessCases = asArray(successCases?.cases);
+  const allQuestionSignals = asArray(questionSignals?.signals);
 
   const instructorPool = allInstructors
     .filter((item) => fitMatch(item.fitKeys, curriculumKey))
@@ -891,6 +1098,12 @@ function buildRecommendationSeed({ catalog, curriculumKey, currentGrade, electiv
     curriculum_path: asArray(x.curriculumPath)
       .slice(0, 6)
       .map((step) => `${toText(step?.stage)}: ${toText(step?.course)} (${toText(step?.material)})`),
+    seasonal_plan: asArray(x.seasonalPlan)
+      .slice(0, 5)
+      .map(
+        (step) =>
+          `${toText(step?.period)} | ${toText(step?.classType)} | ${toText(step?.content)} | 목표: ${toText(step?.goal)}`
+      ),
     review_points: asArray(x.reviewSummary).map((s) => toText(s)).filter(Boolean).slice(0, 3),
   }));
 
@@ -926,7 +1139,38 @@ function buildRecommendationSeed({ catalog, curriculumKey, currentGrade, electiv
     currentGrade,
   });
 
-  return { instructors, books, subject_curriculum };
+  const student_success_cases = allSuccessCases
+    .filter((item) => fitMatch(item.fitKeys, curriculumKey))
+    .sort((a, b) => Number(b?.reliability || 0) - Number(a?.reliability || 0))
+    .slice(0, 5)
+    .map((item) => ({
+      band_shift: toText(item?.bandShift),
+      duration: toText(item?.duration),
+      summary: toText(item?.summary),
+      core_actions: asArray(item?.coreActions).map((x) => toText(x)).filter(Boolean).slice(0, 3),
+      source_refs: asArray(item?.sourceRefs).map((x) => toText(x)).filter(Boolean).slice(0, 4),
+      reliability: Number.isFinite(Number(item?.reliability))
+        ? Math.max(0, Math.min(1, Number(item.reliability)))
+        : 0.6,
+    }));
+
+  const question_signals = allQuestionSignals
+    .filter((item) => fitMatch(item.fitKeys, curriculumKey))
+    .sort((a, b) => Number(b?.reliability || 0) - Number(a?.reliability || 0))
+    .slice(0, 6)
+    .map((item) => ({
+      channel: toText(item?.channel),
+      focus: toText(item?.focus),
+      learner_question: toText(item?.learnerQuestion),
+      coaching_hint: toText(item?.coachingHint),
+      channel_hint: toText(item?.channelHint),
+      source_refs: asArray(item?.sourceRefs).map((x) => toText(x)).filter(Boolean).slice(0, 4),
+      reliability: Number.isFinite(Number(item?.reliability))
+        ? Math.max(0, Math.min(1, Number(item.reliability)))
+        : 0.6,
+    }));
+
+  return { instructors, books, subject_curriculum, student_success_cases, question_signals };
 }
 
 function fitMatch(fitKeys, curriculumKey) {
@@ -947,17 +1191,20 @@ function dedupeByName(items) {
 }
 
 function scoreBookByGrade(book, grade) {
-  const difficulty = toText(book?.difficulty);
+  const difficulty = toText(book?.difficulty).toLowerCase();
+  const isHigh = difficulty.includes("상") || difficulty.includes("high");
+  const isMedium = difficulty.includes("중") || difficulty.includes("medium");
+  const isLow = difficulty.includes("하") || difficulty.includes("low");
   if (grade >= 7) {
-    if (difficulty.includes("상")) return 3;
-    if (difficulty.includes("중")) return 2;
+    if (isHigh) return 3;
+    if (isMedium) return 2;
     return 1;
   }
   if (grade >= 4) {
-    if (difficulty.includes("상")) return 2;
+    if (isHigh) return 2;
     return 1;
   }
-  return difficulty.includes("하") ? 3 : 1;
+  return isLow ? 3 : 1;
 }
 
 function normalizeElectiveSubject(value) {
@@ -1252,8 +1499,9 @@ function buildAnalyzePrompt({
     .slice(0, 4)
     .map((x) => {
       const curriculum = asArray(x.curriculum_path).slice(0, 2).join(" | ");
+      const seasonal = asArray(x.seasonal_plan).slice(0, 2).join(" | ");
       const reviews = asArray(x.review_points).slice(0, 2).join(" | ");
-      return `- ${toText(x.name)} (${toText(x.platform)}): ${toText(x.reason)} / ${toText(x.best_for)} / 커리:${curriculum} / 후기:${reviews}`;
+      return `- ${toText(x.name)} (${toText(x.platform)}): ${toText(x.reason)} / ${toText(x.best_for)} / 커리:${curriculum} / 시기별:${seasonal} / 후기:${reviews}`;
     })
     .join("\n");
 
@@ -1273,6 +1521,24 @@ function buildAnalyzePrompt({
       const es = asArray(x?.elective_subject?.strategy).slice(0, 2).join(" / ");
       return `- ${toText(x.name)}: 수학I(${s1}) | 수학II(${s2}) | ${toText(x?.elective_subject?.subject)}(${es})`;
     })
+    .join("\n");
+
+  const successCaseSeed = asArray(recommendationSeed.student_success_cases)
+    .slice(0, 5)
+    .map((x) => {
+      const actions = asArray(x.core_actions).slice(0, 2).join(" / ");
+      return `- ${toText(x.band_shift)} (${toText(x.duration)}): ${toText(x.summary)} | 행동:${actions}`;
+    })
+    .join("\n");
+
+  const questionSignalSeed = asArray(recommendationSeed.question_signals)
+    .slice(0, 6)
+    .map(
+      (x) =>
+        `- [${toText(x.channel)}] ${toText(x.learner_question)} -> 코칭힌트: ${toText(
+          x.coaching_hint
+        )}`
+    )
     .join("\n");
 
   return [
@@ -1299,6 +1565,8 @@ function buildAnalyzePrompt({
     `강사 후보:\n${instructorSeed || "- 없음"}`,
     `교재 후보:\n${bookSeed || "- 없음"}`,
     `강사별 과목 커리큘럼 후보:\n${subjectCurriculumSeed || "- 없음"}`,
+    `실제 성과 사례 요약:\n${successCaseSeed || "- 없음"}`,
+    `학생 질문/댓글 패턴:\n${questionSignalSeed || "- 없음"}`,
     "",
     "반드시 JSON 객체만 반환하세요.",
     `중요: selected_elective는 반드시 "${electiveSubject}"로 고정하세요.`,
@@ -1378,6 +1646,7 @@ function buildAnalyzePrompt({
     '      "usage": "string",',
     '      "style_summary": "string",',
     '      "curriculum_path": ["string"],',
+    '      "seasonal_plan": ["string"],',
     '      "review_points": ["string"]',
     "    }",
     "  ],",
@@ -1391,6 +1660,8 @@ function buildAnalyzePrompt({
     '      "reason": "string"',
     "    }",
     "  ],",
+    '  "success_case_insights": ["string"],',
+    '  "question_trend_insights": ["string"],',
     '  "final_tip": "string"',
     "}",
     "",
@@ -1561,6 +1832,7 @@ function normalizePlan(raw, {
       usage: toText(x?.usage),
       style_summary: toText(x?.style_summary),
       curriculum_path: asArray(x?.curriculum_path).map((t) => toText(t)).filter(Boolean).slice(0, 6),
+      seasonal_plan: asArray(x?.seasonal_plan).map((t) => toText(t)).filter(Boolean).slice(0, 5),
       review_points: asArray(x?.review_points).map((t) => toText(t)).filter(Boolean).slice(0, 3),
     }))
     .filter((x) => x.name)
@@ -1617,6 +1889,16 @@ function normalizePlan(raw, {
       .slice(0, 10),
   };
 
+  const normalizedSuccessCaseInsights = asArray(raw?.success_case_insights)
+    .map((x) => toText(x))
+    .filter(Boolean)
+    .slice(0, 6);
+
+  const normalizedQuestionTrendInsights = asArray(raw?.question_trend_insights)
+    .map((x) => toText(x))
+    .filter(Boolean)
+    .slice(0, 6);
+
   return {
     student_feedback: toText(
       raw?.student_feedback,
@@ -1669,6 +1951,14 @@ function normalizePlan(raw, {
         ? normalizedInstructors
         : fallback.recommended_instructors,
     recommended_books: normalizedBooks.length > 0 ? normalizedBooks : fallback.recommended_books,
+    success_case_insights:
+      normalizedSuccessCaseInsights.length > 0
+        ? normalizedSuccessCaseInsights
+        : fallback.success_case_insights,
+    question_trend_insights:
+      normalizedQuestionTrendInsights.length > 0
+        ? normalizedQuestionTrendInsights
+        : fallback.question_trend_insights,
     final_tip: toText(
       raw?.final_tip,
       "꾸준함은 기본이고, 핵심은 같은 실수를 줄이는 구조화된 복기입니다."
@@ -1698,6 +1988,7 @@ function createFallbackPlan({
       usage: toText(x.usage),
       style_summary: toText(x.style_summary),
       curriculum_path: asArray(x.curriculum_path).map((t) => toText(t)).filter(Boolean).slice(0, 6),
+      seasonal_plan: asArray(x.seasonal_plan).map((t) => toText(t)).filter(Boolean).slice(0, 5),
       review_points: asArray(x.review_points).map((t) => toText(t)).filter(Boolean).slice(0, 3),
     }));
 
@@ -1741,10 +2032,27 @@ function createFallbackPlan({
     ...instructors.slice(0, 4).flatMap((inst) => {
       const base = `${inst.name} (${inst.platform}) - ${inst.best_for}`;
       const curriculum = asArray(inst.curriculum_path).slice(0, 2).map((line) => `${inst.name} 커리: ${line}`);
-      return [base, ...curriculum];
+      const seasonal = asArray(inst.seasonal_plan)
+        .slice(0, 1)
+        .map((line) => `${inst.name} 시기별: ${line}`);
+      return [base, ...curriculum, ...seasonal];
     }),
     ...books.slice(0, 6).map((book) => `${book.title} [${book.type}] - ${book.purpose}`),
   ].slice(0, 10);
+
+  const successCaseInsights = asArray(recommendationSeed.student_success_cases)
+    .slice(0, 4)
+    .map((item) => {
+      const actions = asArray(item?.core_actions).slice(0, 2).join(" / ");
+      return `${toText(item?.band_shift)} 사례: ${toText(item?.summary)}${actions ? ` | 행동: ${actions}` : ""}`;
+    });
+
+  const questionTrendInsights = asArray(recommendationSeed.question_signals)
+    .slice(0, 5)
+    .map(
+      (item) =>
+        `[${toText(item?.channel)}] ${toText(item?.learner_question)} -> ${toText(item?.coaching_hint)}`
+    );
 
   return {
     student_feedback:
@@ -1802,6 +2110,8 @@ function createFallbackPlan({
     subject_curriculum: subjectCurriculum,
     recommended_instructors: instructors,
     recommended_books: books,
+    success_case_insights: successCaseInsights,
+    question_trend_insights: questionTrendInsights,
     final_tip:
       "목표 등급은 하루치 완벽함보다, 같은 실수를 줄여가는 누적 루틴에서 나옵니다.",
   };
@@ -2003,6 +2313,76 @@ function createTrackerConsultFallback(profile, question, summary, methodCore) {
   ].join("\n\n");
 }
 
+function createIpRateLimiter({ scope = "api", windowMs = 60_000, maxRequests = 120 }) {
+  const bucket = new Map();
+  const cleanupInterval = Math.max(windowMs, 60_000);
+  let lastCleanupAt = Date.now();
+
+  return (req, res, next) => {
+    if (req.method === "OPTIONS") return next();
+
+    const key = `${scope}:${resolveClientIp(req)}`;
+    const now = Date.now();
+    const current = bucket.get(key);
+
+    let entry = current;
+    if (!entry || now >= entry.resetAt) {
+      entry = { count: 0, resetAt: now + windowMs };
+    }
+
+    entry.count += 1;
+    bucket.set(key, entry);
+
+    if (now - lastCleanupAt >= cleanupInterval) {
+      for (const [itemKey, itemValue] of bucket.entries()) {
+        if (now >= itemValue.resetAt) bucket.delete(itemKey);
+      }
+      lastCleanupAt = now;
+    }
+
+    if (entry.count > maxRequests) {
+      const retryAfterSec = Math.max(1, Math.ceil((entry.resetAt - now) / 1000));
+      res.setHeader("Retry-After", String(retryAfterSec));
+      return res.status(429).json({
+        error: "요청이 너무 많습니다. 잠시 후 다시 시도해주세요.",
+        retryAfterSec,
+      });
+    }
+
+    return next();
+  };
+}
+
+function createSharedSecretMiddleware(secret) {
+  const normalizedSecret = toText(secret);
+  return (req, res, next) => {
+    if (req.method === "GET") return next();
+    const headerValue = toText(req.headers["x-api-shared-secret"]);
+    if (!headerValue) {
+      return res.status(401).json({ error: "인증 헤더가 필요합니다." });
+    }
+    if (!secureCompare(headerValue, normalizedSecret)) {
+      return res.status(403).json({ error: "인증 값이 유효하지 않습니다." });
+    }
+    return next();
+  };
+}
+
+function resolveClientIp(req) {
+  const forwarded = toText(req.headers["x-forwarded-for"]);
+  if (forwarded) {
+    return forwarded.split(",")[0].trim();
+  }
+  return toText(req.ip || req.socket?.remoteAddress || "unknown");
+}
+
+function secureCompare(input, secret) {
+  const left = Buffer.from(toText(input));
+  const right = Buffer.from(toText(secret));
+  if (!left.length || !right.length || left.length !== right.length) return false;
+  return crypto.timingSafeEqual(left, right);
+}
+
 function sanitizeKnowledgeText(value) {
   const text = toText(value)
     .replace(/&middot;/gi, " ")
@@ -2103,6 +2483,20 @@ function dedupeTextList(items) {
     out.push(text);
   }
   return out;
+}
+
+function parseBooleanEnv(value, fallback = false) {
+  if (typeof value !== "string") return fallback;
+  const normalized = value.trim().toLowerCase();
+  if (["1", "true", "yes", "on"].includes(normalized)) return true;
+  if (["0", "false", "no", "off"].includes(normalized)) return false;
+  return fallback;
+}
+
+function clampNumber(value, fallback, min, max) {
+  const num = Number(value);
+  if (!Number.isFinite(num)) return fallback;
+  return Math.max(min, Math.min(max, num));
 }
 
 function toText(value, fallback = "") {

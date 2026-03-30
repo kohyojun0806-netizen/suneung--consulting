@@ -1,241 +1,618 @@
 {
   "updatedAt": "2026-03-29",
-  "notes": "정시 수학 컨설팅용 정제 추천 카탈로그(강사/교재/커리큘럼)",
+  "notes": "Expanded recommendation catalog with seasonal academy guidance",
   "instructors": [
     {
       "name": "현우진",
-      "platform": "메가스터디",
-      "fitKeys": ["5-3", "3-1"],
-      "subjectTags": ["공통", "미적분", "기하"],
-      "strengths": ["중상위권 실전 전환에 강함", "기출-심화-N제-실전 흐름이 뚜렷함"],
-      "styleTags": ["빠른 전개", "문항 구조 분석", "실전 지향"],
+      "platform": "Megastudy",
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "subjectTags": [
+        "공통",
+        "미적분",
+        "기하"
+      ],
+      "strengths": [
+        "Strong for upper-mid to top transition",
+        "Clear concept-to-killer progression"
+      ],
+      "styleTags": [
+        "fast",
+        "structure",
+        "practical"
+      ],
       "curriculumPath": [
-        { "stage": "기초개념", "course": "시발점", "material": "시발점 교재" },
-        { "stage": "실전개념", "course": "뉴런", "material": "뉴런 교재" },
-        { "stage": "기출", "course": "수분감", "material": "수분감 교재" },
-        { "stage": "N제", "course": "드릴", "material": "드릴 교재" },
-        { "stage": "모의", "course": "킬링캠프", "material": "실전 모의고사" }
+        {
+          "stage": "base",
+          "course": "Sibaljeom",
+          "material": "concept"
+        },
+        {
+          "stage": "practical-concept",
+          "course": "Newrun",
+          "material": "core text"
+        },
+        {
+          "stage": "past-exam",
+          "course": "Sugam",
+          "material": "past exam"
+        },
+        {
+          "stage": "N-set",
+          "course": "Drill",
+          "material": "N-set"
+        },
+        {
+          "stage": "final",
+          "course": "Killing Camp",
+          "material": "mock"
+        }
+      ],
+      "seasonalPlan": [
+        {
+          "period": "3~6모",
+          "classType": "concept+past",
+          "content": "Newrun + Sugam",
+          "goal": "stabilize mid-hard items"
+        },
+        {
+          "period": "6~9모",
+          "classType": "N-set+mock",
+          "content": "Drill + weekly mock",
+          "goal": "time/recovery rule"
+        },
+        {
+          "period": "9모~수능",
+          "classType": "final",
+          "content": "final mock + error compression",
+          "goal": "minimize variance"
+        }
       ],
       "reviewSummary": [
-        "개념-문제 연결 방식이 분명해서 실전 점수 상승 체감이 크다는 평가",
-        "복습 루틴 없이 듣기만 하면 누적이 어렵다는 후기가 많음"
+        "Sequence questions are common and useful",
+        "Review routine is mandatory"
       ],
-      "bestFor": "준킬러 이상 구간에서 실전 점수 상승이 필요한 학생",
-      "usage": "뉴런-수분감 병행 후 드릴/모의로 전환",
+      "bestFor": "Students needing practical score lift in hard section",
+      "usage": "Run concept and past exam in parallel, then move to N-set",
       "sourceLevel": "official+community",
-      "confidence": 0.92,
-      "sourceRefs": []
+      "confidence": 0.93,
+      "sourceRefs": [
+        "official-megastudy-woojin-ot",
+        "orbi-neuron-sugam-order-2026"
+      ]
     },
     {
       "name": "정승제",
-      "platform": "EBS/이투스",
-      "fitKeys": ["9-7", "7-5"],
-      "subjectTags": ["공통", "확률과통계"],
-      "strengths": ["개념 공백 보완", "하위권-중위권 접근성"],
-      "styleTags": ["친절한 설명", "개념 반복", "루틴 강조"],
+      "platform": "Etoos/EBS",
+      "fitKeys": [
+        "9-7",
+        "7-5"
+      ],
+      "subjectTags": [
+        "공통",
+        "확률과통계"
+      ],
+      "strengths": [
+        "Great for concept gaps",
+        "Accessible for low-mid level"
+      ],
+      "styleTags": [
+        "clear",
+        "repeat",
+        "foundation"
+      ],
       "curriculumPath": [
-        { "stage": "개념", "course": "개념 강의", "material": "개념 교재" },
-        { "stage": "유형", "course": "유형 강의", "material": "유형 교재" },
-        { "stage": "기출", "course": "기출 강의", "material": "기출 자료" }
+        {
+          "stage": "concept",
+          "course": "Concept track",
+          "material": "concept text"
+        },
+        {
+          "stage": "type",
+          "course": "Type track",
+          "material": "type text"
+        },
+        {
+          "stage": "past-exam",
+          "course": "Past exam track",
+          "material": "past set"
+        }
+      ],
+      "seasonalPlan": [
+        {
+          "period": "3~6모",
+          "classType": "concept",
+          "content": "fix definition/logic",
+          "goal": "close gaps"
+        },
+        {
+          "period": "6~9모",
+          "classType": "type+past",
+          "content": "easy-mid sets",
+          "goal": "practical transition"
+        },
+        {
+          "period": "9모~수능",
+          "classType": "final review",
+          "content": "mistake compression",
+          "goal": "basic stability"
+        }
       ],
       "reviewSummary": [
-        "개념이 흔들리는 학생에게 진입 장벽이 낮다는 반응",
-        "실전 구간으로 넘어갈 때는 기출/세트 병행이 필요"
+        "High concept clarity",
+        "Needs practical set pairing later"
       ],
-      "bestFor": "개념 공백이 큰 7~9등급권 학생",
-      "usage": "개념 정리 후 쉬운 기출 즉시 적용",
+      "bestFor": "Students with broad concept gaps",
+      "usage": "Concept lecture then same-day easy past-exam practice",
       "sourceLevel": "official+community",
-      "confidence": 0.87,
-      "sourceRefs": []
+      "confidence": 0.88,
+      "sourceRefs": [
+        "official-etoos-jeongseungje-ot",
+        "orbi-math-band-column"
+      ]
     },
     {
       "name": "이미지",
-      "platform": "대성마이맥",
-      "fitKeys": ["7-5", "5-3"],
-      "subjectTags": ["공통", "확률과통계", "미적분"],
-      "strengths": ["개념-유형 연결", "중위권 체화 루틴"],
-      "styleTags": ["개념 정리", "문제 적용", "중위권 친화"],
+      "platform": "Daesung Mimac",
+      "fitKeys": [
+        "7-5",
+        "5-3"
+      ],
+      "subjectTags": [
+        "공통",
+        "확률과통계",
+        "미적분"
+      ],
+      "strengths": [
+        "Fast concept-application bridge",
+        "Good for mid band"
+      ],
+      "styleTags": [
+        "organized",
+        "applied"
+      ],
       "curriculumPath": [
-        { "stage": "기초개념", "course": "개념 강의", "material": "개념 교재" },
-        { "stage": "유형", "course": "유형 강의", "material": "유형 교재" },
-        { "stage": "N제", "course": "심화/N제 강의", "material": "N제 교재" }
+        {
+          "stage": "concept",
+          "course": "Michin Concept",
+          "material": "concept"
+        },
+        {
+          "stage": "past-exam",
+          "course": "Michin Past",
+          "material": "past"
+        },
+        {
+          "stage": "practical",
+          "course": "N-set",
+          "material": "practical"
+        }
+      ],
+      "seasonalPlan": [
+        {
+          "period": "3~6모",
+          "classType": "concept",
+          "content": "concept + easy past",
+          "goal": "remove blind spots"
+        },
+        {
+          "period": "6~9모",
+          "classType": "past expansion",
+          "content": "mid-hard past",
+          "goal": "faster interpretation"
+        },
+        {
+          "period": "9모~수능",
+          "classType": "practical",
+          "content": "mock + compression",
+          "goal": "stable outcome"
+        }
       ],
       "reviewSummary": [
-        "개념 설명이 명확해 중위권 체감이 좋다는 평가",
-        "강의 이후 즉시 문제 적용을 병행할 때 효율이 높음"
+        "Good perceived clarity for mid-level students"
       ],
-      "bestFor": "개념은 알지만 적용력이 약한 학생",
-      "usage": "강의 직후 같은 단원 기출/유형 10~20문항",
+      "bestFor": "Students who know concept but cannot apply fast",
+      "usage": "Apply same-unit problems right after lecture",
       "sourceLevel": "official+community",
       "confidence": 0.84,
-      "sourceRefs": []
+      "sourceRefs": [
+        "official-mimac-math",
+        "map-image-curriculum"
+      ]
     },
     {
       "name": "시대인재 수학 단과",
-      "platform": "시대인재",
-      "fitKeys": ["7-5", "5-3", "3-1"],
-      "subjectTags": ["공통", "확률과통계", "미적분", "기하"],
-      "strengths": ["실전 세트 중심 운영", "고난도 대응 훈련"],
-      "styleTags": ["실전 지향", "주간 과제", "모의 훈련"],
+      "platform": "Sidaeinjae Daechi",
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "subjectTags": [
+        "공통",
+        "확률과통계",
+        "미적분",
+        "기하"
+      ],
+      "strengths": [
+        "Dense practical sets for top students",
+        "Weekly assignment/test loop"
+      ],
+      "styleTags": [
+        "academy",
+        "practical",
+        "high-tier"
+      ],
       "curriculumPath": [
-        { "stage": "정규", "course": "정규 단과", "material": "학원 교재" },
-        { "stage": "보강", "course": "취약 보강", "material": "보강 자료" },
-        { "stage": "파이널", "course": "모의/파이널", "material": "실전 자료" }
+        {
+          "stage": "regular",
+          "course": "regular class",
+          "material": "academy text"
+        },
+        {
+          "stage": "hard",
+          "course": "hard set + N-set",
+          "material": "supplement"
+        },
+        {
+          "stage": "final",
+          "course": "final mock",
+          "material": "final material"
+        }
+      ],
+      "seasonalPlan": [
+        {
+          "period": "3~6모",
+          "classType": "regular",
+          "content": "weak-unit closure",
+          "goal": "close weak chapters"
+        },
+        {
+          "period": "6~9모",
+          "classType": "hard+mock",
+          "content": "killer set + weekly mock",
+          "goal": "hard-item control"
+        },
+        {
+          "period": "9모~수능",
+          "classType": "final",
+          "content": "final mock + compressed review",
+          "goal": "stable practical score"
+        }
       ],
       "reviewSummary": [
-        "실전 운영 훈련에서 체감이 좋다는 후기 다수",
-        "복습 루틴이 약하면 과제 소화가 어렵다는 의견"
+        "High practical value for top tier with strong review"
       ],
-      "bestFor": "실전 점수 안정화가 필요한 학생",
-      "usage": "정규+모의 연계, 오답복기 루틴 필수",
+      "bestFor": "Top-tier students needing final operating stability",
+      "usage": "Split class usage by season instead of taking everything at once",
       "sourceLevel": "official+community",
-      "confidence": 0.82,
-      "sourceRefs": []
+      "confidence": 0.86,
+      "sourceRefs": [
+        "sdij-daechi-timetable",
+        "orbi-sdij-review-2026"
+      ]
     },
     {
       "name": "두각학원 수학 단과",
-      "platform": "두각학원",
-      "fitKeys": ["7-5", "5-3", "3-1"],
-      "subjectTags": ["공통", "미적분", "기하"],
-      "strengths": ["주간 과제 기반 누적 관리", "기출-실전 연결 구조"],
-      "styleTags": ["관리형", "과제형", "피드백 중심"],
+      "platform": "Daechi/Bundang Dugak",
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "subjectTags": [
+        "공통",
+        "미적분",
+        "기하"
+      ],
+      "strengths": [
+        "Assignment-driven management",
+        "Past-to-mock bridge"
+      ],
+      "styleTags": [
+        "academy",
+        "managed",
+        "practical"
+      ],
       "curriculumPath": [
-        { "stage": "정규", "course": "정규 단과", "material": "학원 교재" },
-        { "stage": "심화", "course": "심화 문제반", "material": "심화 자료" },
-        { "stage": "파이널", "course": "파이널 모의", "material": "실전 자료" }
+        {
+          "stage": "regular",
+          "course": "regular class",
+          "material": "academy material"
+        },
+        {
+          "stage": "hard",
+          "course": "hard module",
+          "material": "supplement"
+        },
+        {
+          "stage": "final",
+          "course": "final mock",
+          "material": "final set"
+        }
+      ],
+      "seasonalPlan": [
+        {
+          "period": "3~6모",
+          "classType": "regular",
+          "content": "regular + assignment",
+          "goal": "fix weak units"
+        },
+        {
+          "period": "6~9모",
+          "classType": "hard",
+          "content": "hard set + practical",
+          "goal": "killer adaptation"
+        },
+        {
+          "period": "9모~수능",
+          "classType": "final",
+          "content": "final mock rotation",
+          "goal": "low variance"
+        }
       ],
       "reviewSummary": [
-        "주간 과제-복기 구조가 명확하다는 평가",
-        "자기주도 복기까지 해야 성과가 안정적"
+        "Clear assignment-review loop in many community notes"
       ],
-      "bestFor": "주간 루틴 관리가 필요한 학생",
-      "usage": "정규 수업 + 주말 오답복기 고정",
+      "bestFor": "Students who need managed weekly rhythm",
+      "usage": "Protect review hours before adding extra classes",
       "sourceLevel": "official+community",
-      "confidence": 0.8,
-      "sourceRefs": []
+      "confidence": 0.83,
+      "sourceRefs": [
+        "dugak-requestclass-2026",
+        "dugak-teacher-board"
+      ]
     }
   ],
   "books": [
     {
-      "title": "개념원리 수학I·II",
-      "type": "개념서",
-      "fitKeys": ["9-7", "7-5"],
-      "purpose": "공통 개념 구조화",
-      "when": "3~6모 전",
-      "difficulty": "중",
-      "subjectTags": ["공통"],
-      "sourceLevel": "official+community",
+      "title": "Gaenyeomwolli Math I/II",
+      "type": "concept",
+      "fitKeys": [
+        "9-7",
+        "7-5"
+      ],
+      "purpose": "build concept structure",
+      "when": "before 6 mock",
+      "difficulty": "medium",
+      "subjectTags": [
+        "공통"
+      ],
+      "sourceLevel": "community",
       "confidence": 0.9,
-      "sourceRefs": []
+      "sourceRefs": [
+        "orbi-math-band-column"
+      ]
     },
     {
-      "title": "RPM 수학I·II",
-      "type": "유형서",
-      "fitKeys": ["9-7", "7-5"],
-      "purpose": "개념 직후 유형 적응",
-      "when": "개념 직후",
-      "difficulty": "중",
-      "subjectTags": ["공통"],
-      "sourceLevel": "official+community",
-      "confidence": 0.88,
-      "sourceRefs": []
-    },
-    {
-      "title": "자이스토리 수학I·II",
-      "type": "기출서",
-      "fitKeys": ["7-5", "5-3", "3-1"],
-      "purpose": "기출 기반 유형 정리",
-      "when": "5~9모",
-      "difficulty": "중상",
-      "subjectTags": ["공통"],
-      "sourceLevel": "official+community",
-      "confidence": 0.9,
-      "sourceRefs": []
-    },
-    {
-      "title": "마더텅 수능기출문제집 수학",
-      "type": "기출서",
-      "fitKeys": ["7-5", "5-3", "3-1"],
-      "purpose": "연도별/유형별 기출 반복",
-      "when": "연중",
-      "difficulty": "중상",
-      "subjectTags": ["공통"],
-      "sourceLevel": "official+community",
+      "title": "RPM Math I/II",
+      "type": "type",
+      "fitKeys": [
+        "9-7",
+        "7-5"
+      ],
+      "purpose": "right-after-concept application",
+      "when": "immediately after concept",
+      "difficulty": "medium",
+      "subjectTags": [
+        "공통"
+      ],
+      "sourceLevel": "community",
       "confidence": 0.86,
-      "sourceRefs": []
+      "sourceRefs": [
+        "orbi-math-band-column"
+      ]
     },
     {
-      "title": "수능특강 수학",
+      "title": "Xistory Math I/II",
+      "type": "past",
+      "fitKeys": [
+        "7-5",
+        "5-3",
+        "3-1"
+      ],
+      "purpose": "past-exam type compression",
+      "when": "5~9 mock",
+      "difficulty": "medium-high",
+      "subjectTags": [
+        "공통"
+      ],
+      "sourceLevel": "community",
+      "confidence": 0.89,
+      "sourceRefs": [
+        "orbi-success-9to1"
+      ]
+    },
+    {
+      "title": "Madutong Past Math",
+      "type": "past",
+      "fitKeys": [
+        "7-5",
+        "5-3",
+        "3-1"
+      ],
+      "purpose": "year rotation",
+      "when": "year-round",
+      "difficulty": "medium-high",
+      "subjectTags": [
+        "공통"
+      ],
+      "sourceLevel": "community",
+      "confidence": 0.84,
+      "sourceRefs": [
+        "orbi-success-9to1"
+      ]
+    },
+    {
+      "title": "EBS Suneungteukgang Math",
       "type": "EBS",
-      "fitKeys": ["9-7", "7-5", "5-3", "3-1"],
-      "purpose": "연계 대비 + 기본 실전감",
-      "when": "연중 병행",
-      "difficulty": "중",
-      "subjectTags": ["공통", "확률과통계", "미적분", "기하"],
+      "fitKeys": [
+        "9-7",
+        "7-5",
+        "5-3",
+        "3-1"
+      ],
+      "purpose": "linked-material baseline",
+      "when": "year-round",
+      "difficulty": "medium",
+      "subjectTags": [
+        "공통",
+        "확률과통계",
+        "미적분",
+        "기하"
+      ],
       "sourceLevel": "official",
       "confidence": 0.92,
-      "sourceRefs": []
+      "sourceRefs": [
+        "book-ebs-special-2026"
+      ]
     },
     {
-      "title": "수능완성 수학",
+      "title": "EBS Suneungwanseong Math",
       "type": "EBS",
-      "fitKeys": ["7-5", "5-3", "3-1"],
-      "purpose": "실전 연계 최종 정리",
-      "when": "6~수능 전",
-      "difficulty": "중상",
-      "subjectTags": ["공통", "확률과통계", "미적분", "기하"],
+      "fitKeys": [
+        "7-5",
+        "5-3",
+        "3-1"
+      ],
+      "purpose": "final linked review",
+      "when": "after 6 mock",
+      "difficulty": "medium-high",
+      "subjectTags": [
+        "공통",
+        "확률과통계",
+        "미적분",
+        "기하"
+      ],
       "sourceLevel": "official",
       "confidence": 0.92,
-      "sourceRefs": []
+      "sourceRefs": [
+        "book-ebs-complete-2026"
+      ]
     },
     {
-      "title": "드릴",
-      "type": "N제",
-      "fitKeys": ["5-3", "3-1"],
-      "purpose": "준킬러/킬러 풀이력 강화",
-      "when": "6~9모",
-      "difficulty": "상",
-      "subjectTags": ["공통", "미적분", "기하"],
+      "title": "Drill",
+      "type": "N-set",
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "purpose": "hard-item solving power",
+      "when": "6~9 mock",
+      "difficulty": "high",
+      "subjectTags": [
+        "공통",
+        "미적분",
+        "기하"
+      ],
       "sourceLevel": "official+community",
-      "confidence": 0.82,
-      "sourceRefs": []
+      "confidence": 0.84,
+      "sourceRefs": [
+        "official-megastudy-woojin-ot"
+      ]
     },
     {
-      "title": "확률과통계 기출+N제 세트",
-      "type": "선택과목",
-      "fitKeys": ["7-5", "5-3", "3-1"],
-      "purpose": "확통 빈출 유형 안정화",
-      "when": "5~수능 전",
-      "difficulty": "중상",
-      "subjectTags": ["확률과통계"],
-      "sourceLevel": "community",
-      "confidence": 0.75,
-      "sourceRefs": []
-    },
-    {
-      "title": "미적분 기출+N제 세트",
-      "type": "선택과목",
-      "fitKeys": ["7-5", "5-3", "3-1"],
-      "purpose": "미적분 고난도 대응",
-      "when": "5~수능 전",
-      "difficulty": "상",
-      "subjectTags": ["미적분"],
-      "sourceLevel": "community",
+      "title": "Sidaeinjae Math Material",
+      "type": "academy",
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "purpose": "high-tier practical loop",
+      "when": "6~final",
+      "difficulty": "high",
+      "subjectTags": [
+        "공통",
+        "확률과통계",
+        "미적분",
+        "기하"
+      ],
+      "sourceLevel": "official+community",
       "confidence": 0.78,
-      "sourceRefs": []
+      "sourceRefs": [
+        "sdij-daechi-timetable"
+      ]
     },
     {
-      "title": "기하 기출+N제 세트",
-      "type": "선택과목",
-      "fitKeys": ["7-5", "5-3", "3-1"],
-      "purpose": "기하 빈출 구조 체화",
-      "when": "5~수능 전",
-      "difficulty": "상",
-      "subjectTags": ["기하"],
-      "sourceLevel": "community",
+      "title": "Dugak Math Material",
+      "type": "academy",
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "purpose": "assignment-review practical cycle",
+      "when": "6~final",
+      "difficulty": "high",
+      "subjectTags": [
+        "공통",
+        "미적분",
+        "기하"
+      ],
+      "sourceLevel": "official+community",
       "confidence": 0.76,
-      "sourceRefs": []
+      "sourceRefs": [
+        "dugak-requestclass-2026"
+      ]
+    },
+    {
+      "title": "Elective: Prob/Stats Past+N",
+      "type": "elective",
+      "fitKeys": [
+        "7-5",
+        "5-3",
+        "3-1"
+      ],
+      "purpose": "prob-stat frequent pattern control",
+      "when": "5~final",
+      "difficulty": "medium-high",
+      "subjectTags": [
+        "확률과통계"
+      ],
+      "sourceLevel": "community",
+      "confidence": 0.77,
+      "sourceRefs": [
+        "orbi-math-band-column"
+      ]
+    },
+    {
+      "title": "Elective: Calculus Past+N",
+      "type": "elective",
+      "fitKeys": [
+        "7-5",
+        "5-3",
+        "3-1"
+      ],
+      "purpose": "calculus hard section response",
+      "when": "5~final",
+      "difficulty": "high",
+      "subjectTags": [
+        "미적분"
+      ],
+      "sourceLevel": "community",
+      "confidence": 0.8,
+      "sourceRefs": [
+        "orbi-neuron-sugam-order-2026"
+      ]
+    },
+    {
+      "title": "Elective: Geometry Past+N",
+      "type": "elective",
+      "fitKeys": [
+        "7-5",
+        "5-3",
+        "3-1"
+      ],
+      "purpose": "geometry hard adaptation",
+      "when": "5~final",
+      "difficulty": "high",
+      "subjectTags": [
+        "기하"
+      ],
+      "sourceLevel": "community",
+      "confidence": 0.79,
+      "sourceRefs": [
+        "orbi-math-band-column"
+      ]
     }
   ]
 }
-

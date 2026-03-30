@@ -1,0 +1,65 @@
+{
+  "updatedAt": "2026-03-29",
+  "notes": "Student success cases, de-identified",
+  "cases": [
+    {
+      "id": "success-9to1-orbi-2020",
+      "bandShift": "9->1",
+      "duration": "about 1 year",
+      "summary": "A base-level learner reached grade 1 with strict concept-output, past-exam replay, and review loop.",
+      "coreActions": [
+        "same-day application",
+        "24-hour first review",
+        "weekly practical set"
+      ],
+      "fitKeys": [
+        "9-7",
+        "7-5",
+        "5-3"
+      ],
+      "sourceRefs": [
+        "orbi-success-9to1"
+      ],
+      "reliability": 0.74
+    },
+    {
+      "id": "success-nobase-thread-2023",
+      "bandShift": "8->2/3",
+      "duration": "about 1 year",
+      "summary": "Long thread discussion reports multiple base-level improvement cases with stable routines.",
+      "coreActions": [
+        "fixed weekly rhythm",
+        "basic past rotation",
+        "mistake pattern tracking"
+      ],
+      "fitKeys": [
+        "9-7",
+        "7-5"
+      ],
+      "sourceRefs": [
+        "orbi-nobase-oneyear-thread"
+      ],
+      "reliability": 0.64
+    },
+    {
+      "id": "success-elite-seasonal",
+      "bandShift": "top-band stabilization",
+      "duration": "3 to final",
+      "summary": "Top-band gains depend on seasonal class-content decisions and compressed final review.",
+      "coreActions": [
+        "3-6 weakness closure",
+        "6-9 hard set + mock",
+        "9-final variance control"
+      ],
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "sourceRefs": [
+        "sdij-daechi-timetable",
+        "dugak-requestclass-2026"
+      ],
+      "reliability": 0.78
+    }
+  ]
+}

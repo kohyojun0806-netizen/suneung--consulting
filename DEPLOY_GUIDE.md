@@ -46,3 +46,18 @@
   - Render 로그에서 에러 확인
   - `OPENAI_API_KEY` 누락 여부 확인
   - `REACT_APP_API_BASE` 오타 확인
+
+## 5) Security Hardening (Recommended)
+- Render environment variables:
+  - `ENABLE_SECURITY_HEADERS=true`
+  - `ENABLE_RATE_LIMIT=true`
+  - `RATE_LIMIT_WINDOW_MS=60000`
+  - `RATE_LIMIT_MAX_REQUESTS=120`
+  - `RATE_LIMIT_ANALYZE_MAX=40`
+  - `RATE_LIMIT_REPORT_MAX=80`
+  - `RATE_LIMIT_CONSULT_MAX=80`
+- Optional API shared secret protection:
+  - `ENFORCE_API_SHARED_SECRET=true`
+  - `API_SHARED_SECRET=<random-long-secret>`
+  - Frontend/clients must send header: `x-api-shared-secret`
+- Keep this disabled (`false`) if the public frontend cannot attach the secret header yet.

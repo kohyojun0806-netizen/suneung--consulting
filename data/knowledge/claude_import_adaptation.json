@@ -1,0 +1,25 @@
+{
+  "updatedAt": "2026-03-29",
+  "source": "data/imports/files_1/suneung-sprint003-r1.jsx",
+  "decisions": [
+    {
+      "item": "Grade-band method blocks",
+      "action": "merged",
+      "target": "knowledge_base.json"
+    },
+    {
+      "item": "Instructor/book suggestions",
+      "action": "merged+expanded",
+      "target": "recommendation_catalog.json"
+    },
+    {
+      "item": "Question trend signals",
+      "action": "new-dataset",
+      "target": "youtube_question_signals.json"
+    }
+  ],
+  "excluded": [
+    "full UI replacement",
+    "direct external model call snippets"
+  ]
+}

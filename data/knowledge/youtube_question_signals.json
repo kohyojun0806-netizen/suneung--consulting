@@ -1,0 +1,54 @@
+{
+  "updatedAt": "2026-03-29",
+  "notes": "Question/comment trend signals",
+  "signals": [
+    {
+      "id": "q-sequence",
+      "channel": "community+youtube",
+      "focus": "sequence",
+      "learnerQuestion": "How should I sequence Newrun and Sugam?",
+      "coachingHint": "Parallelize after concept completion crosses stable threshold.",
+      "fitKeys": [
+        "7-5",
+        "5-3",
+        "3-1"
+      ],
+      "sourceRefs": [
+        "orbi-neuron-sugam-order-2026"
+      ],
+      "reliability": 0.82
+    },
+    {
+      "id": "q-nobase",
+      "channel": "community+youtube",
+      "focus": "feasibility",
+      "learnerQuestion": "Can a base learner reach grade 1 in one year?",
+      "coachingHint": "Track routine completion rate instead of possibility debates.",
+      "fitKeys": [
+        "9-7",
+        "7-5"
+      ],
+      "sourceRefs": [
+        "orbi-nobase-oneyear-thread"
+      ],
+      "reliability": 0.79
+    },
+    {
+      "id": "q-elite-season",
+      "channel": "community",
+      "focus": "academy timing",
+      "learnerQuestion": "When should I use Sidaeinjae or Dugak classes?",
+      "coachingHint": "Split by season: closure (3-6), hard handling (6-9), final stability (9-final).",
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "sourceRefs": [
+        "sdij-daechi-timetable",
+        "dugak-requestclass-2026"
+      ],
+      "reliability": 0.84,
+      "channelHint": "Includes manual grouping for Akoreum-recommended comment themes"
+    }
+  ]
+}

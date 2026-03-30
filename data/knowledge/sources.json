@@ -1,222 +1,210 @@
 [
   {
-    "id": "kice-main-guide",
-    "type": "official_guideline",
-    "platform": "kice",
-    "bucket": "study_methods",
-    "tags": ["official", "exam_scope", "policy"],
-    "title": "한국교육과정평가원 수능 안내",
-    "webUrl": "https://www.kice.re.kr/",
-    "includeImages": false
-  },
-  {
-    "id": "orbi-column-problem-attitude",
-    "type": "community_column",
-    "platform": "orbi",
-    "bucket": "study_methods",
-    "tags": ["column", "mindset", "problem_solving"],
-    "title": "오르비 칼럼 - 수학 문제를 대하는 태도",
-    "webUrl": "https://orbi.kr/00077975282/%5B%EC%B9%BC%EB%9F%BC%5D-%EC%88%98%ED%95%99-%EB%AC%B8%EC%A0%9C%EB%A5%BC-%EB%8C%80%ED%95%98%EB%8A%94-%ED%83%9C%EB%8F%84",
-    "includeImages": false
-  },
-  {
-    "id": "orbi-review-neuron",
-    "type": "community_review",
-    "platform": "orbi",
+    "id": "sdij-daechi-timetable",
+    "type": "official",
+    "platform": "Sidaeinjae",
     "bucket": "lecture_books",
-    "tags": ["teacher_review", "course_experience", "hyunwoojin"],
-    "title": "오르비 후기 - 현우진 뉴런 관련",
-    "webUrl": "https://orbi.kr/00077096134",
-    "includeImages": false
-  },
-  {
-    "id": "orbi-review-image-curriculum",
-    "type": "community_review",
-    "platform": "orbi",
-    "bucket": "lecture_books",
-    "tags": ["teacher_review", "course_experience", "image"],
-    "title": "오르비 후기 - 이미지 커리큘럼 관련",
-    "webUrl": "https://orbi.kr/00060362745",
-    "includeImages": false
-  },
-  {
-    "id": "pomanhan-math-review-board",
-    "type": "community_post",
-    "platform": "pomanhan",
-    "bucket": "lecture_books",
-    "tags": ["community", "teacher_review", "book_review", "curriculum"],
-    "title": "포만한 수학 강사/교재 후기 게시판",
-    "webUrl": "https://www.pomanhan.co.kr/",
-    "includeImages": false
-  },
-  {
-    "id": "sumanhwi-math-routine-board",
-    "type": "community_post",
-    "platform": "sumanhwi",
-    "bucket": "learning_routines",
-    "tags": ["community", "study_routine", "weekly_plan", "mistake_log"],
-    "title": "수만휘 학습 루틴/후기 게시판",
-    "webUrl": "https://cafe.naver.com/suhui",
-    "includeImages": false
-  },
-  {
-    "id": "orbi-teacher-curriculum-thread",
-    "type": "community_post",
-    "platform": "orbi",
-    "bucket": "lecture_books",
-    "tags": ["teacher_lineup", "curriculum_compare"],
-    "title": "오르비 강사 라인업/커리큘럼 체감 글",
-    "webUrl": "https://orbi.kr/00073489372",
-    "includeImages": false
-  },
-  {
-    "id": "yt-math-study-playlist",
-    "type": "youtube_playlist",
-    "platform": "youtube",
-    "bucket": "study_methods",
-    "tags": ["grade_strategy", "season_plan", "math_method"],
-    "title": "수학 등급별 학습법 플레이리스트",
-    "playlistUrl": "https://www.youtube.com/playlist?list=PLl96fucB-W-41ZBdjUXrshDGGumDlpEAa",
-    "includeVideoFrames": false
-  },
-  {
-    "id": "yt-grade-method-01",
-    "type": "youtube",
-    "platform": "youtube",
-    "bucket": "study_methods",
-    "tags": ["grade_strategy", "concept_output"],
-    "title": "수학 공부법 - 개념 출력 중심",
-    "youtubeUrl": "https://www.youtube.com/watch?v=sST8059i3mw",
-    "includeVideoFrames": false
-  },
-  {
-    "id": "yt-grade-method-02",
-    "type": "youtube",
-    "platform": "youtube",
-    "bucket": "study_methods",
-    "tags": ["grade_strategy", "execution", "practice"],
-    "title": "수학 등급별 학습법 1",
-    "youtubeUrl": "https://www.youtube.com/watch?v=hGDfgSder-I",
-    "includeVideoFrames": false
-  },
-  {
-    "id": "yt-grade-method-03",
-    "type": "youtube",
-    "platform": "youtube",
-    "bucket": "study_methods",
-    "tags": ["grade_strategy", "execution", "practice"],
-    "title": "수학 등급별 학습법 2",
-    "youtubeUrl": "https://www.youtube.com/watch?v=0OERw9UiTeI",
-    "includeVideoFrames": false
-  },
-  {
-    "id": "yt-grade-method-04",
-    "type": "youtube",
-    "platform": "youtube",
-    "bucket": "study_methods",
-    "tags": ["grade_strategy", "execution", "practice"],
-    "title": "수학 등급별 학습법 3",
-    "youtubeUrl": "https://www.youtube.com/watch?v=g7FYLaKxP2A",
-    "includeVideoFrames": false
-  },
-  {
-    "id": "official-megastudy-math",
-    "type": "official_curriculum",
-    "platform": "megastudy",
-    "bucket": "lecture_books",
-    "tags": ["teacher", "curriculum", "ot", "booklist"],
-    "title": "메가스터디 수학 강사 페이지",
-    "webUrl": "https://www.megastudy.net/",
+    "tags": [
+      "official",
+      "2026-refresh"
+    ],
+    "title": "Daechi timetable",
+    "webUrl": "https://www.sdij.com/aca/schd/schd_view.asp?pc_view=Y",
     "includeImages": true
   },
   {
-    "id": "official-megastudy-woojin-ot",
-    "type": "official_curriculum",
-    "platform": "megastudy",
+    "id": "dugak-requestclass-2026",
+    "type": "official",
+    "platform": "Bundang Dugak",
     "bucket": "lecture_books",
-    "tags": ["teacher", "curriculum", "ot", "hyunwoojin"],
-    "title": "메가스터디 현우진 강좌 상세/OT",
-    "webUrl": "https://www.megastudy.net/teacher_v2/chr/lecture_detailview.asp?CHR_CD=56645&MAKE_FLG=2&tec_cd=woojinmath",
+    "tags": [
+      "official",
+      "2026-refresh"
+    ],
+    "title": "class request page",
+    "webUrl": "https://bundangdugak.dshw.co.kr/onlineapplication/requestclass_view.htm?currentPage=1&id=435&subject=0",
     "includeImages": true
   },
   {
-    "id": "official-megastudy-woojin-booklist",
-    "type": "official_curriculum",
-    "platform": "megastudy",
+    "id": "dugak-teacher-board",
+    "type": "official",
+    "platform": "Dugak",
     "bucket": "lecture_books",
-    "tags": ["teacher", "booklist", "curriculum", "hyunwoojin"],
-    "title": "메가스터디 현우진 교재 정보",
-    "webUrl": "https://www.megastudy.net/lecmain/popup/pop_Infobook_new.asp?chr_cd=58795&itemType=1",
-    "includeImages": true
-  },
-  {
-    "id": "official-mimac-math",
-    "type": "official_curriculum",
-    "platform": "mimac",
-    "bucket": "lecture_books",
-    "tags": ["teacher", "curriculum", "ot", "booklist"],
-    "title": "대성마이맥 수학 강사 페이지",
-    "webUrl": "https://www.mimacstudy.com/",
-    "includeImages": true
-  },
-  {
-    "id": "official-etoos-math",
-    "type": "official_curriculum",
-    "platform": "etoos",
-    "bucket": "lecture_books",
-    "tags": ["teacher", "curriculum", "ot", "booklist"],
-    "title": "이투스 수학 강사 페이지",
-    "webUrl": "https://www.etoos.com/",
-    "includeImages": true
-  },
-  {
-    "id": "official-etoos-jeongseungje-ot",
-    "type": "official_curriculum",
-    "platform": "etoos",
-    "bucket": "lecture_books",
-    "tags": ["teacher", "curriculum", "ot", "jeongseungje"],
-    "title": "이투스 정승제 강좌/OT 상세",
-    "webUrl": "https://www11.etoos.com/teacher/sub02.asp?CHOICE_LEVEL_ID=100001&GRD_CD=go3&LECTURE_GB_CD=0001&TAB_CD=0002&TEACHER_ID=200180&TEACHER_MAIN_TYPE=TYPE25",
-    "includeImages": true
-  },
-  {
-    "id": "academy-sdij-math",
-    "type": "academy_curriculum",
-    "platform": "sdij",
-    "bucket": "lecture_books",
-    "tags": ["academy", "single_course", "teacher_lineup"],
-    "title": "시대인재 수학 단과 페이지",
-    "webUrl": "https://www.sdij.com/",
-    "includeImages": true
-  },
-  {
-    "id": "academy-sdij-math-schedule",
-    "type": "academy_curriculum",
-    "platform": "sdij",
-    "bucket": "lecture_books",
-    "tags": ["academy", "single_course", "schedule", "curriculum"],
-    "title": "시대인재 수학 단과 시간표/트랙",
-    "webUrl": "https://www.sdij.com/aca/schd/",
-    "includeImages": true
-  },
-  {
-    "id": "academy-dugak-math",
-    "type": "academy_curriculum",
-    "platform": "dugak",
-    "bucket": "lecture_books",
-    "tags": ["academy", "single_course", "teacher_lineup"],
-    "title": "두각학원 수학 강사 페이지",
+    "tags": [
+      "official",
+      "2026-refresh"
+    ],
+    "title": "math teacher board",
     "webUrl": "https://bundangdugak.dshw.co.kr/teacher/teacher.htm?subject=2",
     "includeImages": true
   },
   {
-    "id": "orbi-column-math-study-routine",
-    "type": "community_column",
-    "platform": "orbi",
+    "id": "official-megastudy-woojin-ot",
+    "type": "official",
+    "platform": "Megastudy",
+    "bucket": "lecture_books",
+    "tags": [
+      "official",
+      "2026-refresh"
+    ],
+    "title": "course detail and OT",
+    "webUrl": "https://www.megastudy.net/teacher_v2/chr/lecture_detailview.asp?CHR_CD=56645&MAKE_FLG=2&tec_cd=woojinmath",
+    "includeImages": true
+  },
+  {
+    "id": "official-etoos-jeongseungje-ot",
+    "type": "official",
+    "platform": "Etoos",
+    "bucket": "lecture_books",
+    "tags": [
+      "official",
+      "2026-refresh"
+    ],
+    "title": "curriculum detail",
+    "webUrl": "https://www11.etoos.com/teacher/sub02.asp?CHOICE_LEVEL_ID=100001&GRD_CD=go3&LECTURE_GB_CD=0001&TAB_CD=0002&TEACHER_ID=200180&TEACHER_MAIN_TYPE=TYPE25",
+    "includeImages": true
+  },
+  {
+    "id": "official-mimac-math",
+    "type": "official",
+    "platform": "Mimac",
+    "bucket": "lecture_books",
+    "tags": [
+      "official",
+      "2026-refresh"
+    ],
+    "title": "math teachers main",
+    "webUrl": "https://www.mimacstudy.com/",
+    "includeImages": true
+  },
+  {
+    "id": "book-ebs-special-2026",
+    "type": "official",
+    "platform": "EBSi",
+    "bucket": "lecture_books",
+    "tags": [
+      "official",
+      "2026-refresh"
+    ],
+    "title": "special textbook metadata",
+    "webUrl": "https://cloud-www.ebsi.co.kr/ebs/pot/potg/retrieveCourseDetailNw.ebs?bookId=LB00000005073",
+    "includeImages": true
+  },
+  {
+    "id": "book-ebs-complete-2026",
+    "type": "official",
+    "platform": "EBSi",
+    "bucket": "lecture_books",
+    "tags": [
+      "official",
+      "2026-refresh"
+    ],
+    "title": "complete textbook metadata",
+    "webUrl": "https://www.ebsi.co.kr/ebs/pot/potg/retrieveCourseDetailNw.ebs?bookId=LB00000005094",
+    "includeImages": true
+  },
+  {
+    "id": "orbi-success-9to1",
+    "type": "community",
+    "platform": "Orbi",
     "bucket": "study_methods",
-    "tags": ["column", "routine", "review", "math_method"],
-    "title": "오르비 칼럼 - 수학 학습 루틴 점검",
+    "tags": [
+      "community",
+      "2026-refresh"
+    ],
+    "title": "9 to 1 success case",
+    "webUrl": "https://orbi.kr/00033742614/9%EB%93%B1%EA%B8%89-%3E-%EA%B0%80%ED%98%95-1%EB%93%B1%EA%B8%89-%EC%88%98%ED%95%99-%EA%B3%B5%EB%B6%80%EB%B2%95",
+    "includeImages": false
+  },
+  {
+    "id": "orbi-nobase-oneyear-thread",
+    "type": "community",
+    "platform": "Orbi",
+    "bucket": "study_methods",
+    "tags": [
+      "community",
+      "2026-refresh"
+    ],
+    "title": "base learner feasibility discussion",
+    "webUrl": "https://orbi.kr/00062991478/%EB%85%B8%EB%B2%A0-%EC%88%98%ED%95%99-1%EB%85%84%EB%A7%8C%EC%97%90-1%EB%93%B1%EA%B8%89-%EA%B0%80%EB%8A%A5-%EB%B6%88%EA%B0%80%EB%8A%A5",
+    "includeImages": false
+  },
+  {
+    "id": "orbi-neuron-sugam-order-2026",
+    "type": "community",
+    "platform": "Orbi",
+    "bucket": "study_methods",
+    "tags": [
+      "community",
+      "2026-refresh"
+    ],
+    "title": "Newrun Sugam sequence pattern",
+    "webUrl": "https://orbi.kr/00076785107",
+    "includeImages": false
+  },
+  {
+    "id": "orbi-sdij-review-2026",
+    "type": "community",
+    "platform": "Orbi",
+    "bucket": "study_methods",
+    "tags": [
+      "community",
+      "2026-refresh"
+    ],
+    "title": "Sidaeinjae review query",
+    "webUrl": "https://orbi.kr/search?q=%EC%8B%9C%EB%8C%80%EC%9D%B8%EC%9E%AC+%EC%88%98%ED%95%99+%EB%8B%A8%EA%B3%BC+%ED%9B%84%EA%B8%B0",
+    "includeImages": false
+  },
+  {
+    "id": "orbi-math-band-column",
+    "type": "community",
+    "platform": "Orbi",
+    "bucket": "study_methods",
+    "tags": [
+      "community",
+      "2026-refresh"
+    ],
+    "title": "band-based method",
     "webUrl": "https://orbi.kr/00073261962",
+    "includeImages": false
+  },
+  {
+    "id": "orbi-math-attitude-column",
+    "type": "community",
+    "platform": "Orbi",
+    "bucket": "study_methods",
+    "tags": [
+      "community",
+      "2026-refresh"
+    ],
+    "title": "problem attitude",
+    "webUrl": "https://orbi.kr/00077975282/%5B%EC%B9%BC%EB%9F%BC%5D-%EC%88%98%ED%95%99-%EB%AC%B8%EC%A0%9C%EB%A5%BC-%EB%8C%80%ED%95%98%EB%8A%94-%ED%83%9C%EB%8F%84",
+    "includeImages": false
+  },
+  {
+    "id": "map-image-curriculum",
+    "type": "curated",
+    "platform": "local-map",
+    "bucket": "lecture_books",
+    "tags": [
+      "curated",
+      "2026-refresh"
+    ],
+    "title": "image map",
+    "webUrl": "data/knowledge/instructor_curriculum_map.json",
+    "includeImages": false
+  },
+  {
+    "id": "youtube-comment-akoreum-manual",
+    "type": "youtube_comment",
+    "platform": "YouTube-manual",
+    "bucket": "lecture_books",
+    "tags": [
+      "youtube_comment",
+      "2026-refresh"
+    ],
+    "title": "manual Akoreum question-theme grouping",
+    "webUrl": "https://www.youtube.com/results?search_query=%EC%95%85%EC%96%B4%EC%98%A4%EB%A6%84+%EC%88%98%ED%95%99",
     "includeImages": false
   }
 ]
