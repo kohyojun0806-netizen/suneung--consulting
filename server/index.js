@@ -203,6 +203,30 @@ const STUDENT_SUCCESS_FILE =
 const QUESTION_SIGNALS_FILE =
   process.env.QUESTION_SIGNALS_FILE ||
   path.join(KNOWLEDGE_DIR, "youtube_question_signals.json");
+const GSD_DIR = path.join(process.cwd(), "gsd");
+const GSD_STATE_FILE = path.join(GSD_DIR, "state.json");
+const GSD_DEFAULT_POLICY = {
+  process: "GSD + 3agent",
+  roles: {
+    planer: "what to build only",
+    generator: "how to build with emphasis on design quality and originality",
+    evaluator: "score + feedback + re-evaluate loop with Playwright when available",
+  },
+  scoreWeights: {
+    designQuality: 35,
+    originality: 30,
+    completeness: 20,
+    functionality: 15,
+  },
+  sprintDefaults: {
+    minIterations: 5,
+    maxIterations: 12,
+    targetScore: 92,
+    nearOptimalDelta: 1.5,
+    stablePassStreak: 2,
+    withE2E: false,
+  },
+};
 
 fs.mkdirSync(GENERATED_DIR, { recursive: true });
 fs.mkdirSync(KNOWLEDGE_DIR, { recursive: true });
@@ -308,6 +332,28 @@ app.get("/api/knowledge/summary", async (_req, res) => {
     res.json(summary);
   } catch (error) {
     res.status(500).json({ error: error.message || "학습 데이터 요약 생성에 실패했습니다." });
+  }
+});
+
+app.get("/api/workflow", async (_req, res) => {
+  try {
+    const workflow = await loadWorkflowState();
+    res.json({
+      ok: true,
+      process: workflow.policy.process,
+      currentProject: workflow.currentProject,
+      hasProject: workflow.hasProject,
+      policy: workflow.policy,
+      commands: {
+        newProject: "npm run gsd:new-project",
+        discuss: "npm run gsd:discuss-phase",
+        plan: "npm run gsd:plan-phase",
+        execute: "npm run gsd:execute-phase",
+        verify: "npm run gsd:verify-work",
+      },
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message || "워크플로우 상태를 불러오지 못했습니다." });
   }
 });
 
@@ -1785,6 +1831,56 @@ function parseJsonSafely(text) {
     }
     return JSON.parse(cleaned.slice(start, end + 1));
   }
+}
+
+async function loadWorkflowState() {
+  let state = null;
+  try {
+    const raw = await fsp.readFile(GSD_STATE_FILE, "utf8");
+    state = parseJsonSafely(raw);
+  } catch {
+    state = null;
+  }
+
+  const currentProject = toText(state?.currentProject);
+  let policy = GSD_DEFAULT_POLICY;
+
+  if (currentProject) {
+    const policyFile = path.join(GSD_DIR, currentProject, "06_process_policy.json");
+    try {
+      const raw = await fsp.readFile(policyFile, "utf8");
+      const parsed = parseJsonSafely(raw);
+      policy = mergeWorkflowPolicy(parsed);
+    } catch {
+      policy = GSD_DEFAULT_POLICY;
+    }
+  }
+
+  return {
+    currentProject: currentProject || null,
+    hasProject: Boolean(currentProject),
+    policy,
+  };
+}
+
+function mergeWorkflowPolicy(raw) {
+  if (!raw || typeof raw !== "object") return GSD_DEFAULT_POLICY;
+  return {
+    ...GSD_DEFAULT_POLICY,
+    ...raw,
+    roles: {
+      ...GSD_DEFAULT_POLICY.roles,
+      ...(raw.roles || {}),
+    },
+    scoreWeights: {
+      ...GSD_DEFAULT_POLICY.scoreWeights,
+      ...(raw.scoreWeights || {}),
+    },
+    sprintDefaults: {
+      ...GSD_DEFAULT_POLICY.sprintDefaults,
+      ...(raw.sprintDefaults || {}),
+    },
+  };
 }
 
 function normalizePlan(raw, {

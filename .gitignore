@@ -25,6 +25,8 @@
 /data/knowledge/ingest_quality_report.json
 /playwright-report
 /test-results
+/gsd/*
+!/gsd/.gitkeep
 
 # handoff / archive artifacts
 /claude_handoff*/

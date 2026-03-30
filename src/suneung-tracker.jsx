@@ -366,6 +366,7 @@ export default function App() {
   const [err, setErr] = useState("");
   const [busy, setBusy] = useState({ analyze: false, report: false, consult: false });
   const [health, setHealth] = useState({ loading: false, error: "", data: null, summary: null });
+  const [workflow, setWorkflow] = useState({ loading: false, error: "", data: null });
   const currentBand = useMemo(
     () => (profile ? bandKey(profile.currentGrade, profile.targetGrade) : "7-5"),
     [profile]
@@ -405,14 +406,40 @@ export default function App() {
     if (screen !== "main") return;
     (async () => {
       setHealth((prev) => ({ ...prev, loading: true, error: "" }));
+      setWorkflow((prev) => ({ ...prev, loading: true, error: "" }));
       try {
-        const [apiHealth, summary] = await Promise.all([
-          callGet(`${API_BASE}/api/health`, 9000),
-          callGet(`${API_BASE}/api/knowledge/summary`, 9000),
+        const [healthResult, workflowResult] = await Promise.allSettled([
+          Promise.all([
+            callGet(`${API_BASE}/api/health`, 9000),
+            callGet(`${API_BASE}/api/knowledge/summary`, 9000),
+          ]),
+          callGet(`${API_BASE}/api/workflow`, 9000),
         ]);
-        setHealth({ loading: false, error: "", data: apiHealth, summary });
+
+        if (healthResult.status === "fulfilled") {
+          const [apiHealth, summary] = healthResult.value;
+          setHealth({ loading: false, error: "", data: apiHealth, summary });
+        } else {
+          setHealth({
+            loading: false,
+            error: healthResult.reason?.message || "Failed to load health data",
+            data: null,
+            summary: null,
+          });
+        }
+
+        if (workflowResult.status === "fulfilled") {
+          setWorkflow({ loading: false, error: "", data: workflowResult.value });
+        } else {
+          setWorkflow({
+            loading: false,
+            error: workflowResult.reason?.message || "Failed to load workflow",
+            data: null,
+          });
+        }
       } catch (e) {
         setHealth({ loading: false, error: e.message, data: null, summary: null });
+        setWorkflow({ loading: false, error: e.message, data: null });
       }
     })();
   }, [screen]);
@@ -773,6 +800,7 @@ export default function App() {
             coachMemory={coachMemory}
             onSaveCoachMemory={saveCoachMemory}
             resetAll={resetAll}
+            workflow={workflow}
           />
         ) : null}
       </main>
@@ -1464,7 +1492,7 @@ function ConsultPanel({ onAsk, history, busy, coachMemory }) {
   );
 }
 
-function SettingsPanel({ coachMemory, onSaveCoachMemory, resetAll }) {
+function SettingsPanel({ coachMemory, onSaveCoachMemory, resetAll, workflow }) {
   const [draft, setDraft] = useState(coachMemory || "");
 
   useEffect(() => {
@@ -1473,6 +1501,42 @@ function SettingsPanel({ coachMemory, onSaveCoachMemory, resetAll }) {
 
   return (
     <section className="panel-stack">
+      <article className="glass-card">
+        <h3>Workflow Status</h3>
+        <p className="card-muted">Current GSD + 3agent automation for this site.</p>
+        {workflow?.loading ? <p className="card-muted">Loading workflow data...</p> : null}
+        {workflow?.error ? <p className="field-warn">Workflow load failed: {workflow.error}</p> : null}
+        {workflow?.data ? (
+          <div className="item-stack">
+            <div className="sub-card">
+              <strong>Process</strong>
+              <p>{workflow.data.process || "GSD + 3agent"}</p>
+            </div>
+            <div className="sub-card">
+              <strong>Current Project</strong>
+              <p>{workflow.data.currentProject || "not selected"}</p>
+            </div>
+            <div className="sub-card">
+              <strong>Loop Policy</strong>
+              <p>
+                min {workflow.data.policy?.sprintDefaults?.minIterations ?? 5} / max{" "}
+                {workflow.data.policy?.sprintDefaults?.maxIterations ?? 12} / target{" "}
+                {workflow.data.policy?.sprintDefaults?.targetScore ?? 92}
+              </p>
+            </div>
+            <div className="sub-card">
+              <strong>Score Weights</strong>
+              <ul className="plain-list">
+                <li>Design: {workflow.data.policy?.scoreWeights?.designQuality ?? 35}</li>
+                <li>Originality: {workflow.data.policy?.scoreWeights?.originality ?? 30}</li>
+                <li>Completeness: {workflow.data.policy?.scoreWeights?.completeness ?? 20}</li>
+                <li>Functionality: {workflow.data.policy?.scoreWeights?.functionality ?? 15}</li>
+              </ul>
+            </div>
+          </div>
+        ) : null}
+      </article>
+
       <article className="glass-card">
         <h3>설정</h3>
         <p className="card-muted">
