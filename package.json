@@ -33,6 +33,8 @@
     "gsd:verify-work": "node scripts/gsd_workflow.js verify-work",
     "gsd-verify-work": "node scripts/gsd_workflow.js verify-work",
     "gsd:help": "node scripts/gsd_workflow.js help",
+    "release:prod": "node scripts/release_prod.js",
+    "release:prod:all": "node scripts/release_prod.js --all",
     "build": "react-scripts build",
     "test:e2e": "npm run build && playwright test",
     "test": "react-scripts test",
