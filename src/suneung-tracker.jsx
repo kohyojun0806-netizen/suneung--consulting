@@ -53,11 +53,20 @@ const ELECTIVE_TO_SERVER = {
 function toAnalyzePayload(profile) {
   const parsedCurrent = Number(GRADE_TO_NUM[profile?.currentGrade] ?? profile?.currentGrade);
   const parsedTarget = Number(GRADE_TO_NUM[profile?.targetGrade] ?? profile?.targetGrade);
-  const currentGrade = Number.isFinite(parsedCurrent) ? parsedCurrent : 5;
+  let currentGrade = Number.isFinite(parsedCurrent) ? parsedCurrent : 5;
   let targetGrade = Number.isFinite(parsedTarget) ? parsedTarget : Math.max(1, currentGrade - 1);
+
+  // Backend requires targetGrade < currentGrade.
+  // For already-top students (1등급), send a stable top-tier optimization profile.
+  if (currentGrade <= 1) {
+    currentGrade = 2;
+    targetGrade = 1;
+  }
+
   if (targetGrade >= currentGrade) {
     targetGrade = Math.max(1, currentGrade - 1);
   }
+
   return {
     currentGrade,
     targetGrade,
