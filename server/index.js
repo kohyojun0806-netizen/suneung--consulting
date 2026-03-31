@@ -517,13 +517,24 @@ app.post("/api/analyze", async (req, res) => {
       },
       plan,
     };
-    await fsp.writeFile(outPath, JSON.stringify(payload, null, 2), "utf8");
+    let persisted = false;
+    try {
+      await fsp.writeFile(outPath, JSON.stringify(payload, null, 2), "utf8");
+      persisted = true;
+    } catch (persistError) {
+      console.warn(
+        `[analyze] skipped writing generated file (${outPath}): ${
+          persistError?.message || "unknown write error"
+        }`
+      );
+    }
 
     res.json({
       plan,
       meta: {
         id: jobId,
-        file: path.relative(process.cwd(), outPath),
+        file: persisted ? path.relative(process.cwd(), outPath) : null,
+        persisted,
         usedModel,
         model: usedModelName,
         knowledgeUpdatedAt: knowledge.updatedAt || null,
