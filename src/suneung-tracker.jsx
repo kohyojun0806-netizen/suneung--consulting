@@ -517,7 +517,10 @@ const TABS = [
   { id: 'consult', label: '컨설팅', icon: '💬' },
 ];
 
-const API_BASE = process.env.REACT_APP_API_BASE || process.env.REACT_APP_API_URL || 'http://localhost:8787';
+const API_BASE =
+  process.env.REACT_APP_API_BASE ||
+  process.env.REACT_APP_API_URL ||
+  (process.env.NODE_ENV === 'production' ? '' : 'http://localhost:8787');
 const GRADE_TO_NUM = { '1': 1, '2-3': 3, '4+': 5 };
 const ELECTIVE_TO_SERVER = {
   calculus: '미적분',

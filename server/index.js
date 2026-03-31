@@ -685,9 +685,15 @@ app.use((error, _req, res, _next) => {
   return res.status(status).json({ error: message });
 });
 
-app.listen(PORT, () => {
-  console.log(`API server ready: http://localhost:${PORT}`);
-});
+function startServer(port = PORT) {
+  return app.listen(port, () => {
+    console.log(`API server ready: http://localhost:${port}`);
+  });
+}
+
+if (require.main === module) {
+  startServer();
+}
 
 function getCurriculumKey(current, target) {
   if (current >= 8 && target >= 6) return "9-7";
@@ -3130,3 +3136,6 @@ function toText(value, fallback = "") {
     .trim();
   return trimmed || fallback;
 }
+
+module.exports = app;
+module.exports.startServer = startServer;
