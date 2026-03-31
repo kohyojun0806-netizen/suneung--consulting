@@ -1,18 +1,31 @@
 {
-  "generatedAt": "2026-03-30T13:19:49.650Z",
-  "strictMode": true,
+  "generatedAt": "2026-03-31T03:19:09.384Z",
+  "strictMode": false,
   "sourceFile": "data\\knowledge\\recommendation_catalog.json",
   "sourceRegistryFile": "data\\knowledge\\source_registry.json",
   "summary": {
-    "bookCount": 63,
-    "njeOrMockCount": 30,
+    "bookCount": 72,
+    "instructorCount": 18,
+    "njeOrMockCount": 39,
     "sdijLikeCount": 19,
+    "megaInstructorCount": 3,
+    "daesungInstructorCount": 6,
+    "njeBandCounter": {
+      "intro_nje": 3,
+      "mid_nje": 6,
+      "high_nje": 21
+    },
     "criticalCount": 0,
     "warningCount": 0,
     "thresholds": {
       "minBooks": 55,
       "minNjeOrMockBooks": 18,
-      "minSdijStyleBooks": 8
+      "minSdijStyleBooks": 8,
+      "minMegaInstructors": 3,
+      "minDaesungInstructors": 3,
+      "minIntroNjeBooks": 3,
+      "minMidNjeBooks": 5,
+      "minHighNjeBooks": 8
     }
   },
   "issues": []

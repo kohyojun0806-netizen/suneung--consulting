@@ -1,62 +1,76 @@
 # Project Context For Claude
 
-This repository is a CSAT math roadmap service.
+This repository is a CSAT math consulting + tracker service.
 
 ## Product Goal
 
-- User inputs current grade and target grade.
-- Service returns:
-  - current personalized feedback
+- Input: `currentGrade`, `targetGrade`, `electiveSubject`
+- Output:
+  - personalized core feedback
   - what to focus on now
-  - phase plans:
-    - before March~June mock
-    - June~September mock
-    - September mock~CSAT
-  - instructor and book recommendations
-- Do **not** expose source links in final user-facing plan text.
+  - period plan (`3~6모`, `6~9모`, `9모~수능 전`)
+  - instructor/book recommendations
+  - cumulative coaching signals (weekly logs/reports/coach consult)
+- Rule: Do **not** expose raw source links in user-facing plan text.
 
 ## Current Architecture
 
-- Frontend: React (`src/App.jsx`)
-- Backend API: Express (`server/index.js`)
-- Data ingest pipeline: `server/ingest.js`
-- Knowledge base: `data/knowledge/knowledge_base.json`
-- Source list for ingest: `data/knowledge/sources.json`
-- Recommendation catalog: `data/knowledge/recommendation_catalog.json`
-- Source registry: `data/knowledge/source_registry.json`
+- Frontend:
+  - entry: `src/App.jsx` (re-export)
+  - main UI: `src/suneung-tracker.jsx`
+  - style: `src/suneung-tracker.css`
+- Backend API: `server/index.js`
+- Ingest pipeline: `server/ingest.js`
+- Ingest QA script: `scripts/verify_ingest_quality.js`
+- Data files:
+  - `data/knowledge/knowledge_base.json`
+  - `data/knowledge/recommendation_catalog.json`
+  - `data/knowledge/sources.json`
+  - `data/knowledge/source_registry.json`
+- E2E evaluator:
+  - `playwright.config.js`
+  - `tests/e2e/*.spec.ts`
 
 ## Main API
 
 - `POST /api/analyze`
-  - input: `currentGrade`, `targetGrade`, optional `electiveSubject`
-  - output includes:
-    - `student_feedback`
-    - `current_focus`
-    - `period_plan`
-    - `math_structure`
-    - `subject_curriculum`
-    - `recommended_instructors`
-    - `recommended_books`
+- `POST /api/tracker/report`
+- `POST /api/tracker/consult`
+- `GET /api/health`
+- `GET /api/knowledge/summary`
+
+## Sprint Workflow (Required)
+
+Use `PLANER → Generator → evaluator`:
+1. PLANER defines **what** to build (scope/DoD/score)
+2. Generator implements (**design quality + originality weighted**)
+3. evaluator scores and loops with feedback
+
+Reference docs:
+- `docs/SPRINT_WORKFLOW.md`
+- `docs/SPRINT_CONTRACT_001.md`
+- `docs/SPRINT_CONTRACT_002.md`
+- `docs/SPRINT_LOG_10.md`
+- `docs/SPRINT_LOG_11.md`
 
 ## Run Commands
 
-- `npm run server` (backend)
-- `npm start` (frontend)
-- `npm run ingest` (rebuild knowledge from source list)
-- `npm run build` (frontend build)
+- `npm run server`
+- `npm start`
+- `npm run ingest`
+- `npm run verify:ingest`
+- `npm run build`
+- `npm run test:e2e`
 
 ## Important Constraints
 
-- Prioritize official data over community data.
-- Community data is supplementary signal only.
-- Keep recommendation confidence logic (`sourceLevel`, `confidence`) intact.
-- Do not hardcode source links in user-facing roadmap output.
-- Keep output focused on practical study actions, not generic motivation.
+- Official-first recommendation policy must remain intact.
+- Community sources are supplementary evidence.
+- Keep `sourceLevel` + `confidence` scoring behavior.
+- Keep API response keys backward-compatible with frontend.
 
-## Next Priority Work
+## Current Priority
 
-1. Improve ingest quality filtering to reduce noisy transcripts.
-2. Strengthen subject-specific recommendation mapping (`subjectTags`).
-3. Increase official instructor/course metadata coverage.
-4. Keep fallback responses meaningful even when model calls fail.
-
+1. Priority 2 product quality items in `docs/NEXT_TASKS.md`
+2. Expand Playwright evaluator coverage (API error/fallback scenarios)
+3. Keep cumulative coaching UX coherent across dashboard/plan/report/consult/settings

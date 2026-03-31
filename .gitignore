@@ -38,3 +38,5 @@ claude_upload_pack_*.zip
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+.vercel

@@ -1,5 +1,13 @@
 ﻿import { test, expect } from "@playwright/test";
 
+async function enterApp(page) {
+  const startButton = page.getByRole("button", { name: /시작하기/ });
+  if (await startButton.isVisible()) {
+    await startButton.click();
+  }
+  await expect(page.locator(".onboarding-tab")).toBeVisible();
+}
+
 async function fillProfile(
   page,
   opts: { currentGrade?: string; targetGrade?: string; elective?: string; weeklyHours?: string } = {}
@@ -26,7 +34,7 @@ async function createPlan(page, opts = {}) {
 test.describe("Sprint 31 - Evidence Badge + Grade-band", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/");
-    await expect(page.locator(".onboarding-tab")).toBeVisible();
+    await enterApp(page);
   });
 
   test("TC-01: plan cards render evidence badge", async ({ page }) => {

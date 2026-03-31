@@ -1,0 +1,25 @@
+[필수 열람 순서]
+1) CLAUDE.md
+2) docs/PROJECT_STATE.md
+3) docs/NEXT_TASKS.md
+4) docs/SPRINT_WORKFLOW.md
+5) docs/GSD_WORKFLOW.md
+6) gsd/ui-data-priority-20260330/06_process_policy.json
+7) scripts/gsd_workflow.js
+8) scripts/verify_recommendation_quality.js
+9) scripts/upgrade_priority_data_phase3_books.js
+10) src/suneung-tracker.jsx
+11) src/suneung-tracker.css
+12) tests/e2e/onboarding-and-navigation.spec.ts
+13) tests/e2e/persistence-coaching.spec.ts
+14) tests/e2e/strict-evaluator-ui.spec.ts
+15) data/knowledge/recommendation_catalog.json
+16) data/knowledge/source_registry.json
+17) data/knowledge/sources.json
+18) docs/SPRINT_AUDIT_2026-03-30.md
+19) docs/SPRINT_CONTRACT_30.md
+20) docs/SPRINT_LOG_30.md
+
+[참고]
+- 최신 푸시: ac39cfc
+- 배포 URL: https://suneung-psi.vercel.app

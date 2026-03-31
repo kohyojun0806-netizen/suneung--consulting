@@ -1,25 +1,15 @@
-You are continuing development on this project.
+Use the standardized Claude handoff package:
 
-Read these files first:
-1) CLAUDE.md
-2) server/index.js
-3) server/ingest.js
-4) data/knowledge/recommendation_catalog.json
-5) data/knowledge/sources.json
-6) data/knowledge/knowledge_base.json
-7) src/App.jsx
+1) Read:
+- docs/claude_handoff/README.md
+- docs/claude_handoff/01_file_open_order.txt
 
-Goal for this session:
-- improve practical quality of roadmap outputs for CSAT math students
-- keep official-source-first recommendation behavior
-- avoid showing source links in user-facing response text
+2) Paste this as first Claude message:
+- docs/claude_handoff/02_start_prompt_ko.txt
 
-Before changing code:
-- summarize current behavior in 8-12 bullets
-- identify top 3 quality risks and your fix plan
+3) If resuming a paused session:
+- docs/claude_handoff/03_continue_prompt_ko.txt
+- docs/claude_handoff/04_resume_prompt_ui_gsd_ko.txt
 
-Then implement:
-- concrete code/data updates
-- a short test run and verification output
-- final change summary with file list
-
+4) Runbook:
+- docs/claude_handoff/05_command_checklist.txt

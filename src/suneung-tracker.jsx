@@ -559,20 +559,34 @@ function toUiPlan(rawPlan, profile) {
     return 'community';
   };
 
-  const recommendedBooks = (plan.recommended_books || []).map((book, idx) => ({
-    id: `book-${idx + 1}`,
-    title: book?.title || `추천 교재 ${idx + 1}`,
-    author: book?.author || '',
-    publisher: book?.publisher || '',
-    reason: book?.reason || book?.purpose || '',
-    confidence: confidenceFrom(book),
-    sourceRefs: Array.isArray(book?.sourceRefs)
+  const sourceUrlById = new Map(
+    (Array.isArray(plan?.evidence_trace?.resolved_sources) ? plan.evidence_trace.resolved_sources : [])
+      .map((src) => [String(src?.id || ''), String(src?.url || '')])
+      .filter(([id, url]) => id && /^https?:\/\//.test(url))
+  );
+
+  const recommendedBooks = (plan.recommended_books || []).map((book, idx) => {
+    const rawRefs = Array.isArray(book?.sourceRefs)
       ? book.sourceRefs
-      : book?.sourceRef
-        ? [book.sourceRef]
-        : [],
-    tags: [book?.type, book?.difficulty, book?.when_to_use].filter(Boolean).slice(0, 3),
-  }));
+      : Array.isArray(book?.source_refs)
+        ? book.source_refs
+        : book?.sourceRef
+          ? [book.sourceRef]
+          : [];
+    const sourceRefs = rawRefs
+      .map((ref) => sourceUrlById.get(String(ref)) || String(ref))
+      .filter((ref) => /^https?:\/\//.test(ref));
+    return {
+      id: `book-${idx + 1}`,
+      title: book?.title || `Recommended book ${idx + 1}`,
+      author: book?.author || '',
+      publisher: book?.publisher || '',
+      reason: book?.reason || book?.purpose || '',
+      confidence: confidenceFrom(book),
+      sourceRefs,
+      tags: [book?.type, book?.difficulty, book?.when_to_use].filter(Boolean).slice(0, 3),
+    };
+  });
 
   const recommendedInstructors = (plan.recommended_instructors || []).map((inst) => ({
     name: inst?.name || '',

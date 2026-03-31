@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-30",
+  "updatedAt": "2026-03-31",
   "policy": {
     "priority": [
       "official",
@@ -531,6 +531,353 @@
       "capturedAt": "2026-03-30",
       "keyPoints": [
         "Sidaeinjae content names often discussed in community contexts"
+      ]
+    },
+    {
+      "id": "official-megastudy-math-teacher-main-2026",
+      "type": "official",
+      "provider": "Megastudy",
+      "url": "https://megastudy.net/mobile/smart/teacher/teacher_main.asp?dom_cd=2&rMenuListCd=2&tec_cd=arboramor",
+      "capturedAt": "2026-03-31",
+      "keyPoints": [
+        "?? ?? ?? ?",
+        "???? ? ??"
+      ]
+    },
+    {
+      "id": "official-mimac-main-2026",
+      "type": "official",
+      "provider": "Daesung Mimac",
+      "url": "https://www.mimacstudy.com/",
+      "capturedAt": "2026-03-31",
+      "keyPoints": [
+        "????? ?? ??",
+        "?? ??? ??"
+      ]
+    },
+    {
+      "id": "orbi-woojin-kimgihyeon-compare-2024",
+      "type": "community",
+      "provider": "Orbi",
+      "url": "https://orbi.kr/00070760654",
+      "capturedAt": "2026-03-31",
+      "keyPoints": [
+        "???/??? ?? ??",
+        "?? ?? ?? ?? ??"
+      ]
+    },
+    {
+      "id": "orbi-woojin-course-order-2026",
+      "type": "community",
+      "provider": "Orbi",
+      "url": "https://orbi.kr/00077153969",
+      "capturedAt": "2026-03-31",
+      "keyPoints": [
+        "???-???-?? ??",
+        "2??? ?? ??"
+      ]
+    },
+    {
+      "id": "orbi-daesung-math-recommend-2024",
+      "type": "community",
+      "provider": "Orbi",
+      "url": "https://orbi.kr/00070406067",
+      "capturedAt": "2026-03-31",
+      "keyPoints": [
+        "?? ?? ?? ?? ??",
+        "???/???/??? ??"
+      ]
+    },
+    {
+      "id": "orbi-hanseokwon-curriculum-2025",
+      "type": "community",
+      "provider": "Orbi",
+      "url": "https://orbi.kr/00074338159",
+      "capturedAt": "2026-03-31",
+      "keyPoints": [
+        "??? ??-4???-????? ??",
+        "??? ?? ??? ??"
+      ]
+    },
+    {
+      "id": "official-sdij-youtube-channel-2026",
+      "type": "official-youtube",
+      "provider": "Sidaeinjae",
+      "url": "https://www.youtube.com/channel/UCmoo1ULkJwg5uTIFpwuZRCA",
+      "capturedAt": "2026-03-31",
+      "keyPoints": [
+        "Official SDIJ YouTube channel",
+        "Admissions and class-operation video updates"
+      ]
+    },
+    {
+      "id": "official-daesung-youtube-channel-2026",
+      "type": "official-youtube",
+      "provider": "Daesung",
+      "url": "https://www.youtube.com/@daesunghw_official",
+      "capturedAt": "2026-03-31",
+      "keyPoints": [
+        "Official Daesung YouTube channel",
+        "Exam/admissions information videos"
+      ]
+    },
+    {
+      "id": "community-orbi-sdij-onsite-question-00072296617",
+      "type": "community",
+      "provider": "Orbi",
+      "url": "https://orbi.kr/00072296617",
+      "capturedAt": "2026-03-31",
+      "keyPoints": [
+        "Sidaeinjae onsite class waiting and operation questions",
+        "Questions about livestream replay windows and textbook delivery"
+      ]
+    },
+    {
+      "id": "community-orbi-dugak-onsite-question-00075023632",
+      "type": "community",
+      "provider": "Orbi",
+      "url": "https://orbi.kr/00075023632",
+      "capturedAt": "2026-03-31",
+      "keyPoints": [
+        "Dugak math onsite full-course choice discussion",
+        "Teacher track selection context from students"
+      ]
+    },
+    {
+      "id": "community-orbi-sdij-onsite-price-00076183518",
+      "type": "community",
+      "provider": "Orbi",
+      "url": "https://orbi.kr/00076183518",
+      "capturedAt": "2026-03-31",
+      "keyPoints": [
+        "Sidaeinjae onsite fee and enrollment timing questions",
+        "Regional branch enrollment conditions"
+      ]
+    },
+    {
+      "id": "youtube-search-akoreum-sdij-onsite-2026",
+      "type": "youtube_comment",
+      "provider": "YouTube",
+      "url": "https://www.youtube.com/results?search_query=%EC%95%85%EC%96%B4%EC%98%A4%EB%A6%84+%EC%8B%9C%EB%8C%80%EC%9D%B8%EC%9E%AC+%EB%8B%A8%EA%B3%BC",
+      "capturedAt": "2026-03-31",
+      "keyPoints": [
+        "Onsite-class related comment threads from admissions-focused videos"
+      ]
+    },
+    {
+      "id": "youtube-search-akoreum-dugak-onsite-2026",
+      "type": "youtube_comment",
+      "provider": "YouTube",
+      "url": "https://www.youtube.com/results?search_query=%EC%95%85%EC%96%B4%EC%98%A4%EB%A6%84+%EB%91%90%EA%B0%81+%EB%8B%A8%EA%B3%BC",
+      "capturedAt": "2026-03-31",
+      "keyPoints": [
+        "Dugak-related admissions video comment search"
+      ]
+    },
+    {
+      "id": "official-yes24-shinemi-nje-math2-2026",
+      "type": "official",
+      "provider": "YES24",
+      "url": "https://www.yes24.com/product/goods/146040651",
+      "capturedAt": "2026-03-31",
+      "keyPoints": [
+        "ShineMe NJE Math2 listing",
+        "publisher: Sidaeinjae Books"
+      ]
+    },
+    {
+      "id": "official-yes24-shinemi-nje-calculus-set-2026",
+      "type": "official",
+      "provider": "YES24",
+      "url": "https://www.yes24.com/product/goods/148489355",
+      "capturedAt": "2026-03-31",
+      "keyPoints": [
+        "ShineMe NJE Calculus set listing",
+        "publisher: Sidaeinjae Books"
+      ]
+    },
+    {
+      "id": "official-yes24-ihaewon-nje-s1-math1-2027",
+      "type": "official",
+      "provider": "YES24",
+      "url": "https://www.yes24.com/product/goods/179604882",
+      "capturedAt": "2026-03-31",
+      "keyPoints": [
+        "Ihaewon NJE Season1 Math1",
+        "15Day / 90 item format in listing"
+      ]
+    },
+    {
+      "id": "official-yes24-ihaewon-nje-s1-math2-2027",
+      "type": "official",
+      "provider": "YES24",
+      "url": "https://www.yes24.com/product/goods/179604909",
+      "capturedAt": "2026-03-31",
+      "keyPoints": [
+        "Ihaewon NJE Season1 Math2",
+        "Sidaeinjae Books publisher listing"
+      ]
+    },
+    {
+      "id": "official-yes24-pokachip-frame-mijuk-2022",
+      "type": "official",
+      "provider": "YES24",
+      "url": "https://www.yes24.com/Product/Goods/111085413",
+      "capturedAt": "2026-03-31",
+      "keyPoints": [
+        "Pokachip FRAME NJE",
+        "Math1+Math2+Calculus variant"
+      ]
+    },
+    {
+      "id": "official-yes24-pokachip-retro-probstat-2022",
+      "type": "official",
+      "provider": "YES24",
+      "url": "https://www.yes24.com/Product/Goods/111725077",
+      "capturedAt": "2026-03-31",
+      "keyPoints": [
+        "Pokachip RETRO NJE",
+        "Math1+Math2+ProbStat variant"
+      ]
+    },
+    {
+      "id": "official-yes24-jainsun-nje-s1-math1-2027",
+      "type": "official",
+      "provider": "YES24",
+      "url": "https://www.yes24.com/product/goods/179607080",
+      "capturedAt": "2026-03-31",
+      "keyPoints": [
+        "Jainsun NJE Season1 Math1",
+        "4-point practical item focus in listing"
+      ]
+    },
+    {
+      "id": "official-megastudybooks-nje-calculus-366-2024",
+      "type": "official",
+      "provider": "Megastudy Books",
+      "url": "https://www.megastudybooks.com/book/detail/451",
+      "capturedAt": "2026-03-31",
+      "keyPoints": [
+        "NJE type metadata",
+        "PART1 basic4 + PART2 high-level stated"
+      ]
+    },
+    {
+      "id": "official-megastudy-bookmall-nje-calculus-24182",
+      "type": "official",
+      "provider": "Megastudy",
+      "url": "https://m.megastudy.net/mobile/smart/book_mall/view.asp?book_cd=24182",
+      "capturedAt": "2026-03-31",
+      "keyPoints": [
+        "Ingang site book mall listing",
+        "NJE split by level and part"
+      ]
+    },
+    {
+      "id": "official-kyobo-search-math-nje-calculus-2026",
+      "type": "official-index",
+      "provider": "Kyobobook",
+      "url": "https://search.kyobobook.co.kr/search?keyword=%EC%88%98%ED%95%99+N%EC%A0%9C+%EB%AF%B8%EC%A0%81%EB%B6%84",
+      "capturedAt": "2026-03-31",
+      "keyPoints": [
+        "Kyobo search index for math NJE",
+        "pricing/availability snapshots for NJE titles"
+      ]
+    },
+    {
+      "id": "official-kyobo-search-ihaewon-nje-s1-math1-2027",
+      "type": "official-index",
+      "provider": "Kyobobook",
+      "url": "https://search.kyobobook.co.kr/search?keyword=%EC%9D%B4%ED%95%B4%EC%9B%90+N%EC%A0%9C+SEASON+1+%EC%88%98%ED%95%991",
+      "capturedAt": "2026-03-31",
+      "keyPoints": [
+        "Kyobo index for Ihaewon NJE Season1 Math1"
+      ]
+    },
+    {
+      "id": "official-kyobo-search-jainsun-nje-s1-math1-2027",
+      "type": "official-index",
+      "provider": "Kyobobook",
+      "url": "https://search.kyobobook.co.kr/search?keyword=%EC%A7%80%EC%9D%B8%EC%84%A0+N%EC%A0%9C+SEASON+1+%EC%88%98%ED%95%991",
+      "capturedAt": "2026-03-31",
+      "keyPoints": [
+        "Kyobo index for Jainsun NJE Season1 Math1"
+      ]
+    },
+    {
+      "id": "official-kyobo-search-iro-woon-nje-calculus-2026",
+      "type": "official-index",
+      "provider": "Kyobobook",
+      "url": "https://search.kyobobook.co.kr/search?keyword=%EC%9D%B4%EB%A1%9C%EC%9A%B4+N%EC%A0%9C+%EB%AF%B8%EC%A0%81%EB%B6%84",
+      "capturedAt": "2026-03-31",
+      "keyPoints": [
+        "Kyobo index for Irowoon NJE Calculus"
+      ]
+    },
+    {
+      "id": "orbi-final-50days-math-00064579399",
+      "type": "community_column",
+      "provider": "Orbi",
+      "url": "https://orbi.kr/00064579399",
+      "capturedAt": "2026-03-31",
+      "keyPoints": [
+        "Final period math strategy",
+        "Past-exam reuse and selective review guidance"
+      ]
+    },
+    {
+      "id": "orbi-geometry-guide-column-00077047288",
+      "type": "community_column",
+      "provider": "Orbi",
+      "url": "https://orbi.kr/00077047288/%5B%EC%B9%BC%EB%9F%BC%5D-%EA%B8%B0%ED%95%98-%EC%84%A0%ED%83%9D-%EA%B0%80%EC%9D%B4%EB%93%9C-%2B-%EC%8B%9C%EA%B8%B0%EB%B3%84/%EB%8B%A8%EC%9B%90%EB%B3%84-%EA%B3%B5%EB%B6%80%EB%B2%95",
+      "capturedAt": "2026-03-31",
+      "keyPoints": [
+        "Selective-subject timing and chapter strategy",
+        "Past exam vs private mock workload balance"
+      ]
+    },
+    {
+      "id": "official-megastudy-woojin-qna-rule-2024",
+      "type": "official-board",
+      "provider": "Megastudy",
+      "url": "https://megastudy.net/mobile/smart/teacher/qna/qa_clean_notice_view.asp?brd_cd=723&brd_kbn=qnabbs&brd_tbl=MS_BRD_TEC723&dom_cd=2&idx=2488&listPage=0&lst_type=1&tec_cd=woojinmath&tec_nm=%25uD604%25uC6B0%25uC9C4&tec_type=1",
+      "capturedAt": "2026-03-31",
+      "keyPoints": [
+        "Teacher Q&A board operating rules",
+        "Lecture/book linked question format guidance"
+      ]
+    },
+    {
+      "id": "official-megastudy-woojin-lecture-board-56232",
+      "type": "official-board",
+      "provider": "Megastudy",
+      "url": "https://www.megastudy.net/teacher_v2/chr/lecture_detailview.asp?CHR_CD=56232&MAKE_FLG=1&tec_cd=woojinmath",
+      "capturedAt": "2026-03-31",
+      "keyPoints": [
+        "Teacher board/Q&A menu and lecture-book linkage",
+        "N-set and lecture detail page structure"
+      ]
+    },
+    {
+      "id": "youtube-search-csat-math-past-method-2026",
+      "type": "youtube_comment",
+      "provider": "YouTube",
+      "url": "https://www.youtube.com/results?search_query=%EC%88%98%EB%8A%A5+%EC%88%98%ED%95%99+%EA%B8%B0%EC%B6%9C+%EA%B3%B5%EB%B6%80%EB%B2%95",
+      "capturedAt": "2026-03-31",
+      "keyPoints": [
+        "Common learner questions about past-exam methods",
+        "Comment-level confusion around review loop and timing"
+      ]
+    },
+    {
+      "id": "youtube-search-akoreum-past-method-2026",
+      "type": "youtube_comment",
+      "provider": "YouTube",
+      "url": "https://www.youtube.com/results?search_query=%EC%95%85%EC%96%B4%EC%98%A4%EB%A6%84+%EC%88%98%ED%95%99+%EA%B8%B0%EC%B6%9C+%EA%B3%B5%EB%B6%80%EB%B2%95",
+      "capturedAt": "2026-03-31",
+      "keyPoints": [
+        "Akeoreum-focused comment trend for past-exam study method",
+        "Questions about timing and mistake-log operations"
       ]
     }
   ]

@@ -208,6 +208,9 @@ const STUDENT_SUCCESS_FILE =
 const QUESTION_SIGNALS_FILE =
   process.env.QUESTION_SIGNALS_FILE ||
   path.join(KNOWLEDGE_DIR, "youtube_question_signals.json");
+const SOURCE_REGISTRY_FILE =
+  process.env.SOURCE_REGISTRY_FILE ||
+  path.join(KNOWLEDGE_DIR, "source_registry.json");
 const GSD_DIR = path.join(process.cwd(), "gsd");
 const GSD_STATE_FILE = path.join(GSD_DIR, "state.json");
 const GSD_DEFAULT_POLICY = {
@@ -367,6 +370,7 @@ app.post("/api/analyze", async (req, res) => {
     const from = Number(req.body?.currentGrade);
     const to = Number(req.body?.targetGrade);
     const electiveSubject = normalizeElectiveSubject(req.body?.electiveSubject);
+    const passProvider = normalizePassProvider(req.body?.passProvider);
 
     if (!Number.isFinite(from) || !Number.isFinite(to)) {
       return res
@@ -395,6 +399,7 @@ app.post("/api/analyze", async (req, res) => {
     const catalog = await loadRecommendationCatalog();
     const successCases = await loadStudentSuccessCases();
     const questionSignals = await loadQuestionSignals();
+    const sourceRegistry = await loadSourceRegistry();
     const selectedKnowledge = selectKnowledgeItems(knowledge.items, curriculumKey);
     const knowledgeBlend = blendKnowledgeItems(selectedKnowledge);
     const recommendationSeed = buildRecommendationSeed({
@@ -405,6 +410,7 @@ app.post("/api/analyze", async (req, res) => {
       currentGrade: from,
       targetGrade: to,
       electiveSubject,
+      passProvider,
     });
 
     const userPrompt = buildAnalyzePrompt({
@@ -414,6 +420,7 @@ app.post("/api/analyze", async (req, res) => {
       knowledgeBlend,
       recommendationSeed,
       electiveSubject,
+      passProvider,
       mathStructure,
     });
 
@@ -434,6 +441,7 @@ app.post("/api/analyze", async (req, res) => {
             currentGrade: from,
             targetGrade: to,
             electiveSubject,
+            passProvider,
             mathStructure,
           });
           usedModel = true;
@@ -455,6 +463,7 @@ app.post("/api/analyze", async (req, res) => {
           knowledgeBlend,
           recommendationSeed,
           electiveSubject,
+          passProvider,
           mathStructure,
         });
       }
@@ -465,21 +474,46 @@ app.post("/api/analyze", async (req, res) => {
         knowledgeBlend,
         recommendationSeed,
         electiveSubject,
+        passProvider,
         mathStructure,
       });
     }
+
+    const evidenceTrace = buildEvidenceTrace({
+      selectedKnowledge,
+      recommendationSeed,
+      sourceRegistry,
+    });
+    const pastExamGuide = buildPastExamGuide({
+      selectedKnowledge,
+      knowledgeBlend,
+    });
+    if (asArray(pastExamGuide?.source_refs).length === 0) {
+      pastExamGuide.source_refs = dedupeTextList([
+        ...asArray(evidenceTrace?.category_refs?.knowledge_base),
+        ...asArray(evidenceTrace?.category_refs?.question_signals),
+        ...asArray(evidenceTrace?.category_refs?.success_cases),
+      ]).slice(0, 12);
+    }
+    plan = {
+      ...(plan && typeof plan === "object" ? plan : {}),
+      past_exam_guide: pastExamGuide,
+      evidence_trace: evidenceTrace,
+    };
 
     const jobId = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
     const outPath = path.join(GENERATED_DIR, `${jobId}.json`);
     const payload = {
       createdAt: new Date().toISOString(),
-      input: { currentGrade: from, targetGrade: to, curriculumKey, electiveSubject },
+      input: { currentGrade: from, targetGrade: to, curriculumKey, electiveSubject, passProvider },
       knowledgeMeta: {
         updatedAt: knowledge.updatedAt || null,
         selectedIds: selectedKnowledge.map((item) => item.id),
+        selectedSourceRefs: asArray(evidenceTrace?.category_refs?.knowledge_base).slice(0, 20),
       },
       recommendationMeta: {
         updatedAt: catalog.updatedAt || null,
+        sourceRegistryUpdatedAt: sourceRegistry.updatedAt || null,
       },
       plan,
     };
@@ -493,6 +527,8 @@ app.post("/api/analyze", async (req, res) => {
         usedModel,
         model: usedModelName,
         knowledgeUpdatedAt: knowledge.updatedAt || null,
+        sourceRegistryUpdatedAt: sourceRegistry.updatedAt || null,
+        evidenceSourceCount: Number(evidenceTrace?.total_unique_source_ids || 0),
       },
     });
   } catch (error) {
@@ -723,6 +759,18 @@ async function loadQuestionSignals() {
   };
 }
 
+async function loadSourceRegistry() {
+  if (!fs.existsSync(SOURCE_REGISTRY_FILE)) {
+    return { updatedAt: null, sources: [] };
+  }
+  const raw = await fsp.readFile(SOURCE_REGISTRY_FILE, "utf8");
+  const parsed = JSON.parse(raw);
+  return {
+    updatedAt: parsed?.updatedAt || null,
+    sources: sanitizeSourceRegistrySources(parsed?.sources),
+  };
+}
+
 function sanitizeKnowledgeItems(items) {
   const out = [];
   const seen = new Set();
@@ -766,6 +814,25 @@ function sanitizeKnowledgeItems(items) {
   return out;
 }
 
+function sanitizeSourceRegistrySources(items) {
+  const out = [];
+  const seen = new Set();
+  for (const item of asArray(items)) {
+    const id = toText(item?.id);
+    if (!id || seen.has(id)) continue;
+    seen.add(id);
+    out.push({
+      id,
+      type: sanitizeKnowledgeText(item?.type),
+      title: sanitizeKnowledgeText(item?.title),
+      publisher: sanitizeKnowledgeText(item?.publisher),
+      url: toText(item?.url),
+      checkedAt: sanitizeKnowledgeText(item?.checkedAt),
+    });
+  }
+  return out;
+}
+
 function normalizeAppliesTo(value) {
   const allowed = new Set(["9-7", "7-5", "5-3", "3-1", "all"]);
   const list = asArray(value).map((x) => toText(x)).filter((x) => allowed.has(x));
@@ -785,6 +852,7 @@ function sanitizeCatalogInstructors(items) {
       reviewSummary: asArray(item?.reviewSummary).map((x) => sanitizeKnowledgeText(x)).filter((x) => isUsefulStudyText(x)).slice(0, 4),
       subjectTags: asArray(item?.subjectTags).map((x) => sanitizeKnowledgeText(x)).filter(Boolean).slice(0, 6),
       fitKeys: normalizeFitKeys(item?.fitKeys),
+      passAvailability: normalizePassAvailability(item?.passAvailability, item?.platform),
       curriculumPath: asArray(item?.curriculumPath)
         .map((step) => ({
           stage: sanitizeKnowledgeText(step?.stage),
@@ -802,6 +870,7 @@ function sanitizeCatalogInstructors(items) {
         }))
         .filter((x) => x.period && x.content)
         .slice(0, 6),
+      sourceRefs: asArray(item?.sourceRefs).map((x) => toText(x)).filter(Boolean).slice(0, 8),
     }))
     .filter((item) => item.name && !looksLikeGibberish(item.name));
 }
@@ -817,6 +886,8 @@ function sanitizeCatalogBooks(items) {
       difficulty: sanitizeKnowledgeText(item?.difficulty),
       fitKeys: normalizeFitKeys(item?.fitKeys),
       subjectTags: asArray(item?.subjectTags).map((x) => sanitizeKnowledgeText(x)).filter(Boolean).slice(0, 8),
+      providerTags: normalizePassAvailability(item?.providerTags || item?.passAvailability, item?.platform),
+      sourceRefs: asArray(item?.sourceRefs).map((x) => toText(x)).filter(Boolean).slice(0, 8),
     }))
     .filter((item) => item.title && !looksLikeGibberish(item.title));
 }
@@ -863,6 +934,33 @@ function normalizeFitKeys(value) {
   const allowed = new Set(["9-7", "7-5", "5-3", "3-1", "all"]);
   const list = asArray(value).map((x) => toText(x)).filter((x) => allowed.has(x));
   return list.length ? list : ["all"];
+}
+
+function normalizePassProvider(value) {
+  const text = toText(value).toLowerCase();
+  if (text === "megapass") return "megapass";
+  if (text === "daesungpass") return "daesungpass";
+  if (text === "both") return "both";
+  if (text === "none") return "none";
+  return "both";
+}
+
+function inferPassAvailabilityFromPlatform(platform) {
+  const value = toText(platform).toLowerCase();
+  if (value.includes("mega")) return ["megapass", "both"];
+  if (value.includes("mimac") || value.includes("daesung") || value.includes("대성")) {
+    return ["daesungpass", "both"];
+  }
+  return ["both"];
+}
+
+function normalizePassAvailability(value, platform) {
+  const allowed = new Set(["megapass", "daesungpass", "both", "none"]);
+  const list = asArray(value)
+    .map((x) => normalizePassProvider(x))
+    .filter((x) => allowed.has(x));
+  if (list.length) return dedupeTextList(list);
+  return inferPassAvailabilityFromPlatform(platform);
 }
 
 function normalizeBucketName(value) {
@@ -1162,33 +1260,214 @@ function blendKnowledgeItems(items) {
   };
 }
 
+function hasPastExamKeyword(text) {
+  const value = toText(text);
+  if (!value) return false;
+  return ["기출", "오답", "재풀이", "복기", "회독", "실모", "모의고사", "문항", "풀이"].some((keyword) =>
+    value.includes(keyword)
+  );
+}
+
+function buildPastExamGuide({ selectedKnowledge, knowledgeBlend }) {
+  const pastKnowledgeItems = asArray(selectedKnowledge).filter((item) => {
+    if (hasPastExamKeyword(item?.core)) return true;
+    if (asArray(item?.keywords).some((k) => hasPastExamKeyword(k))) return true;
+    if (asArray(item?.steps).some((step) => hasPastExamKeyword(step?.title) || hasPastExamKeyword(step?.detail))) {
+      return true;
+    }
+    if (asArray(item?.cautions).some((line) => hasPastExamKeyword(line))) return true;
+    return false;
+  });
+
+  const principleCandidates = dedupeTextList(
+    pastKnowledgeItems
+      .map((item) => sanitizeKnowledgeText(item?.core))
+      .filter((line) => isUsefulStudyText(line))
+  );
+
+  const actionCandidates = dedupeTextList(
+    pastKnowledgeItems.flatMap((item) =>
+      asArray(item?.steps).map((step) => sanitizeKnowledgeText(`${toText(step?.title)}: ${toText(step?.detail)}`))
+    )
+  ).filter((line) => isUsefulStudyText(line));
+
+  const cautionCandidates = dedupeTextList(
+    pastKnowledgeItems
+      .flatMap((item) => asArray(item?.cautions))
+      .map((line) => sanitizeKnowledgeText(line))
+      .filter((line) => isUsefulStudyText(line))
+  );
+
+  const fallbackActions = asArray(knowledgeBlend?.steps)
+    .map((step) => sanitizeKnowledgeText(`${toText(step?.title)}: ${toText(step?.detail)}`))
+    .filter((line) => isUsefulStudyText(line) && hasPastExamKeyword(line))
+    .slice(0, 5);
+  const fallbackCautions = asArray(knowledgeBlend?.cautions)
+    .map((line) => sanitizeKnowledgeText(line))
+    .filter((line) => isUsefulStudyText(line) && hasPastExamKeyword(line))
+    .slice(0, 4);
+
+  const sourceRefs = dedupeTextList([
+    ...pastKnowledgeItems.flatMap((item) => asArray(item?.sourceRefs).map((x) => toText(x)).filter(Boolean)),
+    ...asArray(selectedKnowledge).flatMap((item) => asArray(item?.sourceRefs).map((x) => toText(x)).filter(Boolean)),
+  ]).slice(0, 12);
+
+  return {
+    headline: "기출 학습은 문제 수가 아니라 재현 가능한 풀이 루틴과 복기 구조가 핵심입니다.",
+    core_principles:
+      principleCandidates.length > 0
+        ? principleCandidates.slice(0, 5)
+        : [
+            "기출은 단원별 정답률보다 문항 해석-풀이 선택-검산 루틴의 안정화에 초점을 둡니다.",
+            "오답은 즉시 재풀이보다 판단 근거를 기록하고 24~72시간 간격 재현으로 고정합니다.",
+          ],
+    action_steps:
+      actionCandidates.length > 0
+        ? actionCandidates.slice(0, 6)
+        : fallbackActions.length > 0
+          ? fallbackActions
+          : [
+              "기출 1세트 풀이 후 틀린 문항을 개념/조건해석/계산실수로 분류합니다.",
+              "오답 24시간 내 1차, 72시간 내 2차 재풀이로 같은 실수를 끊습니다.",
+              "주 1회 실전 시간 제한 세트로 풀이 순서와 포기 기준을 고정합니다.",
+            ],
+    common_failures:
+      cautionCandidates.length > 0
+        ? cautionCandidates.slice(0, 5)
+        : fallbackCautions.length > 0
+          ? fallbackCautions
+          : [
+              "문항 수만 늘리고 오답 근거 기록을 생략하면 점수 변동이 커집니다.",
+              "새 교재를 계속 바꾸면 기출 재현 루틴이 누적되지 않습니다.",
+            ],
+    source_refs: sourceRefs,
+  };
+}
+
+function collectSourceRefs(items, fieldName, maxCount = 12) {
+  return dedupeTextList(
+    asArray(items).flatMap((item) => asArray(item?.[fieldName]).map((x) => toText(x)).filter(Boolean))
+  ).slice(0, maxCount);
+}
+
+function buildEvidenceTrace({ selectedKnowledge, recommendationSeed, sourceRegistry }) {
+  const categoryRefs = {
+    knowledge_base: collectSourceRefs(selectedKnowledge, "sourceRefs", 20),
+    instructor_recommendations: collectSourceRefs(recommendationSeed?.instructors, "source_refs", 20),
+    book_recommendations: collectSourceRefs(recommendationSeed?.books, "source_refs", 20),
+    success_cases: collectSourceRefs(recommendationSeed?.student_success_cases, "source_refs", 20),
+    question_signals: collectSourceRefs(recommendationSeed?.question_signals, "source_refs", 20),
+  };
+
+  const registryMap = new Map(
+    asArray(sourceRegistry?.sources)
+      .map((src) => [toText(src?.id), src])
+      .filter((entry) => entry[0])
+  );
+
+  const sourceToCategories = new Map();
+  for (const [category, refs] of Object.entries(categoryRefs)) {
+    for (const refId of asArray(refs)) {
+      const prev = sourceToCategories.get(refId) || new Set();
+      prev.add(category);
+      sourceToCategories.set(refId, prev);
+    }
+  }
+
+  const resolvedSources = [];
+  const unresolvedSourceIds = [];
+  for (const [id, categorySet] of sourceToCategories.entries()) {
+    const info = registryMap.get(id);
+    if (!info) {
+      unresolvedSourceIds.push(id);
+      continue;
+    }
+    resolvedSources.push({
+      id,
+      type: toText(info?.type),
+      title: toText(info?.title),
+      publisher: toText(info?.publisher),
+      url: toText(info?.url),
+      checked_at: toText(info?.checkedAt) || null,
+      categories: [...categorySet],
+    });
+  }
+
+  return {
+    category_refs: categoryRefs,
+    total_unique_source_ids: sourceToCategories.size,
+    resolved_sources: resolvedSources.slice(0, 40),
+    unresolved_source_ids: unresolvedSourceIds.slice(0, 20),
+  };
+}
+
 function buildRecommendationSeed({
   catalog,
   successCases,
   questionSignals,
   curriculumKey,
   currentGrade,
+  targetGrade,
   electiveSubject,
+  passProvider,
 }) {
   const allInstructors = asArray(catalog.instructors);
   const allBooks = asArray(catalog.books);
   const allSuccessCases = asArray(successCases?.cases);
   const allQuestionSignals = asArray(questionSignals?.signals);
+  const normalizedPassProvider = normalizePassProvider(passProvider);
 
-  const instructorPool = allInstructors
+  const validatedInstructorPool = allInstructors.filter((item) => hasValidatedCommunityEvidence(item));
+  const sourceInstructorPool = validatedInstructorPool.length >= 4 ? validatedInstructorPool : allInstructors;
+  const instructorBasePool = sourceInstructorPool
+    .filter((item) => matchInstructorSubject(item, electiveSubject))
+    .filter((item) => matchInstructorPassProvider(item, normalizedPassProvider));
+  const profiledInstructorBasePool = filterInstructorsForProfile(instructorBasePool, {
+    currentGrade,
+    targetGrade,
+  });
+
+  const instructorPool = profiledInstructorBasePool
     .filter((item) => fitMatch(item.fitKeys, curriculumKey))
-    .filter((item) => matchInstructorSubject(item, electiveSubject))
-    .sort((a, b) => scoreInstructor(b, electiveSubject) - scoreInstructor(a, electiveSubject))
+    .sort(
+      (a, b) =>
+        scoreInstructor(b, electiveSubject, normalizedPassProvider, currentGrade) -
+        scoreInstructor(a, electiveSubject, normalizedPassProvider, currentGrade)
+    )
     .slice(0, 12);
-  const fallbackInstructorPool = allInstructors
+  const fallbackInstructorPool = profiledInstructorBasePool
     .filter((item) => fitMatch(item.fitKeys, "all"))
-    .filter((item) => matchInstructorSubject(item, electiveSubject))
-    .sort((a, b) => scoreInstructor(b, electiveSubject) - scoreInstructor(a, electiveSubject))
+    .sort(
+      (a, b) =>
+        scoreInstructor(b, electiveSubject, normalizedPassProvider, currentGrade) -
+        scoreInstructor(a, electiveSubject, normalizedPassProvider, currentGrade)
+    )
     .slice(0, 4);
+  const finalFallbackInstructorPool =
+    instructorPool.length + fallbackInstructorPool.length >= 4
+      ? []
+      : filterInstructorsForProfile(
+          allInstructors
+            .filter((item) => fitMatch(item.fitKeys, curriculumKey) || fitMatch(item.fitKeys, "all"))
+            .filter((item) => matchInstructorSubject(item, electiveSubject))
+            .filter((item) => matchInstructorPassProvider(item, normalizedPassProvider)),
+          { currentGrade, targetGrade }
+        )
+          .sort(
+            (a, b) =>
+              scoreInstructor(b, electiveSubject, normalizedPassProvider, currentGrade) -
+              scoreInstructor(a, electiveSubject, normalizedPassProvider, currentGrade)
+          )
+          .slice(0, 6);
 
-  const instructors = dedupeByName([...instructorPool, ...fallbackInstructorPool]).slice(0, 4).map((x) => ({
+  const instructors = dedupeByName([
+    ...instructorPool,
+    ...fallbackInstructorPool,
+    ...finalFallbackInstructorPool,
+  ]).slice(0, 4).map((x) => ({
     name: toText(x.name),
     platform: toText(x.platform),
+    pass_availability: asArray(x.passAvailability).map((v) => normalizePassProvider(v)).filter(Boolean),
     best_for: toText(x.bestFor),
     reason: buildRecommendationReason({
       lines: [...asArray(x.strengths), ...asArray(x.reviewSummary)],
@@ -1207,25 +1486,34 @@ function buildRecommendationSeed({
           `${toText(step?.period)} | ${toText(step?.classType)} | ${toText(step?.content)} | 목표: ${toText(step?.goal)}`
       ),
     review_points: asArray(x.reviewSummary).map((s) => toText(s)).filter(Boolean).slice(0, 3),
+    source_refs: asArray(x.sourceRefs).map((s) => toText(s)).filter(Boolean).slice(0, 6),
   }));
 
-  const books = allBooks
+  const bookBasePool = allBooks
     .filter((item) => fitMatch(item.fitKeys, curriculumKey))
     .filter((item) => matchBookSubject(item, electiveSubject))
+    .filter((item) => matchBookPassProvider(item, normalizedPassProvider));
+  const profiledBookPool = filterBooksForProfile(bookBasePool, { currentGrade, targetGrade });
+
+  const books = profiledBookPool
     .sort((a, b) => {
-      const byDifficulty = scoreBookByGrade(a, currentGrade) - scoreBookByGrade(b, currentGrade);
-      if (byDifficulty !== 0) return byDifficulty;
+      const byProfileScore = scoreBookForProfile(b, currentGrade, targetGrade) - scoreBookForProfile(a, currentGrade, targetGrade);
+      if (byProfileScore !== 0) return byProfileScore;
       return scoreSourceReliability(b) - scoreSourceReliability(a);
     })
     .slice(0, 12)
     .map((x) => ({
       title: toText(x.title),
       type: toText(x.type),
+      level_band: toText(x.levelBand),
       purpose: toText(x.purpose),
       when_to_use: toText(x.when),
       difficulty: toText(x.difficulty),
+      provider_tags: asArray(x.providerTags).map((v) => normalizePassProvider(v)).filter(Boolean),
+      source_refs: asArray(x.sourceRefs).map((s) => toText(s)).filter(Boolean).slice(0, 6),
       reason: buildRecommendationReason({
         lines: [
+          `${toText(x.levelBand)} level`,
           `${toText(x.purpose)} 중심`,
           `${toText(x.when)} 시기에 활용`,
           `${toText(x.type)} ${toText(x.difficulty)} 난이도 대응`,
@@ -1297,16 +1585,98 @@ function scoreBookByGrade(book, grade) {
   const isHigh = difficulty.includes("상") || difficulty.includes("high");
   const isMedium = difficulty.includes("중") || difficulty.includes("medium");
   const isLow = difficulty.includes("하") || difficulty.includes("low");
+
   if (grade >= 7) {
-    if (isHigh) return 3;
+    if (isLow) return 3;
     if (isMedium) return 2;
+    if (isHigh) return 0;
     return 1;
   }
   if (grade >= 4) {
+    if (isMedium) return 3;
+    if (isLow) return 2;
     if (isHigh) return 2;
     return 1;
   }
-  return isLow ? 3 : 1;
+  if (isHigh) return 3;
+  if (isMedium) return 2;
+  if (isLow) return 0;
+  return 1;
+}
+
+function scoreBookForProfile(book, currentGrade, targetGrade) {
+  let score = scoreBookByGrade(book, currentGrade);
+  if (isTopTierProfile(currentGrade, targetGrade)) {
+    if (isEbsLikeBook(book)) score -= 8;
+    if (isHighTierPracticalBook(book)) score += 3;
+  } else if (Number.isFinite(Number(currentGrade)) && Number(currentGrade) >= 6) {
+    if (isEbsLikeBook(book)) score += 1;
+  }
+  return score;
+}
+
+function isTopTierProfile(currentGrade, targetGrade) {
+  const current = Number(currentGrade);
+  const target = Number(targetGrade);
+  return (Number.isFinite(current) && current <= 2) || (Number.isFinite(target) && target <= 1);
+}
+
+function isEbsLikeBook(book) {
+  const blob = [book?.title, book?.type, book?.purpose, book?.when, book?.when_to_use]
+    .map((x) => toText(x).toLowerCase())
+    .join(" ");
+  return /(ebs|ebsi|suneungteukgang|suneungwanseong|수능특강|수능완성|수특|수완)/i.test(blob);
+}
+
+function isHighTierPracticalBook(book) {
+  const blob = [book?.title, book?.type, book?.purpose, book?.when, book?.when_to_use]
+    .map((x) => toText(x).toLowerCase())
+    .join(" ");
+  return /(n제|n-set|nset|실모|모의|mock|survival|서바|킬러|파이널|academy|단과|두각|시대인재)/i.test(blob);
+}
+
+function isEbsLikeInstructor(instructor) {
+  const blob = [
+    instructor?.name,
+    instructor?.platform,
+    instructor?.best_for,
+    instructor?.reason,
+    ...(asArray(instructor?.styleTags)),
+  ]
+    .map((x) => toText(x).toLowerCase())
+    .join(" ");
+  return /(ebs|ebsi|e-toos|etoos)/i.test(blob);
+}
+
+function filterBooksForProfile(books, { currentGrade, targetGrade }) {
+  const list = asArray(books);
+  if (!isTopTierProfile(currentGrade, targetGrade)) return list;
+  const filtered = list.filter((book) => !isEbsLikeBook(book));
+  return filtered.length >= 4 ? filtered : list;
+}
+
+function filterLectureBookHintsForProfile(lines, { currentGrade, targetGrade }) {
+  const list = asArray(lines).map((x) => toText(x)).filter(Boolean);
+  if (!isTopTierProfile(currentGrade, targetGrade)) return list;
+  const filtered = list.filter((line) => !isEbsLikeBook({ title: line, type: line, purpose: line }));
+  return filtered.length >= 4 ? filtered : list;
+}
+
+function filterInstructorsForProfile(instructors, { currentGrade, targetGrade }) {
+  const list = asArray(instructors);
+  if (!isTopTierProfile(currentGrade, targetGrade)) return list;
+  const filtered = list.filter((inst) => !isEbsLikeInstructor(inst));
+  return filtered.length >= 2 ? filtered : list;
+}
+
+function buildRecommendationPolicyNote(currentGrade, targetGrade) {
+  if (isTopTierProfile(currentGrade, targetGrade)) {
+    return "상위권 정책: EBS 연계 교재/강의는 보조 점검용으로만 사용하고, 주교재·주강의는 실전형(N제/실모/검증된 단과) 중심으로 제안";
+  }
+  if (Number.isFinite(Number(currentGrade)) && Number(currentGrade) >= 6) {
+    return "기초권 정책: 개념/유형 안정화 후 기출-실전으로 단계 전환";
+  }
+  return "중위권 정책: 기출 구조화 + 준킬러 대응 + 실전 시간관리 균형";
 }
 
 function normalizeElectiveSubject(value) {
@@ -1447,27 +1817,76 @@ function matchBookSubject(book, electiveSubject) {
   return tags.includes("공통") || tags.includes(electiveSubject);
 }
 
+function matchBookPassProvider(book, passProvider) {
+  const normalized = normalizePassProvider(passProvider);
+  if (normalized === "both" || normalized === "none") return true;
+  const tags = normalizePassAvailability(book?.providerTags, book?.platform);
+  if (!tags.length) return true;
+  return tags.includes("both") || tags.includes(normalized);
+}
+
 function matchInstructorSubject(instructor, electiveSubject) {
   const tags = asArray(instructor?.subjectTags).map((x) => toText(x));
   if (!tags.length) return true;
   return tags.includes("공통") || tags.includes(electiveSubject);
 }
 
-function scoreInstructor(instructor, electiveSubject) {
+function matchInstructorPassProvider(instructor, passProvider) {
+  const normalized = normalizePassProvider(passProvider);
+  if (normalized === "both" || normalized === "none") return true;
+  const availability = normalizePassAvailability(instructor?.passAvailability, instructor?.platform);
+  if (!availability.length) return true;
+  return availability.includes("both") || availability.includes(normalized);
+}
+
+function hasValidatedCommunityEvidence(instructor) {
+  const refs = asArray(instructor?.sourceRefs).map((x) => toText(x).toLowerCase()).filter(Boolean);
+  const sourceLevel = toText(instructor?.sourceLevel).toLowerCase();
+  const hasOfficialRef = refs.some((ref) => ref.startsWith("official-") || ref.includes("official"));
+  const hasCommunityRef = refs.some(
+    (ref) => ref.startsWith("orbi-") || ref.includes("community") || ref.includes("review")
+  );
+  if (sourceLevel.includes("official") && sourceLevel.includes("community")) return true;
+  return hasOfficialRef && hasCommunityRef;
+}
+
+function scoreInstructor(instructor, electiveSubject, passProvider = "both", currentGrade = null) {
   let score = 0;
   const tags = asArray(instructor?.subjectTags).map((x) => toText(x));
   const sourceLevel = toText(instructor?.sourceLevel).toLowerCase();
   const confidence = Number.isFinite(Number(instructor?.confidence))
     ? Number(instructor.confidence)
     : 0.6;
+  const normalizedPass = normalizePassProvider(passProvider);
+  const passAvailability = normalizePassAvailability(instructor?.passAvailability, instructor?.platform);
 
   if (tags.includes(electiveSubject)) score += 4;
   if (tags.includes("공통")) score += 2;
+  if (normalizedPass !== "both" && normalizedPass !== "none") {
+    if (passAvailability.includes(normalizedPass)) score += 2;
+    if (passAvailability.includes("both")) score += 1;
+  }
   if (sourceLevel.includes("official")) score += 3;
   if (sourceLevel.includes("community")) score += 1;
+  if (sourceLevel.includes("youtube")) score += 1;
+  if (Number.isFinite(Number(currentGrade)) && Number(currentGrade) <= 3 && isOnsiteAcademyInstructor(instructor)) {
+    score += 2;
+  }
   score += Math.max(0, Math.min(1, confidence)) * 2;
 
   return score;
+}
+
+function isOnsiteAcademyInstructor(instructor) {
+  const blob = [
+    instructor?.name,
+    instructor?.platform,
+    ...(asArray(instructor?.styleTags)),
+    ...(asArray(instructor?.sourceRefs)),
+  ]
+    .map((x) => toText(x).toLowerCase())
+    .join(" ");
+  return /(sidae|sdij|dugak|sii|onsite|academy|gangnam daesung)/i.test(blob);
 }
 
 function scoreSourceReliability(item) {
@@ -1574,6 +1993,7 @@ function buildAnalyzePrompt({
   knowledgeBlend,
   recommendationSeed,
   electiveSubject,
+  passProvider,
   mathStructure,
 }) {
   const stepText = asArray(knowledgeBlend.steps)
@@ -1603,7 +2023,10 @@ function buildAnalyzePrompt({
       const curriculum = asArray(x.curriculum_path).slice(0, 2).join(" | ");
       const seasonal = asArray(x.seasonal_plan).slice(0, 2).join(" | ");
       const reviews = asArray(x.review_points).slice(0, 2).join(" | ");
-      return `- ${toText(x.name)} (${toText(x.platform)}): ${toText(x.reason)} / ${toText(x.best_for)} / 커리:${curriculum} / 시기별:${seasonal} / 후기:${reviews}`;
+      const pass = asArray(x.pass_availability).map((v) => normalizePassProvider(v)).filter(Boolean).join(",");
+      return `- ${toText(x.name)} (${toText(x.platform)}): ${toText(x.reason)} / ${toText(
+        x.best_for
+      )} / 패스:${pass || "both"} / 커리:${curriculum} / 시기별:${seasonal} / 후기:${reviews}`;
     })
     .join("\n");
 
@@ -1611,7 +2034,9 @@ function buildAnalyzePrompt({
     .slice(0, 8)
     .map(
       (x) =>
-        `- ${toText(x.title)} | ${toText(x.type)} | ${toText(x.when_to_use)} | ${toText(x.purpose)}`
+        `- ${toText(x.title)} | ${toText(x.type)} | ${toText(x.level_band)} | ${toText(
+          x.when_to_use
+        )} | ${toText(x.purpose)} | refs:${asArray(x.source_refs).slice(0, 2).join(", ")}`
     )
     .join("\n");
 
@@ -1642,12 +2067,14 @@ function buildAnalyzePrompt({
         )}`
     )
     .join("\n");
+  const recommendationPolicy = buildRecommendationPolicyNote(currentGrade, targetGrade);
 
   return [
     `현재등급: ${currentGrade}`,
     `목표등급: ${targetGrade}`,
     `구간: ${curriculumKey}`,
     `선택과목: ${electiveSubject}`,
+    `인강패스: ${normalizePassProvider(passProvider)}`,
     "",
     "현재 수능 수학 체계:",
     `- 공통: ${asArray(mathStructure?.current_csat?.common).join(", ")}`,
@@ -1664,6 +2091,7 @@ function buildAnalyzePrompt({
     `키워드: ${asArray(knowledgeBlend.keywords).join(", ")}`,
     "",
     "아래는 추천 리소스 후보입니다. 학생 수준에 맞게 선별해서 제안하세요.",
+    `추천 정책: ${recommendationPolicy}`,
     `강사 후보:\n${instructorSeed || "- 없음"}`,
     `교재 후보:\n${bookSeed || "- 없음"}`,
     `강사별 과목 커리큘럼 후보:\n${subjectCurriculumSeed || "- 없음"}`,
@@ -1747,19 +2175,23 @@ function buildAnalyzePrompt({
     '      "reason": "string",',
     '      "usage": "string",',
     '      "style_summary": "string",',
-    '      "curriculum_path": ["string"],',
-    '      "seasonal_plan": ["string"],',
-    '      "review_points": ["string"]',
+    '      "pass_availability": ["megapass|daesungpass|both"],',
+      '      "curriculum_path": ["string"],',
+      '      "seasonal_plan": ["string"],',
+      '      "review_points": ["string"],',
+      '      "source_refs": ["string"]',
     "    }",
-    "  ],",
-    '  "recommended_books": [',
+  "  ],",
+  '  "recommended_books": [',
     "    {",
-    '      "title": "string",',
-    '      "type": "string",',
-    '      "purpose": "string",',
-    '      "when_to_use": "string",',
-    '      "difficulty": "string",',
-    '      "reason": "string"',
+      '      "title": "string",',
+      '      "type": "string",',
+      '      "level_band": "intro_nje|mid_nje|high_nje|general",',
+      '      "purpose": "string",',
+      '      "when_to_use": "string",',
+      '      "difficulty": "string",',
+      '      "provider_tags": ["megapass|daesungpass|both"],',
+      '      "reason": "string"',
     "    }",
     "  ],",
     '  "success_case_insights": ["string"],',
@@ -1945,6 +2377,7 @@ function normalizePlan(raw, {
   currentGrade,
   targetGrade,
   electiveSubject,
+  passProvider,
   mathStructure,
 }) {
   const periodDefaults = ["3~6모 전", "6~9모", "9모~수능 전"];
@@ -1981,30 +2414,43 @@ function normalizePlan(raw, {
         fallback: toText(x?.reason),
         maxCount: 2,
       }),
+      pass_availability: asArray(x?.pass_availability).map((v) => normalizePassProvider(v)).filter(Boolean),
       usage: toText(x?.usage),
       style_summary: toText(x?.style_summary),
       curriculum_path: asArray(x?.curriculum_path).map((t) => toText(t)).filter(Boolean).slice(0, 6),
       seasonal_plan: asArray(x?.seasonal_plan).map((t) => toText(t)).filter(Boolean).slice(0, 5),
       review_points: asArray(x?.review_points).map((t) => toText(t)).filter(Boolean).slice(0, 3),
+      source_refs: asArray(x?.source_refs).map((t) => toText(t)).filter(Boolean).slice(0, 6),
     }))
     .filter((x) => x.name)
     .slice(0, 4);
+  const profileNormalizedInstructors = filterInstructorsForProfile(normalizedInstructors, {
+    currentGrade,
+    targetGrade,
+  });
 
   const normalizedBooks = asArray(raw?.recommended_books)
     .map((x) => ({
       title: toText(x?.title),
       type: toText(x?.type),
+      level_band: toText(x?.level_band),
       purpose: toText(x?.purpose),
       when_to_use: toText(x?.when_to_use),
       difficulty: toText(x?.difficulty),
+      provider_tags: asArray(x?.provider_tags).map((v) => normalizePassProvider(v)).filter(Boolean),
+      source_refs: asArray(x?.source_refs).map((t) => toText(t)).filter(Boolean).slice(0, 6),
       reason: buildRecommendationReason({
-        lines: [x?.reason, x?.purpose, x?.when_to_use],
+        lines: [x?.reason, x?.purpose, x?.when_to_use, x?.level_band],
         fallback: toText(x?.reason),
         maxCount: 2,
       }),
     }))
     .filter((x) => x.title)
     .slice(0, 8);
+  const profileNormalizedBooks = filterBooksForProfile(normalizedBooks, {
+    currentGrade,
+    targetGrade,
+  });
 
   const normalizedSubjectCurriculum = asArray(raw?.subject_curriculum)
     .map((x) => ({
@@ -2040,6 +2486,14 @@ function normalizePlan(raw, {
       .filter(Boolean)
       .slice(0, 10),
   };
+  const profileLectureAndBooks = filterLectureBookHintsForProfile(
+    normalizedKnowledgeBuckets.lecture_and_books,
+    { currentGrade, targetGrade }
+  );
+  const fallbackLectureAndBooks = filterLectureBookHintsForProfile(
+    fallback.knowledge_buckets.lecture_and_books,
+    { currentGrade, targetGrade }
+  );
 
   const normalizedSuccessCaseInsights = asArray(raw?.success_case_insights)
     .map((x) => toText(x))
@@ -2082,9 +2536,9 @@ function normalizePlan(raw, {
           ? normalizedKnowledgeBuckets.math_study_methods
           : fallback.knowledge_buckets.math_study_methods,
       lecture_and_books:
-        normalizedKnowledgeBuckets.lecture_and_books.length > 0
-          ? normalizedKnowledgeBuckets.lecture_and_books
-          : fallback.knowledge_buckets.lecture_and_books,
+        profileLectureAndBooks.length > 0
+          ? profileLectureAndBooks
+          : fallbackLectureAndBooks,
       learning_routines:
         normalizedKnowledgeBuckets.learning_routines.length > 0
           ? normalizedKnowledgeBuckets.learning_routines
@@ -2094,15 +2548,19 @@ function normalizePlan(raw, {
       ? raw.math_structure
       : mathStructure,
     selected_elective: electiveSubject,
+    selected_pass_provider: normalizePassProvider(passProvider),
     subject_curriculum:
       normalizedSubjectCurriculum.length > 0
         ? normalizedSubjectCurriculum
         : fallback.subject_curriculum,
     recommended_instructors:
-      normalizedInstructors.length > 0
-        ? normalizedInstructors
+      profileNormalizedInstructors.length > 0
+        ? profileNormalizedInstructors.slice(0, 4)
         : fallback.recommended_instructors,
-    recommended_books: normalizedBooks.length > 0 ? normalizedBooks : fallback.recommended_books,
+    recommended_books:
+      profileNormalizedBooks.length > 0
+        ? profileNormalizedBooks.slice(0, 8)
+        : fallback.recommended_books,
     success_case_insights:
       normalizedSuccessCaseInsights.length > 0
         ? normalizedSuccessCaseInsights
@@ -2124,6 +2582,7 @@ function createFallbackPlan({
   knowledgeBlend,
   recommendationSeed,
   electiveSubject,
+  passProvider,
   mathStructure,
 }) {
   const cautions = asArray(knowledgeBlend?.cautions).map((c) => toText(c)).filter(Boolean);
@@ -2137,11 +2596,13 @@ function createFallbackPlan({
       platform: toText(x.platform),
       best_for: toText(x.best_for),
       reason: toText(x.reason),
+      pass_availability: asArray(x.pass_availability).map((v) => normalizePassProvider(v)).filter(Boolean),
       usage: toText(x.usage),
       style_summary: toText(x.style_summary),
       curriculum_path: asArray(x.curriculum_path).map((t) => toText(t)).filter(Boolean).slice(0, 6),
       seasonal_plan: asArray(x.seasonal_plan).map((t) => toText(t)).filter(Boolean).slice(0, 5),
       review_points: asArray(x.review_points).map((t) => toText(t)).filter(Boolean).slice(0, 3),
+      source_refs: asArray(x.source_refs).map((t) => toText(t)).filter(Boolean).slice(0, 6),
     }));
 
   const books = asArray(recommendationSeed.books)
@@ -2149,9 +2610,12 @@ function createFallbackPlan({
     .map((x) => ({
       title: toText(x.title),
       type: toText(x.type),
+      level_band: toText(x.level_band),
       purpose: toText(x.purpose),
       when_to_use: toText(x.when_to_use),
       difficulty: toText(x.difficulty),
+      provider_tags: asArray(x.provider_tags).map((v) => normalizePassProvider(v)).filter(Boolean),
+      source_refs: asArray(x.source_refs).map((t) => toText(t)).filter(Boolean).slice(0, 6),
       reason: toText(x.reason),
     }));
 
@@ -2189,8 +2653,14 @@ function createFallbackPlan({
         .map((line) => `${inst.name} 시기별: ${line}`);
       return [base, ...curriculum, ...seasonal];
     }),
-    ...books.slice(0, 6).map((book) => `${book.title} [${book.type}] - ${book.purpose}`),
+    ...books
+      .slice(0, 6)
+      .map((book) => `${book.title} [${book.level_band || "general"} | ${book.type}] - ${book.purpose}`),
   ].slice(0, 10);
+  const profileLectureAndBooks = filterLectureBookHintsForProfile(lectureAndBooks, {
+    currentGrade,
+    targetGrade,
+  });
 
   const successCaseInsights = asArray(recommendationSeed.student_success_cases)
     .slice(0, 4)
@@ -2254,11 +2724,12 @@ function createFallbackPlan({
     ],
     knowledge_buckets: {
       math_study_methods: asArray(knowledgeBlend?.buckets?.study_methods).slice(0, 8),
-      lecture_and_books: lectureAndBooks,
+      lecture_and_books: profileLectureAndBooks.length > 0 ? profileLectureAndBooks : lectureAndBooks,
       learning_routines: asArray(knowledgeBlend?.buckets?.learning_routines).slice(0, 10),
     },
     math_structure: mathStructure,
     selected_elective: electiveSubject,
+    selected_pass_provider: normalizePassProvider(passProvider),
     subject_curriculum: subjectCurriculum,
     recommended_instructors: instructors,
     recommended_books: books,
@@ -2370,13 +2841,13 @@ function buildFallbackTemplateByGrade(currentGrade) {
         "자주 틀리는 계산 패턴 집중 보정",
       ],
     },
-    period_9_suneung: {
-      actions: [
-        "새 교재 확장 중단, 기존 자료 완성도 극대화",
-        "EBS/기출 연계 포인트 최종 점검",
-        "시험 당일 루틴(선택 순서/검산 타이밍) 확정",
-      ],
-    },
+      period_9_suneung: {
+        actions: [
+          "새 교재 확장 중단, 기존 자료 완성도 극대화",
+          "기출/실모 회수 포인트 최종 점검",
+          "시험 당일 루틴(선택 순서/검산 타이밍) 확정",
+        ],
+      },
   };
 }
 

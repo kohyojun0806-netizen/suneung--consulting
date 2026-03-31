@@ -1,8 +1,16 @@
 ﻿import { expect, test } from "@playwright/test";
 
+async function enterApp(page) {
+  const startButton = page.getByRole("button", { name: /시작하기/ });
+  if (await startButton.isVisible()) {
+    await startButton.click();
+  }
+  await expect(page.locator(".onboarding-tab")).toBeVisible();
+}
+
 async function createPlan(page) {
   await page.goto("/");
-  await expect(page.locator(".onboarding-tab")).toBeVisible();
+  await enterApp(page);
 
   await page.selectOption("#currentGrade", "2-3");
   await page.selectOption("#targetGrade", "1");
