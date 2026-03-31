@@ -265,24 +265,34 @@ if (ENABLE_SECURITY_HEADERS) {
   });
 }
 
-const corsOptions = {
-  origin(origin, callback) {
+app.use(
+  cors((req, callback) => {
+    const origin = req.headers.origin;
     // allow non-browser clients or same-origin server-to-server calls
-    if (!origin) return callback(null, true);
-    if (FRONTEND_ORIGINS.includes(origin)) return callback(null, true);
+    if (!origin) return callback(null, { origin: true });
+    if (FRONTEND_ORIGINS.includes(origin)) return callback(null, { origin: true });
     try {
       const parsed = new URL(origin);
-      const host = parsed.host;
-      const hostname = parsed.hostname;
+      const originHost = String(parsed.host || "").toLowerCase();
+      const hostname = String(parsed.hostname || "").toLowerCase();
+      const reqHost = String(
+        req.headers["x-forwarded-host"] || req.headers.host || ""
+      ).toLowerCase();
 
-      if (FRONTEND_ORIGIN_HOSTS.includes(host)) return callback(null, true);
-      if (hostname === "localhost" || hostname === "127.0.0.1") return callback(null, true);
-      if (hostname.endsWith(".vercel.app")) return callback(null, true);
+      // Same-host browser calls should always be allowed.
+      if (originHost && reqHost && originHost === reqHost) {
+        return callback(null, { origin: true });
+      }
+      if (FRONTEND_ORIGIN_HOSTS.includes(originHost)) return callback(null, { origin: true });
+      if (hostname === "localhost" || hostname === "127.0.0.1") return callback(null, { origin: true });
+      if (hostname.endsWith(".vercel.app")) return callback(null, { origin: true });
     } catch (_) {}
-    return callback(new Error("CORS blocked: origin not allowed"));
-  },
-};
-app.use(cors(corsOptions));
+
+    const err = new Error("CORS blocked: origin not allowed");
+    err.status = 403;
+    return callback(err);
+  })
+);
 
 if (ENABLE_RATE_LIMIT) {
   app.use(
