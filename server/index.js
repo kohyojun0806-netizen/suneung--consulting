@@ -17,6 +17,13 @@ const FRONTEND_ORIGINS = (process.env.FRONTEND_ORIGIN || "http://localhost:3000"
   .split(",")
   .map((x) => x.trim())
   .filter(Boolean);
+const FRONTEND_ORIGIN_HOSTS = FRONTEND_ORIGINS.map((origin) => {
+  try {
+    return new URL(origin).host;
+  } catch (_) {
+    return null;
+  }
+}).filter(Boolean);
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY || "";
 const AI_MODEL = process.env.AI_MODEL || "gpt-4.1-mini";
 const AI_FALLBACK_MODEL = process.env.AI_FALLBACK_MODEL || "gpt-4.1-mini";
@@ -263,6 +270,15 @@ const corsOptions = {
     // allow non-browser clients or same-origin server-to-server calls
     if (!origin) return callback(null, true);
     if (FRONTEND_ORIGINS.includes(origin)) return callback(null, true);
+    try {
+      const parsed = new URL(origin);
+      const host = parsed.host;
+      const hostname = parsed.hostname;
+
+      if (FRONTEND_ORIGIN_HOSTS.includes(host)) return callback(null, true);
+      if (hostname === "localhost" || hostname === "127.0.0.1") return callback(null, true);
+      if (hostname.endsWith(".vercel.app")) return callback(null, true);
+    } catch (_) {}
     return callback(new Error("CORS blocked: origin not allowed"));
   },
 };
