@@ -1562,20 +1562,27 @@ function buildRecommendationSeed({
     currentGrade,
   });
 
-  const student_success_cases = allSuccessCases
+  const mapSuccessCaseItem = (item) => ({
+    band_shift: toText(item?.bandShift),
+    duration: toText(item?.duration),
+    summary: toText(item?.summary),
+    core_actions: asArray(item?.coreActions).map((x) => toText(x)).filter(Boolean).slice(0, 3),
+    source_refs: asArray(item?.sourceRefs).map((x) => toText(x)).filter(Boolean).slice(0, 4),
+    reliability: Number.isFinite(Number(item?.reliability))
+      ? Math.max(0, Math.min(1, Number(item.reliability)))
+      : 0.6,
+  });
+
+  const filteredSuccessCasePool = allSuccessCases
     .filter((item) => fitMatch(item.fitKeys, curriculumKey))
     .sort((a, b) => Number(b?.reliability || 0) - Number(a?.reliability || 0))
+    .slice(0, 24);
+
+  const student_success_cases = filteredSuccessCasePool
     .slice(0, 5)
-    .map((item) => ({
-      band_shift: toText(item?.bandShift),
-      duration: toText(item?.duration),
-      summary: toText(item?.summary),
-      core_actions: asArray(item?.coreActions).map((x) => toText(x)).filter(Boolean).slice(0, 3),
-      source_refs: asArray(item?.sourceRefs).map((x) => toText(x)).filter(Boolean).slice(0, 4),
-      reliability: Number.isFinite(Number(item?.reliability))
-        ? Math.max(0, Math.min(1, Number(item.reliability)))
-        : 0.6,
-    }));
+    .map(mapSuccessCaseItem);
+
+  const success_case_bands = buildSuccessCaseBands(filteredSuccessCasePool, mapSuccessCaseItem);
 
   const question_signals = allQuestionSignals
     .filter((item) => fitMatch(item.fitKeys, curriculumKey))
@@ -1593,7 +1600,71 @@ function buildRecommendationSeed({
         : 0.6,
     }));
 
-  return { instructors, books, subject_curriculum, student_success_cases, question_signals };
+  return {
+    instructors,
+    books,
+    subject_curriculum,
+    student_success_cases,
+    success_case_bands,
+    question_signals,
+  };
+}
+
+const SUCCESS_CASE_BAND_LABELS = {
+  nobase: "노베이스",
+  grade_5_7: "5~7등급",
+  grade_3_4: "3~4등급",
+  grade_2: "2등급",
+  grade_1: "1등급",
+  perfect_100: "100점권",
+};
+
+const SUCCESS_CASE_BAND_ORDER = [
+  "nobase",
+  "grade_5_7",
+  "grade_3_4",
+  "grade_2",
+  "grade_1",
+  "perfect_100",
+];
+
+function inferSuccessCaseBandId(item) {
+  const bandShift = toText(item?.bandShift);
+  const summary = toText(item?.summary);
+  const id = toText(item?.id).toLowerCase();
+  const text = `${bandShift} ${summary} ${id}`.toLowerCase();
+
+  if (/100\s*점|만점|perfect|100/.test(text)) return "perfect_100";
+  if (/노베|nobase|base-level/.test(text)) return "nobase";
+  if (/top-band|상위권/.test(text)) return "grade_1";
+
+  const match = bandShift.match(/(\d+)\s*->/);
+  const startGrade = match ? Number(match[1]) : null;
+  if (Number.isFinite(startGrade)) {
+    if (startGrade >= 8) return "nobase";
+    if (startGrade >= 5) return "grade_5_7";
+    if (startGrade >= 3) return "grade_3_4";
+    if (startGrade === 2) return "grade_2";
+    if (startGrade === 1) return "grade_1";
+  }
+
+  return "grade_3_4";
+}
+
+function buildSuccessCaseBands(successCases, mapper) {
+  const buckets = new Map(SUCCESS_CASE_BAND_ORDER.map((id) => [id, []]));
+  for (const item of asArray(successCases)) {
+    const bandId = inferSuccessCaseBandId(item);
+    if (!buckets.has(bandId)) continue;
+    const mapped = typeof mapper === "function" ? mapper(item) : item;
+    buckets.get(bandId).push(mapped);
+  }
+
+  return SUCCESS_CASE_BAND_ORDER.map((id) => ({
+    id,
+    label: SUCCESS_CASE_BAND_LABELS[id],
+    cases: buckets.get(id).slice(0, 4),
+  })).filter((band) => asArray(band.cases).length > 0);
 }
 
 function fitMatch(fitKeys, curriculumKey) {
@@ -2227,6 +2298,22 @@ function buildAnalyzePrompt({
       '      "reason": "string"',
     "    }",
     "  ],",
+    '  "success_case_bands": [',
+    "    {",
+    '      "id": "nobase|grade_5_7|grade_3_4|grade_2|grade_1|perfect_100",',
+    '      "label": "string",',
+    '      "cases": [',
+    "        {",
+    '          "band_shift": "string",',
+    '          "duration": "string",',
+    '          "summary": "string",',
+    '          "core_actions": ["string"],',
+    '          "source_refs": ["string"],',
+    '          "reliability": 0.0',
+    "        }",
+    "      ]",
+    "    }",
+    "  ],",
     '  "success_case_insights": ["string"],',
     '  "question_trend_insights": ["string"],',
     '  "final_tip": "string"',
@@ -2533,6 +2620,26 @@ function normalizePlan(raw, {
     .filter(Boolean)
     .slice(0, 6);
 
+  const normalizedSuccessCaseBands = asArray(raw?.success_case_bands)
+    .map((band) => ({
+      id: toText(band?.id),
+      label: toText(band?.label),
+      cases: asArray(band?.cases)
+        .map((item) => ({
+          band_shift: toText(item?.band_shift),
+          duration: toText(item?.duration),
+          summary: toText(item?.summary),
+          core_actions: asArray(item?.core_actions).map((x) => toText(x)).filter(Boolean).slice(0, 3),
+          source_refs: asArray(item?.source_refs).map((x) => toText(x)).filter(Boolean).slice(0, 4),
+          reliability: Number.isFinite(Number(item?.reliability))
+            ? Math.max(0, Math.min(1, Number(item.reliability)))
+            : 0.6,
+        }))
+        .filter((item) => item.summary),
+    }))
+    .filter((band) => band.id && band.label && asArray(band.cases).length > 0)
+    .slice(0, 6);
+
   const normalizedQuestionTrendInsights = asArray(raw?.question_trend_insights)
     .map((x) => toText(x))
     .filter(Boolean)
@@ -2594,6 +2701,10 @@ function normalizePlan(raw, {
       profileNormalizedBooks.length > 0
         ? profileNormalizedBooks.slice(0, 8)
         : fallback.recommended_books,
+    success_case_bands:
+      normalizedSuccessCaseBands.length > 0
+        ? normalizedSuccessCaseBands
+        : asArray(fallback.success_case_bands),
     success_case_insights:
       normalizedSuccessCaseInsights.length > 0
         ? normalizedSuccessCaseInsights
@@ -2766,6 +2877,7 @@ function createFallbackPlan({
     subject_curriculum: subjectCurriculum,
     recommended_instructors: instructors,
     recommended_books: books,
+    success_case_bands: asArray(recommendationSeed.success_case_bands).slice(0, 6),
     success_case_insights: successCaseInsights,
     question_trend_insights: questionTrendInsights,
     final_tip:
