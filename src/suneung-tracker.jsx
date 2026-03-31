@@ -43,12 +43,25 @@ const ELECTIVE_SUBJECTS = [
 
 // Vercel same-origin /api/* — no cross-origin needed
 const API_BASE = process.env.REACT_APP_API_URL || '';
+const CANONICAL_API_ORIGIN =
+  process.env.REACT_APP_API_FALLBACK_ORIGIN || 'https://suneung-psi.vercel.app';
 const GRADE_TO_NUM = { '1': 1, '2-3': 3, '4+': 5 };
 const ELECTIVE_TO_SERVER = {
   calculus: '미적분',
   probability: '확률과통계',
   geometry: '기하',
 };
+
+function buildApiCandidates(pathname) {
+  const primary = `${API_BASE}${pathname}`;
+  if (typeof window === 'undefined' || process.env.NODE_ENV !== 'production') {
+    return [primary];
+  }
+  if (API_BASE) return [primary];
+  const currentOrigin = String(window.location?.origin || '');
+  if (!currentOrigin || currentOrigin === CANONICAL_API_ORIGIN) return [primary];
+  return [primary, `${CANONICAL_API_ORIGIN}${pathname}`];
+}
 
 function toAnalyzePayload(profile) {
   const parsedCurrent = Number(GRADE_TO_NUM[profile?.currentGrade] ?? profile?.currentGrade);
@@ -805,12 +818,35 @@ export default function SuneungTracker() {
     return `[${endpoint}] ${message}`;
   }, []);
 
+  const callApiWithFallback = useCallback(async (pathname, options) => {
+    const urls = buildApiCandidates(pathname);
+    let lastResponse = null;
+    let lastError = null;
+    for (let i = 0; i < urls.length; i += 1) {
+      const url = urls[i];
+      try {
+        const res = await fetch(url, options);
+        if (res.ok) return res;
+        lastResponse = res;
+        // Retry only on server-side failures.
+        if (res.status >= 500 && i < urls.length - 1) continue;
+        return res;
+      } catch (err) {
+        lastError = err;
+        if (i < urls.length - 1) continue;
+        throw err;
+      }
+    }
+    if (lastResponse) return lastResponse;
+    throw lastError || new Error('API 호출에 실패했습니다.');
+  }, []);
+
   const handleAnalyzePlan = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
       const analyzePayload = toAnalyzePayload(profile);
-      const res = await fetch(`${API_BASE}/api/analyze`, {
+      const res = await callApiWithFallback('/api/analyze', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(analyzePayload),
@@ -826,13 +862,13 @@ export default function SuneungTracker() {
     } finally {
       setLoading(false);
     }
-  }, [profile, handleError, readApiError]);
+  }, [profile, handleError, readApiError, callApiWithFallback]);
 
   const handleWeeklyReport = useCallback(async (weekInput) => {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(`${API_BASE}/api/tracker/report`, {
+      const res = await callApiWithFallback('/api/tracker/report', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ profile, weekInput }),
@@ -845,13 +881,13 @@ export default function SuneungTracker() {
     } finally {
       setLoading(false);
     }
-  }, [profile, handleError, readApiError]);
+  }, [profile, handleError, readApiError, callApiWithFallback]);
 
   const handleConsult = useCallback(async (question) => {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(`${API_BASE}/api/tracker/consult`, {
+      const res = await callApiWithFallback('/api/tracker/consult', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ profile, question }),
@@ -864,7 +900,7 @@ export default function SuneungTracker() {
     } finally {
       setLoading(false);
     }
-  }, [profile, handleError, readApiError]);
+  }, [profile, handleError, readApiError, callApiWithFallback]);
 
   // Show landing
   if (showLanding) {

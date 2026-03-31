@@ -30,6 +30,9 @@
 5. Improved frontend error diagnostics:
    - Include endpoint in error message and parse backend JSON error body for
      `/api/analyze`, `/api/tracker/report`, `/api/tracker/consult`.
+6. Added frontend API fallback retry:
+   - In production, if same-origin API returns 5xx, retry once against canonical API origin
+     (`https://suneung-psi.vercel.app`) to avoid stale/preview-host failures.
 
 ## Verification Snapshot
 - Live checks after deployment:
