@@ -43,6 +43,27 @@ const ELECTIVE_SUBJECTS = [
 
 // Vercel same-origin /api/* — no cross-origin needed
 const API_BASE = process.env.REACT_APP_API_URL || '';
+const GRADE_TO_NUM = { '1': 1, '2-3': 3, '4+': 5 };
+const ELECTIVE_TO_SERVER = {
+  calculus: '미적분',
+  probability: '확률과통계',
+  geometry: '기하',
+};
+
+function toAnalyzePayload(profile) {
+  const parsedCurrent = Number(GRADE_TO_NUM[profile?.currentGrade] ?? profile?.currentGrade);
+  const parsedTarget = Number(GRADE_TO_NUM[profile?.targetGrade] ?? profile?.targetGrade);
+  const currentGrade = Number.isFinite(parsedCurrent) ? parsedCurrent : 5;
+  let targetGrade = Number.isFinite(parsedTarget) ? parsedTarget : Math.max(1, currentGrade - 1);
+  if (targetGrade >= currentGrade) {
+    targetGrade = Math.max(1, currentGrade - 1);
+  }
+  return {
+    currentGrade,
+    targetGrade,
+    electiveSubject: ELECTIVE_TO_SERVER[profile?.elective] || '미적분',
+  };
+}
 
 // ─── Landing Screen ─────────────────────────────────────────────────────────
 
@@ -769,12 +790,20 @@ export default function SuneungTracker() {
     setLoading(true);
     setError(null);
     try {
+      const analyzePayload = toAnalyzePayload(profile);
       const res = await fetch(`${API_BASE}/api/analyze`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(profile),
+        body: JSON.stringify(analyzePayload),
       });
-      if (!res.ok) throw new Error(`서버 오류: ${res.status}`);
+      if (!res.ok) {
+        let message = `서버 오류: ${res.status}`;
+        try {
+          const err = await res.json();
+          if (err?.error) message = err.error;
+        } catch (_) {}
+        throw new Error(message);
+      }
       const data = await res.json();
       setPlan(data.plan || data);
       setActiveTab('plan');
