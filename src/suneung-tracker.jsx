@@ -795,6 +795,16 @@ export default function SuneungTracker() {
     setTimeout(() => setError(null), 5000);
   }, []);
 
+  const readApiError = useCallback(async (res, endpoint) => {
+    let message = `서버 오류: ${res.status}`;
+    try {
+      const err = await res.json();
+      if (err?.error) message = err.error;
+      else if (err?.message) message = err.message;
+    } catch (_) {}
+    return `[${endpoint}] ${message}`;
+  }, []);
+
   const handleAnalyzePlan = useCallback(async () => {
     setLoading(true);
     setError(null);
@@ -806,12 +816,7 @@ export default function SuneungTracker() {
         body: JSON.stringify(analyzePayload),
       });
       if (!res.ok) {
-        let message = `서버 오류: ${res.status}`;
-        try {
-          const err = await res.json();
-          if (err?.error) message = err.error;
-        } catch (_) {}
-        throw new Error(message);
+        throw new Error(await readApiError(res, '/api/analyze'));
       }
       const data = await res.json();
       setPlan(data.plan || data);
@@ -821,7 +826,7 @@ export default function SuneungTracker() {
     } finally {
       setLoading(false);
     }
-  }, [profile, handleError]);
+  }, [profile, handleError, readApiError]);
 
   const handleWeeklyReport = useCallback(async (weekInput) => {
     setLoading(true);
@@ -832,7 +837,7 @@ export default function SuneungTracker() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ profile, weekInput }),
       });
-      if (!res.ok) throw new Error(`서버 오류: ${res.status}`);
+      if (!res.ok) throw new Error(await readApiError(res, '/api/tracker/report'));
       const data = await res.json();
       setReport(data.report || data.message || JSON.stringify(data));
     } catch (e) {
@@ -840,7 +845,7 @@ export default function SuneungTracker() {
     } finally {
       setLoading(false);
     }
-  }, [profile, handleError]);
+  }, [profile, handleError, readApiError]);
 
   const handleConsult = useCallback(async (question) => {
     setLoading(true);
@@ -851,7 +856,7 @@ export default function SuneungTracker() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ profile, question }),
       });
-      if (!res.ok) throw new Error(`서버 오류: ${res.status}`);
+      if (!res.ok) throw new Error(await readApiError(res, '/api/tracker/consult'));
       const data = await res.json();
       setConsult(data.answer || data.message || JSON.stringify(data));
     } catch (e) {
@@ -859,7 +864,7 @@ export default function SuneungTracker() {
     } finally {
       setLoading(false);
     }
-  }, [profile, handleError]);
+  }, [profile, handleError, readApiError]);
 
   // Show landing
   if (showLanding) {
