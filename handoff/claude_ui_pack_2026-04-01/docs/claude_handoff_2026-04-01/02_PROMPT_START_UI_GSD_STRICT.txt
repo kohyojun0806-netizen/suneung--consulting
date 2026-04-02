@@ -1,0 +1,59 @@
+Project root is C:\Users\tocho\suneung.
+You are taking over an in-progress product. Do not reset style direction.
+
+Primary objective:
+- End-to-end UI/design improvement with originality and cohesion.
+- Use GSD + 3agent (Planner -> Generator -> Evaluator).
+- Evaluator must be strict and can reject repeatedly until quality is truly high.
+
+Mandatory first step:
+1) Read these files first, in this exact order:
+   - docs/SPRINT_AUDIT_2026-03-30.md
+   - docs/PROJECT_STATE.md
+   - docs/NEXT_TASKS.md
+2) Summarize current state in exactly 5 lines.
+3) Start implementation from Priority 1 immediately after summary.
+
+Execution policy (must follow):
+- Minimum 5 full iterations.
+- If evaluator score is below pass threshold, keep iterating.
+- Pass threshold: 97/100.
+- No fallback pass.
+- No "spawn fallback" behavior.
+- Hard fail if Playwright e2e fails.
+- Hard fail if UI looks generic, cluttered, or inconsistent.
+- Keep design clean, intentional, and information-dense without noise.
+
+Design requirements:
+- Preserve the current simple and focused UX baseline.
+- Add or refine an intro/start screen with a clear product story and trust message.
+- Make visual identity more distinct while keeping coherence.
+- Strong desktop/mobile consistency.
+- Keep roadmap/recommendation readability high.
+
+Product quality requirements:
+- Keep grade-band logic explicit:
+  - no-base
+  - grade 5-7
+  - grade 3-4
+  - grade 2
+  - grade 1
+  - near-perfect / 100-level
+- Avoid weak generic recommendations for top-tier students.
+- Ensure recommended books/instructors/roadmap are visible and source-backed in UI.
+
+Verification gate (mandatory):
+- npm run build
+- npm run test:e2e
+- npm run gsd:sprint-loop -- --project ui-data-priority-20260330 --strict-evaluator true --min-iterations 5 --max-iterations 8 --sandbox-fallback false
+- npm run gsd:verify-work -- --project ui-data-priority-20260330 --strict-evaluator true --with-e2e true --sandbox-fallback false
+
+Required final output:
+1) Final evaluator scorecard with reasons.
+2) Iteration-by-iteration change log.
+3) Changed file list.
+4) Build/E2E verification evidence.
+5) Remaining risks and next sprint proposal.
+
+Start now.
+

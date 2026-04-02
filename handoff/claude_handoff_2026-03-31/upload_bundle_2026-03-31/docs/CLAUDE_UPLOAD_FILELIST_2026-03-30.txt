@@ -1,0 +1,20 @@
+Upload these files to Claude project context first:
+
+1) docs/PROJECT_STATE.md
+2) docs/NEXT_TASKS.md
+3) docs/ROLLBACK_POINTS.md
+4) docs/CLAUDE_TRANSFER_2026-03-30.md
+5) docs/GSD_WORKFLOW.md
+6) docs/SPRINT_WORKFLOW.md
+7) docs/CLAUDE_UI_DATA_PRIORITY_BRIEF_2026-03-30.md
+8) docs/claude_resume_prompt_2026-03-30_ko.txt
+9) server/index.js
+10) src/suneung-tracker.jsx
+11) package.json
+
+Optional (if Claude will touch data ingestion/recommendation quality):
+12) data/knowledge/knowledge_base.json
+13) data/knowledge/recommendation_catalog.json
+14) data/knowledge/student_success_cases.json
+15) data/knowledge/youtube_question_signals.json
+16) server/ingest.js

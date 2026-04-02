@@ -1,0 +1,15 @@
+.env.example
+docs\CLAUDE_HANDOFF_UI_GSD_2026-03-31.md
+docs\CLAUDE_PROMPT_UI_GSD_2026-03-31.md
+docs\NEXT_TASKS.md
+docs\UI_QA_CHECKLIST.md
+server\index.js
+server\preview.js
+server\report-prompt-patch.js
+src\suneung-tracker.jsx
+tests\e2e\badge-gradeband.spec.ts
+tests\e2e\onboarding-and-navigation.spec.ts
+tests\e2e\persistence-coaching.spec.ts
+tests\e2e\strict-evaluator-ui.spec.ts
+docs\NEW_CHAT_HANDOFF_2026-03-31.md
+docs\NEW_CHAT_PROMPT_2026-03-31.md

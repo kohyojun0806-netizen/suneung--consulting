@@ -1,0 +1,17 @@
+[기본 검증]
+node scripts/verify_ingest_quality.js --strict
+node scripts/verify_recommendation_quality.js --strict
+cmd /c npm run build
+cmd /c npm run test:e2e
+
+[strict 3agent loop]
+cmd /c npm run gsd:sprint-loop -- --project ui-data-priority-20260330 --min-iterations 5 --max-iterations 7 --target-score 95 --strict-evaluator true --with-e2e true --sandbox-fallback false
+cmd /c npm run gsd:verify-work -- --project ui-data-priority-20260330 --strict-evaluator true --with-e2e true --sandbox-fallback false
+
+[데이터 확장]
+cmd /c npm run upgrade:priority-data:phase2
+cmd /c npm run upgrade:priority-data:phase3
+
+[배포]
+git push origin main
+cmd /c npx vercel --prod --yes

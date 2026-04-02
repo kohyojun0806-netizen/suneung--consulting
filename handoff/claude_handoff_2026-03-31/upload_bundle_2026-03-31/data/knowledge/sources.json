@@ -1,0 +1,717 @@
+[
+  {
+    "id": "sdij-daechi-timetable",
+    "type": "official",
+    "platform": "Sidaeinjae",
+    "bucket": "lecture_books",
+    "tags": [
+      "official",
+      "priority-ui-data",
+      "2026-03-30"
+    ],
+    "title": "대치 시간표",
+    "webUrl": "https://www.sdij.com/aca/schd/schd_view.asp?pc_view=Y",
+    "includeImages": true
+  },
+  {
+    "id": "dugak-requestclass-2026",
+    "type": "official",
+    "platform": "Dugak",
+    "bucket": "lecture_books",
+    "tags": [
+      "official",
+      "priority-ui-data",
+      "2026-03-30"
+    ],
+    "title": "단과 신청",
+    "webUrl": "https://bundangdugak.dshw.co.kr/onlineapplication/requestclass_view.htm?currentPage=1&id=435&subject=0",
+    "includeImages": true
+  },
+  {
+    "id": "dugak-teacher-board",
+    "type": "official",
+    "platform": "Dugak",
+    "bucket": "lecture_books",
+    "tags": [
+      "official",
+      "priority-ui-data",
+      "2026-03-30"
+    ],
+    "title": "수학 강사진 보드",
+    "webUrl": "https://bundangdugak.dshw.co.kr/teacher/teacher.htm?subject=2",
+    "includeImages": true
+  },
+  {
+    "id": "official-megastudy-woojin-ot",
+    "type": "official",
+    "platform": "Megastudy",
+    "bucket": "lecture_books",
+    "tags": [
+      "official",
+      "priority-ui-data",
+      "2026-03-30"
+    ],
+    "title": "OT/커리",
+    "webUrl": "https://www.megastudy.net/teacher_v2/chr/lecture_detailview.asp?CHR_CD=56645&MAKE_FLG=2&tec_cd=woojinmath",
+    "includeImages": true
+  },
+  {
+    "id": "official-etoos-jeongseungje-ot",
+    "type": "official",
+    "platform": "Etoos",
+    "bucket": "lecture_books",
+    "tags": [
+      "official",
+      "priority-ui-data",
+      "2026-03-30"
+    ],
+    "title": "커리 안내",
+    "webUrl": "https://www11.etoos.com/teacher/sub02.asp?CHOICE_LEVEL_ID=100001&GRD_CD=go3&LECTURE_GB_CD=0001&TAB_CD=0002&TEACHER_ID=200180&TEACHER_MAIN_TYPE=TYPE25",
+    "includeImages": true
+  },
+  {
+    "id": "official-mimac-math",
+    "type": "official",
+    "platform": "Mimac",
+    "bucket": "lecture_books",
+    "tags": [
+      "official",
+      "priority-ui-data",
+      "2026-03-30"
+    ],
+    "title": "수학 강사 메인",
+    "webUrl": "https://www.mimacstudy.com/",
+    "includeImages": true
+  },
+  {
+    "id": "book-ebs-special-2026",
+    "type": "official",
+    "platform": "EBSi",
+    "bucket": "lecture_books",
+    "tags": [
+      "official",
+      "priority-ui-data",
+      "2026-03-30"
+    ],
+    "title": "수능특강",
+    "webUrl": "https://cloud-www.ebsi.co.kr/ebs/pot/potg/retrieveCourseDetailNw.ebs?bookId=LB00000005073",
+    "includeImages": true
+  },
+  {
+    "id": "book-ebs-complete-2026",
+    "type": "official",
+    "platform": "EBSi",
+    "bucket": "lecture_books",
+    "tags": [
+      "official",
+      "priority-ui-data",
+      "2026-03-30"
+    ],
+    "title": "수능완성",
+    "webUrl": "https://www.ebsi.co.kr/ebs/pot/potg/retrieveCourseDetailNw.ebs?bookId=LB00000005094",
+    "includeImages": true
+  },
+  {
+    "id": "orbi-success-9to1",
+    "type": "community",
+    "platform": "Orbi",
+    "bucket": "study_methods",
+    "tags": [
+      "community",
+      "priority-ui-data",
+      "2026-03-30"
+    ],
+    "title": "9->1 사례",
+    "webUrl": "https://orbi.kr/00033742614/9%EB%93%B1%EA%B8%89-%3E-%EA%B0%80%ED%98%95-1%EB%93%B1%EA%B8%89-%EC%88%98%ED%95%99-%EA%B3%B5%EB%B6%80%EB%B2%95",
+    "includeImages": false
+  },
+  {
+    "id": "orbi-nobase-oneyear-thread",
+    "type": "community",
+    "platform": "Orbi",
+    "bucket": "study_methods",
+    "tags": [
+      "community",
+      "priority-ui-data",
+      "2026-03-30"
+    ],
+    "title": "노베이스 논의",
+    "webUrl": "https://orbi.kr/00062991478/%EB%85%B8%EB%B2%A0-%EC%88%98%ED%95%99-1%EB%85%84%EB%A7%8C%EC%97%90-1%EB%93%B1%EA%B8%89-%EA%B0%80%EB%8A%A5-%EB%B6%88%EA%B0%80%EB%8A%A5",
+    "includeImages": false
+  },
+  {
+    "id": "orbi-neuron-sugam-order-2026",
+    "type": "community",
+    "platform": "Orbi",
+    "bucket": "study_methods",
+    "tags": [
+      "community",
+      "priority-ui-data",
+      "2026-03-30"
+    ],
+    "title": "뉴런 수분감 순서",
+    "webUrl": "https://orbi.kr/00076785107",
+    "includeImages": false
+  },
+  {
+    "id": "orbi-sdij-review-2026",
+    "type": "community",
+    "platform": "Orbi",
+    "bucket": "study_methods",
+    "tags": [
+      "community",
+      "priority-ui-data",
+      "2026-03-30"
+    ],
+    "title": "시대인재 후기 검색",
+    "webUrl": "https://orbi.kr/search?q=%EC%8B%9C%EB%8C%80%EC%9D%B8%EC%9E%AC+%EC%88%98%ED%95%99+%EB%8B%A8%EA%B3%BC+%ED%9B%84%EA%B8%B0",
+    "includeImages": false
+  },
+  {
+    "id": "orbi-math-band-column",
+    "type": "community",
+    "platform": "Orbi",
+    "bucket": "study_methods",
+    "tags": [
+      "community",
+      "priority-ui-data",
+      "2026-03-30"
+    ],
+    "title": "등급대별 학습",
+    "webUrl": "https://orbi.kr/00073261962",
+    "includeImages": false
+  },
+  {
+    "id": "orbi-math-attitude-column",
+    "type": "community",
+    "platform": "Orbi",
+    "bucket": "study_methods",
+    "tags": [
+      "community",
+      "priority-ui-data",
+      "2026-03-30"
+    ],
+    "title": "수학 태도 칼럼",
+    "webUrl": "https://orbi.kr/00077975282/%5B%EC%B9%BC%EB%9F%BC%5D-%EC%88%98%ED%95%99-%EB%AC%B8%EC%A0%9C%EB%A5%BC-%EB%8C%80%ED%95%98%EB%8A%94-%ED%83%9C%EB%8F%84",
+    "includeImages": false
+  },
+  {
+    "id": "map-image-curriculum",
+    "type": "curated",
+    "platform": "local-map",
+    "bucket": "study_methods",
+    "tags": [
+      "curated",
+      "priority-ui-data",
+      "2026-03-30"
+    ],
+    "title": "내부 커리큘럼 매핑",
+    "webUrl": "data/knowledge/instructor_curriculum_map.json",
+    "includeImages": false
+  },
+  {
+    "id": "youtube-comment-akoreum-manual",
+    "type": "youtube_comment",
+    "platform": "YouTube",
+    "bucket": "learning_routines",
+    "tags": [
+      "youtube_comment",
+      "priority-ui-data",
+      "2026-03-30"
+    ],
+    "title": "악어오름 댓글 질문군",
+    "webUrl": "https://www.youtube.com/results?search_query=%EC%95%85%EC%96%B4%EC%98%A4%EB%A6%84+%EC%88%98%ED%95%99",
+    "includeImages": false
+  },
+  {
+    "id": "dugak-presentation-board-2026",
+    "type": "official",
+    "platform": "Dugak",
+    "bucket": "lecture_books",
+    "tags": [
+      "official",
+      "priority-ui-data",
+      "2026-03-30"
+    ],
+    "title": "공지/운영 보드",
+    "webUrl": "https://bundangdugak.dshw.co.kr/exam/presentation.htm?currentPage=2&mode=",
+    "includeImages": true
+  },
+  {
+    "id": "orbi-sdij-track-thread-2026",
+    "type": "community",
+    "platform": "Orbi",
+    "bucket": "study_methods",
+    "tags": [
+      "community",
+      "priority-ui-data",
+      "2026-03-30"
+    ],
+    "title": "시대인재 트랙 질문",
+    "webUrl": "https://orbi.kr/00076883299",
+    "includeImages": false
+  },
+  {
+    "id": "orbi-ahha-errnote-docs",
+    "type": "community",
+    "platform": "Orbi",
+    "bucket": "study_methods",
+    "tags": [
+      "community",
+      "priority-ui-data",
+      "2026-03-30"
+    ],
+    "title": "오답노트 예시",
+    "webUrl": "https://docs.orbi.kr/docs/13861-%EC%88%98%2B1%2B%EC%95%84%ED%95%98%2B%EC%98%A4%EB%8B%B5%EB%85%B8%ED%8A%B8/",
+    "includeImages": false
+  },
+  {
+    "id": "orbi-past-rotation-thread-2026",
+    "type": "community",
+    "platform": "Orbi",
+    "bucket": "study_methods",
+    "tags": [
+      "community",
+      "priority-ui-data",
+      "2026-03-30"
+    ],
+    "title": "기출 회독 질문",
+    "webUrl": "https://orbi.kr/00075396689",
+    "includeImages": false
+  },
+  {
+    "id": "orbi-simul-tips-thread-2026",
+    "type": "community",
+    "platform": "Orbi",
+    "bucket": "study_methods",
+    "tags": [
+      "community",
+      "priority-ui-data",
+      "2026-03-30"
+    ],
+    "title": "실모 운영 팁",
+    "webUrl": "https://orbi.kr/00061701275",
+    "includeImages": false
+  },
+  {
+    "id": "orbi-time-management-thread-2026",
+    "type": "community",
+    "platform": "Orbi",
+    "bucket": "study_methods",
+    "tags": [
+      "community",
+      "priority-ui-data",
+      "2026-03-30"
+    ],
+    "title": "시간관리 질문",
+    "webUrl": "https://orbi.kr/00077230632",
+    "includeImages": false
+  },
+  {
+    "id": "orbi-5to2-review-2026",
+    "type": "community",
+    "platform": "Orbi",
+    "bucket": "study_methods",
+    "tags": [
+      "community",
+      "priority-ui-data",
+      "2026-03-30"
+    ],
+    "title": "5->2 후기",
+    "webUrl": "https://orbi.kr/00066335052",
+    "includeImages": false
+  },
+  {
+    "id": "youtube-comment-math-general-search-2026",
+    "type": "youtube_comment",
+    "platform": "YouTube",
+    "bucket": "learning_routines",
+    "tags": [
+      "youtube_comment",
+      "priority-ui-data",
+      "2026-03-30"
+    ],
+    "title": "수능수학 댓글 질문군",
+    "webUrl": "https://www.youtube.com/results?search_query=%EC%88%98%EB%8A%A5+%EC%88%98%ED%95%99+%EA%B3%B5%EB%B6%80%EB%B2%95+%EB%8C%93%EA%B8%80",
+    "includeImages": false
+  },
+  {
+    "id": "sumanhwi-math-review-search-2026",
+    "type": "community-index",
+    "platform": "Naver Search",
+    "bucket": "study_methods",
+    "tags": [
+      "community-index",
+      "priority-ui-data",
+      "2026-03-30"
+    ],
+    "title": "수만휘 검색 인덱스",
+    "webUrl": "https://search.naver.com/search.naver?query=%EC%88%98%EB%A7%8C%ED%9C%98+%EC%88%98%ED%95%99+%ED%9B%84%EA%B8%B0",
+    "includeImages": false
+  },
+  {
+    "id": "fomanhan-math-review-search-2026",
+    "type": "community-index",
+    "platform": "Naver Search",
+    "bucket": "study_methods",
+    "tags": [
+      "community-index",
+      "priority-ui-data",
+      "2026-03-30"
+    ],
+    "title": "포만한 검색 인덱스",
+    "webUrl": "https://search.naver.com/search.naver?query=%ED%8F%AC%EB%A7%8C%ED%95%9C+%EC%88%98%ED%95%99+%ED%9B%84%EA%B8%B0",
+    "includeImages": false
+  },
+  {
+    "id": "sdij-hall-of-fame-review-616",
+    "type": "official+community",
+    "platform": "Sidaeinjae",
+    "bucket": "study_methods",
+    "tags": [
+      "official",
+      "success-case",
+      "2026-03-30-phase2"
+    ],
+    "title": "시대인재 명예의 전당 수학 실수관리 후기",
+    "webUrl": "https://m.sdij.com/sdn/hall_of_fame/review.asp?group_cd=46&std_cd=616",
+    "includeImages": false
+  },
+  {
+    "id": "kangnams2-teacher-curriculum",
+    "type": "official",
+    "platform": "Gangnam Daesung SII",
+    "bucket": "lecture_books",
+    "tags": [
+      "official",
+      "curriculum",
+      "2026-03-30-phase2"
+    ],
+    "title": "강남대성 SII 정규시즌 커리큘럼",
+    "webUrl": "https://kangnams2.dshw.co.kr/recruitment/teachercurriculumr.do",
+    "includeImages": true
+  },
+  {
+    "id": "orbi-russell-sdij-dugak-season-question-2026",
+    "type": "community",
+    "platform": "Orbi",
+    "bucket": "learning_routines",
+    "tags": [
+      "community",
+      "season",
+      "waiting-list",
+      "2026-03-30-phase2"
+    ],
+    "title": "시대/두각 단과 시즌 운영 질문",
+    "webUrl": "https://orbi.kr/00077104031/%EB%9F%AC%EC%85%80-%EC%8B%9C%EB%8C%80-%EB%91%90%EA%B0%81-%EB%8B%A8%EA%B3%BC-%EC%A7%88%EB%AC%B8",
+    "includeImages": false
+  },
+  {
+    "id": "orbi-math-7to3-question-2026",
+    "type": "community",
+    "platform": "Orbi",
+    "bucket": "learning_routines",
+    "tags": [
+      "community",
+      "grade-7-3",
+      "instructor-choice",
+      "2026-03-30-phase2"
+    ],
+    "title": "수학 7등급에서 3등급 목표 질문",
+    "webUrl": "https://orbi.kr/00077355145/%EC%88%98%ED%95%99-7%EB%93%B1%EA%B8%89-%EC%9D%B8%EA%B0%95-%EC%B6%94%EC%B2%9C",
+    "includeImages": false
+  },
+  {
+    "id": "orbi-akoreum-consult-review-2026",
+    "type": "community",
+    "platform": "Orbi",
+    "bucket": "learning_routines",
+    "tags": [
+      "community",
+      "akoreum",
+      "consult",
+      "2026-03-30-phase2"
+    ],
+    "title": "악어오름 상담 후기",
+    "webUrl": "https://orbi.kr/00077711927/%EC%95%85%EC%96%B4%EC%98%A4%EB%A6%84-%EC%83%81%EB%8B%B4-%ED%9B%84%EA%B8%B0",
+    "includeImages": false
+  },
+  {
+    "id": "orbi-success-percentile40-to-grade1",
+    "type": "community",
+    "platform": "Orbi",
+    "bucket": "study_methods",
+    "tags": [
+      "community",
+      "success-case",
+      "2026-03-30-phase2"
+    ],
+    "title": "수능 수학 백분위 40 -> 1등급 후기",
+    "webUrl": "https://orbi.kr/00041714232",
+    "includeImages": false
+  },
+  {
+    "id": "orbi-gradewall-2to3-strategy-2026",
+    "type": "community",
+    "platform": "Orbi",
+    "bucket": "study_methods",
+    "tags": [
+      "community",
+      "grade-wall",
+      "2026-03-30-phase2"
+    ],
+    "title": "수학 2,3등급 벽 구간 공부법",
+    "webUrl": "https://orbi.kr/00077656644",
+    "includeImages": false
+  },
+  {
+    "id": "orbi-onescore-bottleneck-2026",
+    "type": "community",
+    "platform": "Orbi",
+    "bucket": "study_methods",
+    "tags": [
+      "community",
+      "1-grade",
+      "bottleneck",
+      "2026-03-30-phase2"
+    ],
+    "title": "1등급에서 만점으로 가는 병목 질문",
+    "webUrl": "https://orbi.kr/00077803980",
+    "includeImages": false
+  },
+  {
+    "id": "akoreum-channel-ruclips",
+    "type": "youtube_comment",
+    "platform": "Akoreum Channel",
+    "bucket": "learning_routines",
+    "tags": [
+      "youtube_comment",
+      "akoreum",
+      "2026-03-30-phase2"
+    ],
+    "title": "악어오름 채널 피드",
+    "webUrl": "https://lacodileclimbing.ruclips.net/",
+    "includeImages": false
+  },
+  {
+    "id": "orbi-akoreum-mijuk-controversy-2026",
+    "type": "community",
+    "platform": "Orbi",
+    "bucket": "learning_routines",
+    "tags": [
+      "community",
+      "akoreum",
+      "elective-choice",
+      "2026-03-30-phase2"
+    ],
+    "title": "수학 노베 미적 선택 논쟁",
+    "webUrl": "https://orbi.kr/00070773982",
+    "includeImages": false
+  },
+  {
+    "id": "orbi-00061876865-light-nje",
+    "type": "community",
+    "platform": "Orbi",
+    "bucket": "study_methods",
+    "tags": [
+      "community",
+      "2026-03-30-phase2",
+      "alias"
+    ],
+    "title": "orbi-00061876865-light-nje",
+    "webUrl": "https://orbi.kr/00061876865",
+    "includeImages": false
+  },
+  {
+    "id": "orbi-00074822227-final-plan",
+    "type": "community",
+    "platform": "Orbi",
+    "bucket": "study_methods",
+    "tags": [
+      "community",
+      "2026-03-30-phase2",
+      "alias"
+    ],
+    "title": "orbi-00074822227-final-plan",
+    "webUrl": "https://orbi.kr/00074822227",
+    "includeImages": false
+  },
+  {
+    "id": "orbi-00032151027-studymethod",
+    "type": "community",
+    "platform": "Orbi",
+    "bucket": "study_methods",
+    "tags": [
+      "community",
+      "2026-03-30-phase2",
+      "alias"
+    ],
+    "title": "orbi-00032151027-studymethod",
+    "webUrl": "https://orbi.kr/00032151027",
+    "includeImages": false
+  },
+  {
+    "id": "orbi-00077627016-akoreum-hot",
+    "type": "community",
+    "platform": "Orbi",
+    "bucket": "study_methods",
+    "tags": [
+      "community",
+      "2026-03-30-phase2",
+      "alias"
+    ],
+    "title": "orbi-00077627016-akoreum-hot",
+    "webUrl": "https://orbi.kr/00077627016",
+    "includeImages": false
+  },
+  {
+    "id": "orbi-nje-recommend-thread-00063590966",
+    "type": "community",
+    "platform": "Orbi",
+    "bucket": "lecture_books",
+    "tags": [
+      "community",
+      "nje-recommendation",
+      "phase3-books",
+      "2026-03-30"
+    ],
+    "title": "Math NJE recommendation thread",
+    "webUrl": "https://orbi.kr/00063590966",
+    "includeImages": false
+  },
+  {
+    "id": "orbi-survival-types-00057634187",
+    "type": "community",
+    "platform": "Orbi",
+    "bucket": "lecture_books",
+    "tags": [
+      "community",
+      "sidae-survival",
+      "phase3-books",
+      "2026-03-30"
+    ],
+    "title": "Sidaeinjae survival type question",
+    "webUrl": "https://orbi.kr/00057634187",
+    "includeImages": false
+  },
+  {
+    "id": "orbi-nje-rank-thread-00072600911",
+    "type": "community",
+    "platform": "Orbi",
+    "bucket": "lecture_books",
+    "tags": [
+      "community",
+      "nje-rank",
+      "phase3-books",
+      "2026-03-30"
+    ],
+    "title": "High-tier NJE ordering recommendation",
+    "webUrl": "https://orbi.kr/00072600911",
+    "includeImages": false
+  },
+  {
+    "id": "orbi-books-review-thread-00074808610",
+    "type": "community",
+    "platform": "Orbi",
+    "bucket": "lecture_books",
+    "tags": [
+      "community",
+      "book-review",
+      "phase3-books",
+      "2026-03-30"
+    ],
+    "title": "Math books and mock review thread",
+    "webUrl": "https://orbi.kr/00074808610",
+    "includeImages": false
+  },
+  {
+    "id": "orbi-books-question-thread-00060558051",
+    "type": "community",
+    "platform": "Orbi",
+    "bucket": "lecture_books",
+    "tags": [
+      "community",
+      "book-selection",
+      "phase3-books",
+      "2026-03-30"
+    ],
+    "title": "Math academy books and instructor content question",
+    "webUrl": "https://orbi.kr/00060558051",
+    "includeImages": false
+  },
+  {
+    "id": "orbi-nje-usage-column-00065785267",
+    "type": "community",
+    "platform": "Orbi",
+    "bucket": "study_methods",
+    "tags": [
+      "community",
+      "nje-method",
+      "phase3-books",
+      "2026-03-30"
+    ],
+    "title": "How to use NJE effectively",
+    "webUrl": "https://orbi.kr/00065785267",
+    "includeImages": false
+  },
+  {
+    "id": "yes24-sidaebooks-g2-5year-2026",
+    "type": "official",
+    "platform": "YES24",
+    "bucket": "lecture_books",
+    "tags": [
+      "official",
+      "sidaebooks",
+      "phase3-books",
+      "2026-03-30"
+    ],
+    "title": "SidaeBooks 5-year mock high2 math (2026)",
+    "webUrl": "https://www.yes24.com/product/goods/176219987",
+    "includeImages": true
+  },
+  {
+    "id": "yes24-sidaebooks-prehigh2-6year-2026",
+    "type": "official",
+    "platform": "YES24",
+    "bucket": "lecture_books",
+    "tags": [
+      "official",
+      "sidaebooks",
+      "phase3-books",
+      "2026-03-30"
+    ],
+    "title": "SidaeBooks pre-high2 6-year mock math (2026)",
+    "webUrl": "https://www.yes24.com/product/goods/162333789",
+    "includeImages": true
+  },
+  {
+    "id": "bunjang-ihaewon-season4-2025",
+    "type": "community-index",
+    "platform": "Bunjang Global",
+    "bucket": "lecture_books",
+    "tags": [
+      "community-index",
+      "ihaewon",
+      "phase3-books",
+      "2026-03-30"
+    ],
+    "title": "Ihaewon mock season4 listing signal",
+    "webUrl": "https://globalbunjang.com/product/310196513",
+    "includeImages": false
+  },
+  {
+    "id": "tistory-sdij-content-guide",
+    "type": "community-index",
+    "platform": "Tistory",
+    "bucket": "lecture_books",
+    "tags": [
+      "community-index",
+      "sidae-content",
+      "phase3-books",
+      "2026-03-30"
+    ],
+    "title": "Sidaeinjae math content recommendation summary",
+    "webUrl": "https://mathai-iope-factory.tistory.com/33",
+    "includeImages": false
+  }
+]

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-31",
+  "updatedAt": "2026-04-02",
   "notes": "Tier-aware + NJE detail expansion: intro/mid/high NJE metadata with source trace (SidaeinjaeBooks/Kyobo/Ingang/Community).",
   "instructors": [
     {
@@ -260,43 +260,44 @@
       ],
       "curriculumPath": [
         {
-          "stage": "regular",
-          "course": "regular class",
-          "material": "academy text"
+          "stage": "Core",
+          "course": "Regular onsite single-subject class",
+          "material": "academy weekly sheet + core set"
         },
         {
-          "stage": "hard",
-          "course": "hard set + N-set",
-          "material": "supplement"
+          "stage": "Intensive",
+          "course": "NJE / killer-theme block",
+          "material": "theme pack + hard set"
         },
         {
-          "stage": "final",
-          "course": "final mock",
-          "material": "final material"
+          "stage": "Final",
+          "course": "Survival/final practical set",
+          "material": "weekly mock + compressed error note"
         }
       ],
       "seasonalPlan": [
         {
-          "period": "3~6모",
+          "period": "Mar-May",
           "classType": "regular",
-          "content": "weak-unit closure",
-          "goal": "close weak chapters"
+          "content": "core concept-to-4point transition lane",
+          "goal": "stabilize 3~4 point conversion"
         },
         {
-          "period": "6~9모",
-          "classType": "hard+mock",
-          "content": "killer set + weekly mock",
-          "goal": "hard-item control"
+          "period": "Jun-Aug",
+          "classType": "intensive",
+          "content": "killer ?? + mixed hard sets",
+          "goal": "move from grade2 zone to grade1 zone"
         },
         {
-          "period": "9모~수능",
+          "period": "Sep-CSAT",
           "classType": "final",
-          "content": "final mock + compressed review",
-          "goal": "stable practical score"
+          "content": "survival/final set + timing discipline",
+          "goal": "minimize volatility on real-test day"
         }
       ],
       "reviewSummary": [
-        "High practical value for top tier with strong review"
+        "High practical value for top tier with strong review",
+        "Cross-checked pattern: top-tier students improved when one stable lane was maintained per season."
       ],
       "bestFor": "Top-tier students needing final operating stability",
       "usage": "Split class usage by season instead of taking everything at once",
@@ -340,43 +341,44 @@
       ],
       "curriculumPath": [
         {
-          "stage": "regular",
-          "course": "regular class",
-          "material": "academy material"
+          "stage": "Core",
+          "course": "Regular Dugak single-subject class",
+          "material": "weekly assignment + review template"
         },
         {
-          "stage": "hard",
-          "course": "hard module",
-          "material": "supplement"
+          "stage": "Practical",
+          "course": "mid/high practical module",
+          "material": "theme sheets + weekly mini mock"
         },
         {
-          "stage": "final",
-          "course": "final mock",
-          "material": "final set"
+          "stage": "Final",
+          "course": "final practical mock block",
+          "material": "final set + 24/72h error cycle"
         }
       ],
       "seasonalPlan": [
         {
-          "period": "3~6모",
+          "period": "Mar-May",
           "classType": "regular",
-          "content": "regular + assignment",
-          "goal": "fix weak units"
+          "content": "weak-unit compression and assignment cycle",
+          "goal": "secure grade4->3 bridge"
         },
         {
-          "period": "6~9모",
-          "classType": "hard",
-          "content": "hard set + practical",
-          "goal": "killer adaptation"
+          "period": "Jun-Aug",
+          "classType": "practical",
+          "content": "mixed ???/?? sets with feedback",
+          "goal": "secure grade3->2 bridge"
         },
         {
-          "period": "9모~수능",
+          "period": "Sep-CSAT",
           "classType": "final",
-          "content": "final mock rotation",
-          "goal": "low variance"
+          "content": "weekly final mock + error compression",
+          "goal": "maintain grade2~1 practical consistency"
         }
       ],
       "reviewSummary": [
-        "Clear assignment-review loop in many community notes"
+        "Clear assignment-review loop in many community notes",
+        "Cross-checked pattern: assignment-check-review loop quality drives score stability more than volume."
       ],
       "bestFor": "Students who need managed weekly rhythm",
       "usage": "Protect review hours before adding extra classes",
@@ -390,7 +392,8 @@
         "dugak-presentation-board-2026",
         "community-orbi-dugak-onsite-question-00075023632",
         "official-daesung-youtube-channel-2026",
-        "youtube-search-akoreum-dugak-onsite-2026"
+        "youtube-search-akoreum-dugak-onsite-2026",
+        "official-kangnamdshw-academyfacility-2026"
       ],
       "passAvailability": [
         "both"
@@ -572,43 +575,44 @@
       ],
       "curriculumPath": [
         {
-          "stage": "3~6모",
-          "course": "정규+클리닉",
-          "material": "정규교재/보강자료"
+          "stage": "Core",
+          "course": "Regular onsite single-subject class",
+          "material": "academy weekly sheet + core set"
         },
         {
-          "stage": "6~9모",
-          "course": "킬러N제+주간실모",
-          "material": "N제/실모"
+          "stage": "Intensive",
+          "course": "NJE / killer-theme block",
+          "material": "theme pack + hard set"
         },
         {
-          "stage": "9모~수능",
-          "course": "파이널+압축복기",
-          "material": "파이널 세트"
+          "stage": "Final",
+          "course": "Survival/final practical set",
+          "material": "weekly mock + compressed error note"
         }
       ],
       "seasonalPlan": [
         {
-          "period": "3~6모",
-          "classType": "regular+clinic",
-          "content": "정규 단과 + 약점 클리닉",
-          "goal": "약점 단원 완결"
+          "period": "Mar-May",
+          "classType": "regular",
+          "content": "core concept-to-4point transition lane",
+          "goal": "stabilize 3~4 point conversion"
         },
         {
-          "period": "6~9모",
-          "classType": "killer+mock",
-          "content": "킬러 N제 + 주간 실모",
-          "goal": "고난도 의사결정 고정"
+          "period": "Jun-Aug",
+          "classType": "intensive",
+          "content": "killer ?? + mixed hard sets",
+          "goal": "move from grade2 zone to grade1 zone"
         },
         {
-          "period": "9모~수능",
+          "period": "Sep-CSAT",
           "classType": "final",
-          "content": "파이널 실모 + 압축 오답노트",
-          "goal": "실전 변동폭 최소화"
+          "content": "survival/final set + timing discipline",
+          "goal": "minimize volatility on real-test day"
         }
       ],
       "reviewSummary": [
-        "복기 시간을 확보할수록 효과가 크다는 후기 반복"
+        "복기 시간을 확보할수록 효과가 크다는 후기 반복",
+        "Cross-checked pattern: top-tier students improved when one stable lane was maintained per season."
       ],
       "bestFor": "상위권 실전 안정화를 목표로 하는 학생",
       "usage": "시기별 콘텐츠 분리 수강",
@@ -652,43 +656,44 @@
       ],
       "curriculumPath": [
         {
-          "stage": "3~6모",
-          "course": "정규+약점보강",
-          "material": "정규교재/보강"
+          "stage": "Core",
+          "course": "Regular Dugak single-subject class",
+          "material": "weekly assignment + review template"
         },
         {
-          "stage": "6~9모",
-          "course": "심화모듈+실전세트",
-          "material": "심화/N제"
+          "stage": "Practical",
+          "course": "mid/high practical module",
+          "material": "theme sheets + weekly mini mock"
         },
         {
-          "stage": "9모~수능",
-          "course": "파이널",
-          "material": "파이널 실모"
+          "stage": "Final",
+          "course": "final practical mock block",
+          "material": "final set + 24/72h error cycle"
         }
       ],
       "seasonalPlan": [
         {
-          "period": "3~6모",
+          "period": "Mar-May",
           "classType": "regular",
-          "content": "정규 + 약점 보강",
-          "goal": "약점 유형 교정"
+          "content": "weak-unit compression and assignment cycle",
+          "goal": "secure grade4->3 bridge"
         },
         {
-          "period": "6~9모",
-          "classType": "hard+practical",
-          "content": "고난도 모듈 + 실전 세트",
-          "goal": "준킬러/킬러 대응"
+          "period": "Jun-Aug",
+          "classType": "practical",
+          "content": "mixed ???/?? sets with feedback",
+          "goal": "secure grade3->2 bridge"
         },
         {
-          "period": "9모~수능",
+          "period": "Sep-CSAT",
           "classType": "final",
-          "content": "파이널 실모 + 오답 압축",
-          "goal": "실전 안정화"
+          "content": "weekly final mock + error compression",
+          "goal": "maintain grade2~1 practical consistency"
         }
       ],
       "reviewSummary": [
-        "과제 수행률과 복기율이 성과를 가른다는 피드백 다수"
+        "과제 수행률과 복기율이 성과를 가른다는 피드백 다수",
+        "Cross-checked pattern: assignment-check-review loop quality drives score stability more than volume."
       ],
       "bestFor": "관리형 실전 루틴이 필요한 상위권",
       "usage": "과제량 상한과 복기 하한을 함께 관리",
@@ -702,7 +707,8 @@
         "orbi-russell-sdij-dugak-season-question-2026",
         "community-orbi-dugak-onsite-question-00075023632",
         "official-daesung-youtube-channel-2026",
-        "youtube-search-akoreum-dugak-onsite-2026"
+        "youtube-search-akoreum-dugak-onsite-2026",
+        "official-kangnamdshw-academyfacility-2026"
       ],
       "passAvailability": [
         "both"
@@ -731,43 +737,44 @@
       ],
       "curriculumPath": [
         {
-          "stage": "3~6모",
-          "course": "정규반",
-          "material": "정규교재"
+          "stage": "Core",
+          "course": "Regular Dugak single-subject class",
+          "material": "weekly assignment + review template"
         },
         {
-          "stage": "6~9모",
-          "course": "심화반",
-          "material": "심화자료"
+          "stage": "Practical",
+          "course": "mid/high practical module",
+          "material": "theme sheets + weekly mini mock"
         },
         {
-          "stage": "9모~수능",
-          "course": "파이널반",
-          "material": "파이널 실모"
+          "stage": "Final",
+          "course": "final practical mock block",
+          "material": "final set + 24/72h error cycle"
         }
       ],
       "seasonalPlan": [
         {
-          "period": "3~6모",
+          "period": "Mar-May",
           "classType": "regular",
-          "content": "정규반 + 약점체크",
-          "goal": "기초 안정화"
+          "content": "weak-unit compression and assignment cycle",
+          "goal": "secure grade4->3 bridge"
         },
         {
-          "period": "6~9모",
-          "classType": "advanced",
-          "content": "심화반 + 실전세트",
-          "goal": "중난도 대응 강화"
+          "period": "Jun-Aug",
+          "classType": "practical",
+          "content": "mixed ???/?? sets with feedback",
+          "goal": "secure grade3->2 bridge"
         },
         {
-          "period": "9모~수능",
+          "period": "Sep-CSAT",
           "classType": "final",
-          "content": "파이널반 + 압축복기",
-          "goal": "점수 유지력 강화"
+          "content": "weekly final mock + error compression",
+          "goal": "maintain grade2~1 practical consistency"
         }
       ],
       "reviewSummary": [
-        "완료율 수치화를 병행할 때 성과가 좋아진다는 후기"
+        "완료율 수치화를 병행할 때 성과가 좋아진다는 후기",
+        "Cross-checked pattern: assignment-check-review loop quality drives score stability more than volume."
       ],
       "bestFor": "관리형 루틴이 필요한 중상위권",
       "usage": "주간 완료율 점검과 함께 사용",
@@ -781,87 +788,8 @@
         "dugak-presentation-board-2026",
         "community-orbi-dugak-onsite-question-00075023632",
         "official-daesung-youtube-channel-2026",
-        "youtube-search-akoreum-dugak-onsite-2026"
-      ],
-      "passAvailability": [
-        "both"
-      ]
-    },
-    {
-      "name": "문서연",
-      "platform": "Sidaeinjae/Russell",
-      "fitKeys": [
-        "5-3",
-        "3-1"
-      ],
-      "subjectTags": [
-        "공통",
-        "미적분",
-        "기하"
-      ],
-      "strengths": [
-        "상위권 실전세트 운영과 주간 과제 피드백에 강점이 있다는 커뮤니티 리뷰가 반복된다.",
-        "시즌별 수업 구조가 비교적 분명해 파이널 전환이 수월하다는 평가가 있다."
-      ],
-      "styleTags": [
-        "seasonal",
-        "practical",
-        "high-intensity",
-        "onsite"
-      ],
-      "curriculumPath": [
-        {
-          "stage": "3~6모",
-          "course": "정규 단과 + 약점 클리닉",
-          "material": "정규 교재 + 보강 자료"
-        },
-        {
-          "stage": "6~9모",
-          "course": "N제 + 주간 모의",
-          "material": "N제 + 실전 모의"
-        },
-        {
-          "stage": "9모~수능",
-          "course": "파이널 모의 + 압축 복기",
-          "material": "파이널 세트 + 복기노트"
-        }
-      ],
-      "seasonalPlan": [
-        {
-          "period": "3~6모",
-          "classType": "regular+clinic",
-          "content": "개념 빈틈 보강 + 기출 연결",
-          "goal": "일반4점 안정화"
-        },
-        {
-          "period": "6~9모",
-          "classType": "N-set+mock",
-          "content": "난도 확장 + 시간운영 훈련",
-          "goal": "준킬러/킬러 대응"
-        },
-        {
-          "period": "9모~수능",
-          "classType": "final",
-          "content": "파이널 모의 + 오답 압축",
-          "goal": "변동성 최소화"
-        }
-      ],
-      "reviewSummary": [
-        "대기/등록 타이밍 관리가 중요하다는 후기 빈도가 높음"
-      ],
-      "bestFor": "상위권 실전 운영 최적화가 필요한 학생",
-      "usage": "시즌 전환 지점에서 과제량과 복기량을 재조정하며 운용",
-      "sourceLevel": "official+community+youtube",
-      "confidence": 0.88,
-      "sourceRefs": [
-        "orbi-russell-sdij-dugak-season-question-2026",
-        "orbi-sdij-track-thread-2026",
-        "sdij-daechi-timetable",
-        "sdij-hall-of-fame-review-616",
-        "orbi-sdij-review-2026",
-        "community-orbi-sdij-onsite-question-00072296617",
-        "community-orbi-sdij-onsite-price-00076183518",
-        "official-sdij-youtube-channel-2026"
+        "youtube-search-akoreum-dugak-onsite-2026",
+        "official-kangnamdshw-academyfacility-2026"
       ],
       "passAvailability": [
         "both"
@@ -973,39 +901,39 @@
       ],
       "curriculumPath": [
         {
-          "stage": "정규시즌",
-          "course": "과목별 커리큘럼",
-          "material": "학원 교재"
+          "stage": "Core",
+          "course": "onsite regular math class",
+          "material": "academy class sheet + unit tests"
         },
         {
-          "stage": "중반",
-          "course": "심화/실전 모듈",
-          "material": "심화 자료"
+          "stage": "Intensive",
+          "course": "K-series practical block",
+          "material": "K-series set + analysis note"
         },
         {
-          "stage": "파이널",
-          "course": "최종 정리",
-          "material": "파이널 모의"
+          "stage": "Final",
+          "course": "final mock operation",
+          "material": "K mock + timing/error protocol"
         }
       ],
       "seasonalPlan": [
         {
-          "period": "3~6모",
+          "period": "Mar-Jun",
           "classType": "regular",
-          "content": "정규시즌 커리큘럼 기반 진도",
-          "goal": "개념+유형 정착"
+          "content": "baseline diagnostic + weak-unit fix",
+          "goal": "build stable baseline"
         },
         {
-          "period": "6~9모",
-          "classType": "advanced",
-          "content": "심화 모듈 + 실전 세트",
-          "goal": "고난도 대응"
+          "period": "Jul-Sep",
+          "classType": "k-series",
+          "content": "practical K-series set operation",
+          "goal": "reduce timing and selection mistakes"
         },
         {
-          "period": "9모~수능",
+          "period": "Oct-CSAT",
           "classType": "final",
-          "content": "파이널 정리 + 모의",
-          "goal": "실전 안정화"
+          "content": "high-pressure mock operation",
+          "goal": "score volatility minimization"
         }
       ],
       "reviewSummary": [
@@ -1019,7 +947,9 @@
         "kangnams2-teacher-curriculum",
         "official-mimac-main-2026",
         "orbi-daesung-math-recommend-2024",
-        "official-daesung-youtube-channel-2026"
+        "official-daesung-youtube-channel-2026",
+        "official-kangnamdshw-academyfacility-2026",
+        "orbi-00074254389-daesunginlive-k-season2"
       ],
       "passAvailability": [
         "daesungpass",
@@ -1414,129 +1344,6 @@
   ],
   "books": [
     {
-      "title": "Gaenyeomwolli Math I/II",
-      "type": "concept",
-      "fitKeys": [
-        "9-7",
-        "7-5"
-      ],
-      "purpose": "build concept structure",
-      "when": "before 6 mock",
-      "difficulty": "medium",
-      "subjectTags": [
-        "공통"
-      ],
-      "sourceLevel": "community",
-      "confidence": 0.9,
-      "sourceRefs": [
-        "orbi-math-band-column"
-      ]
-    },
-    {
-      "title": "RPM Math I/II",
-      "type": "type",
-      "fitKeys": [
-        "9-7",
-        "7-5"
-      ],
-      "purpose": "right-after-concept application",
-      "when": "immediately after concept",
-      "difficulty": "medium",
-      "subjectTags": [
-        "공통"
-      ],
-      "sourceLevel": "community",
-      "confidence": 0.86,
-      "sourceRefs": [
-        "orbi-math-band-column"
-      ]
-    },
-    {
-      "title": "Xistory Math I/II",
-      "type": "past",
-      "fitKeys": [
-        "7-5",
-        "5-3",
-        "3-1"
-      ],
-      "purpose": "past-exam type compression",
-      "when": "5~9 mock",
-      "difficulty": "medium-high",
-      "subjectTags": [
-        "공통"
-      ],
-      "sourceLevel": "community",
-      "confidence": 0.89,
-      "sourceRefs": [
-        "orbi-success-9to1"
-      ]
-    },
-    {
-      "title": "Madutong Past Math",
-      "type": "past",
-      "fitKeys": [
-        "7-5",
-        "5-3",
-        "3-1"
-      ],
-      "purpose": "year rotation",
-      "when": "year-round",
-      "difficulty": "medium-high",
-      "subjectTags": [
-        "공통"
-      ],
-      "sourceLevel": "community",
-      "confidence": 0.84,
-      "sourceRefs": [
-        "orbi-success-9to1"
-      ]
-    },
-    {
-      "title": "EBS Suneungteukgang Math",
-      "type": "EBS",
-      "fitKeys": [
-        "9-7",
-        "7-5",
-        "5-3"
-      ],
-      "purpose": "linked-material baseline / supplement-only for top-tier",
-      "when": "year-round",
-      "difficulty": "medium",
-      "subjectTags": [
-        "공통",
-        "확률과통계",
-        "미적분",
-        "기하"
-      ],
-      "sourceLevel": "official",
-      "confidence": 0.92,
-      "sourceRefs": [
-        "book-ebs-special-2026"
-      ]
-    },
-    {
-      "title": "EBS Suneungwanseong Math",
-      "type": "EBS",
-      "fitKeys": [
-        "7-5",
-        "5-3"
-      ],
-      "purpose": "final linked review / supplement-only for top-tier",
-      "when": "after 6 mock",
-      "difficulty": "medium-high",
-      "subjectTags": [
-        "공통",
-        "확률과통계",
-        "미적분",
-        "기하"
-      ],
-      "sourceLevel": "official",
-      "confidence": 0.92,
-      "sourceRefs": [
-        "book-ebs-complete-2026"
-      ]
-    },
-    {
       "title": "Drill",
       "type": "N-set",
       "fitKeys": [
@@ -1555,117 +1362,6 @@
       "confidence": 0.84,
       "sourceRefs": [
         "official-megastudy-woojin-ot"
-      ],
-      "levelBand": "high_nje"
-    },
-    {
-      "title": "Sidaeinjae Math Material",
-      "type": "academy",
-      "fitKeys": [
-        "5-3",
-        "3-1"
-      ],
-      "purpose": "high-tier practical loop",
-      "when": "6~final",
-      "difficulty": "high",
-      "subjectTags": [
-        "공통",
-        "확률과통계",
-        "미적분",
-        "기하"
-      ],
-      "sourceLevel": "official+community+youtube",
-      "confidence": 0.78,
-      "sourceRefs": [
-        "sdij-daechi-timetable",
-        "community-orbi-sdij-onsite-question-00072296617",
-        "official-sdij-youtube-channel-2026"
-      ],
-      "levelBand": "high_nje"
-    },
-    {
-      "title": "Dugak Math Material",
-      "type": "academy",
-      "fitKeys": [
-        "5-3",
-        "3-1"
-      ],
-      "purpose": "assignment-review practical cycle",
-      "when": "6~final",
-      "difficulty": "high",
-      "subjectTags": [
-        "공통",
-        "미적분",
-        "기하"
-      ],
-      "sourceLevel": "official+community+youtube",
-      "confidence": 0.76,
-      "sourceRefs": [
-        "dugak-requestclass-2026",
-        "community-orbi-dugak-onsite-question-00075023632",
-        "official-daesung-youtube-channel-2026"
-      ]
-    },
-    {
-      "title": "Elective: Prob/Stats Past+N",
-      "type": "elective",
-      "fitKeys": [
-        "7-5",
-        "5-3",
-        "3-1"
-      ],
-      "purpose": "prob-stat frequent pattern control",
-      "when": "5~final",
-      "difficulty": "medium-high",
-      "subjectTags": [
-        "확률과통계"
-      ],
-      "sourceLevel": "community",
-      "confidence": 0.77,
-      "sourceRefs": [
-        "orbi-math-band-column"
-      ],
-      "levelBand": "high_nje"
-    },
-    {
-      "title": "Elective: Calculus Past+N",
-      "type": "elective",
-      "fitKeys": [
-        "7-5",
-        "5-3",
-        "3-1"
-      ],
-      "purpose": "calculus hard section response",
-      "when": "5~final",
-      "difficulty": "high",
-      "subjectTags": [
-        "미적분"
-      ],
-      "sourceLevel": "community",
-      "confidence": 0.8,
-      "sourceRefs": [
-        "orbi-neuron-sugam-order-2026"
-      ],
-      "levelBand": "high_nje"
-    },
-    {
-      "title": "Elective: Geometry Past+N",
-      "type": "elective",
-      "fitKeys": [
-        "7-5",
-        "5-3",
-        "3-1"
-      ],
-      "purpose": "geometry hard adaptation",
-      "when": "5~final",
-      "difficulty": "high",
-      "subjectTags": [
-        "기하"
-      ],
-      "sourceLevel": "community",
-      "confidence": 0.79,
-      "sourceRefs": [
-        "orbi-math-band-column"
       ],
       "levelBand": "high_nje"
     },
@@ -2253,30 +1949,6 @@
       ]
     },
     {
-      "title": "두각 파이널 모의 세트",
-      "type": "academy-mock",
-      "fitKeys": [
-        "3-1"
-      ],
-      "purpose": "상위권 파이널 실전 세트 운영",
-      "when": "9모~수능",
-      "difficulty": "high",
-      "subjectTags": [
-        "공통",
-        "미적분",
-        "기하"
-      ],
-      "sourceLevel": "official+community+youtube",
-      "confidence": 0.8,
-      "sourceRefs": [
-        "dugak-presentation-board-2026",
-        "orbi-russell-sdij-dugak-season-question-2026",
-        "sdij-daechi-timetable",
-        "community-orbi-sdij-onsite-question-00072296617",
-        "official-sdij-youtube-channel-2026"
-      ]
-    },
-    {
       "title": "뉴런+수분감 병행 세트",
       "type": "lecture+past",
       "fitKeys": [
@@ -2299,109 +1971,44 @@
       ]
     },
     {
-      "title": "Sidaeinjae Survival Math Regular",
+      "title": "??????K ??",
       "type": "academy-mock",
       "fitKeys": [
         "5-3",
         "3-1"
       ],
-      "purpose": "Top-band practical mock adaptation with dense weekly review loop",
-      "when": "6~11 month cycle",
+      "purpose": "Final-period practical mock set for timing discipline, selection logic, and error-control under high pressure.",
+      "when": "September to CSAT final period",
       "difficulty": "high",
       "subjectTags": [
         "common",
         "calculus",
+        "probability-and-statistics",
         "geometry"
       ],
-      "sourceLevel": "official+community+youtube",
-      "confidence": 0.78,
+      "sourceLevel": "official+community",
+      "confidence": 0.88,
       "sourceRefs": [
-        "orbi-survival-types-00057634187",
-        "orbi-books-review-thread-00074808610",
-        "sdij-daechi-timetable",
-        "community-orbi-sdij-onsite-question-00072296617",
-        "official-sdij-youtube-channel-2026"
-      ],
-      "levelBand": "high_nje"
-    },
-    {
-      "title": "Sidaeinjae Survival Alpha Math",
-      "type": "academy-mock",
-      "fitKeys": [
-        "5-3",
-        "3-1"
-      ],
-      "purpose": "Hard variation set for upper-band timing and miss-type reduction",
-      "when": "7~10 month cycle",
-      "difficulty": "high",
-      "subjectTags": [
-        "common",
-        "calculus",
-        "geometry"
-      ],
-      "sourceLevel": "official+community+youtube",
-      "confidence": 0.75,
-      "sourceRefs": [
-        "orbi-survival-types-00057634187",
-        "sdij-daechi-timetable",
-        "community-orbi-sdij-onsite-question-00072296617",
-        "official-sdij-youtube-channel-2026"
-      ],
-      "levelBand": "high_nje"
-    },
-    {
-      "title": "Sidaeinjae N Survival Math",
-      "type": "academy-nje",
-      "fitKeys": [
-        "5-3",
-        "3-1"
-      ],
-      "purpose": "N-set style high-intensity training before final mocks",
-      "when": "6~9 month cycle",
-      "difficulty": "high",
-      "subjectTags": [
-        "common",
-        "calculus"
-      ],
-      "sourceLevel": "official+community+youtube",
-      "confidence": 0.72,
-      "sourceRefs": [
-        "orbi-survival-types-00057634187",
-        "sdij-daechi-timetable",
-        "community-orbi-sdij-onsite-question-00072296617",
-        "official-sdij-youtube-channel-2026"
-      ],
-      "levelBand": "high_nje"
-    },
-    {
-      "title": "KangK Math Mock",
-      "type": "mock",
-      "fitKeys": [
-        "5-3",
-        "3-1"
-      ],
-      "purpose": "Practical pacing and score stability in high-pressure sets",
-      "when": "8~11 month cycle",
-      "difficulty": "high",
-      "subjectTags": [
-        "common",
-        "calculus"
-      ],
-      "sourceLevel": "community",
-      "confidence": 0.76,
-      "sourceRefs": [
+        "official-gangnamdaesung-sii-notice-2026",
+        "official-kangnamdshw-academyfacility-2026",
+        "orbi-00074254389-daesunginlive-k-season2",
         "orbi-books-review-thread-00074808610"
+      ],
+      "levelBand": "high_nje",
+      "providerTags": [
+        "daesung",
+        "both"
       ]
     },
     {
-      "title": "Killing Camp Math Mock (KilCam)",
+      "title": "????",
       "type": "mock",
       "fitKeys": [
         "5-3",
         "3-1"
       ],
-      "purpose": "Final practical test simulation and mistake-control drilling",
-      "when": "9~11 month cycle",
+      "purpose": "??? ?? ???? ?? ???? ??",
+      "when": "9?~??",
       "difficulty": "high",
       "subjectTags": [
         "common",
@@ -2647,52 +2254,6 @@
       ]
     },
     {
-      "title": "Sidaeinjae Bridge Math",
-      "type": "academy-content",
-      "fitKeys": [
-        "7-5",
-        "5-3"
-      ],
-      "purpose": "Bridge phase content for moving from concept closure to practical solving",
-      "when": "3~6 month cycle",
-      "difficulty": "medium-high",
-      "subjectTags": [
-        "common",
-        "calculus"
-      ],
-      "sourceLevel": "official+community+youtube",
-      "confidence": 0.58,
-      "sourceRefs": [
-        "tistory-sdij-content-guide",
-        "sdij-daechi-timetable",
-        "community-orbi-sdij-onsite-question-00072296617",
-        "official-sdij-youtube-channel-2026"
-      ]
-    },
-    {
-      "title": "Sidaeinjae Excel Math",
-      "type": "academy-content",
-      "fitKeys": [
-        "5-3",
-        "3-1"
-      ],
-      "purpose": "Higher-intensity content layer for upper-band transition",
-      "when": "5~9 month cycle",
-      "difficulty": "high",
-      "subjectTags": [
-        "common",
-        "calculus"
-      ],
-      "sourceLevel": "official+community+youtube",
-      "confidence": 0.55,
-      "sourceRefs": [
-        "tistory-sdij-content-guide",
-        "sdij-daechi-timetable",
-        "community-orbi-sdij-onsite-question-00072296617",
-        "official-sdij-youtube-channel-2026"
-      ]
-    },
-    {
       "title": "Sidaeinjae The27 Math",
       "type": "academy-content",
       "fitKeys": [
@@ -2708,29 +2269,6 @@
       ],
       "sourceLevel": "official+community+youtube",
       "confidence": 0.54,
-      "sourceRefs": [
-        "tistory-sdij-content-guide",
-        "sdij-daechi-timetable",
-        "community-orbi-sdij-onsite-question-00072296617",
-        "official-sdij-youtube-channel-2026"
-      ]
-    },
-    {
-      "title": "Sidaeinjae Shortcut Math",
-      "type": "academy-content",
-      "fitKeys": [
-        "5-3",
-        "3-1"
-      ],
-      "purpose": "Late-stage compact routine to reduce unstable variance",
-      "when": "9~11 month cycle",
-      "difficulty": "high",
-      "subjectTags": [
-        "common",
-        "calculus"
-      ],
-      "sourceLevel": "official+community+youtube",
-      "confidence": 0.53,
       "sourceRefs": [
         "tistory-sdij-content-guide",
         "sdij-daechi-timetable",
@@ -2977,6 +2515,85 @@
         "official-kyobo-search-jainsun-nje-s1-math1-2027",
         "orbi-nje-recommend-thread-00063590966",
         "orbi-books-review-thread-00074808610"
+      ]
+    },
+    {
+      "title": "강대모의고사K 수학",
+      "type": "academy-mock",
+      "fitKeys": [
+        "3-1"
+      ],
+      "purpose": "파이널 실전 시간운영 및 변동성 최소화",
+      "when": "9모~수능",
+      "difficulty": "high",
+      "subjectTags": [
+        "공통",
+        "미적분",
+        "확률과통계",
+        "기하"
+      ],
+      "sourceLevel": "official+community",
+      "confidence": 0.86,
+      "sourceRefs": [
+        "official-gangnamdaesung-sii-notice-2026",
+        "community-orbi-sdij-onsite-question-00072296617"
+      ]
+    },
+    {
+      "title": "?? ??? N? ??? (2026)",
+      "type": "NJE",
+      "levelBand": "mid_nje",
+      "fitKeys": [
+        "7-5",
+        "5-3",
+        "3-1"
+      ],
+      "purpose": "Bridge set from concept to practical past-question adaptation before hard killer-heavy phase.",
+      "when": "after concept complete, before high-tier killer block",
+      "difficulty": "medium-high",
+      "subjectTags": [
+        "common",
+        "calculus",
+        "probability-and-statistics",
+        "geometry"
+      ],
+      "sourceLevel": "official+community",
+      "confidence": 0.86,
+      "providerTags": [
+        "both"
+      ],
+      "sourceRefs": [
+        "docs-orbi-gyuto-nje-2026",
+        "orbi-00070524026-gyuto-review",
+        "orbi-00061876865-light-nje",
+        "official-kyobo-search-math-nje-calculus-2026"
+      ]
+    },
+    {
+      "title": "?? ??? N? (2026)",
+      "type": "NJE",
+      "levelBand": "high_nje",
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "purpose": "Upper-band killer-adaptation set for students already stable at 2~3 to 1 transition stage.",
+      "when": "mid/late season after core and mid-tier NJE completion",
+      "difficulty": "high",
+      "subjectTags": [
+        "common",
+        "calculus",
+        "probability-and-statistics"
+      ],
+      "sourceLevel": "community",
+      "confidence": 0.8,
+      "providerTags": [
+        "both"
+      ],
+      "sourceRefs": [
+        "docs-orbi-gyuto-nje-2026",
+        "orbi-00070524026-gyuto-review",
+        "orbi-00067698637-gyuto-med-review"
       ]
     }
   ]

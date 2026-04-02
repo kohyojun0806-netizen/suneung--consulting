@@ -1,0 +1,39 @@
+[
+  {
+    "id": "manual-season-plan-core",
+    "type": "manual_text",
+    "platform": "manual",
+    "bucket": "study_methods",
+    "tags": ["season_plan", "3to6", "6to9", "9tocsat"],
+    "title": "시기별 수학 학습 핵심 원칙",
+    "transcript": "3~6월은 개념 구조화와 3,4점 기출 완성이 핵심이다. 6~9월은 준킬러/N제를 통해 조건 해석과 풀이 시나리오를 강화한다. 9월~수능 전은 실전 모의고사 루틴으로 시간 배분, 실수 패턴 제거, 약점 보완을 고정한다. 모든 시기에서 오답 복기는 24시간 이내 1차, 72시간 이내 2차가 기본이다."
+  },
+  {
+    "id": "manual-grade-band-method",
+    "type": "manual_text",
+    "platform": "manual",
+    "bucket": "learning_routines",
+    "tags": ["grade_band", "weekly_routine", "output_learning"],
+    "title": "등급대별 주간 루틴",
+    "transcript": "9~7등급은 개념을 입력이 아니라 출력으로 바꾸는 것이 우선이다. 7~5등급은 개념 기간을 제한하고 기출 적용 비중을 늘린다. 5~3등급은 준킬러에서 조건 구조화와 시나리오 매핑을 훈련한다. 3~1등급은 실모 루틴 고정과 실수 원인 분류로 안정화한다. 주간 계획은 교재, 학습법, 주간 목표를 각각 1개씩 명확히 적어야 한다."
+  },
+  {
+    "id": "manual-lecture-book-principle",
+    "type": "manual_text",
+    "platform": "manual",
+    "bucket": "lecture_books",
+    "tags": ["teacher_recommendation", "book_match", "curriculum"],
+    "title": "강사/교재 추천 원칙",
+    "transcript": "강사 추천은 인지도보다 대상 등급과 수업 속도 적합성을 우선한다. 교재 추천은 현재 난이도보다 반 단계 높은 수준으로 설정한다. 커리큘럼 추천 시에는 개념 강의-기출-N제-실모 순서를 유지한다. 수강 후기 데이터는 과장 가능성이 있으므로 동일 의견 2개 이상 교차 확인 후 반영한다."
+  },
+  {
+    "id": "orbi-column-problem-attitude",
+    "type": "community_column",
+    "platform": "orbi",
+    "bucket": "study_methods",
+    "tags": ["column", "mindset", "problem_solving"],
+    "title": "오르비 칼럼 - 수학 문제를 대하는 태도",
+    "webUrl": "https://orbi.kr/00077975282/%5B%EC%B9%BC%EB%9F%BC%5D-%EC%88%98%ED%95%99-%EB%AC%B8%EC%A0%9C%EB%A5%BC-%EB%8C%80%ED%95%98%EB%8A%94-%ED%83%9C%EB%8F%84",
+    "includeImages": false
+  }
+]

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-31",
+  "updatedAt": "2026-04-02",
   "policy": {
     "priority": [
       "official",
@@ -8,7 +8,7 @@
       "youtube_comment",
       "community-index"
     ],
-    "notes": "Phase3: prioritize direct sourceRef mapping for books and strict evaluator ingestion checks."
+    "notes": "Phase5: 2026-04-02 cross-validation refresh (official + community + youtube-comment continuity)."
   },
   "sources": [
     {
@@ -878,6 +878,94 @@
       "keyPoints": [
         "Akeoreum-focused comment trend for past-exam study method",
         "Questions about timing and mistake-log operations"
+      ]
+    },
+    {
+      "id": "official-gangnamdaesung-sii-notice-2026",
+      "type": "official",
+      "provider": "Gangnam Daesung SII",
+      "url": "https://kangnam.dshw.co.kr/info/academyfacility.do",
+      "capturedAt": "2026-04-02",
+      "keyPoints": [
+        "Official Gangnam Daesung/SII academy page",
+        "Used as official validation anchor for onsite/final recommendation"
+      ]
+    },
+    {
+      "id": "official-kangnamdshw-academyfacility-2026",
+      "type": "official",
+      "provider": "Gangnam Daesung",
+      "url": "https://kangnam.dshw.co.kr/info/academyfacility.do",
+      "capturedAt": "2026-04-02",
+      "keyPoints": [
+        "Official Gangnam Daesung page confirming academy and SII context",
+        "Used as official anchor for onsite mock/final recommendation validation"
+      ]
+    },
+    {
+      "id": "official-megastudy-kihyun-foundation-kickoff-2026",
+      "type": "official",
+      "provider": "Megastudy",
+      "url": "https://www.megastudy.net/teacher_v2/chr/lecture_view_package.asp?LeftMenuCd=2&PKG_CD=189636&tec_cd=kihyun6",
+      "capturedAt": "2026-04-02",
+      "keyPoints": [
+        "Official package page for Kihyun FOUNDATION + KICK-OFF",
+        "Includes stage sequencing and textbook references for selection-math tracks"
+      ]
+    },
+    {
+      "id": "official-ebsi-book-main-2026",
+      "type": "official",
+      "provider": "EBSi",
+      "url": "https://www.ebsi.co.kr/ebs/pot/potn/retrieveBookSubMain.ebs",
+      "capturedAt": "2026-04-02",
+      "keyPoints": [
+        "Official EBSi book hub with curriculum-linked book categories",
+        "Used to validate EBS positioning by grade band"
+      ]
+    },
+    {
+      "id": "docs-orbi-gyuto-nje-2026",
+      "type": "community-index",
+      "provider": "Orbi Atom",
+      "url": "https://docs.orbi.kr/books/13016-%EA%B7%9C%ED%86%A0%2BN%EC%A0%9C%2B%EC%88%98%ED%95%99%2B%EC%8B%9C%EB%A6%AC%EC%A6%88%2B2026/",
+      "capturedAt": "2026-04-02",
+      "keyPoints": [
+        "Contains 2026 Gyuto Light NJE structure and intended learner range",
+        "Used together with independent community reviews for cross-check"
+      ]
+    },
+    {
+      "id": "orbi-00070524026-gyuto-review",
+      "type": "community",
+      "provider": "Orbi",
+      "url": "https://orbi.kr/00070524026",
+      "capturedAt": "2026-04-02",
+      "keyPoints": [
+        "Community review with score/percentile evidence around NJE usage",
+        "Used to validate upper-band transition claims"
+      ]
+    },
+    {
+      "id": "orbi-00067698637-gyuto-med-review",
+      "type": "community",
+      "provider": "Orbi",
+      "url": "https://orbi.kr/00067698637",
+      "capturedAt": "2026-04-02",
+      "keyPoints": [
+        "Community admission review mentioning NJE route in long-term routine",
+        "Used as practical continuity reference beyond one test window"
+      ]
+    },
+    {
+      "id": "orbi-00074254389-daesunginlive-k-season2",
+      "type": "community",
+      "provider": "Orbi",
+      "url": "https://orbi.kr/00074254389",
+      "capturedAt": "2026-04-02",
+      "keyPoints": [
+        "Announcement thread about 2026 Daesung in-live x Kangdae Mock K season operation",
+        "Used to cross-check practical final-set timing claims"
       ]
     }
   ]

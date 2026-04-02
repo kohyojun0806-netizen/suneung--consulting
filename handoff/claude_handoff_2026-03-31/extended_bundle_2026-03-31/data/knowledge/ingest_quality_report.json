@@ -1,0 +1,451 @@
+{
+  "generatedAt": "2026-03-31T03:19:09.449Z",
+  "sourceFile": "data\\knowledge\\knowledge_base.json",
+  "knowledgeUpdatedAt": "2026-03-31",
+  "itemCount": 26,
+  "summary": {
+    "criticalCount": 52,
+    "warningCount": 11,
+    "gibberishCount": 52,
+    "duplicateCount": 0,
+    "lowQualityCount": 11,
+    "strictMode": false
+  },
+  "issues": {
+    "gibberish": [
+      {
+        "severity": "critical",
+        "id": "kb-past-97-output-first",
+        "field": "title",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "9~7?? ?? ???: ??? ?? ??"
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-97-output-first",
+        "field": "core",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "?? ??? ??? ??? ??? ?? ?? ???? ??? ??. ?? ?? 10~15??? ?? ?, ?? ??? ?? ?? ???? ??? 9~7?? ???? ?? ?? ????."
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-97-output-first",
+        "field": "steps[0].title",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "?? ? ??"
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-97-output-first",
+        "field": "steps[1].title",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "?? ? ???"
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-97-output-first",
+        "field": "steps[2].title",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "?? ?? ??"
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-97-output-first",
+        "field": "steps[0].detail",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "?? ?? ?? ?? ?? 2~3?? ? ??? ?? ?? ????."
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-97-output-first",
+        "field": "steps[1].detail",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "?? ?? ??? ?? ??? 30? ?? ?? ??? ??-?? ??? ???."
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-97-output-first",
+        "field": "steps[2].detail",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "??? ?? ??? ??? ??/??/?? ? ??? ????? ? ?? ????."
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-97-output-first",
+        "field": "cautions[0]",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "???? ?? ?? ??? ???? ?? ?? ??? ?? ?? ???."
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-75-rotation-structure",
+        "field": "title",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "7~5?? ?? ???: ??? ?? ???"
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-75-rotation-structure",
+        "field": "core",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "7~5????? ??? ???? ? ?? ?????? ???? ???? ???? ???. ? 3? ???? ??/??? ?? ???? ?? ?? ??? ??? ????."
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-75-rotation-structure",
+        "field": "steps[0].title",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "?? ???"
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-75-rotation-structure",
+        "field": "steps[1].title",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "?? ??? ??"
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-75-rotation-structure",
+        "field": "steps[2].title",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "?? ?? ??"
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-75-rotation-structure",
+        "field": "steps[0].detail",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "?/?/?? ?? ??, ?/?? ???? ??? ??? ?? ??? ???."
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-75-rotation-structure",
+        "field": "steps[2].detail",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "?? ?? ??? ?? 40%? ??? ??? ?? ??? ?? ????."
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-75-rotation-structure",
+        "field": "cautions[0]",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "?? ?? ??? ?? ??? ??? 7~5?? ??? ????."
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-53-decision-log",
+        "field": "title",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "5~3?? ?? ???: ?? ?? ??"
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-53-decision-log",
+        "field": "core",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "5~3???? ??? ???? ?? ?? ??? ???? ??? ????. ?? ????? ? ? ??? ???? ??? ??? ??? ???? ??? ????."
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-53-decision-log",
+        "field": "steps[0].title",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "?? ?? 1?"
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-53-decision-log",
+        "field": "steps[1].title",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "?? ?? ??"
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-53-decision-log",
+        "field": "steps[2].title",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "?? ?? ???"
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-53-decision-log",
+        "field": "steps[0].detail",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "? ?? ???? ?? ?? ?? ?? ??? ? ?? ???."
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-53-decision-log",
+        "field": "steps[1].detail",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "?? ? ?? ??? 1?? ??? ?? ?? ???? ??? ???."
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-53-decision-log",
+        "field": "steps[2].detail",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "?? ??? ?? ??? ?? ?? ?? ?? ??? ????."
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-53-decision-log",
+        "field": "cautions[0]",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "??? ?????? ??? ?? ??? ?? ??? ?? ?? ?? ???? ???."
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-31-final-reuse",
+        "field": "title",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "3~1?? ?? ???: ??? ?? ??"
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-31-final-reuse",
+        "field": "core",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "???? ?? ??? ?? ????? ?? ??? ?????. ?? ??? ??? ?? ?? ??? ?? ?? ??? ???? ??? ?? ?? ???? ????."
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-31-final-reuse",
+        "field": "steps[0].title",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "?? ?? ??"
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-31-final-reuse",
+        "field": "steps[1].title",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "?? ?? ??"
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-31-final-reuse",
+        "field": "steps[2].title",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "?? ?? ??"
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-31-final-reuse",
+        "field": "steps[0].detail",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "?? ??? + ?? ?? ???? 20~30?? ??? ????."
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-31-final-reuse",
+        "field": "steps[1].detail",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "3?/7? ???? ?? ??? ???? ?? ?? ??? ????."
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-31-final-reuse",
+        "field": "steps[2].detail",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "?? ???? ??? ??? ?? ? ?? ?? ??? ??? ????."
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-31-final-reuse",
+        "field": "cautions[0]",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "??? ??? ??? ??? ???? ?? ?? ??? ?? ?? ??? ??."
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-all-review-sheet",
+        "field": "title",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "?? ?? ?? ?? ???"
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-all-review-sheet",
+        "field": "core",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "?? ??? ?? ??? ?? ?? ?? ???? ???? ?? ??? ???. ?? ?? ??? 24?? 1?, 72?? 2?, 7? 3? ???? ????."
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-all-review-sheet",
+        "field": "steps[0].title",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "24?? 1?"
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-all-review-sheet",
+        "field": "steps[1].title",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "72?? 2?"
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-all-review-sheet",
+        "field": "steps[0].detail",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "?? ??? ?? ??? ??? ?? ???? 3? ??? ????."
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-all-review-sheet",
+        "field": "steps[1].detail",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "?? ?? ?? 1~2??? ??? ?? ??? ????."
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-all-review-sheet",
+        "field": "steps[2].detail",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "??? ??? ?? ?? ? ?? ??? ??? ?? ???? ????."
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-all-review-sheet",
+        "field": "cautions[0]",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "?? ??? ?? ???? ??? ?? ??? ??? ???."
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-all-instructor-board-template",
+        "field": "title",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "?? ??? ?? ??? (?? ???)"
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-all-instructor-board-template",
+        "field": "core",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "?? ??? ??? ?? ??+?? ??+?? ??+??? ???? ?? ???? ?? ??? ????. ?? ???? ??? ???? ?? ?? ??? ?? ? ??."
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-all-instructor-board-template",
+        "field": "steps[0].title",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "?? ??"
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-all-instructor-board-template",
+        "field": "steps[1].title",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "?? ??"
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-all-instructor-board-template",
+        "field": "steps[2].title",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "??? ??"
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-all-instructor-board-template",
+        "field": "steps[0].detail",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "?? ??, ? ?? 3?, ?? ?? 1?, ??? ?? ??? 1?? ????."
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-all-instructor-board-template",
+        "field": "steps[1].detail",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "?? ?? ??? ?? ?? ?? 2??? ?? ??? ????."
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-all-instructor-board-template",
+        "field": "steps[2].detail",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "?? ???? ?? ??? ?? ?? ??? ???? ??? ?????."
+      },
+      {
+        "severity": "critical",
+        "id": "kb-past-all-instructor-board-template",
+        "field": "cautions[0]",
+        "message": "깨짐/무의미 텍스트로 추정됩니다.",
+        "sample": "??? ?? ??? ??? ?? ??? ??? ????? ??? ??."
+      }
+    ],
+    "duplicates": [],
+    "lowQuality": [
+      {
+        "severity": "warning",
+        "id": "kb-past-97-output-first",
+        "field": "steps",
+        "message": "실행 가능한 step detail이 부족합니다."
+      },
+      {
+        "severity": "warning",
+        "id": "kb-past-97-output-first",
+        "field": "cautions",
+        "message": "주의점 문장이 너무 짧거나 품질이 낮습니다."
+      },
+      {
+        "severity": "warning",
+        "id": "kb-past-75-rotation-structure",
+        "field": "cautions",
+        "message": "주의점 문장이 너무 짧거나 품질이 낮습니다."
+      },
+      {
+        "severity": "warning",
+        "id": "kb-past-53-decision-log",
+        "field": "steps",
+        "message": "실행 가능한 step detail이 부족합니다."
+      },
+      {
+        "severity": "warning",
+        "id": "kb-past-53-decision-log",
+        "field": "cautions",
+        "message": "주의점 문장이 너무 짧거나 품질이 낮습니다."
+      },
+      {
+        "severity": "warning",
+        "id": "kb-past-31-final-reuse",
+        "field": "steps",
+        "message": "실행 가능한 step detail이 부족합니다."
+      },
+      {
+        "severity": "warning",
+        "id": "kb-past-31-final-reuse",
+        "field": "cautions",
+        "message": "주의점 문장이 너무 짧거나 품질이 낮습니다."
+      },
+      {
+        "severity": "warning",
+        "id": "kb-past-all-review-sheet",
+        "field": "steps",
+        "message": "실행 가능한 step detail이 부족합니다."
+      },
+      {
+        "severity": "warning",
+        "id": "kb-past-all-review-sheet",
+        "field": "cautions",
+        "message": "주의점 문장이 너무 짧거나 품질이 낮습니다."
+      },
+      {
+        "severity": "warning",
+        "id": "kb-past-all-instructor-board-template",
+        "field": "steps",
+        "message": "실행 가능한 step detail이 부족합니다."
+      },
+      {
+        "severity": "warning",
+        "id": "kb-past-all-instructor-board-template",
+        "field": "cautions",
+        "message": "주의점 문장이 너무 짧거나 품질이 낮습니다."
+      }
+    ]
+  }
+}

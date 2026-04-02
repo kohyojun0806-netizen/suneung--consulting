@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plan generatedAt="2026-03-30T05:00:50.097Z" projectSlug="ui-data-priority-20260330">
+  <objective>UI redesign first, then evidence-rich student success and instructor/book recommendation expansion</objective>
+  <constraints>
+    <constraint id="C1">Do not break existing API schemas used by frontend.</constraint>
+    <constraint id="C2">Keep build and ingest verification passing.</constraint>
+    <constraint id="C3">Respect source trust hierarchy: official &gt; official+community &gt; community &gt; youtube_comment.</constraint>
+    <constraint id="C4">No personally identifiable student data.</constraint>
+  </constraints>
+  <research>
+    <item id="R1" status="pending">Build trusted source list per provider type (official/community/youtube_comment).</item>
+    <item id="R2" status="pending">Identify recurring student question patterns from YouTube comment themes.</item>
+    <item id="R3" status="pending">Map top-tier seasonal curriculum decisions into actionable schedule guidance.</item>
+    <item id="R4" status="pending">Official instructor pages and curriculum pages.</item>
+    <item id="R5" status="pending">Community evidence from Orbi/Fomanhan/Sumanhwi-indexed references.</item>
+    <item id="R6" status="pending">YouTube question trend themes (Akeoreum channel emphasis).</item>
+    <item id="R7" status="pending">Internal normalized files under `data/knowledge`.</item>
+  </research>
+  <scope>
+    <task id="T1" status="pending">Redesign the main UI with stronger visual identity and mobile stability.</task>
+    <task id="T2" status="pending">Expand recommendation datasets: instructors, books, student success cases, question signals.</task>
+    <task id="T3" status="pending">Add season-based guidance for top-tier tracks (Sidaeinjae and Dugak).</task>
+    <task id="T4" status="pending">Keep recommendation outputs tied to source registry references.</task>
+  </scope>
+  <selfValidation>
+    <check id="V1" status="pending">verify:ingest passes</check>
+    <check id="V2" status="pending">build passes</check>
+    <check id="V3" status="pending">critical API path returns expected schema</check>
+    <check id="V4" status="pending">security controls are enabled for production</check>
+  </selfValidation>
+</plan>

@@ -1,0 +1,377 @@
+{
+  "updatedAt": "2026-03-30",
+  "notes": "Phase3 update: added NJE/mock sequence and survival-track success patterns.",
+  "cases": [
+    {
+      "id": "success-9to1-orbi-2020",
+      "bandShift": "9->1",
+      "duration": "약 1년",
+      "summary": "개념 출력-기출 적용-오답 복기 루틴을 고정해 1등급까지 도달한 사례.",
+      "coreActions": [
+        "개념 출력 20분",
+        "기출 적용 당일 1회",
+        "오답 복기 24시간 내"
+      ],
+      "fitKeys": [
+        "9-7",
+        "7-5",
+        "5-3"
+      ],
+      "sourceRefs": [
+        "orbi-success-9to1"
+      ],
+      "reliability": 0.76
+    },
+    {
+      "id": "success-nobase-thread-2023",
+      "bandShift": "8->2/3",
+      "duration": "about 1 year",
+      "summary": "Long thread discussion reports multiple base-level improvement cases with stable routines.",
+      "coreActions": [
+        "fixed weekly rhythm",
+        "basic past rotation",
+        "mistake pattern tracking"
+      ],
+      "fitKeys": [
+        "9-7",
+        "7-5"
+      ],
+      "sourceRefs": [
+        "orbi-nobase-oneyear-thread"
+      ],
+      "reliability": 0.64
+    },
+    {
+      "id": "success-elite-seasonal",
+      "bandShift": "top-band stabilization",
+      "duration": "3 to final",
+      "summary": "Top-band gains depend on seasonal class-content decisions and compressed final review.",
+      "coreActions": [
+        "3-6 weakness closure",
+        "6-9 hard set + mock",
+        "9-final variance control"
+      ],
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "sourceRefs": [
+        "sdij-daechi-timetable",
+        "dugak-requestclass-2026"
+      ],
+      "reliability": 0.78
+    },
+    {
+      "id": "success-8to2-thread-2023",
+      "bandShift": "8->2",
+      "duration": "10~12개월",
+      "summary": "기출 회독 순서와 오답 복기 루틴으로 2등급대 진입 사례.",
+      "coreActions": [
+        "기출 회독 3회전",
+        "오답 복기 주 3회",
+        "주간 실모 2회"
+      ],
+      "fitKeys": [
+        "9-7",
+        "7-5"
+      ],
+      "sourceRefs": [
+        "orbi-past-rotation-thread-2026",
+        "orbi-nobase-oneyear-thread"
+      ],
+      "reliability": 0.7
+    },
+    {
+      "id": "success-7to3-community-01",
+      "bandShift": "7->3",
+      "duration": "6~8개월",
+      "summary": "개념 과몰입을 줄이고 쉬운 기출부터 전환해 3등급권으로 상승한 사례.",
+      "coreActions": [
+        "개념 4주 제한",
+        "쉬운 기출 적용",
+        "오답 유형 분류"
+      ],
+      "fitKeys": [
+        "7-5",
+        "5-3"
+      ],
+      "sourceRefs": [
+        "orbi-math-band-column"
+      ],
+      "reliability": 0.66
+    },
+    {
+      "id": "success-6to2-community-01",
+      "bandShift": "6->2",
+      "duration": "7~9개월",
+      "summary": "시간관리 규칙을 고정해 실모 점수 변동폭을 줄인 사례.",
+      "coreActions": [
+        "문항 회수 규칙",
+        "실모 주 3회",
+        "오답 원인 4분류"
+      ],
+      "fitKeys": [
+        "7-5",
+        "5-3",
+        "3-1"
+      ],
+      "sourceRefs": [
+        "orbi-time-management-thread-2026"
+      ],
+      "reliability": 0.71
+    },
+    {
+      "id": "success-5to2-orbi-01",
+      "bandShift": "5->2",
+      "duration": "5~7개월",
+      "summary": "조건 해석 우선 루틴으로 준킬러 처리력을 끌어올린 사례.",
+      "coreActions": [
+        "조건 해석 먼저",
+        "준킬러 오답 3회전",
+        "주간 체크리스트"
+      ],
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "sourceRefs": [
+        "orbi-5to2-review-2026"
+      ],
+      "reliability": 0.72
+    },
+    {
+      "id": "success-4to1-practical-01",
+      "bandShift": "4->1",
+      "duration": "약 9개월",
+      "summary": "N제/실모를 시기별로 분리해 사용하고 9모 이후 확장을 멈춰 1등급을 확보한 사례.",
+      "coreActions": [
+        "3~6모 약점단원 집중",
+        "6~9모 N제+실모",
+        "9모 이후 압축복기"
+      ],
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "sourceRefs": [
+        "orbi-simul-tips-thread-2026"
+      ],
+      "reliability": 0.74
+    },
+    {
+      "id": "success-elite-stable-sdij-01",
+      "bandShift": "상위권 안정화",
+      "duration": "3월~수능",
+      "summary": "시대인재 단과를 시기별로 분할 수강해 실전 변동폭을 줄인 사례.",
+      "coreActions": [
+        "3~6모 정규+클리닉",
+        "6~9모 킬러N제+실모",
+        "9모~수능 파이널+압축복기"
+      ],
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "sourceRefs": [
+        "sdij-daechi-timetable",
+        "orbi-sdij-review-2026"
+      ],
+      "reliability": 0.8
+    },
+    {
+      "id": "success-elite-stable-dugak-01",
+      "bandShift": "상위권 안정화",
+      "duration": "3월~수능",
+      "summary": "두각 단과에서 과제-점검-복기 루프를 유지하며 실모 점수를 안정화한 사례.",
+      "coreActions": [
+        "정규 과제 수행률",
+        "주간 오답 복기",
+        "파이널 회수 규칙"
+      ],
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "sourceRefs": [
+        "dugak-requestclass-2026",
+        "dugak-teacher-board"
+      ],
+      "reliability": 0.78
+    },
+    {
+      "id": "success-7to4-comment-trend-01",
+      "bandShift": "7->4",
+      "duration": "4~6개월",
+      "summary": "유튜브 질문 패턴 기반 루틴을 적용해 4등급권 진입 사례.",
+      "coreActions": [
+        "질문 로그 작성",
+        "오답 복기 고정",
+        "실모 시간관리 점검"
+      ],
+      "fitKeys": [
+        "7-5",
+        "5-3"
+      ],
+      "sourceRefs": [
+        "youtube-comment-akoreum-manual"
+      ],
+      "reliability": 0.63
+    },
+    {
+      "id": "success-6to3-community-02",
+      "bandShift": "6->3",
+      "duration": "6개월",
+      "summary": "기출 회독 계획과 오답 노트 템플릿으로 중난도 정확도를 개선한 사례.",
+      "coreActions": [
+        "기출 회독 계획표",
+        "오답 노트 템플릿",
+        "주간 실모 2회"
+      ],
+      "fitKeys": [
+        "7-5",
+        "5-3"
+      ],
+      "sourceRefs": [
+        "orbi-ahha-errnote-docs"
+      ],
+      "reliability": 0.68
+    },
+    {
+      "id": "success-p40-to-grade1-orbi-2026",
+      "bandShift": "percentile40->grade1",
+      "duration": "about 1 year",
+      "summary": "Community post reports conversion from percentile 40 to grade 1 using lecture+past+N-set+mock sequence.",
+      "coreActions": [
+        "뉴런/수분감 병행",
+        "신성규 현강",
+        "실모 주기 + 오답 회수"
+      ],
+      "fitKeys": [
+        "7-5",
+        "5-3",
+        "3-1"
+      ],
+      "sourceRefs": [
+        "orbi-success-percentile40-to-grade1"
+      ],
+      "reliability": 0.81
+    },
+    {
+      "id": "success-sdij-hof-mistake-control-2026",
+      "bandShift": "top-band stabilization",
+      "duration": "in-season",
+      "summary": "Sidaeinjae hall-of-fame review emphasizes sleep and repeated mistake-control for stable math output.",
+      "coreActions": [
+        "실수 유형 분류",
+        "수면/컨디션 관리",
+        "모의 후 즉시 복기"
+      ],
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "sourceRefs": [
+        "sdij-hall-of-fame-review-616"
+      ],
+      "reliability": 0.84
+    },
+    {
+      "id": "success-4to1-lightnje-community-2026",
+      "bandShift": "4->1",
+      "duration": "1 academic year",
+      "summary": "Community recommendation reports sustained grade 1 with N-set routine and review consistency.",
+      "coreActions": [
+        "N제 반복",
+        "모의고사 루틴",
+        "오답회수 고정"
+      ],
+      "fitKeys": [
+        "7-5",
+        "5-3"
+      ],
+      "sourceRefs": [
+        "orbi-00061876865-light-nje"
+      ],
+      "reliability": 0.7
+    },
+    {
+      "id": "success-5to1-column-2026",
+      "bandShift": "5->1-late",
+      "duration": "3~5 months",
+      "summary": "Grade-band column claims fast uplift when review cycle and grade-specific strategy are fixed.",
+      "coreActions": [
+        "등급대별 전략",
+        "복습 우선 루틴",
+        "단계별 교재 운용"
+      ],
+      "fitKeys": [
+        "7-5",
+        "5-3",
+        "3-1"
+      ],
+      "sourceRefs": [
+        "orbi-math-band-column"
+      ],
+      "reliability": 0.67
+    },
+    {
+      "id": "success-60score-to-grade1-2026",
+      "bandShift": "60-point-band->grade1",
+      "duration": "mid-term",
+      "summary": "Score-band recovery case highlights error-note quality and repeated concept application.",
+      "coreActions": [
+        "오답노트 체계화",
+        "개념 재출력",
+        "문항별 풀이 일관화"
+      ],
+      "fitKeys": [
+        "7-5",
+        "5-3"
+      ],
+      "sourceRefs": [
+        "orbi-00032151027-studymethod"
+      ],
+      "reliability": 0.69
+    },
+    {
+      "id": "success-nje-mock-sequence-topband-2026-phase3",
+      "bandShift": "5->1",
+      "duration": "about 5~8 months",
+      "summary": "Community patterns repeatedly mention that students stabilized upper-band scores after fixing NJE->mock->error-loop order.",
+      "coreActions": [
+        "Single NJE lane per period",
+        "Weekly mock and miss-type tags",
+        "No late-stage random expansion"
+      ],
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "sourceRefs": [
+        "orbi-books-review-thread-00074808610",
+        "orbi-nje-usage-column-00065785267"
+      ],
+      "reliability": 0.74
+    },
+    {
+      "id": "success-survival-track-consistency-2026-phase3",
+      "bandShift": "top-band stabilization",
+      "duration": "in-season",
+      "summary": "Sidae survival-track discussions emphasize maintaining one stable content lane rather than broad, frequent switching.",
+      "coreActions": [
+        "Keep one survival track",
+        "Align weekly assignment with previous miss-types",
+        "Compress in final period"
+      ],
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "sourceRefs": [
+        "orbi-survival-types-00057634187",
+        "orbi-books-question-thread-00060558051"
+      ],
+      "reliability": 0.69
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "process": "GSD + 3agent",
+  "roles": {
+    "planer": "what to build only",
+    "generator": "how to build with emphasis on design quality and originality",
+    "evaluator": "score + feedback + re-evaluate loop with Playwright when available"
+  },
+  "scoreWeights": {
+    "designQuality": 35,
+    "originality": 30,
+    "completeness": 20,
+    "functionality": 15
+  },
+  "sprintDefaults": {
+    "minIterations": 5,
+    "maxIterations": 12,
+    "targetScore": 95,
+    "nearOptimalDelta": 1,
+    "stablePassStreak": 3,
+    "withE2E": true,
+    "sandboxFallback": false,
+    "strictEvaluator": true
+  }
+}

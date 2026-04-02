@@ -1,0 +1,32 @@
+New chat resume request.
+Project root: C:\Users\tocho\suneung
+
+Before doing anything:
+1) Read:
+   - docs/SPRINT_AUDIT_2026-03-30.md
+   - docs/PROJECT_STATE.md
+   - docs/NEXT_TASKS.md
+   - docs/SPRINT_CONTRACT_31.md
+   - docs/SPRINT_LOG_31.md
+2) Inspect current code:
+   - src/suneung-tracker.jsx
+   - src/suneung-tracker.css
+   - server/index.js
+   - tests/e2e/*.spec.ts
+3) Print a 5-line state recap and exact next action.
+
+Process must be:
+- GSD + 3agent (Planner -> Generator -> Evaluator)
+- strict evaluator true
+- minimum iterations 5
+- score threshold 97
+- no fallback pass
+- no spawn fallback
+
+Objective:
+- high-quality, original, clean UI/design improvement
+- evaluator-approved final pass
+- build + playwright + strict verification all green
+
+If anything fails, fix and rerun until pass.
+

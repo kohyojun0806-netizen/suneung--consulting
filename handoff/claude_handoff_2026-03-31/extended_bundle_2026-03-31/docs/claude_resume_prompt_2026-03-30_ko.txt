@@ -1,0 +1,8 @@
+재개용 표준 프롬프트:
+
+`docs/claude_handoff/04_resume_prompt_ui_gsd_ko.txt`
+
+열람 순서:
+1) docs/claude_handoff/README.md
+2) docs/claude_handoff/01_file_open_order.txt
+3) 위 재개 프롬프트 붙여넣기

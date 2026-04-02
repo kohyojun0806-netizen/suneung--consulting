@@ -1,0 +1,19 @@
+이전 세션 작업을 이어서 진행해줘.
+
+[현재 기준 상태]
+- latest pushed commit: ac39cfc
+- production: https://suneung-psi.vercel.app
+- strict evaluator 기본값 활성화 완료
+- phase3 books 데이터 확장 완료(books 63, source registry 50)
+
+[지시]
+1) 먼저 docs/claude_handoff/01_file_open_order.txt 순서대로 핵심 파일을 확인
+2) PLANER -> Generator -> evaluator 순서로 진행
+3) strict evaluator 기준을 유지하고 Playwright를 반드시 실행
+4) evaluator 만족 전까지 반복
+5) 마지막에 계약/로그/감사 문서를 업데이트
+
+[주의]
+- UI는 독창적이되 과하지 않게, 전체 흐름이 유기적으로 연결되게 개선
+- 교재 추천은 sourceRefs와 confidence를 유지하고 근거 없는 추가 금지
+- sandbox fallback pass로 점수 통과시키지 말 것

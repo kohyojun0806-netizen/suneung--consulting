@@ -1,0 +1,27 @@
+중단된 UI 스프린트를 재개한다.
+프로젝트: ui-data-priority-20260330
+
+[재개 우선순위]
+1) UI 디자인 완성도/일관성 향상
+2) 고득점권(3-1, 5-3) 교재 추천 밀도 개선
+3) strict evaluator 루프 통과
+
+[반드시 실행]
+- npm run verify:ingest -- --strict
+- npm run verify:catalog -- --strict
+- npm run build
+- npm run test:e2e
+- npm run gsd:sprint-loop -- --project ui-data-priority-20260330 --min-iterations 5 --max-iterations 7 --target-score 95 --strict-evaluator true --with-e2e true --sandbox-fallback false
+- npm run gsd:verify-work -- --project ui-data-priority-20260330 --strict-evaluator true --with-e2e true --sandbox-fallback false
+
+[문서 산출물]
+- docs/SPRINT_CONTRACT_XX.md
+- docs/SPRINT_LOG_XX.md
+- docs/SPRINT_AUDIT_2026-03-30.md 업데이트
+- docs/NEXT_TASKS.md 업데이트
+
+[완료 조건]
+- Playwright 포함 strict PASS
+- 스프린트 반복 >= 5
+- evaluator PASS
+- 변경사항 푸시/배포 준비 완료

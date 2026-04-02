@@ -10,47 +10,83 @@ import './suneung-tracker.css';
 
 const CONFIDENCE_META = {
   official: {
-    label: '공식',
-    icon: '◈',
+    label: 'official',
+    icon: 'O',
     className: 'badge--official',
-    ariaLabel: '공식 검증 출처',
+    ariaLabel: 'official source',
   },
   community: {
-    label: '커뮤니티',
-    icon: '◉',
+    label: 'community',
+    icon: 'C',
     className: 'badge--community',
-    ariaLabel: '커뮤니티 검증 출처',
+    ariaLabel: 'community source',
   },
   'youtube-comment': {
-    label: '유튜브',
-    icon: '▶',
+    label: 'youtube',
+    icon: 'Y',
     className: 'badge--youtube',
-    ariaLabel: '유튜브 커뮤니티 출처',
+    ariaLabel: 'youtube source',
   },
 };
 
 const GRADE_BANDS = [
-  { value: '1', label: '1등급', sub: '상위 4%' },
-  { value: '2-3', label: '2~3등급', sub: '상위 5~23%' },
-  { value: '4+', label: '4등급 이하', sub: '기초~중급' },
+  { value: 'no-base', label: '????', sub: '?? 0?? ??' },
+  { value: '5-7',     label: '5~7??',  sub: '?? ?? ??' },
+  { value: '3-4',     label: '3~4??',  sub: '??? ???' },
+  { value: '2',       label: '2??',    sub: '?? ?? ??' },
+  { value: '1',       label: '1??',    sub: '??/?? ??' },
+  { value: '100',     label: '100?',    sub: '?? ?? ??' },
+  { value: '2-3',     label: '2~3??(??)', sub: '?? ???/??? ??' },
+  { value: '4+',      label: '4??+(??)',  sub: '?? ???/??? ??' },
 ];
 
 const ELECTIVE_SUBJECTS = [
-  { value: 'calculus', label: '미적분', icon: '∫' },
-  { value: 'probability', label: '확률과 통계', icon: 'P' },
-  { value: 'geometry', label: '기하', icon: '△' },
+  { value: 'calculus', label: '미적분', icon: 'M' },
+  { value: 'probability', label: '확률과통계', icon: 'P' },
+  { value: 'geometry', label: '기하', icon: 'G' },
 ];
 
-// Vercel same-origin /api/* — no cross-origin needed
-const API_BASE = process.env.REACT_APP_API_URL || '';
-const CANONICAL_API_ORIGIN =
-  process.env.REACT_APP_API_FALLBACK_ORIGIN || 'https://suneung-psi.vercel.app';
-const GRADE_TO_NUM = { '1': 1, '2-3': 3, '4+': 5 };
+const LANDING_PROOF_ROWS = [
+  { label: '100점',   cue: '만점 루틴 유지',  fillClass: 'landing__ladder-fill--100' },
+  { label: '1등급',   cue: '실수·시간 관리',  fillClass: 'landing__ladder-fill--85' },
+  { label: '2등급',   cue: '킬러 접근 확장',  fillClass: 'landing__ladder-fill--68' },
+  { label: '3~4등급', cue: '준킬러 안정화',   fillClass: 'landing__ladder-fill--52' },
+  { label: '5~7등급', cue: '기출 진입 준비',  fillClass: 'landing__ladder-fill--32' },
+  { label: '노베이스', cue: '개념 체력 재건', fillClass: 'landing__ladder-fill--12' },
+];
+
+const LANDING_FLOW_STEPS = [
+  '현재 등급과 목표를 입력합니다.',
+  '등급대별 핵심 우선순위를 자동 분석합니다.',
+  '실행 가능한 교재·강사 로드맵으로 바로 시작합니다.',
+];
+
+const LANDING_STATS_DEFAULT = [
+  { key: 'recommendationInstructors', value: '14+', label: '핵심 강사' },
+  { key: 'recommendationBooks', value: '63+', label: '검증 교재' },
+  { key: 'studentSuccessCases', value: '19+', label: '성공 케이스' },
+  { key: 'knowledgeItems', value: '50+', label: '등록 출처' },
+];
+
+const LEVEL_LENS = [
+  { id: 'no-base', label: '노베이스', cue: '개념 체력 재건' },
+  { id: '5-7',     label: '5~7등급', cue: '기출 진입 준비' },
+  { id: '3-4',     label: '3~4등급', cue: '준킬러 안정화' },
+  { id: '2',       label: '2등급',   cue: '킬러 접근 확장' },
+  { id: '1',       label: '1등급',   cue: '실수·시간 관리' },
+  { id: '100',     label: '100점',   cue: '만점 루틴 유지' },
+];
+
 const ELECTIVE_TO_SERVER = {
   calculus: '미적분',
   probability: '확률과통계',
   geometry: '기하',
 };
+
+const API_BASE = process.env.REACT_APP_API_URL || '';
+const CANONICAL_API_ORIGIN =
+  process.env.REACT_APP_API_FALLBACK_ORIGIN || 'https://suneung-psi.vercel.app';
+const GRADE_TO_NUM = { 'no-base': 9, '5-7': 6, '3-4': 3, '2': 2, '1': 1, '100': 1, '2-3': 3, '4+': 5 };
 
 function buildApiCandidates(pathname) {
   const primary = `${API_BASE}${pathname}`;
@@ -87,15 +123,182 @@ function toAnalyzePayload(profile) {
   };
 }
 
+function asArray(value) {
+  return Array.isArray(value) ? value : [];
+}
+
+function toText(value, fallback = '') {
+  if (typeof value !== 'string') return fallback;
+  const trimmed = value.trim();
+  return trimmed || fallback;
+}
+
+function isHttpUrl(value) {
+  return /^https?:\/\//i.test(toText(value));
+}
+
+function pickFirstHttpRef(refs) {
+  return asArray(refs).map((x) => toText(x)).find((x) => isHttpUrl(x)) || '';
+}
+
+function normalizePlanForUi(rawPlan, profile) {
+  const plan = rawPlan && typeof rawPlan === 'object' ? rawPlan : {};
+
+  const recommendedBooksRaw = asArray(plan.recommendedBooks).length
+    ? asArray(plan.recommendedBooks)
+    : asArray(plan.recommended_books);
+  const recommendedInstructorsRaw = asArray(plan.recommendedInstructors).length
+    ? asArray(plan.recommendedInstructors)
+    : asArray(plan.recommended_instructors);
+  const roadmapRaw = asArray(plan.roadmapSteps).length
+    ? asArray(plan.roadmapSteps)
+    : asArray(plan.period_plan);
+  const successCaseBandsRaw = asArray(plan.successCaseBands).length
+    ? asArray(plan.successCaseBands)
+    : asArray(plan.success_case_bands);
+  const successCaseInsightsRaw = asArray(plan.successCaseInsights).length
+    ? asArray(plan.successCaseInsights)
+    : asArray(plan.success_case_insights);
+
+  const recommendedBooks = recommendedBooksRaw.map((book) => {
+    const refs = asArray(book?.sourceRefs).length ? asArray(book.sourceRefs) : asArray(book?.source_refs);
+    return {
+      title: toText(book?.title),
+      author: toText(book?.author),
+      publisher: toText(book?.publisher),
+      reason: toText(book?.reason || book?.purpose),
+      tags: asArray(book?.tags).length
+        ? asArray(book.tags)
+        : [toText(book?.type), toText(book?.difficulty), toText(book?.level_band)].filter(Boolean),
+      confidence: toText(book?.confidence, 'official'),
+      sourceRefs: refs.map((x) => toText(x)).filter((x) => isHttpUrl(x)),
+    };
+  }).filter((book) => book.title);
+
+  const recommendedInstructors = recommendedInstructorsRaw.map((inst) => {
+    const refs = asArray(inst?.sourceRefs).length ? asArray(inst.sourceRefs) : asArray(inst?.source_refs);
+    const seasonalPlan = asArray(inst?.seasonalPlan).length
+      ? asArray(inst.seasonalPlan)
+      : asArray(inst?.seasonal_plan);
+    const curriculumPath = asArray(inst?.curriculumPath).length
+      ? asArray(inst.curriculumPath)
+      : asArray(inst?.curriculum_path);
+    return {
+      name: toText(inst?.name),
+      platform: toText(inst?.platform),
+      reason: toText(inst?.reason || inst?.best_for),
+      sourceRef: pickFirstHttpRef(refs),
+      seasonalPlan: seasonalPlan.map((x) => toText(x)).filter(Boolean).slice(0, 3),
+      curriculumPath: curriculumPath.map((x) => toText(x)).filter(Boolean).slice(0, 3),
+    };
+  }).filter((inst) => inst.name);
+
+  const roadmapSteps = roadmapRaw.map((step) => ({
+    phase: toText(step?.phase || step?.title || step?.period),
+    title: toText(step?.title || step?.phase || step?.period),
+    description: toText(
+      step?.description ||
+      step?.goal ||
+      asArray(step?.actions).map((x) => toText(x)).filter(Boolean).slice(0, 2).join(' / ')
+    ),
+    duration: toText(step?.duration || step?.period),
+  })).filter((step) => step.phase || step.description);
+
+  const successCaseBands = successCaseBandsRaw.map((band) => ({
+    id: toText(band?.id),
+    label: toText(band?.label || band?.id),
+    cases: asArray(band?.cases).map((item) => ({
+      bandShift: toText(item?.bandShift || item?.band_shift),
+      duration: toText(item?.duration),
+      summary: toText(item?.summary),
+      coreActions: asArray(item?.coreActions).length
+        ? asArray(item?.coreActions).map((x) => toText(x)).filter(Boolean).slice(0, 2)
+        : asArray(item?.core_actions).map((x) => toText(x)).filter(Boolean).slice(0, 2),
+    })).filter((item) => item.summary).slice(0, 2),
+  })).filter((band) => band.label && band.cases.length > 0);
+
+  const successCaseInsights = successCaseInsightsRaw.map((x) => toText(x)).filter(Boolean).slice(0, 8);
+
+  const keyFocusPoints = asArray(plan.keyFocusPoints).length
+    ? asArray(plan.keyFocusPoints).map((x) => toText(x)).filter(Boolean)
+    : [
+        toText(plan?.current_focus?.headline),
+        ...asArray(plan?.current_focus?.actions).map((x) => toText(x)).filter(Boolean).slice(0, 2),
+      ].filter(Boolean);
+
+  const gradeBand = toText(plan?.gradeBand || plan?.grade_band) ||
+    `${toText(profile?.currentGrade)} -> ${toText(profile?.targetGrade)}`;
+
+  return {
+    ...plan,
+    gradeBand,
+    keyFocusPoints,
+    roadmapSteps,
+    recommendedBooks,
+    recommendedInstructors,
+    successCaseBands,
+    successCaseInsights,
+  };
+}
+
 // ─── Landing Screen ─────────────────────────────────────────────────────────
 
 function LandingScreen({ onEnter }) {
   const [visible, setVisible] = useState(false);
   const [exiting, setExiting] = useState(false);
+  const [stats, setStats] = useState(LANDING_STATS_DEFAULT);
+  const [successSnippets, setSuccessSnippets] = useState([]);
 
   useEffect(() => {
     const t = setTimeout(() => setVisible(true), 80);
     return () => clearTimeout(t);
+  }, []);
+
+  useEffect(() => {
+    let alive = true;
+
+    const fetchFromCandidates = async (pathname) => {
+      const urls = buildApiCandidates(pathname);
+      for (let i = 0; i < urls.length; i += 1) {
+        try {
+          const res = await fetch(urls[i]);
+          if (!res.ok) continue;
+          return await res.json();
+        } catch (_) {
+          continue;
+        }
+      }
+      return null;
+    };
+
+    const loadLandingData = async () => {
+      const health = await fetchFromCandidates('/api/health');
+      if (alive && health && typeof health === 'object') {
+        setStats((prev) => prev.map((item) => {
+          const value = Number(health?.[item.key]);
+          if (!Number.isFinite(value) || value <= 0) return item;
+          return { ...item, value: `${value}+` };
+        }));
+      }
+
+      const summary = await fetchFromCandidates('/api/knowledge/summary');
+      const cases = asArray(summary?.categories?.student_success_cases)
+        .map((item) => ({
+          bandShift: toText(item?.bandShift || item?.band_shift),
+          summary: toText(item?.summary),
+        }))
+        .filter((item) => item.summary)
+        .slice(0, 2);
+
+      if (alive && cases.length > 0) {
+        setSuccessSnippets(cases);
+      }
+    };
+
+    loadLandingData();
+    return () => {
+      alive = false;
+    };
   }, []);
 
   const handleEnter = () => {
@@ -107,81 +310,110 @@ function LandingScreen({ onEnter }) {
     <div className={`landing${visible ? ' landing--visible' : ''}${exiting ? ' landing--exit' : ''}`}
       role="main" aria-label="서비스 소개">
 
-      {/* Ambient grid */}
+      {/* Graph-paper grid */}
       <div className="landing__grid" aria-hidden="true" />
 
-      {/* Floating badge */}
-      <div className="landing__badge">
-        <span className="landing__badge-dot" />
-        AI 수학 멘토링
+      <header className="landing__badge">
+        <span className="landing__badge-dot">수능수학 코칭</span>
+        <span className="landing__badge-copy">오로지 실제 성공·실패 데이터를 기반으로 한 정시 수학 컨설팅</span>
+        <span className="landing__badge-meta">Evidence-first Product</span>
+      </header>
+
+      <div className="landing__main">
+        <section className="landing__hero-card">
+          <h1 className="landing__title">
+            <span className="landing__title-line landing__title-line--1">수능 수학,</span>
+            <span className="landing__title-line landing__title-line--2">
+              <em className="landing__accent">전략으로</em> 이긴다
+            </span>
+          </h1>
+
+          <p className="landing__desc">
+            데이터 기반 진단으로 지금 점수에서 목표 등급까지
+            <br />
+            가장 짧은 학습 경로를 제시합니다.
+          </p>
+
+          <div className="landing__stats" role="list">
+            {stats.map((item) => (
+              <div key={item.key} className="landing__stat" role="listitem">
+                <span className="landing__stat-num">{item.value}</span>
+                <span className="landing__stat-label">{item.label}</span>
+              </div>
+            ))}
+          </div>
+
+          <button
+            className="landing__cta landing__cta--primary"
+            onClick={handleEnter}
+            aria-label="서비스 시작하기"
+          >
+            <span className="landing__cta-text">3분 진단 시작하기</span>
+            <span className="landing__cta-arrow" aria-hidden="true" />
+          </button>
+        </section>
+
+        <section className="landing__proof" aria-label="등급대별 전략 패널">
+          <article className="landing__story-card">
+            <h3 className="landing__story-title">Grade Band Strategy</h3>
+            <p className="landing__story-detail">현재 위치별 핵심 과제를 빠르게 확인하세요.</p>
+          </article>
+
+          {LANDING_PROOF_ROWS.map((row) => (
+            <div key={row.label} className="landing__ladder-row">
+              <span className="landing__ladder-label">{row.label}</span>
+              <div className="landing__ladder-track" aria-hidden="true">
+                <div className={`landing__ladder-fill ${row.fillClass}`} />
+              </div>
+              <span className="landing__ladder-cue">{row.cue}</span>
+            </div>
+          ))}
+        </section>
+
+        <section className="landing__steps" aria-label="서비스 이용 흐름">
+          {LANDING_FLOW_STEPS.map((step, idx) => (
+            <article key={step} className="landing__step">
+              <span className="landing__step-index">{String(idx + 1).padStart(2, '0')}</span>
+              <p className="landing__step-text">{step}</p>
+            </article>
+          ))}
+        </section>
+
+        {successSnippets.length > 0 && (
+          <section className="landing__success" aria-label="실제 성공 사례">
+            <h3 className="landing__success-title">실제 성공 사례 Snapshot</h3>
+            <div className="landing__success-grid">
+              {successSnippets.map((item, idx) => (
+                <article key={`${item.bandShift}-${idx}`} className="landing__success-card">
+                  {item.bandShift && <span className="landing__success-band">{item.bandShift}</span>}
+                  <p className="landing__success-summary">{item.summary}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+        )}
       </div>
 
-      {/* Hero */}
-      <div className="landing__hero">
-        <div className="landing__eyebrow">수학강사 출신 · 근거 기반 전략</div>
-
-        <h1 className="landing__title">
-          <span className="landing__title-line landing__title-line--1">수능수학,</span>
-          <span className="landing__title-line landing__title-line--2">
-            <em className="landing__accent">제대로</em> 푸는 법
-          </span>
-        </h1>
-
-        <p className="landing__desc">
-          현직 강사 경험과 수만 건의 학습 데이터로 설계된<br />
-          나만의 맞춤 수학 로드맵을 지금 시작하세요
-        </p>
-
-        {/* Stats row */}
-        <div className="landing__stats" role="list">
-          <div className="landing__stat" role="listitem">
-            <span className="landing__stat-num">14+</span>
-            <span className="landing__stat-label">추천 강사</span>
-          </div>
-          <div className="landing__stat-divider" aria-hidden="true" />
-          <div className="landing__stat" role="listitem">
-            <span className="landing__stat-num">63+</span>
-            <span className="landing__stat-label">검증 교재</span>
-          </div>
-          <div className="landing__stat-divider" aria-hidden="true" />
-          <div className="landing__stat" role="listitem">
-            <span className="landing__stat-num">19+</span>
-            <span className="landing__stat-label">성공 사례</span>
-          </div>
-        </div>
-
-        {/* CTA */}
-        <button className="landing__cta" onClick={handleEnter} aria-label="서비스 시작하기">
-          <span className="landing__cta-text">로드맵 시작하기</span>
-          <span className="landing__cta-arrow" aria-hidden="true">→</span>
+      <div className="landing__sticky-cta-wrap">
+        <button
+          className="landing__cta landing__cta--sticky"
+          onClick={handleEnter}
+          aria-label="?? ??"
+        >
+          <span className="landing__cta-text">?? ??</span>
         </button>
       </div>
 
-      {/* Feature chips */}
-      <div className="landing__chips" role="list" aria-label="주요 기능">
-        {[
-          ['∫', '미적분 · 확통 · 기하'],
-          ['◎', '등급별 맞춤 전략'],
-          ['◈', '근거 기반 교재 추천'],
-          ['◉', 'AI 주간 코칭'],
-        ].map(([icon, label]) => (
-          <div key={label} className="landing__chip" role="listitem">
-            <span className="landing__chip-icon" aria-hidden="true">{icon}</span>
-            <span>{label}</span>
-          </div>
-        ))}
-      </div>
-
-      {/* Bottom gradient fade */}
-      <div className="landing__fade" aria-hidden="true" />
     </div>
   );
 }
 
 // ─── Sub-components ─────────────────────────────────────────────────────────
 
-function EvidenceBadge({ confidence, sourceRefs }) {
-  const meta = CONFIDENCE_META[confidence] || CONFIDENCE_META['community'];
+function EvidenceBadge({ confidence, sourceRefs, hideCommunity = false, showSourceLink = true }) {
+  const normalizedConfidence = toText(confidence, 'official');
+  if (hideCommunity && normalizedConfidence === 'community') return null;
+  const meta = CONFIDENCE_META[normalizedConfidence] || CONFIDENCE_META.official;
   const hasRef = sourceRefs && sourceRefs.length > 0;
 
   return (
@@ -194,7 +426,7 @@ function EvidenceBadge({ confidence, sourceRefs }) {
         <span className="badge-icon" aria-hidden="true">{meta.icon}</span>
         <span className="badge-label">{meta.label}</span>
       </span>
-      {hasRef && (
+      {hasRef && showSourceLink && (
         <a
           href={sourceRefs[0]}
           target="_blank"
@@ -211,14 +443,14 @@ function EvidenceBadge({ confidence, sourceRefs }) {
 }
 
 function BookCard({ book }) {
-  const confidence = book.confidence || 'community';
+  const confidence = book.confidence || 'official';
   const sourceRefs = book.sourceRefs || [];
 
   return (
     <div className="book-card" role="article">
       <div className="book-card__header">
         <span className="book-card__title">{book.title}</span>
-        <EvidenceBadge confidence={confidence} sourceRefs={sourceRefs} />
+        <EvidenceBadge confidence={confidence} sourceRefs={sourceRefs} hideCommunity showSourceLink={false} />
       </div>
       {book.author && (
         <div className="book-card__author">
@@ -245,21 +477,21 @@ function AccordionSection({ title, icon, count, children, defaultOpen = false })
   return (
     <section className={`accordion-section${open ? ' accordion-section--open' : ''}`}>
       <button
-        className="accordion-header"
+        className="accordion-section__header accordion-header"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-controls={id}
       >
-        <span className="accordion-header__left">
-          {icon && <span className="accordion-icon" aria-hidden="true">{icon}</span>}
-          <span className="accordion-title">{title}</span>
+        <span className="accordion-section__left">
+          {icon && <span className="accordion-section__icon" aria-hidden="true">{icon}</span>}
+          <span className="accordion-section__title">{title}</span>
           {count != null && (
-            <span className="accordion-count" aria-label={`${count}개`}>{count}</span>
+            <span className="accordion-section__count" aria-label={`${count}개`}>{count}</span>
           )}
         </span>
-        <span className="accordion-chevron" aria-hidden="true">{open ? '▲' : '▼'}</span>
+        <span className="accordion-section__toggle" aria-hidden="true">{open ? '▲' : '▼'}</span>
       </button>
-      <div id={id} className="accordion-body" role="region" aria-label={title} hidden={!open}>
+      <div id={id} className="accordion-section__body" role="region" aria-label={title} hidden={!open}>
         {children}
       </div>
     </section>
@@ -268,9 +500,9 @@ function AccordionSection({ title, icon, count, children, defaultOpen = false })
 
 function LoadingSpinner({ message = '분석 중...' }) {
   return (
-    <div className="loading-state" role="status" aria-live="polite">
-      <div className="spinner" aria-hidden="true" />
-      <p className="loading-message">{message}</p>
+    <div className="loading-spinner" role="status" aria-live="polite">
+      <div className="loading-spinner__ring" aria-hidden="true" />
+      <p>{message}</p>
     </div>
   );
 }
@@ -301,6 +533,21 @@ function OnboardingTab({ profile, setProfile, onSubmit, loading }) {
         <h2 className="tab-title">학습 프로필</h2>
         <p className="tab-subtitle">현재 수준과 목표를 입력하면 맞춤 로드맵을 생성합니다</p>
       </div>
+
+      <section className="level-lens" aria-label="등급대별 학습 렌즈">
+        <div className="level-lens__header">
+          <p className="level-lens__title">등급대별 전략 렌즈</p>
+          <span className="level-lens__hint">내 위치를 빠르게 점검하세요</span>
+        </div>
+        <div className="level-lens__grid" role="list">
+          {LEVEL_LENS.map((lens) => (
+            <article key={lens.id} className="level-lens__card" role="listitem">
+              <span className="level-lens__label">{lens.label}</span>
+              <span className="level-lens__cue">{lens.cue}</span>
+            </article>
+          ))}
+        </div>
+      </section>
 
       {/* Compatibility controls for existing e2e selectors */}
       <div className="sr-only">
@@ -493,6 +740,21 @@ function PlanTab({ plan, loading }) {
   const instructors = plan.recommendedInstructors || [];
   const roadmap = plan.roadmapSteps || [];
   const keyPoints = plan.keyFocusPoints || [];
+  const successCaseBands = plan.successCaseBands || [];
+  const successCaseInsights = plan.successCaseInsights || [];
+  const successCaseItems = successCaseBands
+    .flatMap((band) =>
+      asArray(band?.cases).slice(0, 2).map((item, idx) => ({
+        key: `${band.id || band.label}-${idx}`,
+        bandLabel: toText(band.label),
+        bandShift: toText(item?.bandShift),
+        duration: toText(item?.duration),
+        summary: toText(item?.summary),
+        coreActions: asArray(item?.coreActions).slice(0, 2).map((x) => toText(x)).filter(Boolean),
+      }))
+    )
+    .filter((item) => item.summary)
+    .slice(0, 6);
 
   return (
     <div className="tab-content plan-tab">
@@ -512,6 +774,36 @@ function PlanTab({ plan, loading }) {
       )}
 
       <AccordionSection title="학습 로드맵" icon="◎" count={roadmap.length} defaultOpen>
+        {(successCaseInsights.length > 0 || successCaseItems.length > 0) && (
+          <section className="plan-success-inline" aria-label="성공 사례 근거">
+            {successCaseInsights.length > 0 && (
+              <div className="plan-success-inline__insights">
+                {successCaseInsights.slice(0, 4).map((text, idx) => (
+                  <span key={`insight-${idx}`} className="plan-success-chip">{text}</span>
+                ))}
+              </div>
+            )}
+
+            {successCaseItems.length > 0 && (
+              <ul className="plan-success-inline__list">
+                {successCaseItems.map((item) => (
+                  <li key={item.key} className="plan-success-card">
+                    <p className="plan-success-card__meta">
+                      <strong>{item.bandLabel}</strong>
+                      {item.bandShift ? ` · ${item.bandShift}` : ''}
+                      {item.duration ? ` · ${item.duration}` : ''}
+                    </p>
+                    <p className="plan-success-card__summary">{item.summary}</p>
+                    {item.coreActions.length > 0 && (
+                      <p className="plan-success-card__actions">{item.coreActions.join(' / ')}</p>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </section>
+        )}
+
         {roadmap.length === 0 ? (
           <EmptyState icon="—" title="로드맵 항목 없음" />
         ) : (
@@ -558,6 +850,20 @@ function PlanTab({ plan, loading }) {
                   )}
                 </div>
                 {inst.reason && <p className="instructor-reason">{inst.reason}</p>}
+                {inst.curriculumPath && inst.curriculumPath.length > 0 && (
+                  <ul className="instructor-meta-list" aria-label="권장 수업 흐름">
+                    {inst.curriculumPath.slice(0, 2).map((line, idx) => (
+                      <li key={idx}>{line}</li>
+                    ))}
+                  </ul>
+                )}
+                {inst.seasonalPlan && inst.seasonalPlan.length > 0 && (
+                  <ul className="instructor-meta-list instructor-meta-list--seasonal" aria-label="시기별 추천 수업">
+                    {inst.seasonalPlan.slice(0, 2).map((line, idx) => (
+                      <li key={idx}>{line}</li>
+                    ))}
+                  </ul>
+                )}
                 {inst.sourceRef && (
                   <a
                     href={inst.sourceRef}
@@ -589,23 +895,21 @@ function WeeklyReportTab({ profile, report, onSubmit, loading }) {
 
   const gradeBand = profile.targetGrade || '2-3';
   const gradePlaceholders = {
-    '1': {
-      topics: '예: 수능 킬러문항 유형 A 풀이 / 사설모고 29번 반복',
-      difficulties: '예: 추론형 문제에서 논리 비약 발생',
-    },
-    '2-3': {
-      topics: '예: 수학2 적분 기본 완성 / 교재 N제 1회독',
-      difficulties: '예: 복합함수 미분에서 실수 빈번',
-    },
-    '4+': {
-      topics: '예: 수학1 수열 개념 복습 / 기본 유형 반복',
-      difficulties: '예: 공식 암기 후 적용 혼동',
-    },
+    '100':      { topics: '?: ??? ???? 29?30? ?? / ?? ?? ??', difficulties: '?: ?? ??? ???? 1~2? ??' },
+    '1':        { topics: '?: ?? ???? ?? A ?? / ?? ???? ??', difficulties: '?: ??? ???? ?? ?? ??' },
+    '2':        { topics: '?: ??2 ?? ?? ?? / ?? N? 1??', difficulties: '?: ???? ???? ?? ??' },
+    '3-4':      { topics: '?: ??? ?? ?? ?? / ?? ?? ??', difficulties: '?: ?? ?? ???? ?? ??' },
+    '5-7':      { topics: '?: ??1 ?? ?? ?? / ?? ?? ??', difficulties: '?: ?? ?? ? ?? ??' },
+    'no-base':  { topics: '?: ??? 1?? ?? / ?? ?? ??', difficulties: '?: ? ???? ?? ??' },
+    '2-3':      { topics: '?: ??2 ?? ?? ?? / ?? N? 1??', difficulties: '?: ???? ???? ?? ??' },
+    '4+':       { topics: '?: ??1 ?? ?? ?? / ?? ?? ??', difficulties: '?: ?? ?? ? ?? ??' },
   };
-  const ph = gradePlaceholders[gradeBand] || gradePlaceholders['2-3'];
+  const ph = gradePlaceholders[gradeBand] || gradePlaceholders['2'];
 
-  const gradeLabel =
-    gradeBand === '1' ? '1등급' : gradeBand === '4+' ? '4등급 이하' : '2~3등급';
+  const gradeLabel = gradeBand === '100' ? '100\uC810' : gradeBand === '1' ? '1\uB4F1\uAE09' :
+    gradeBand === '2' ? '2\uB4F1\uAE09' : gradeBand === '3-4' ? '3~4\uB4F1\uAE09' :
+    gradeBand === '5-7' ? '5~7\uB4F1\uAE09' : gradeBand === '2-3' ? '2~3\uB4F1\uAE09' :
+    gradeBand === '4+' ? '4\uB4F1\uAE09 \uC774\uD558' : '\uB178\uBCA0\uC774\uC2A4';
 
   return (
     <div className="tab-content report-tab">
@@ -614,14 +918,14 @@ function WeeklyReportTab({ profile, report, onSubmit, loading }) {
         <span className="grade-badge">목표 {gradeLabel}</span>
       </div>
 
-      <div className="form-stack">
+      <div className="weekly-form">
         <div className="form-group">
           <label className="form-label-sm" htmlFor="completedTopics">
             이번 주 완료한 학습
           </label>
           <textarea
             id="completedTopics"
-            className="form-textarea"
+            className="weekly-form__input"
             rows={3}
             placeholder={ph.topics}
             value={weekInput.completedTopics}
@@ -635,7 +939,7 @@ function WeeklyReportTab({ profile, report, onSubmit, loading }) {
           </label>
           <textarea
             id="difficulties"
-            className="form-textarea"
+            className="weekly-form__input"
             rows={2}
             placeholder={ph.difficulties}
             value={weekInput.difficulties}
@@ -650,7 +954,7 @@ function WeeklyReportTab({ profile, report, onSubmit, loading }) {
           <input
             id="mockScore"
             type="number"
-            className="form-input"
+            className="weekly-form__input"
             min={0}
             max={100}
             placeholder="예: 84"
@@ -680,9 +984,9 @@ function WeeklyReportTab({ profile, report, onSubmit, loading }) {
 
       {report && !loading && (
         <div className="report-result" role="region" aria-label="주간 리포트 결과">
-          <h3 className="report-result__title">주간 리포트</h3>
+          <h3 className="form-label-sm">주간 리포트</h3>
           <div
-            className="report-result__body"
+            
             dangerouslySetInnerHTML={{ __html: report.replace(/\n/g, '<br/>') }}
           />
         </div>
@@ -731,7 +1035,7 @@ function ConsultTab({ consult, onSubmit, loading }) {
         </label>
         <textarea
           id="consultQuestion"
-          className="form-textarea form-textarea--lg"
+          className="consult-input"
           rows={4}
           placeholder="예: 현재 2등급인데 1등급으로 올리려면 어떤 N제를 풀어야 하나요?"
           value={question}
@@ -759,9 +1063,9 @@ function ConsultTab({ consult, onSubmit, loading }) {
 
       {consult && !loading && (
         <div className="consult-result" role="region" aria-label="AI 컨설팅 답변">
-          <h3 className="consult-result__title">AI 답변</h3>
+          <h3 className="form-label-sm">AI 답변</h3>
           <div
-            className="consult-result__body"
+            
             dangerouslySetInnerHTML={{ __html: consult.replace(/\n/g, '<br/>') }}
           />
         </div>
@@ -855,7 +1159,7 @@ export default function SuneungTracker() {
         throw new Error(await readApiError(res, '/api/analyze'));
       }
       const data = await res.json();
-      setPlan(data.plan || data);
+      setPlan(normalizePlanForUi(data.plan || data, profile));
       setActiveTab('plan');
     } catch (e) {
       handleError(e.message);

@@ -1,0 +1,71 @@
+{
+  "updatedAt": "2026-03-27",
+  "purpose": "운영자 검토용 강사-커리큘럼 매칭 테이블",
+  "entries": [
+    {
+      "instructor": "이미지",
+      "platform": "대성마이맥",
+      "courseSeries": ["미친개념", "미친기출"],
+      "note": "미친개념은 이미지 강사 커리큘럼으로 매칭",
+      "confidence": 0.95,
+      "evidence": [
+        {
+          "type": "operator_correction",
+          "value": "운영자 피드백: 미친개념은 이미지 강의"
+        }
+      ]
+    },
+    {
+      "instructor": "김범준",
+      "platform": "대성마이맥",
+      "courseSeries": ["스타팅블록", "페이스메이커", "고난도 실전"],
+      "note": "미친개념과 분리해 고난도/실전 트랙으로 매칭",
+      "confidence": 0.8,
+      "evidence": [
+        {
+          "type": "community_reference",
+          "value": "오르비/수험생 후기에서 고난도 실전 트랙으로 자주 언급"
+        }
+      ]
+    },
+    {
+      "instructor": "현우진",
+      "platform": "메가스터디",
+      "courseSeries": ["뉴런", "드릴", "킬캠프"],
+      "note": "중상위권~상위권 심화/실전 트랙",
+      "confidence": 0.9,
+      "evidence": [
+        {
+          "type": "official_page",
+          "value": "https://www.megastudy.net/teacher_v2/main.asp?tec_cd=wjjang84"
+        }
+      ]
+    },
+    {
+      "instructor": "정승제",
+      "platform": "메가스터디",
+      "courseSeries": ["개때잡", "개념의 신", "기초 유형 트랙"],
+      "note": "노베이스~중하위권 개념 전환",
+      "confidence": 0.82,
+      "evidence": [
+        {
+          "type": "community_reference",
+          "value": "기초 개념 전환 강사로 반복 언급"
+        }
+      ]
+    },
+    {
+      "instructor": "김기현",
+      "platform": "메가스터디",
+      "courseSeries": ["아이디어", "기출 분석 트랙"],
+      "note": "중위권에서 개념-기출 연결용",
+      "confidence": 0.78,
+      "evidence": [
+        {
+          "type": "community_reference",
+          "value": "중위권 기출 연결 강사로 반복 언급"
+        }
+      ]
+    }
+  ]
+}

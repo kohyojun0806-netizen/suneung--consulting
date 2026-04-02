@@ -1,0 +1,15 @@
+Use the standardized Claude handoff package:
+
+1) Read:
+- docs/claude_handoff/README.md
+- docs/claude_handoff/01_file_open_order.txt
+
+2) Paste this as first Claude message:
+- docs/claude_handoff/02_start_prompt_ko.txt
+
+3) If resuming a paused session:
+- docs/claude_handoff/03_continue_prompt_ko.txt
+- docs/claude_handoff/04_resume_prompt_ui_gsd_ko.txt
+
+4) Runbook:
+- docs/claude_handoff/05_command_checklist.txt

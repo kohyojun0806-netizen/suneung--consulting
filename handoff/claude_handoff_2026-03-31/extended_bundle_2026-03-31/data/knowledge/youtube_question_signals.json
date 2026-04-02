@@ -1,0 +1,409 @@
+{
+  "updatedAt": "2026-03-30",
+  "notes": "Phase3 update: focused on NJE overload, survival variant choice, and final-period compression signals.",
+  "signals": [
+    {
+      "id": "q-sequence",
+      "channel": "community+youtube",
+      "focus": "sequence",
+      "learnerQuestion": "How should I sequence Newrun and Sugam?",
+      "coachingHint": "Parallelize after concept completion crosses stable threshold.",
+      "fitKeys": [
+        "7-5",
+        "5-3",
+        "3-1"
+      ],
+      "sourceRefs": [
+        "orbi-neuron-sugam-order-2026"
+      ],
+      "reliability": 0.82
+    },
+    {
+      "id": "q-nobase",
+      "channel": "community+youtube",
+      "focus": "feasibility",
+      "learnerQuestion": "Can a base learner reach grade 1 in one year?",
+      "coachingHint": "Track routine completion rate instead of possibility debates.",
+      "fitKeys": [
+        "9-7",
+        "7-5"
+      ],
+      "sourceRefs": [
+        "orbi-nobase-oneyear-thread"
+      ],
+      "reliability": 0.79
+    },
+    {
+      "id": "q-elite-season",
+      "channel": "community",
+      "focus": "academy timing",
+      "learnerQuestion": "When should I use Sidaeinjae or Dugak classes?",
+      "coachingHint": "Split by season: closure (3-6), hard handling (6-9), final stability (9-final).",
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "sourceRefs": [
+        "sdij-daechi-timetable",
+        "dugak-requestclass-2026"
+      ],
+      "reliability": 0.84,
+      "channelHint": "Includes manual grouping for Akoreum-recommended comment themes"
+    },
+    {
+      "id": "q-sequence-neuron-sugam",
+      "channel": "community+youtube",
+      "focus": "커리 순서",
+      "learnerQuestion": "뉴런과 수분감 순서를 어떻게 잡아야 하나요?",
+      "coachingHint": "개념 안정화 이후 병행하고 기출 적용 루틴을 먼저 고정한다.",
+      "fitKeys": [
+        "7-5",
+        "5-3",
+        "3-1"
+      ],
+      "sourceRefs": [
+        "orbi-neuron-sugam-order-2026"
+      ],
+      "reliability": 0.83
+    },
+    {
+      "id": "q-akoreum-time-control-01",
+      "channel": "youtube-comment",
+      "focus": "시간관리",
+      "learnerQuestion": "실모에서 시간 배분이 무너질 때 기준이 있나요?",
+      "coachingHint": "막힘 2분 회수 규칙과 마지막 10분 검산 구간을 고정한다.",
+      "channelHint": "악어오름 댓글 질문 클러스터",
+      "fitKeys": [
+        "7-5",
+        "5-3",
+        "3-1"
+      ],
+      "sourceRefs": [
+        "youtube-comment-akoreum-manual"
+      ],
+      "reliability": 0.78
+    },
+    {
+      "id": "q-akoreum-review-load-01",
+      "channel": "youtube-comment",
+      "focus": "오답 복기",
+      "learnerQuestion": "오답 복기 시간이 너무 길어 진도가 밀립니다.",
+      "coachingHint": "오답을 개념/해석/계산/시간으로 분류하고 분류별 제한 시간을 둔다.",
+      "channelHint": "악어오름 댓글 질문 클러스터",
+      "fitKeys": [
+        "9-7",
+        "7-5",
+        "5-3"
+      ],
+      "sourceRefs": [
+        "youtube-comment-akoreum-manual",
+        "orbi-ahha-errnote-docs"
+      ],
+      "reliability": 0.77
+    },
+    {
+      "id": "q-akoreum-resource-overload-01",
+      "channel": "youtube-comment",
+      "focus": "자료 과부하",
+      "learnerQuestion": "자료를 많이 보는데 점수가 안 오릅니다.",
+      "coachingHint": "자료 추가를 멈추고 루틴 완료율 80%를 먼저 만든다.",
+      "channelHint": "악어오름 댓글 질문 클러스터",
+      "fitKeys": [
+        "9-7",
+        "7-5",
+        "5-3"
+      ],
+      "sourceRefs": [
+        "youtube-comment-akoreum-manual"
+      ],
+      "reliability": 0.75
+    },
+    {
+      "id": "q-nobase-feasibility-01",
+      "channel": "community",
+      "focus": "노베이스 가능성",
+      "learnerQuestion": "노베이스에서 1년 안에 1등급이 가능한가요?",
+      "coachingHint": "가능성 논쟁보다 루틴 완수율과 오답 재발률을 지표로 관리한다.",
+      "fitKeys": [
+        "9-7",
+        "7-5"
+      ],
+      "sourceRefs": [
+        "orbi-nobase-oneyear-thread"
+      ],
+      "reliability": 0.8
+    },
+    {
+      "id": "q-past-rotation-01",
+      "channel": "community",
+      "focus": "기출 회독",
+      "learnerQuestion": "기출은 몇 회독이 적절한가요?",
+      "coachingHint": "1회독 구조 파악, 2회독 오답 축소, 3회독 시간 단축으로 분리한다.",
+      "fitKeys": [
+        "9-7",
+        "7-5",
+        "5-3"
+      ],
+      "sourceRefs": [
+        "orbi-past-rotation-thread-2026"
+      ],
+      "reliability": 0.79
+    },
+    {
+      "id": "q-errnote-template-01",
+      "channel": "community",
+      "focus": "오답 노트",
+      "learnerQuestion": "오답노트를 어떻게 써야 점수에 반영되나요?",
+      "coachingHint": "실수 원인과 재발 방지 규칙만 짧게 기록한다.",
+      "fitKeys": [
+        "9-7",
+        "7-5",
+        "5-3",
+        "3-1"
+      ],
+      "sourceRefs": [
+        "orbi-ahha-errnote-docs"
+      ],
+      "reliability": 0.82
+    },
+    {
+      "id": "q-sdij-season-01",
+      "channel": "community+official",
+      "focus": "시대인재 시기별 수강",
+      "learnerQuestion": "시대인재 단과는 시기별로 어떻게 듣는 게 효율적일까요?",
+      "coachingHint": "3~6모 정규+클리닉, 6~9모 킬러N제+실모, 9모 이후 파이널+압축복기.",
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "sourceRefs": [
+        "sdij-daechi-timetable",
+        "orbi-sdij-track-thread-2026"
+      ],
+      "reliability": 0.84
+    },
+    {
+      "id": "q-dugak-season-01",
+      "channel": "community+official",
+      "focus": "두각 시기별 수강",
+      "learnerQuestion": "두각 단과는 언제 어떤 반을 듣는 게 맞나요?",
+      "coachingHint": "3~6모 정규, 6~9모 심화+실전세트, 9모 이후 파이널반으로 분리한다.",
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "sourceRefs": [
+        "dugak-requestclass-2026",
+        "dugak-teacher-board"
+      ],
+      "reliability": 0.82
+    },
+    {
+      "id": "q-simul-frequency-01",
+      "channel": "community",
+      "focus": "실모 빈도",
+      "learnerQuestion": "실모는 주 몇 회가 적절한가요?",
+      "coachingHint": "중위권 주 1~2회, 상위권 주 3회 이상에서 시작하고 복기 시간으로 조정한다.",
+      "fitKeys": [
+        "7-5",
+        "5-3",
+        "3-1"
+      ],
+      "sourceRefs": [
+        "orbi-simul-tips-thread-2026"
+      ],
+      "reliability": 0.78
+    },
+    {
+      "id": "q-final-expansion-stop-01",
+      "channel": "community",
+      "focus": "파이널 확장 제한",
+      "learnerQuestion": "9모 이후 새 교재를 계속 추가해도 될까요?",
+      "coachingHint": "9모 이후는 신규 확장보다 압축 복기와 실전 안정화가 우선이다.",
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "sourceRefs": [
+        "orbi-math-attitude-column"
+      ],
+      "reliability": 0.81
+    },
+    {
+      "id": "q-review-vs-volume-01",
+      "channel": "community+youtube",
+      "focus": "양 vs 복기",
+      "learnerQuestion": "문제 수를 늘리는 것과 복기 시간을 늘리는 것 중 무엇이 우선인가요?",
+      "coachingHint": "복기 루틴 없는 문제량 증가는 재발률을 높인다. 복기를 먼저 고정한다.",
+      "fitKeys": [
+        "9-7",
+        "7-5",
+        "5-3",
+        "3-1"
+      ],
+      "sourceRefs": [
+        "orbi-ahha-errnote-docs",
+        "youtube-comment-akoreum-manual"
+      ],
+      "reliability": 0.8
+    },
+    {
+      "id": "q-season-waitlist-reset-2026",
+      "channel": "community",
+      "focus": "season waiting policy",
+      "learnerQuestion": "Does waiting order reset every season for Sidaeinjae/Dugak single classes?",
+      "coachingHint": "Check registration policy before season switch and lock one backup track.",
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "sourceRefs": [
+        "orbi-russell-sdij-dugak-season-question-2026"
+      ],
+      "reliability": 0.83,
+      "channelHint": "frequent in academy-entry questions"
+    },
+    {
+      "id": "q-7to3-lecture-selection-2026",
+      "channel": "community",
+      "focus": "lecture selection",
+      "learnerQuestion": "What lecture should a grade-7 student pick for a grade-3 target?",
+      "coachingHint": "Start with concept closure then bind easy past-exam loop before heavy N-set.",
+      "fitKeys": [
+        "9-7",
+        "7-5"
+      ],
+      "sourceRefs": [
+        "orbi-math-7to3-question-2026"
+      ],
+      "reliability": 0.78,
+      "channelHint": "beginner-to-mid transition"
+    },
+    {
+      "id": "q-grade23-wall-general4point-2026",
+      "channel": "community",
+      "focus": "2~3 grade wall",
+      "learnerQuestion": "How do I break the 2~3 grade wall in math?",
+      "coachingHint": "Stabilize general 4-point problems with one consistent technique before adding new N-set volume.",
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "sourceRefs": [
+        "orbi-gradewall-2to3-strategy-2026"
+      ],
+      "reliability": 0.82
+    },
+    {
+      "id": "q-final-period-resource-choice-2026",
+      "channel": "community",
+      "focus": "final period strategy",
+      "learnerQuestion": "In final period, should I expand resources or compress review with fewer sets?",
+      "coachingHint": "Prioritize compressed review and fixed mock cadence over late-stage resource expansion.",
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "sourceRefs": [
+        "orbi-00074822227-final-plan"
+      ],
+      "reliability": 0.75
+    },
+    {
+      "id": "q-1grade-to-perfectscore-2026",
+      "channel": "community",
+      "focus": "top-band bottleneck",
+      "learnerQuestion": "What blocks transition from stable grade 1 to perfect score?",
+      "coachingHint": "Separate concept gaps from time-control and increase review density on repeated miss-types.",
+      "fitKeys": [
+        "3-1"
+      ],
+      "sourceRefs": [
+        "orbi-onescore-bottleneck-2026"
+      ],
+      "reliability": 0.8
+    },
+    {
+      "id": "q-akoreum-planner-check-2026",
+      "channel": "youtube-comment+community",
+      "focus": "planner accountability",
+      "learnerQuestion": "Does planner-check coaching really help if routine is unstable?",
+      "coachingHint": "Use daily planner feedback only if it maps to concrete weekly task completion.",
+      "fitKeys": [
+        "9-7",
+        "7-5"
+      ],
+      "sourceRefs": [
+        "orbi-akoreum-consult-review-2026",
+        "akoreum-channel-ruclips"
+      ],
+      "reliability": 0.73,
+      "channelHint": "Akoreum audience recurring topic"
+    },
+    {
+      "id": "q-akoreum-elective-choice-2026",
+      "channel": "youtube-comment+community",
+      "focus": "elective anxiety",
+      "learnerQuestion": "Should low-base students choose 미적분 unconditionally?",
+      "coachingHint": "Decide elective by current base and timeline, not by one-channel blanket rule.",
+      "fitKeys": [
+        "9-7",
+        "7-5",
+        "5-3"
+      ],
+      "sourceRefs": [
+        "orbi-akoreum-mijuk-controversy-2026",
+        "orbi-00077627016-akoreum-hot"
+      ],
+      "reliability": 0.71
+    },
+    {
+      "id": "q-too-many-nje-which-first-2026-phase3",
+      "channel": "community",
+      "focus": "NJE overload",
+      "learnerQuestion": "There are too many NJE choices. Which one should I start first for my band?",
+      "coachingHint": "Pick one NJE lane by fit band and lock 6-week cycle before switching.",
+      "fitKeys": [
+        "7-5",
+        "5-3",
+        "3-1"
+      ],
+      "sourceRefs": [
+        "orbi-nje-recommend-thread-00063590966",
+        "orbi-nje-rank-thread-00072600911"
+      ],
+      "reliability": 0.81
+    },
+    {
+      "id": "q-survival-regular-vs-alpha-2026-phase3",
+      "channel": "community",
+      "focus": "survival variant choice",
+      "learnerQuestion": "How should I choose between Sidae survival regular vs alpha?",
+      "coachingHint": "Decide by current mock stability and review capacity, not by naming prestige.",
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "sourceRefs": [
+        "orbi-survival-types-00057634187"
+      ],
+      "reliability": 0.76
+    },
+    {
+      "id": "q-final-period-expand-or-compress-2026-phase3",
+      "channel": "community",
+      "focus": "final-period materials",
+      "learnerQuestion": "In final period, should I add more mocks or compress existing sets?",
+      "coachingHint": "Compress first and increase review depth unless score variance remains unexplained.",
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "sourceRefs": [
+        "orbi-books-review-thread-00074808610",
+        "orbi-nje-usage-column-00065785267"
+      ],
+      "reliability": 0.78
+    }
+  ]
+}

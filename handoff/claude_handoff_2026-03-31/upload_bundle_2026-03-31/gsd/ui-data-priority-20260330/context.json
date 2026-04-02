@@ -1,0 +1,14 @@
+{
+  "slug": "ui-data-priority-20260330",
+  "name": "ui-data-priority-20260330",
+  "goal": "UI redesign first, then evidence-rich student success and instructor/book recommendation expansion",
+  "owner": "tocho",
+  "createdAt": "2026-03-30T04:59:52.043Z",
+  "workflow": [
+    "new-project",
+    "discuss-phase",
+    "plan-phase",
+    "execute-phase",
+    "verify-work"
+  ]
+}

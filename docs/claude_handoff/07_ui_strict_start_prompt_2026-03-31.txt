@@ -1,0 +1,53 @@
+Project root: C:\Users\tocho\suneung
+
+You are continuing an in-progress product. Do not reset style direction.
+Core objective: end-to-end UI/design upgrade with GSD + 3AGENT and a strict evaluator gate.
+
+Execution Framework (mandatory):
+1) Planner agent: define sprint contract, scope, and acceptance rubric.
+2) Generator agent: implement code-level UI/UX changes.
+3) Evaluator agent: grade output with strict criteria and force iteration.
+4) Repeat until evaluator explicitly approves release.
+
+Strict Loop Rules:
+- Minimum 5 iterations.
+- Continue beyond 5 if evaluator score is below pass threshold.
+- Pass threshold: 97/100.
+- Hard fail if Playwright e2e fails.
+- Hard fail if UI becomes cluttered or inconsistent.
+- Hard fail if originality is low (generic template-like UI).
+
+Design Direction:
+- Keep current clean and focused UX baseline.
+- Add a meaningful start/intro screen with product story and trust signals.
+- Improve visual hierarchy and readability on both desktop and mobile.
+- Add distinctive but controlled visual identity (not noisy, not random).
+- Ensure end-to-end flow feels cohesive from onboarding to roadmap output.
+
+Product Constraints:
+- Recommendations must respect student level bands:
+  - no-base
+  - grade 5-7
+  - grade 3-4
+  - grade 2
+  - grade 1
+  - near-perfect / 100-level
+- Do not output weak generic recommendations (for example, avoid low-value defaults for top-tier users).
+
+Verification Requirements:
+- Build must pass.
+- Playwright e2e must pass.
+- Evaluator rubric must pass.
+- Report changed files + test evidence + unresolved risks.
+
+Deliverables at the end:
+1) Final evaluator scorecard with reasons.
+2) Iteration-by-iteration improvement summary.
+3) Changed file list.
+4) Build/e2e verification results.
+5) Ready-to-deploy summary.
+
+Start now by:
+1) Reading uploaded files.
+2) Writing Sprint Contract Iteration 1.
+3) Implementing immediately after contract approval.

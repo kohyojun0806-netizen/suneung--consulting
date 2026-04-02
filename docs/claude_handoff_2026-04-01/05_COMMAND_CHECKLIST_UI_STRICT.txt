@@ -1,0 +1,19 @@
+cd C:\Users\tocho\suneung
+
+:: sanity
+git status --short
+npm -s run gsd:help
+
+:: verify build/e2e
+npm run build
+npx playwright test tests/e2e/badge-gradeband.spec.ts
+npx playwright test
+
+:: strict workflow run
+npm run gsd:sprint-loop -- --project ui-data-priority-20260330 --strict-evaluator true --min-iterations 5 --max-iterations 8 --sandbox-fallback false
+npm run gsd:verify-work -- --project ui-data-priority-20260330 --strict-evaluator true --with-e2e true --sandbox-fallback false
+
+:: optional local API smoke
+npm run server
+curl http://localhost:8787/api/health
+

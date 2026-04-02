@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-03-30",
-  "notes": "Phase3 update: added NJE/mock sequence and survival-track success patterns.",
+  "updatedAt": "2026-04-02",
+  "notes": "Phase5 (2026-04-02): cross-validated success-case refresh by grade bands and practical sequence quality.",
   "cases": [
     {
       "id": "success-9to1-orbi-2020",
@@ -372,6 +372,222 @@
         "orbi-books-question-thread-00060558051"
       ],
       "reliability": 0.69
+    },
+    {
+      "id": "success-nobase-to4-loop-2026-04",
+      "bandShift": "노베이스->4",
+      "duration": "4~6개월",
+      "summary": "노베이스 구간에서는 강의량보다 개념 출력-기출 적용-오답 재풀이 루프를 고정했을 때 4등급대 진입이 빨랐다는 사례가 반복된다.",
+      "coreActions": [
+        "개념 출력 20분 고정",
+        "쉬운 기출 즉시 적용",
+        "24시간 내 오답 재풀이"
+      ],
+      "fitKeys": [
+        "9-7",
+        "7-5"
+      ],
+      "sourceRefs": [
+        "orbi-nobase-oneyear-thread",
+        "youtube-comment-math-general-search-2026"
+      ],
+      "reliability": 0.72
+    },
+    {
+      "id": "success-7to2-pastrotation-2026-04",
+      "bandShift": "7->2",
+      "duration": "7~10개월",
+      "summary": "중하위권에서 2등급대로 올라간 사례는 기출 회독 순서와 주간 실모 루틴을 고정했을 때 변동폭이 줄었다.",
+      "coreActions": [
+        "기출 3회전 계획표",
+        "주간 실모 2~3회",
+        "오답 원인 4분류"
+      ],
+      "fitKeys": [
+        "7-5",
+        "5-3"
+      ],
+      "sourceRefs": [
+        "orbi-past-rotation-thread-2026",
+        "orbi-time-management-thread-2026"
+      ],
+      "reliability": 0.77
+    },
+    {
+      "id": "success-3to1-killer-consistency-2026-04",
+      "bandShift": "3->1",
+      "duration": "5~7개월",
+      "summary": "3등급에서 1등급으로 올라간 사례는 킬러 문항을 많이 푸는 것보다 동일 유형 복기와 실수 통제가 성과에 더 크게 기여했다.",
+      "coreActions": [
+        "킬러 오답 3회전",
+        "실수 유형 주간 리포트",
+        "9모 이후 콘텐츠 압축"
+      ],
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "sourceRefs": [
+        "orbi-math-attitude-column",
+        "orbi-simul-tips-thread-2026"
+      ],
+      "reliability": 0.8
+    },
+    {
+      "id": "success-2to1-time-control-2026-04",
+      "bandShift": "2->1",
+      "duration": "3~5개월",
+      "summary": "2등급권의 1등급 전환은 난도 확장보다 시간관리 규칙과 문항 회수 기준을 고정하는 전략에서 성공 빈도가 높았다.",
+      "coreActions": [
+        "초반 문항 제한시간 고정",
+        "넘김/회수 규칙 고정",
+        "실모 후 40분 복기"
+      ],
+      "fitKeys": [
+        "3-1"
+      ],
+      "sourceRefs": [
+        "orbi-time-management-thread-2026",
+        "orbi-neuron-sugam-order-2026"
+      ],
+      "reliability": 0.78
+    },
+    {
+      "id": "success-1to100-perfect-maintain-2026-04",
+      "bandShift": "1->100점",
+      "duration": "in-season",
+      "summary": "100점권 유지 사례는 새로운 교재 확장보다 기존 루틴 유지, 실수 유형 삭제, 컨디션 관리가 핵심이라는 공통점이 있다.",
+      "coreActions": [
+        "신규 교재 확장 제한",
+        "실수 유형 일일 체크",
+        "수면/시험 루틴 고정"
+      ],
+      "fitKeys": [
+        "3-1"
+      ],
+      "sourceRefs": [
+        "sdij-daechi-timetable",
+        "orbi-sdij-review-2026"
+      ],
+      "reliability": 0.82
+    },
+    {
+      "id": "success-topband-onsite-balance-2026-04",
+      "bandShift": "상위권 안정화",
+      "duration": "3월~수능",
+      "summary": "상위권은 현장 단과를 여러 개 병행하기보다 시기별 1~2트랙에 집중해 과제-복기 루프를 유지했을 때 점수 안정성이 높았다.",
+      "coreActions": [
+        "시기별 1~2트랙 집중",
+        "주간 과제 완료율 추적",
+        "실모 점수 변동폭 관리"
+      ],
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "sourceRefs": [
+        "orbi-sdij-track-thread-2026",
+        "dugak-presentation-board-2026"
+      ],
+      "reliability": 0.79
+    },
+    {
+      "id": "success-2026-nobase-to4-cross-verified",
+      "bandShift": "9->4",
+      "duration": "4~7 months",
+      "summary": "No-base learners improved when they fixed one loop: concept output -> easy past set -> 24h error replay.",
+      "coreActions": [
+        "Daily concept output block (written recall)",
+        "Immediate easy past-question application after lecture",
+        "24h/72h error-note replay cycle"
+      ],
+      "fitKeys": [
+        "9-7",
+        "7-5"
+      ],
+      "sourceRefs": [
+        "orbi-nobase-oneyear-thread",
+        "youtube-search-akoreum-past-method-2026"
+      ],
+      "reliability": 0.76
+    },
+    {
+      "id": "success-2026-57-to34-pastloop",
+      "bandShift": "6->3",
+      "duration": "5~8 months",
+      "summary": "5~7 band students moved to 3~4 by fixing weekly past-rotation and miss-type classification.",
+      "coreActions": [
+        "Past-question 3-pass rotation plan",
+        "Weekly mini practical set with timing cap",
+        "Miss-type classification (concept/logic/calculation/time)"
+      ],
+      "fitKeys": [
+        "7-5",
+        "5-3"
+      ],
+      "sourceRefs": [
+        "orbi-past-rotation-thread-2026",
+        "orbi-time-management-thread-2026"
+      ],
+      "reliability": 0.79
+    },
+    {
+      "id": "success-2026-34-to2-nje-sequence",
+      "bandShift": "4->2",
+      "duration": "4~6 months",
+      "summary": "3~4 band transition to grade2 was most stable when one NJE lane and one weekly mock lane were kept without random switching.",
+      "coreActions": [
+        "One NJE lane per season (no random expansion)",
+        "Weekly mock + fixed review protocol",
+        "Carry forward only recurring miss-types"
+      ],
+      "fitKeys": [
+        "5-3",
+        "3-1"
+      ],
+      "sourceRefs": [
+        "orbi-books-review-thread-00074808610",
+        "orbi-nje-usage-column-00065785267"
+      ],
+      "reliability": 0.77
+    },
+    {
+      "id": "success-2026-2-to1-killer-final",
+      "bandShift": "2->1",
+      "duration": "3~5 months",
+      "summary": "Grade2 to grade1 transition improved when killer adaptation and final practical timing were trained in a strict weekly cycle.",
+      "coreActions": [
+        "Killer-theme block + short timed sets",
+        "Final practical set operation under pressure",
+        "Error compression in last 6~8 weeks"
+      ],
+      "fitKeys": [
+        "3-1"
+      ],
+      "sourceRefs": [
+        "orbi-00070524026-gyuto-review",
+        "orbi-00074254389-daesunginlive-k-season2"
+      ],
+      "reliability": 0.75
+    },
+    {
+      "id": "success-2026-1-to100-consistency",
+      "bandShift": "1->100",
+      "duration": "in-season consistency",
+      "summary": "Top-band students maintained near-100 outcomes when they minimized material switching and focused on volatility control.",
+      "coreActions": [
+        "Single final lane per period",
+        "Selection/timing protocol hard-fixed",
+        "Last-week mistake type suppression"
+      ],
+      "fitKeys": [
+        "3-1"
+      ],
+      "sourceRefs": [
+        "orbi-survival-types-00057634187",
+        "orbi-books-review-thread-00074808610"
+      ],
+      "reliability": 0.73
     }
   ]
 }

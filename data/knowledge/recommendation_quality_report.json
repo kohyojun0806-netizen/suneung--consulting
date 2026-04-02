@@ -1,19 +1,19 @@
 {
-  "generatedAt": "2026-03-31T03:19:09.384Z",
-  "strictMode": false,
+  "generatedAt": "2026-04-02T08:10:52.145Z",
+  "strictMode": true,
   "sourceFile": "data\\knowledge\\recommendation_catalog.json",
   "sourceRegistryFile": "data\\knowledge\\source_registry.json",
   "summary": {
-    "bookCount": 72,
-    "instructorCount": 18,
-    "njeOrMockCount": 39,
-    "sdijLikeCount": 19,
+    "bookCount": 57,
+    "instructorCount": 17,
+    "njeOrMockCount": 38,
+    "sdijLikeCount": 11,
     "megaInstructorCount": 3,
     "daesungInstructorCount": 6,
     "njeBandCounter": {
       "intro_nje": 3,
-      "mid_nje": 6,
-      "high_nje": 21
+      "mid_nje": 7,
+      "high_nje": 18
     },
     "criticalCount": 0,
     "warningCount": 0,

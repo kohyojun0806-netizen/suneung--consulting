@@ -28,8 +28,8 @@ const OPENAI_API_KEY = process.env.OPENAI_API_KEY || "";
 const AI_MODEL = process.env.AI_MODEL || "gpt-4.1-mini";
 const AI_FALLBACK_MODEL = process.env.AI_FALLBACK_MODEL || "gpt-4.1-mini";
 const ANALYZE_MAX_TOKENS = Number(process.env.ANALYZE_MAX_TOKENS || 900);
-const TRACKER_REPORT_MAX_TOKENS = Number(process.env.TRACKER_REPORT_MAX_TOKENS || 380);
-const TRACKER_CONSULT_MAX_TOKENS = Number(process.env.TRACKER_CONSULT_MAX_TOKENS || 320);
+const TRACKER_REPORT_MAX_TOKENS = Number(process.env.TRACKER_REPORT_MAX_TOKENS || 320);
+const TRACKER_CONSULT_MAX_TOKENS = Number(process.env.TRACKER_CONSULT_MAX_TOKENS || 260);
 const TRACKER_REPORT_LOG_WEEKS = Number(process.env.TRACKER_REPORT_LOG_WEEKS || 3);
 const REQUEST_BODY_LIMIT = process.env.REQUEST_BODY_LIMIT || "2mb";
 const ELECTIVE_SUBJECTS = ["확률과통계", "미적분", "기하"];
@@ -432,6 +432,7 @@ app.post("/api/analyze", async (req, res) => {
       catalog,
       successCases,
       questionSignals,
+      sourceRegistry,
       curriculumKey,
       currentGrade: from,
       targetGrade: to,
@@ -464,6 +465,7 @@ app.post("/api/analyze", async (req, res) => {
           plan = normalizePlan(rawJson, {
             knowledgeBlend,
             recommendationSeed,
+            sourceRegistry,
             currentGrade: from,
             targetGrade: to,
             electiveSubject,
@@ -488,6 +490,7 @@ app.post("/api/analyze", async (req, res) => {
           targetGrade: to,
           knowledgeBlend,
           recommendationSeed,
+          sourceRegistry,
           electiveSubject,
           passProvider,
           mathStructure,
@@ -499,6 +502,7 @@ app.post("/api/analyze", async (req, res) => {
         targetGrade: to,
         knowledgeBlend,
         recommendationSeed,
+        sourceRegistry,
         electiveSubject,
         passProvider,
         mathStructure,
@@ -591,8 +595,8 @@ app.post("/api/tracker/report", async (req, res) => {
 
       const safeProfile = { ...profile, targetGrade: normalizedTargetGrade };
       const safeWeekInput = {
-        completedTopics: truncateText(toText(weekInput?.completedTopics), 320),
-        difficulties: truncateText(toText(weekInput?.difficulties), 240),
+        completedTopics: truncateText(toText(weekInput?.completedTopics), 260),
+        difficulties: truncateText(toText(weekInput?.difficulties), 200),
         mockScore: truncateText(toText(weekInput?.mockScore), 24),
       };
 
@@ -602,7 +606,7 @@ app.post("/api/tracker/report", async (req, res) => {
 
       if (OPENAI_API_KEY) {
         const combinedPrompt = [
-          getReportSystemPrompt(normalizedTargetGrade),
+          getReportSystemPrompt(safeProfile, safeWeekInput),
           "",
           getReportUserPrompt(safeProfile, safeWeekInput),
         ].join("\n");
@@ -611,7 +615,7 @@ app.post("/api/tracker/report", async (req, res) => {
           try {
             const text = await requestTextResponse(combinedPrompt, modelName, TRACKER_REPORT_MAX_TOKENS);
             if (toText(text)) {
-              report = toText(text);
+              report = truncateText(toText(text), 1100);
               usedModel = true;
               usedModelName = modelName;
               break;
@@ -624,7 +628,7 @@ app.post("/api/tracker/report", async (req, res) => {
 
       return res.json({
         report,
-        meta: { usedModel, model: usedModelName, mode: "grade-band-text" },
+        meta: { usedModel, model: usedModelName, mode: "grade-band-v2-text" },
       });
     }
 
@@ -687,7 +691,7 @@ app.post("/api/tracker/consult", async (req, res) => {
         try {
           const text = await requestTextResponse(prompt, modelName, TRACKER_CONSULT_MAX_TOKENS);
           if (toText(text)) {
-            answer = toText(text);
+            answer = truncateText(toText(text), 520);
             usedModel = true;
             usedModelName = modelName;
             break;
@@ -763,16 +767,18 @@ async function loadRecommendationCatalog() {
   const rawBooks = asArray(parsed.books);
   const instructors = sanitizeCatalogInstructors(rawInstructors);
   const books = sanitizeCatalogBooks(rawBooks);
+  const fallbackInstructors = sanitizeCatalogInstructors(DEFAULT_INSTRUCTOR_SEED);
+  const fallbackBooks = sanitizeCatalogBooks(DEFAULT_BOOK_SEED);
   return {
     updatedAt: parsed.updatedAt || null,
     instructors:
       instructors.length >= MIN_INSTRUCTOR_COUNT
         ? instructors
-        : mergeUniqueByKey([...instructors, ...DEFAULT_INSTRUCTOR_SEED], "name"),
+        : mergeUniqueByKey([...instructors, ...fallbackInstructors], "name"),
     books:
       books.length >= MIN_BOOK_COUNT
         ? books
-        : mergeUniqueByKey([...books, ...DEFAULT_BOOK_SEED], "title"),
+        : mergeUniqueByKey([...books, ...fallbackBooks], "title"),
   };
 }
 
@@ -882,6 +888,122 @@ function normalizeAppliesTo(value) {
   return list.length ? list : ["all"];
 }
 
+const NON_MATH_KEYWORD_RE =
+  /(생윤|윤리|정치|경제|사회|사탐|국어|영어|한국사|물리|화학|생명|지구과학|과탐)/i;
+const MATH_KEYWORD_RE = /(수학|math|미적분|확률과통계|기하|공통|n제|기출|모의|실모)/i;
+const INSTRUCTOR_NAME_BLACKLIST = new Set(["문서연"]);
+const BOOK_TITLE_NORMALIZATION_RULES = [
+  [/^Gaenyeomwolli Math I\/II$/i, "개념원리 수학I/II"],
+  [/^RPM Math I\/II$/i, "RPM 수학I/II"],
+  [/^Xistory Math I\/II$/i, "자이스토리 수학I/II"],
+  [/^Madutong Past Math$/i, "마더텅 수능기출 수학"],
+  [/^EBS Suneungteukgang Math$/i, "수능특강 수학"],
+  [/^EBS Suneungwanseong Math$/i, "수능완성 수학"],
+  [/^KangK Math Mock$/i, "강대모의고사K 수학"],
+  [/^Killing Camp Math Mock \\(KilCam\\)$/i, "킬링캠프"],
+];
+const BOOK_TITLE_REJECT_PATTERNS = [
+  /^Sidaeinjae Math Material$/i,
+  /^Dugak Math Material$/i,
+  /^Elective:/i,
+  /템플릿/i,
+  /^Sidaeinjae Survival Math Regular$/i,
+  /^Sidaeinjae Survival Alpha Math$/i,
+  /^Sidaeinjae N Survival Math$/i,
+  /^Sidaeinjae Bridge Math$/i,
+  /^Sidaeinjae Excel Math$/i,
+  /^Sidaeinjae Shortcut Math$/i,
+];
+
+function normalizeCatalogBookTitle(rawTitle) {
+  let title = sanitizeKnowledgeText(rawTitle);
+  for (const [pattern, replacement] of BOOK_TITLE_NORMALIZATION_RULES) {
+    if (pattern.test(title)) {
+      title = replacement;
+      break;
+    }
+  }
+  return title;
+}
+
+function hasOfficialLikeSourceRef(item) {
+  const refs = asArray(item?.sourceRefs).map((x) => toText(x).toLowerCase()).filter(Boolean);
+  return refs.some((ref) => /^(official-|sdij-|dugak-|daesung-|megastudy-|mimac-)/i.test(ref));
+}
+
+function isOnsiteMathEntry(item) {
+  const blob = [
+    item?.name,
+    item?.platform,
+    item?.title,
+    ...(asArray(item?.styleTags)),
+    ...(asArray(item?.sourceRefs)),
+  ]
+    .map((x) => toText(x).toLowerCase())
+    .join(" ");
+  return /(시대인재|두각|러셀|강남대성|sdij|dugak|russell|gangnam daesung|onsite|academy)/i.test(blob);
+}
+
+function isGenericOnsiteInstructorName(name) {
+  const text = toText(name);
+  return /(단과팀|수학 단과\)$|수학 단과$)/.test(text);
+}
+
+function hasConcreteOnsiteInstructorDetails(item) {
+  const curriculumCount = asArray(item?.curriculumPath).filter((x) => toText(x?.course)).length;
+  const seasonalCount = asArray(item?.seasonalPlan).filter((x) => toText(x?.period) && toText(x?.content)).length;
+  return curriculumCount >= 2 && seasonalCount >= 2;
+}
+
+function shouldRejectInstructor(item) {
+  const name = sanitizeKnowledgeText(item?.name);
+  if (!name) return true;
+  if (INSTRUCTOR_NAME_BLACKLIST.has(name)) return true;
+
+  const blob = [
+    name,
+    item?.platform,
+    item?.bestFor,
+    item?.usage,
+    ...(asArray(item?.subjectTags)),
+    ...(asArray(item?.strengths)),
+    ...(asArray(item?.styleTags)),
+  ]
+    .map((x) => sanitizeKnowledgeText(x))
+    .join(" ");
+
+  if (NON_MATH_KEYWORD_RE.test(blob)) return true;
+  if (!MATH_KEYWORD_RE.test(blob)) return true;
+
+  if (isOnsiteMathEntry(item) && (isGenericOnsiteInstructorName(name) || !hasConcreteOnsiteInstructorDetails(item))) {
+    return true;
+  }
+
+  return false;
+}
+
+function shouldRejectBook(item) {
+  const title = normalizeCatalogBookTitle(item?.title);
+  if (!title) return true;
+  if (BOOK_TITLE_REJECT_PATTERNS.some((pattern) => pattern.test(title))) return true;
+
+  const blob = [
+    title,
+    item?.type,
+    item?.purpose,
+    item?.when,
+    ...(asArray(item?.subjectTags)),
+  ]
+    .map((x) => sanitizeKnowledgeText(x))
+    .join(" ");
+
+  if (NON_MATH_KEYWORD_RE.test(blob)) return true;
+  if (!MATH_KEYWORD_RE.test(blob)) return true;
+
+  if (isOnsiteMathEntry(item) && !hasOfficialLikeSourceRef(item)) return true;
+  return false;
+}
+
 function sanitizeCatalogInstructors(items) {
   return asArray(items)
     .map((item) => ({
@@ -915,14 +1037,15 @@ function sanitizeCatalogInstructors(items) {
         .slice(0, 6),
       sourceRefs: asArray(item?.sourceRefs).map((x) => toText(x)).filter(Boolean).slice(0, 8),
     }))
-    .filter((item) => item.name && !looksLikeGibberish(item.name));
+    .filter((item) => item.name && !looksLikeGibberish(item.name))
+    .filter((item) => !shouldRejectInstructor(item));
 }
 
 function sanitizeCatalogBooks(items) {
   return asArray(items)
     .map((item) => ({
       ...item,
-      title: sanitizeKnowledgeText(item?.title),
+      title: normalizeCatalogBookTitle(item?.title),
       type: sanitizeKnowledgeText(item?.type),
       purpose: sanitizeKnowledgeText(item?.purpose),
       when: sanitizeKnowledgeText(item?.when),
@@ -932,7 +1055,8 @@ function sanitizeCatalogBooks(items) {
       providerTags: normalizePassAvailability(item?.providerTags || item?.passAvailability, item?.platform),
       sourceRefs: asArray(item?.sourceRefs).map((x) => toText(x)).filter(Boolean).slice(0, 8),
     }))
-    .filter((item) => item.title && !looksLikeGibberish(item.title));
+    .filter((item) => item.title && !looksLikeGibberish(item.title))
+    .filter((item) => !shouldRejectBook(item));
 }
 
 function sanitizeStudentSuccessCases(items) {
@@ -1444,10 +1568,46 @@ function buildEvidenceTrace({ selectedKnowledge, recommendationSeed, sourceRegis
   };
 }
 
+function buildSourceUrlMap(sourceRegistry) {
+  const map = new Map();
+  for (const item of asArray(sourceRegistry?.sources)) {
+    const id = toText(item?.id);
+    const url = toText(item?.url);
+    if (!id || !url) continue;
+    map.set(id, url);
+  }
+  return map;
+}
+
+function resolveSourceRefs(refs, sourceUrlMap, maxCount = 6) {
+  const out = [];
+  const seen = new Set();
+
+  for (const raw of asArray(refs)) {
+    const text = toText(raw);
+    if (!text) continue;
+
+    let normalized = text;
+    if (!/^https?:\/\//i.test(text)) {
+      normalized = toText(sourceUrlMap?.get(text));
+    }
+    if (!normalized) continue;
+    if (!/^https?:\/\//i.test(normalized)) continue;
+    if (seen.has(normalized)) continue;
+
+    seen.add(normalized);
+    out.push(normalized);
+    if (out.length >= maxCount) break;
+  }
+
+  return out;
+}
+
 function buildRecommendationSeed({
   catalog,
   successCases,
   questionSignals,
+  sourceRegistry,
   curriculumKey,
   currentGrade,
   targetGrade,
@@ -1458,6 +1618,7 @@ function buildRecommendationSeed({
   const allBooks = asArray(catalog.books);
   const allSuccessCases = asArray(successCases?.cases);
   const allQuestionSignals = asArray(questionSignals?.signals);
+  const sourceUrlMap = buildSourceUrlMap(sourceRegistry);
   const normalizedPassProvider = normalizePassProvider(passProvider);
 
   const validatedInstructorPool = allInstructors.filter((item) => hasValidatedCommunityEvidence(item));
@@ -1529,7 +1690,7 @@ function buildRecommendationSeed({
           `${toText(step?.period)} | ${toText(step?.classType)} | ${toText(step?.content)} | 목표: ${toText(step?.goal)}`
       ),
     review_points: asArray(x.reviewSummary).map((s) => toText(s)).filter(Boolean).slice(0, 3),
-    source_refs: asArray(x.sourceRefs).map((s) => toText(s)).filter(Boolean).slice(0, 6),
+    source_refs: resolveSourceRefs(asArray(x.sourceRefs), sourceUrlMap, 6),
   }));
 
   const bookBasePool = allBooks
@@ -1553,7 +1714,7 @@ function buildRecommendationSeed({
       when_to_use: toText(x.when),
       difficulty: toText(x.difficulty),
       provider_tags: asArray(x.providerTags).map((v) => normalizePassProvider(v)).filter(Boolean),
-      source_refs: asArray(x.sourceRefs).map((s) => toText(s)).filter(Boolean).slice(0, 6),
+      source_refs: resolveSourceRefs(asArray(x.sourceRefs), sourceUrlMap, 6),
       reason: buildRecommendationReason({
         lines: [
           `${toText(x.levelBand)} level`,
@@ -1577,7 +1738,7 @@ function buildRecommendationSeed({
     duration: toText(item?.duration),
     summary: toText(item?.summary),
     core_actions: asArray(item?.coreActions).map((x) => toText(x)).filter(Boolean).slice(0, 3),
-    source_refs: asArray(item?.sourceRefs).map((x) => toText(x)).filter(Boolean).slice(0, 4),
+    source_refs: resolveSourceRefs(asArray(item?.sourceRefs), sourceUrlMap, 4),
     reliability: Number.isFinite(Number(item?.reliability))
       ? Math.max(0, Math.min(1, Number(item.reliability)))
       : 0.6,
@@ -1604,7 +1765,7 @@ function buildRecommendationSeed({
       learner_question: toText(item?.learnerQuestion),
       coaching_hint: toText(item?.coachingHint),
       channel_hint: toText(item?.channelHint),
-      source_refs: asArray(item?.sourceRefs).map((x) => toText(x)).filter(Boolean).slice(0, 4),
+      source_refs: resolveSourceRefs(asArray(item?.sourceRefs), sourceUrlMap, 4),
       reliability: Number.isFinite(Number(item?.reliability))
         ? Math.max(0, Math.min(1, Number(item.reliability)))
         : 0.6,
@@ -2504,12 +2665,14 @@ function mergeWorkflowPolicy(raw) {
 function normalizePlan(raw, {
   knowledgeBlend,
   recommendationSeed,
+  sourceRegistry,
   currentGrade,
   targetGrade,
   electiveSubject,
   passProvider,
   mathStructure,
 }) {
+  const sourceUrlMap = buildSourceUrlMap(sourceRegistry);
   const periodDefaults = ["3~6모 전", "6~9모", "9모~수능 전"];
 
   const periodPlan = asArray(raw?.period_plan)
@@ -2530,6 +2693,7 @@ function normalizePlan(raw, {
     targetGrade,
     knowledgeBlend,
     recommendationSeed,
+    sourceRegistry,
     electiveSubject,
     mathStructure,
   });
@@ -2550,7 +2714,7 @@ function normalizePlan(raw, {
       curriculum_path: asArray(x?.curriculum_path).map((t) => toText(t)).filter(Boolean).slice(0, 6),
       seasonal_plan: asArray(x?.seasonal_plan).map((t) => toText(t)).filter(Boolean).slice(0, 5),
       review_points: asArray(x?.review_points).map((t) => toText(t)).filter(Boolean).slice(0, 3),
-      source_refs: asArray(x?.source_refs).map((t) => toText(t)).filter(Boolean).slice(0, 6),
+      source_refs: resolveSourceRefs(asArray(x?.source_refs), sourceUrlMap, 6),
     }))
     .filter((x) => x.name)
     .slice(0, 4);
@@ -2568,7 +2732,7 @@ function normalizePlan(raw, {
       when_to_use: toText(x?.when_to_use),
       difficulty: toText(x?.difficulty),
       provider_tags: asArray(x?.provider_tags).map((v) => normalizePassProvider(v)).filter(Boolean),
-      source_refs: asArray(x?.source_refs).map((t) => toText(t)).filter(Boolean).slice(0, 6),
+      source_refs: resolveSourceRefs(asArray(x?.source_refs), sourceUrlMap, 6),
       reason: buildRecommendationReason({
         lines: [x?.reason, x?.purpose, x?.when_to_use, x?.level_band],
         fallback: toText(x?.reason),
@@ -2640,7 +2804,7 @@ function normalizePlan(raw, {
           duration: toText(item?.duration),
           summary: toText(item?.summary),
           core_actions: asArray(item?.core_actions).map((x) => toText(x)).filter(Boolean).slice(0, 3),
-          source_refs: asArray(item?.source_refs).map((x) => toText(x)).filter(Boolean).slice(0, 4),
+          source_refs: resolveSourceRefs(asArray(item?.source_refs), sourceUrlMap, 4),
           reliability: Number.isFinite(Number(item?.reliability))
             ? Math.max(0, Math.min(1, Number(item.reliability)))
             : 0.6,
@@ -2735,10 +2899,12 @@ function createFallbackPlan({
   targetGrade,
   knowledgeBlend,
   recommendationSeed,
+  sourceRegistry,
   electiveSubject,
   passProvider,
   mathStructure,
 }) {
+  const sourceUrlMap = buildSourceUrlMap(sourceRegistry);
   const cautions = asArray(knowledgeBlend?.cautions).map((c) => toText(c)).filter(Boolean);
   const usefulCautions = cautions.filter((c) => hasStudyKeyword(c) && c.length >= 12);
   const template = buildFallbackTemplateByGrade(currentGrade);
@@ -2756,7 +2922,7 @@ function createFallbackPlan({
       curriculum_path: asArray(x.curriculum_path).map((t) => toText(t)).filter(Boolean).slice(0, 6),
       seasonal_plan: asArray(x.seasonal_plan).map((t) => toText(t)).filter(Boolean).slice(0, 5),
       review_points: asArray(x.review_points).map((t) => toText(t)).filter(Boolean).slice(0, 3),
-      source_refs: asArray(x.source_refs).map((t) => toText(t)).filter(Boolean).slice(0, 6),
+      source_refs: resolveSourceRefs(asArray(x.source_refs), sourceUrlMap, 6),
     }));
 
   const books = asArray(recommendationSeed.books)
@@ -2769,7 +2935,7 @@ function createFallbackPlan({
       when_to_use: toText(x.when_to_use),
       difficulty: toText(x.difficulty),
       provider_tags: asArray(x.provider_tags).map((v) => normalizePassProvider(v)).filter(Boolean),
-      source_refs: asArray(x.source_refs).map((t) => toText(t)).filter(Boolean).slice(0, 6),
+      source_refs: resolveSourceRefs(asArray(x.source_refs), sourceUrlMap, 6),
       reason: toText(x.reason),
     }));
 
@@ -3078,7 +3244,7 @@ function buildTrackerConsultPrompt(profile, question, summary, methodCore) {
     `핵심:${truncateText(toText(methodCore), 100)}`,
     `요약:${truncateText(toText(summary), 220)}`,
     `질문:${truncateText(toText(question), 140)}`,
-    "원칙: 2~3문단, 실행 행동 3개 이내, 한국어.",
+    "원칙: 2문단 이내, 문단당 2문장 이내, 실행 행동 2개 이내, 350자 내외, 한국어.",
   ].join("\n");
 }
 

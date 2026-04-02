@@ -1,0 +1,28 @@
+{
+  "ranAt": "2026-03-31T11:53:33.417Z",
+  "api": [
+    {
+      "url": "https://suneung-psi.vercel.app/api/analyze",
+      "status": 200,
+      "bodyPreview": "{\"plan\":{\"student_feedback\":\"5등급에서 3등급으로 올리려면 \\\"많이 푸는 것\\\"보다 개념-적용-복기 순서를 고정하는 것이 먼저입니다.\",\"current_focus\":{\"headline\":\"지금 시기: 기출 구조화 + 준킬러 대비\",\"why_now\":\"3등급 진입의"
+    },
+    {
+      "url": "https://suneung-psi.vercel.app/api/tracker/report",
+      "status": 200,
+      "bodyPreview": "{\"report\":\"[2~3등급 목표 주간 리포트]\\n\\n1. **이번 주 학습 평가**\\n꾸준한 학습 기록을 남겨주셨습니다. 2~3등급에서 1등급으로 도약하기 위해서는 취약 유형을 체계적으로 공략하는 것이 중요합니다.\\n\\n2. **핵심 개선 포인트**\\n- 어려웠던 유형의 개념부터 "
+    },
+    {
+      "url": "https://suneung-psi.vercel.app/api/tracker/consult",
+      "status": 200,
+      "bodyPreview": "{\"answer\":\"4+등급에서 2-3등급으로 가려면 핵심은 \\\"개념-적용-복기 루틴 고정\\\"입니다.\\n\\n현재 요약: 학습 요약 데이터가 부족합니다.\\n\\n질문 \\\"?? ??? ??? ??????\\\"에 대한 실행 제안: 오늘부터 개념 출력 20분 → 기출 적용 40분 → 오답 복기 2"
+    }
+  ],
+  "outcome": {
+    "tabCount": 4,
+    "planVisible": false,
+    "reportVisible": false,
+    "consultVisible": true,
+    "errorText": ""
+  },
+  "error": null
+}

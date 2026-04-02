@@ -1,0 +1,64 @@
+{
+  "name": "suneung",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^13.5.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "react-scripts": "5.0.1",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "server": "node server/index.js",
+    "ingest": "node server/ingest.js",
+    "verify:ingest": "node scripts/verify_ingest_quality.js",
+    "verify:catalog": "node scripts/verify_recommendation_quality.js",
+    "upgrade:priority-data": "node scripts/upgrade_priority_data.js",
+    "upgrade:priority-data:phase2": "node scripts/upgrade_priority_data_phase2.js",
+    "upgrade:priority-data:phase3": "node scripts/upgrade_priority_data_phase3_books.js",
+    "gsd": "node scripts/gsd_slash.js",
+    "gsd:new-project": "node scripts/gsd_workflow.js new-project",
+    "gsd:discuss-phase": "node scripts/gsd_workflow.js discuss-phase",
+    "gsd:plan-phase": "node scripts/gsd_workflow.js plan-phase",
+    "gsd:execute-phase": "node scripts/gsd_workflow.js execute-phase",
+    "gsd:sprint-loop": "node scripts/gsd_workflow.js sprint-loop",
+    "gsd:verify-work": "node scripts/gsd_workflow.js verify-work",
+    "gsd-verify-work": "node scripts/gsd_workflow.js verify-work",
+    "gsd:help": "node scripts/gsd_workflow.js help",
+    "release:prod": "node scripts/release_prod.js",
+    "release:prod:all": "node scripts/release_prod.js --all",
+    "build": "react-scripts build",
+    "test:e2e": "npm run build && playwright test",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.2"
+  }
+}

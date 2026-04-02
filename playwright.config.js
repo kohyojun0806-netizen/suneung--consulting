@@ -6,11 +6,12 @@ module.exports = defineConfig({
   expect: {
     timeout: 10_000,
   },
-  fullyParallel: true,
-  retries: 0,
+  fullyParallel: false,
+  workers: 1,
+  retries: 1,
   reporter: [["list"], ["html", { open: "never" }]],
   use: {
-    baseURL: "http://127.0.0.1:3014",
+    baseURL: "http://localhost:3014",
     trace: "on-first-retry",
     screenshot: "only-on-failure",
     video: "retain-on-failure",
@@ -23,7 +24,7 @@ module.exports = defineConfig({
   ],
   webServer: {
     command: "node server/preview.js",
-    url: "http://127.0.0.1:3014",
+    url: "http://localhost:3014",
     env: {
       PREVIEW_PORT: "3014",
     },

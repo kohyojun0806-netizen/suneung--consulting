@@ -1,0 +1,20 @@
+Continue from the current branch/worktree state without resetting style or architecture.
+
+Rules remain unchanged:
+- GSD + 3agent (Planner -> Generator -> Evaluator)
+- strict evaluator mode
+- minimum 5 iterations
+- pass threshold 97/100
+- no fallback pass
+- no spawn fallback
+- Playwright fail = sprint fail
+
+Continue from the latest incomplete sprint item and push to final pass quality.
+Prioritize UI coherence, originality, and clean information hierarchy.
+Run build + e2e + strict verify before claiming done.
+Return:
+1) What changed this round
+2) Updated evaluator score
+3) Verification outputs
+4) Open risks
+
