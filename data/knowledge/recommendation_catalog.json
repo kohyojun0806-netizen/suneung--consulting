@@ -285,7 +285,7 @@
         {
           "period": "Jun-Aug",
           "classType": "intensive",
-          "content": "killer ?? + mixed hard sets",
+          "content": "killer access + mixed hard sets",
           "goal": "move from grade2 zone to grade1 zone"
         },
         {
@@ -366,7 +366,7 @@
         {
           "period": "Jun-Aug",
           "classType": "practical",
-          "content": "mixed ???/?? sets with feedback",
+          "content": "mixed semi-killer/killer sets with feedback",
           "goal": "secure grade3->2 bridge"
         },
         {
@@ -600,7 +600,7 @@
         {
           "period": "Jun-Aug",
           "classType": "intensive",
-          "content": "killer ?? + mixed hard sets",
+          "content": "killer access + mixed hard sets",
           "goal": "move from grade2 zone to grade1 zone"
         },
         {
@@ -681,7 +681,7 @@
         {
           "period": "Jun-Aug",
           "classType": "practical",
-          "content": "mixed ???/?? sets with feedback",
+          "content": "mixed semi-killer/killer sets with feedback",
           "goal": "secure grade3->2 bridge"
         },
         {
@@ -762,7 +762,7 @@
         {
           "period": "Jun-Aug",
           "classType": "practical",
-          "content": "mixed ???/?? sets with feedback",
+          "content": "mixed semi-killer/killer sets with feedback",
           "goal": "secure grade3->2 bridge"
         },
         {
@@ -1043,13 +1043,13 @@
         "3-1"
       ],
       "subjectTags": [
-        "??",
-        "???",
-        "??"
+        "common",
+        "calculus",
+        "geometry"
       ],
       "strengths": [
-        "??? ???? ??? ??? ???? ??? ???",
-        "??/?? ?? ??? ??? ?? ??? ??"
+        "Strong for closing concept gaps and linking to past-exam routine",
+        "Clear feedback for raising interpretation speed in mid-high tier"
       ],
       "styleTags": [
         "concept",
@@ -1075,29 +1075,29 @@
       ],
       "seasonalPlan": [
         {
-          "period": "3~6?",
+          "period": "Mar~Jun",
           "classType": "concept",
           "content": "Concept Essence + easy past",
           "goal": "remove concept holes"
         },
         {
-          "period": "6~9?",
+          "period": "Jun~Sep",
           "classType": "past",
           "content": "Past 100 + weak unit fix",
           "goal": "raise interpretation speed"
         },
         {
-          "period": "9?~??",
+          "period": "Sep~CSAT",
           "classType": "compress",
           "content": "Past 50 compression",
           "goal": "minimize repeated mistakes"
         }
       ],
       "reviewSummary": [
-        "?? ??? ?? ??? ?????? ???? ??? ?? ???"
+        "Users report lower score volatility when concept-past-compression loop is kept stable"
       ],
-      "bestFor": "?????? ??-?? ??? ????? ??",
-      "usage": "concept ?? past 100, ???? past 50 ?? ??",
+      "bestFor": "Students moving from grade 3~4 to grade 2 with remaining concept holes",
+      "usage": "Finish concept then run Past 100, then compressed Past 50 before final",
       "sourceLevel": "official+community",
       "confidence": 0.82,
       "sourceRefs": [
@@ -1119,12 +1119,13 @@
         "3-1"
       ],
       "subjectTags": [
-        "??",
-        "???"
+        "common",
+        "calculus",
+        "geometry"
       ],
       "strengths": [
-        "??-??-?? ??? ??? ??? ?? ??? ??",
-        "????? ??? ?? ? ???? ??? ??? ??"
+        "Clear concept-to-past-to-practical progression",
+        "Useful for repeated hard-item access training in upper tier"
       ],
       "styleTags": [
         "concept-system",
@@ -1155,29 +1156,29 @@
       ],
       "seasonalPlan": [
         {
-          "period": "3~6?",
+          "period": "Mar~Jun",
           "classType": "concept",
           "content": "Thinking Order + basic types",
           "goal": "stabilize concept output"
         },
         {
-          "period": "6~9?",
+          "period": "Jun~Sep",
           "classType": "past+hard",
           "content": "4-point past + Alpha Technique",
           "goal": "build killer access"
         },
         {
-          "period": "9?~??",
+          "period": "Sep~CSAT",
           "classType": "final",
           "content": "Rule of 4 + error compression",
           "goal": "stabilize mock scores"
         }
       ],
       "reviewSummary": [
-        "????? ?? ?? ?? ??/??? ???? ?? ???"
+        "Often recommended for balancing hard-item handling with practical exam operation"
       ],
-      "bestFor": "??-?? ??? 2~3?? ???? ??? ??",
-      "usage": "concept ?? ? past, ?? hard/final ??",
+      "bestFor": "Upper-tier students targeting transition from grade 2~3 to grade 1",
+      "usage": "After concept, run 4-point past sets then hard/final blocks",
       "sourceLevel": "official+community",
       "confidence": 0.84,
       "sourceRefs": [
@@ -1199,13 +1200,13 @@
         "5-3"
       ],
       "subjectTags": [
-        "??",
-        "?????",
-        "???"
+        "common",
+        "calculus",
+        "geometry"
       ],
       "strengths": [
-        "??? ?? ??? ??? ??/???? ?? ??? ??",
-        "?? ??? ????? ?? ?? ??? ??"
+        "Stable structure for concept recovery and type adaptation",
+        "Good weekly routine fit for mid-tier students"
       ],
       "styleTags": [
         "foundation",
@@ -1231,29 +1232,29 @@
       ],
       "seasonalPlan": [
         {
-          "period": "3~6?",
+          "period": "Mar~Jun",
           "classType": "concept",
           "content": "concept + basic type drill",
           "goal": "remove concept blanks"
         },
         {
-          "period": "6~9?",
+          "period": "Jun~Sep",
           "classType": "past",
           "content": "past + weekly error loop",
           "goal": "increase mid-level accuracy"
         },
         {
-          "period": "9?~??",
+          "period": "Sep~CSAT",
           "classType": "practical",
           "content": "practical set + time management",
           "goal": "stabilize score variance"
         }
       ],
       "reviewSummary": [
-        "?? ?? ?? ?? ????? ?? ???? ???"
+        "Frequently praised for baseline and routine-centered operation"
       ],
-      "bestFor": "?? ??? ?? ??? ?? ?? ????? ??",
-      "usage": "concept ?? past ?? ??, ?? practical ?? ??",
+      "bestFor": "Students with basic concept but high score variance in tests",
+      "usage": "Concept phase -> past phase -> weekly practical set operation",
       "sourceLevel": "official+community",
       "confidence": 0.78,
       "sourceRefs": [
@@ -1274,13 +1275,13 @@
         "3-1"
       ],
       "subjectTags": [
-        "??",
-        "???",
-        "??"
+        "common",
+        "calculus",
+        "geometry"
       ],
       "strengths": [
-        "?????? ??? ?? ??? ????? ??",
-        "?? ?? N?/??? ???? ??? ???"
+        "Good for building hard-item entry routine in mid-high tier",
+        "Easy to connect past-analysis and N-set operation"
       ],
       "styleTags": [
         "mid-high",
@@ -1311,29 +1312,29 @@
       ],
       "seasonalPlan": [
         {
-          "period": "3~6?",
+          "period": "Mar~Jun",
           "classType": "concept",
           "content": "concept + easy past",
           "goal": "secure baseline"
         },
         {
-          "period": "6~9?",
+          "period": "Jun~Sep",
           "classType": "past+hard",
           "content": "past hard + N-set",
           "goal": "adapt to killer zones"
         },
         {
-          "period": "9?~??",
+          "period": "Sep~CSAT",
           "classType": "final",
           "content": "mock + error compression",
           "goal": "stabilize practical output"
         }
       ],
       "reviewSummary": [
-        "?? ?? ?? ????? ???? ???? ?? ???"
+        "Effective when keeping one consistent past-hard-final pipeline"
       ],
-      "bestFor": "3~5????? ??? ??? ????? ??",
-      "usage": "past ?? hard N-set? ?? ??? ??",
+      "bestFor": "Students around grade 3~5 aiming for upper-tier transition",
+      "usage": "Past analysis first, hard N-set in parallel, compressed review before final",
       "sourceLevel": "official+community",
       "confidence": 0.76,
       "sourceRefs": [
@@ -1971,7 +1972,7 @@
       ]
     },
     {
-      "title": "??????K ??",
+      "title": "Kangdae Mock K Math",
       "type": "academy-mock",
       "fitKeys": [
         "5-3",
@@ -2001,14 +2002,14 @@
       ]
     },
     {
-      "title": "????",
+      "title": "Final Practical Mock Set",
       "type": "mock",
       "fitKeys": [
         "5-3",
         "3-1"
       ],
-      "purpose": "??? ?? ???? ?? ???? ??",
-      "when": "9?~??",
+      "purpose": "Final practical set for exam-operation check and variance control",
+      "when": "Sep~CSAT",
       "difficulty": "high",
       "subjectTags": [
         "common",
@@ -2289,8 +2290,8 @@
       "when": "after concept 1st pass, before full killer N-set",
       "difficulty": "medium",
       "subjectTags": [
-        "??",
-        "???"
+        "common",
+        "calculus"
       ],
       "sourceLevel": "official+community",
       "confidence": 0.86,
@@ -2315,7 +2316,8 @@
       "when": "5~8 month cycle after 1st past-exam pass",
       "difficulty": "medium-high",
       "subjectTags": [
-        "??"
+        "common",
+        "calculus"
       ],
       "sourceLevel": "official+community",
       "confidence": 0.84,
@@ -2342,8 +2344,8 @@
       "when": "6~9 month cycle",
       "difficulty": "medium-high",
       "subjectTags": [
-        "??",
-        "???"
+        "common",
+        "calculus"
       ],
       "sourceLevel": "official+community",
       "confidence": 0.85,
@@ -2369,8 +2371,8 @@
       "when": "after past-exam structuring, before final mock-heavy phase",
       "difficulty": "medium-high",
       "subjectTags": [
-        "??",
-        "???"
+        "common",
+        "calculus"
       ],
       "sourceLevel": "official+community",
       "confidence": 0.82,
@@ -2396,7 +2398,8 @@
       "when": "6~9 month cycle for top-band practical transition",
       "difficulty": "high",
       "subjectTags": [
-        "??"
+        "common",
+        "calculus"
       ],
       "sourceLevel": "official+community",
       "confidence": 0.87,
@@ -2422,7 +2425,8 @@
       "when": "6~9 month cycle, then selective reuse in final phase",
       "difficulty": "high",
       "subjectTags": [
-        "??"
+        "common",
+        "calculus"
       ],
       "sourceLevel": "official+community",
       "confidence": 0.87,
@@ -2448,8 +2452,8 @@
       "when": "after medium-hard N-set stabilization, before full final mock rotation",
       "difficulty": "high",
       "subjectTags": [
-        "??",
-        "???"
+        "common",
+        "calculus"
       ],
       "sourceLevel": "official+community",
       "confidence": 0.84,
@@ -2475,8 +2479,8 @@
       "when": "mid-late season after standard killer sets",
       "difficulty": "high",
       "subjectTags": [
-        "??",
-        "?????"
+        "common",
+        "calculus"
       ],
       "sourceLevel": "official+community",
       "confidence": 0.83,
@@ -2503,7 +2507,8 @@
       "when": "after concept complete and before killer-heavy high tier sets",
       "difficulty": "medium-high",
       "subjectTags": [
-        "??"
+        "common",
+        "calculus"
       ],
       "sourceLevel": "official+community",
       "confidence": 0.83,
@@ -2540,7 +2545,7 @@
       ]
     },
     {
-      "title": "?? ??? N? ??? (2026)",
+      "title": "Gyuto Light NJE Series (2026)",
       "type": "NJE",
       "levelBand": "mid_nje",
       "fitKeys": [
@@ -2570,7 +2575,7 @@
       ]
     },
     {
-      "title": "?? ??? N? (2026)",
+      "title": "Gyuto High NJE (2026)",
       "type": "NJE",
       "levelBand": "high_nje",
       "fitKeys": [

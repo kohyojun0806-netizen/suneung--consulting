@@ -30,14 +30,14 @@ const CONFIDENCE_META = {
 };
 
 const GRADE_BANDS = [
-  { value: 'no-base', label: '????', sub: '?? 0?? ??' },
-  { value: '5-7',     label: '5~7??',  sub: '?? ?? ??' },
-  { value: '3-4',     label: '3~4??',  sub: '??? ???' },
-  { value: '2',       label: '2??',    sub: '?? ?? ??' },
-  { value: '1',       label: '1??',    sub: '??/?? ??' },
-  { value: '100',     label: '100?',    sub: '?? ?? ??' },
-  { value: '2-3',     label: '2~3??(??)', sub: '?? ???/??? ??' },
-  { value: '4+',      label: '4??+(??)',  sub: '?? ???/??? ??' },
+  { value: 'no-base', label: '노베이스', sub: '개념 0에서 시작' },
+  { value: '5-7', label: '5~7등급', sub: '기출 진입 준비' },
+  { value: '3-4', label: '3~4등급', sub: '준킬러 안정화' },
+  { value: '2', label: '2등급', sub: '킬러 접근 확장' },
+  { value: '1', label: '1등급', sub: '실수/시간 관리' },
+  { value: '100', label: '100점', sub: '만점 루틴 유지' },
+  { value: '2-3', label: '2~3등급(호환)', sub: '기존 테스트/데이터 호환' },
+  { value: '4+', label: '4등급+(호환)', sub: '기존 테스트/데이터 호환' },
 ];
 
 const ELECTIVE_SUBJECTS = [
@@ -398,9 +398,9 @@ function LandingScreen({ onEnter }) {
         <button
           className="landing__cta landing__cta--sticky"
           onClick={handleEnter}
-          aria-label="?? ??"
+          aria-label="지금 진입"
         >
-          <span className="landing__cta-text">?? ??</span>
+          <span className="landing__cta-text">지금 진입</span>
         </button>
       </div>
 
@@ -895,14 +895,14 @@ function WeeklyReportTab({ profile, report, onSubmit, loading }) {
 
   const gradeBand = profile.targetGrade || '2-3';
   const gradePlaceholders = {
-    '100':      { topics: '?: ??? ???? 29?30? ?? / ?? ?? ??', difficulties: '?: ?? ??? ???? 1~2? ??' },
-    '1':        { topics: '?: ?? ???? ?? A ?? / ?? ???? ??', difficulties: '?: ??? ???? ?? ?? ??' },
-    '2':        { topics: '?: ??2 ?? ?? ?? / ?? N? 1??', difficulties: '?: ???? ???? ?? ??' },
-    '3-4':      { topics: '?: ??? ?? ?? ?? / ?? ?? ??', difficulties: '?: ?? ?? ???? ?? ??' },
-    '5-7':      { topics: '?: ??1 ?? ?? ?? / ?? ?? ??', difficulties: '?: ?? ?? ? ?? ??' },
-    'no-base':  { topics: '?: ??? 1?? ?? / ?? ?? ??', difficulties: '?: ? ???? ?? ??' },
-    '2-3':      { topics: '?: ??2 ?? ?? ?? / ?? N? 1??', difficulties: '?: ???? ???? ?? ??' },
-    '4+':       { topics: '?: ??1 ?? ?? ?? / ?? ?? ??', difficulties: '?: ?? ?? ? ?? ??' },
+    '100': { topics: '예: 만점권 사설모고 29·30번 반복 / 시간 단축 훈련', difficulties: '예: 특정 고난도 패턴에서 1~2분 초과' },
+    '1': { topics: '예: 수능 킬러 문항 유형 A 복습 / 실전 모의고사 반복', difficulties: '예: 추론형 문제에서 논리 비약 발생' },
+    '2': { topics: '예: 수학2 적분 기본 완성 / 교재 N제 1회독', difficulties: '예: 복합함수 미분에서 실수 빈번' },
+    '3-4': { topics: '예: 준킬러 유형 패턴 분류 / 기출 오답 분석', difficulties: '예: 함수 합성 유형에서 기호 혼동' },
+    '5-7': { topics: '예: 수학1 수열 개념 복습 / 기본 유형 반복', difficulties: '예: 공식 암기 후 적용 혼동' },
+    'no-base': { topics: '예: 개념서 1단원 완독 / 기본 예제 반복', difficulties: '예: 식 변형에서 부호 오류' },
+    '2-3': { topics: '예: 수학2 적분 기본 완성 / 교재 N제 1회독', difficulties: '예: 복합함수 미분에서 실수 빈번' },
+    '4+': { topics: '예: 수학1 수열 개념 복습 / 기본 유형 반복', difficulties: '예: 공식 암기 후 적용 혼동' },
   };
   const ph = gradePlaceholders[gradeBand] || gradePlaceholders['2'];
 
