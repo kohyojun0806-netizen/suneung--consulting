@@ -724,14 +724,25 @@ function OnboardingTab({ profile, setProfile, onSubmit, loading }) {
 
 // ─── Tab: Plan ──────────────────────────────────────────────────────────────
 
+function truncateLine(text, max = 92) {
+  const value = toText(text);
+  if (!value) return '';
+  if (value.length <= max) return value;
+  return value.slice(0, max).trim() + '...';
+}
+
 function PlanTab({ plan, loading }) {
-  if (loading) return <LoadingSpinner message="맞춤 플랜 분석 중..." />;
+  const [showAllRoadmap, setShowAllRoadmap] = useState(false);
+  const [showAllBooks, setShowAllBooks] = useState(false);
+  const [showAllInstructors, setShowAllInstructors] = useState(false);
+
+  if (loading) return <LoadingSpinner message="?? ?? ?? ?..." />;
   if (!plan) {
     return (
       <EmptyState
-        icon="◎"
-        title="플랜이 없습니다"
-        description="프로필 탭에서 학습 정보를 입력하고 로드맵을 생성하세요"
+        icon="?"
+        title="??? ????"
+        description="??? ??? ?? ??? ???? ???? ?????"
       />
     );
   }
@@ -739,152 +750,167 @@ function PlanTab({ plan, loading }) {
   const books = plan.recommendedBooks || [];
   const instructors = plan.recommendedInstructors || [];
   const roadmap = plan.roadmapSteps || [];
-  const keyPoints = plan.keyFocusPoints || [];
-  const successCaseBands = plan.successCaseBands || [];
-  const successCaseInsights = plan.successCaseInsights || [];
-  const successCaseItems = successCaseBands
-    .flatMap((band) =>
-      asArray(band?.cases).slice(0, 2).map((item, idx) => ({
-        key: `${band.id || band.label}-${idx}`,
-        bandLabel: toText(band.label),
-        bandShift: toText(item?.bandShift),
-        duration: toText(item?.duration),
-        summary: toText(item?.summary),
-        coreActions: asArray(item?.coreActions).slice(0, 2).map((x) => toText(x)).filter(Boolean),
-      }))
-    )
-    .filter((item) => item.summary)
-    .slice(0, 6);
+  const keyPoints = asArray(plan.keyFocusPoints).slice(0, 3);
+  const successCaseInsights = asArray(plan.successCaseInsights).slice(0, 2);
+
+  const roadmapVisible = showAllRoadmap ? roadmap : roadmap.slice(0, 4);
+  const booksVisible = showAllBooks ? books : books.slice(0, 4);
+  const instructorsVisible = showAllInstructors ? instructors : instructors.slice(0, 3);
+
+  const hiddenRoadmapCount = Math.max(0, roadmap.length - roadmapVisible.length);
+  const hiddenBooksCount = Math.max(0, books.length - booksVisible.length);
+  const hiddenInstructorsCount = Math.max(0, instructors.length - instructorsVisible.length);
 
   return (
     <div className="tab-content plan-tab">
       <div className="tab-header">
-        <h2 className="tab-title">맞춤 학습 플랜</h2>
+        <h2 className="tab-title">?? ?? ??</h2>
         {plan.gradeBand && <span className="grade-badge">{plan.gradeBand}</span>}
       </div>
 
+      <section className="plan-overview" aria-label="?? ??">
+        <article className="plan-overview__item">
+          <span className="plan-overview__label">?? ??</span>
+          <strong className="plan-overview__value">{roadmap.length}</strong>
+        </article>
+        <article className="plan-overview__item">
+          <span className="plan-overview__label">?? ??</span>
+          <strong className="plan-overview__value">{books.length}</strong>
+        </article>
+        <article className="plan-overview__item">
+          <span className="plan-overview__label">?? ??</span>
+          <strong className="plan-overview__value">{instructors.length}</strong>
+        </article>
+      </section>
+
       {keyPoints.length > 0 && (
-        <div className="key-points-bar" role="note" aria-label="핵심 포인트">
+        <div className="key-points-bar" role="note" aria-label="?? ???">
           {keyPoints.map((point, i) => (
             <span key={i} className="key-point">
-              <span aria-hidden="true">✦</span> {point}
+              <span aria-hidden="true">?</span> {truncateLine(point, 64)}
             </span>
           ))}
         </div>
       )}
 
-      <AccordionSection title="학습 로드맵" icon="◎" count={roadmap.length} defaultOpen>
-        {(successCaseInsights.length > 0 || successCaseItems.length > 0) && (
-          <section className="plan-success-inline" aria-label="성공 사례 근거">
-            {successCaseInsights.length > 0 && (
-              <div className="plan-success-inline__insights">
-                {successCaseInsights.slice(0, 4).map((text, idx) => (
-                  <span key={`insight-${idx}`} className="plan-success-chip">{text}</span>
-                ))}
-              </div>
-            )}
-
-            {successCaseItems.length > 0 && (
-              <ul className="plan-success-inline__list">
-                {successCaseItems.map((item) => (
-                  <li key={item.key} className="plan-success-card">
-                    <p className="plan-success-card__meta">
-                      <strong>{item.bandLabel}</strong>
-                      {item.bandShift ? ` · ${item.bandShift}` : ''}
-                      {item.duration ? ` · ${item.duration}` : ''}
-                    </p>
-                    <p className="plan-success-card__summary">{item.summary}</p>
-                    {item.coreActions.length > 0 && (
-                      <p className="plan-success-card__actions">{item.coreActions.join(' / ')}</p>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </section>
+      <AccordionSection title="?? ???" icon="?" count={roadmap.length} defaultOpen>
+        {successCaseInsights.length > 0 && (
+          <p className="plan-evidence-note">
+            ?? ??: {successCaseInsights.map((x) => truncateLine(x, 36)).join(' / ')}
+          </p>
         )}
 
         {roadmap.length === 0 ? (
-          <EmptyState icon="—" title="로드맵 항목 없음" />
+          <EmptyState icon="?" title="??? ?? ??" />
         ) : (
-          <ol className="roadmap-list">
-            {roadmap.map((step, i) => (
-              <li key={i} className="roadmap-item">
-                <span className="roadmap-step-num" aria-hidden="true">{i + 1}</span>
-                <div className="roadmap-step-body">
-                  <strong className="roadmap-step-title">{step.phase || step.title}</strong>
-                  {step.description && <p className="roadmap-step-desc">{step.description}</p>}
-                  {step.duration && (
-                    <span className="roadmap-step-duration">⏱ {step.duration}</span>
-                  )}
-                </div>
-              </li>
-            ))}
-          </ol>
-        )}
-      </AccordionSection>
+          <>
+            <ol className="roadmap-list">
+              {roadmapVisible.map((step, i) => (
+                <li key={i} className="roadmap-item">
+                  <span className="roadmap-step-num" aria-hidden="true">{i + 1}</span>
+                  <div className="roadmap-step-body">
+                    <strong className="roadmap-step-title">{step.phase || step.title}</strong>
+                    {step.description && <p className="roadmap-step-desc">{truncateLine(step.description)}</p>}
+                    {step.duration && <span className="roadmap-step-duration">? {step.duration}</span>}
+                  </div>
+                </li>
+              ))}
+            </ol>
 
-      <AccordionSection title="추천 교재" icon="◈" count={books.length} defaultOpen>
-        {books.length === 0 ? (
-          <EmptyState icon="—" title="추천 교재 없음" />
-        ) : (
-          <div className="book-grid">
-            {books.map((book, i) => (
-              <BookCard key={book.id || i} book={book} />
-            ))}
-          </div>
-        )}
-      </AccordionSection>
-
-      <AccordionSection title="추천 강사" icon="◉" count={instructors.length}>
-        {instructors.length === 0 ? (
-          <EmptyState icon="—" title="추천 강사 없음" />
-        ) : (
-          <div className="instructor-list">
-            {instructors.map((inst, i) => (
-              <div key={inst.name || i} className="instructor-card">
-                <div className="instructor-card__header">
-                  <strong className="instructor-name">{inst.name}</strong>
-                  {inst.platform && (
-                    <span className="instructor-platform">{inst.platform}</span>
-                  )}
-                </div>
-                {inst.reason && <p className="instructor-reason">{inst.reason}</p>}
-                {inst.curriculumPath && inst.curriculumPath.length > 0 && (
-                  <ul className="instructor-meta-list" aria-label="권장 수업 흐름">
-                    {inst.curriculumPath.slice(0, 2).map((line, idx) => (
-                      <li key={idx}>{line}</li>
-                    ))}
-                  </ul>
-                )}
-                {inst.seasonalPlan && inst.seasonalPlan.length > 0 && (
-                  <ul className="instructor-meta-list instructor-meta-list--seasonal" aria-label="시기별 추천 수업">
-                    {inst.seasonalPlan.slice(0, 2).map((line, idx) => (
-                      <li key={idx}>{line}</li>
-                    ))}
-                  </ul>
-                )}
-                {inst.sourceRef && (
-                  <a
-                    href={inst.sourceRef}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="badge-source-link"
-                    aria-label="강사 출처 확인"
-                  >
-                    출처↗
-                  </a>
-                )}
+            {hiddenRoadmapCount > 0 && (
+              <div className="plan-more-wrap">
+                <button
+                  type="button"
+                  className="plan-more-btn"
+                  onClick={() => setShowAllRoadmap((v) => !v)}
+                >
+                  {showAllRoadmap ? '??' : '??? ' + hiddenRoadmapCount + '? ? ??'}
+                </button>
               </div>
-            ))}
-          </div>
+            )}
+          </>
+        )}
+      </AccordionSection>
+
+      <AccordionSection title="?? ??" icon="?" count={books.length} defaultOpen>
+        {books.length === 0 ? (
+          <EmptyState icon="?" title="?? ?? ??" />
+        ) : (
+          <>
+            <div className="book-grid">
+              {booksVisible.map((book, i) => (
+                <BookCard key={book.id || i} book={book} />
+              ))}
+            </div>
+
+            {hiddenBooksCount > 0 && (
+              <div className="plan-more-wrap">
+                <button
+                  type="button"
+                  className="plan-more-btn"
+                  onClick={() => setShowAllBooks((v) => !v)}
+                >
+                  {showAllBooks ? '??' : '?? ' + hiddenBooksCount + '? ? ??'}
+                </button>
+              </div>
+            )}
+          </>
+        )}
+      </AccordionSection>
+
+      <AccordionSection title="?? ??" icon="?" count={instructors.length}>
+        {instructors.length === 0 ? (
+          <EmptyState icon="?" title="?? ?? ??" />
+        ) : (
+          <>
+            <div className="instructor-list">
+              {instructorsVisible.map((inst, i) => (
+                <div key={inst.name || i} className="instructor-card">
+                  <div className="instructor-card__header">
+                    <strong className="instructor-name">{inst.name}</strong>
+                    {inst.platform && <span className="instructor-platform">{inst.platform}</span>}
+                  </div>
+
+                  {inst.reason && <p className="instructor-reason">{truncateLine(inst.reason)}</p>}
+                  {asArray(inst.curriculumPath).length > 0 && (
+                    <p className="instructor-compact-line">?? ??: {truncateLine(inst.curriculumPath[0], 60)}</p>
+                  )}
+                  {asArray(inst.seasonalPlan).length > 0 && (
+                    <p className="instructor-compact-line">?? ??: {truncateLine(inst.seasonalPlan[0], 60)}</p>
+                  )}
+
+                  {inst.sourceRef && (
+                    <a
+                      href={inst.sourceRef}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="badge-source-link"
+                      aria-label="?? ?? ??"
+                    >
+                      ?? ??
+                    </a>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            {hiddenInstructorsCount > 0 && (
+              <div className="plan-more-wrap">
+                <button
+                  type="button"
+                  className="plan-more-btn"
+                  onClick={() => setShowAllInstructors((v) => !v)}
+                >
+                  {showAllInstructors ? '??' : '?? ' + hiddenInstructorsCount + '? ? ??'}
+                </button>
+              </div>
+            )}
+          </>
         )}
       </AccordionSection>
     </div>
   );
 }
-
-// ─── Tab: Weekly Report ─────────────────────────────────────────────────────
 
 function WeeklyReportTab({ profile, report, onSubmit, loading }) {
   const [weekInput, setWeekInput] = useState({
